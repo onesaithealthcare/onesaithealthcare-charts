@@ -17,13 +17,12 @@ jobs:
         with:
           version: v3.7.0
       - name: Update Index
+        env:
+          GITHUB_TOKEN: ${{ secrets.SGV_TOKEN }}          
         run: |
           helm repo index .
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add index.yaml
           git commit  -m "Update chart index"
-          echo "TOKEN:" $TOKEN
-          git push https://$TOKEN@github.com/onesaithealthcare/onesaithealthcare-charts.git
-        env:
-          TOKEN: ${{ secrets.SGV_TOKEN }}          
+          git push https://"$GITHUB_TOKEN"@github.com/onesaithealthcare/onesaithealthcare-charts.git
