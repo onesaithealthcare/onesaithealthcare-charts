@@ -23,6 +23,6 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add index.yaml
           git commit  -m "Update chart index"
-          git push
+          git push https://$TOKEN@github.com/onesaithealthcare/onesaithealthcare-charts.git
         env:
-          GITHUB_TOKEN: ${{ secrets.SGV_TOKEN }}          
+          TOKEN: ${{ secrets.SGV_TOKEN }}          
