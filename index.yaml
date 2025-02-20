@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  onesaithealthcare-ohccommons-chart:
+  - apiVersion: v2
+    appVersion: 4.0.0
+    created: "2025-02-20T08:17:00.3237335+01:00"
+    description: Onesait Healthcare OH Commons chart for k8s
+    digest: a8d0c8cc8eed4db31774145ee5eb193885b4bc29da51b151a8103b09dbb39fdb
+    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
+    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
+    keywords:
+    - Minsait
+    - Onesait Healthcare
+    maintainers:
+    - email: soporteosh@indra.es
+      name: Onesait Healthcare
+    name: onesaithealthcare-ohccommons-chart
+    type: application
+    urls:
+    - onesaithealthcare-ohccommons-chart-4.0.0.tgz
+    version: 4.0.0
+generated: "2025-02-20T08:17:00.3188894+01:00"
