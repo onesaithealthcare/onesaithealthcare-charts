@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hnhome-jms-props
+data:
+  jms.properties: |
+    # Configuración broker
+    
+    activemq.broker.url=tcp://{{ .Values.domain.host }}:61616
+    
+    activemq.user=admin
+    
+    activemq.password=manager1
+    
+    # Topics
+    
+    activemq.topic.ispob.patient=ISPOB.patient.topic
+    
+    activemq.topic.hnconf.param=HNCONF.parameter.topic
+    
+    activemq.topic.hnaut.workplace=HNAUT.workplace.topic
+    
+    activemq.topic.hnconf.identifier=HNCONF.identifier.topic
+    
+    activemq.topic.hncat.catalog=HNCAT.catalog.topic
+    
+    activemq.queue.receiver=ISPOB.patient.topic
+    
+    activemq.topic.receiver.clientId=HNCIT_ISPOB_PATIENT
+    
+    activemq.topic.receiver.subscriptionName=HNCIT_ISPOB_PATIENT

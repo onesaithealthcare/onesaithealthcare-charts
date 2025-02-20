@@ -1,14 +1,13 @@
 apiVersion: v2
-name: onesaithealthcare-mdm-chart
-description: Onesait Healthcare MDM chart for k8s
+name: onesaithealthcare-ohccommons-chart
+description: Onesait Healthcare OH Commons chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
-version: "4.10.0"
-appVersion: "4.10.0"
+version: 4.0.0
+appVersion: 4.0.0
 keywords:
   - Minsait
   - Onesait Healthcare
-  - MDM
 maintainers:
   - name: Onesait Healthcare
     email: soporteosh@indra.es

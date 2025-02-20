@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hnhome-ohsso-front
+data:
+  keycloak.json: |
+    {
+      "realm" : "oh-base",
+      "resource" : "hnrole",
+      "public-client": true,
+      "auth-server-url": "{{ .Values.domain.protocol }}://{{ .Values.domain.host }}/auth",
+      "enable-cors": true
+    }

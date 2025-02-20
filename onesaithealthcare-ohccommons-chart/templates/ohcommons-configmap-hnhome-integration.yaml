@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hnhome-integration-props
+data:
+  integration.properties: |
+    hnaut.int.url=http://ohaut-back:8080/${hnaut.context}
+    
+    hncat.int.url=http://ohont-back:8080/${hncat.context}
+    
+    hnpob.int.url=http://ohmpi-back:8080/${hnpob.context}
+    
+    hntri.int.url=http://ohtri-back:8080/${hntri.context}
+    
+    hnurg.int.url=http://ohurg-back:8080/${hnurg.context}
+    
+    hnhos.int.url=http://ohhos-back:8080/${hnhos.context}
+    
+    hnqui.int.url=http://ohqui-back:8080/${isqui.context}
+    
+    hnalert.int.url=http://ohale-back:8080/${hnalert.context}
+    
+    hnconf.int.url=http://ohcon-back:8080/${hnconf.context}
+    
+    hngep.int.url=http://ohgep-back:8080/${hngep.context}
+    
+    hndoc.int.url=http://ohdoc-back:8080/${hndoc.context}
+    
+    hncli.int.url=http://ohcli-back:8080/${hncli.context}
+    
+    dsforms.int.url=http://ohgen-back:8080/${dsforms.context}
+    
+    ohale.int.url=http://ohale-back:8080/${ohale.context}
+    
+    hncit.int.url=http://ohcot-back:8080/${hncit.context}
+    
+    iscit.int.url=http://ohcit-back:8080/${iscit.context}
+    
+    mirth.int.url=${general.protocol}://${general.hostname}
+    
+    mirth.pix.out.url=${general.protocol}://${general.hostname}/fhir-pix
+      
+    # fhir integration
+    
+    hnpob.fhir.url=${hnpob.int.url}/fhir
+    
+    hncat.fhir.url=${hncat.int.url}/fhir
+    
+    mirth.fhir.url=${mirth.int.url}/fhir-out
+      
+    mirth.fhir.notification.url=${mirth.int.url}/fhir/notificate
+    
+    mirth.notification.http.patch.url=${mirth.int.url}/fhir-http/
+    
+    hnaut.fhir.url=${hnaut.int.url}/fhir
+    
+    hntri.fhir.url=${hntri.int.url}/fhir/rest
+    
+    hnurg.fhir.url=${hnurg.int.url}/fhir/rest
+    
+    hnurg.fhir.pag.url=${hnurg.int.url}/fhir/rest-pag
+    
+    hnhos.fhir.url=${hnhos.int.url}/fhir/rest
+    
+    hnqui.fhir.url=${hnqui.int.url}/fhir/rest
+    
+    hncit.fhir.url=${hncit.int.url}/fhir
+    
+    hncit.fhir.pag.url=${hncit.fhir.url}/rest-pag
+    
+    hnalert.fhir.url=${hnalert.int.url}/fhir
+    
+    hnalert.fhir.pag.url=${hnalert.fhir.url}/rest-pag
+    
+    mapvip.fhir.url=${mapvip.int.url}/fhir
+    
+    mapvip.fhir.pag.url=${mapvip.fhir.url}/rest-pag
+    
+    hnconf.fhir.url=${hnconf.int.url}/fhir
+    
+    hngep.fhir.url=${hngep.int.url}/fhir
+    
+    iscit.fhir.url=${iscit.int.url}/fhir
+    
+    hndoc.fhir.url=${hndoc.int.url}/fhir/rest
+    
+    hncli.fhir.url=${hncli.int.url}/fhir
+    
+    hncli.fhir.pag.url=${hncli.int.url}/fhir/rest-pag
+    
+    dsforms.fhir.url=${dsforms.int.url}/fhir
+    
+    ohale.fhir.url=${ohale.int.url}/api/fhir
+    
+    # active the integration asyunchronous
+    
+    integration.asynchronous=true
+    
+    #Entorno openshift con autenticación / autorización
+    
+    kafka.bootstrapservers=cluster-kafka-bootstrap:9092
+    
+    kafka.truststore.location=
+    
+    kafka.truststore.password=
+    
+    kafka.truststore.type=
+    
+    #kafka.truststore.location=/hn_home/kafkasec-truststore.jks
+    
+    #kafka.truststore.password=Y2hhbmdlaXQ
+    
+    #kafka.truststore.type=JKS
+    
+    kafka.scram.sasl.mechanism=SCRAM-SHA-512
+    
+    kafka.scram.sasl.user=ohmod
+    
+    #password del usuario en Base64
+    kafka.scram.sasl.password=???
+    
+    #topic de notificación kafka de hnaut
+    
+    kafka.notification.hnaut.topic=ohaut-entity-events
+    
+    #topic de notificación kafka de hncat
+    
+    kafka.notification.hncat.topic=ohont-entity-events
+    
+    #topic de notificación kafka de mpi
+    
+    kafka.notification.mpi.topic=ohmpi-entity-events

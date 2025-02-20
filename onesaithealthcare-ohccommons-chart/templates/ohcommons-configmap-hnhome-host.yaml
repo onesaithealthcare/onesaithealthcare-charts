@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hnhome-host-props
+data:
+  host.properties: |
+    general.protocol={{ .Values.domain.protocol }}
+    
+    general.hostname={{ .Values.domain.host }}
+    
+    ws.protocol=http
+    
+    ws.hostname=${general.hostname}
+    
+    mirth.protocol=${general.protocol}
+    
+    mirth.hostname=mirth_alias
+    
+    mirth.port=7777
+      
+    repository.host=${general.hostname}
+    
+    repository.port=5984
+    
+    open.api.banner.url=${general.protocol}://${general.hostname}/mpi/onesait_healthcare.svg
