@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  en.json: "{\n  \n}"
+  es.json: "{\n  \n}"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-11-14T07:16:52Z"
+  name: ohcmc-front-i18n
+  namespace: oh-modules

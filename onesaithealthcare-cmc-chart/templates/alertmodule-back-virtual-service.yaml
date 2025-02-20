@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  creationTimestamp: "2025-01-13T10:07:01Z"
+  name: alert-module
+  namespace: oh-modules
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - oh-modules.apps.lab.openshift.com
+  http:
+    - headers:
+        response:
+          set:
+            Referrer-Policy: origin
+      match:
+        - uri:
+            prefix: /alert-module
+      route:
+        - destination:
+            host: alert-module
+            port:
+              number: 8080

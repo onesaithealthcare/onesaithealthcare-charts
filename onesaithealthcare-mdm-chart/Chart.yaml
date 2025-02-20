@@ -14,3 +14,8 @@ maintainers:
     email: soporteosh@indra.es
     url: 
 icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
+dependencies:
+  - name: ohccommons-chart
+    version: 4.0.0
+  - name: ohsso-chart
+    version: 4.10.0

@@ -1,0 +1,58 @@
+questions:
+  - variable: domain.host
+    label: "Enter enviroment domain"
+    description: "Enter enviroment domain (for example: oh-modules.apps.lab.openshift.com)."
+    type: string
+    required: true
+
+  - variable: domain.protocol
+    label: "Select enviroment protocol"
+    description: "Choose http or https"
+    type: enum
+    options:
+      - http
+      - https
+    required: true
+
+  - variable: docker.registry.host
+    label: "Enter docker registry host"
+    description: "Enter docker registry host (for example: docker-registry.organization.com)."
+    type: string
+    required: true
+
+  - variable: docker.registry.project
+    label: "Enter docker registry project"
+    description: "Enter docker registry project (for example: onesait-healthcare)."
+    type: string
+    required: true
+
+  - variable: docker.registry.secret
+    label: "Enter Secret name for docker registry"
+    description: "Enter Secret name for docker registry (the secret must be created previously in namespace)."
+    type: string
+    required: true
+
+  - variable: cmc.front.image.tag
+    label: "Enter CMC Front image tag"
+    description: "Enter CMC Front image tag (for example: 4.0.0)."
+    type: string
+    required: true
+
+  - variable: cmc.front_rulechain.image.tag
+    label: "Enter CMC Front RuleChain image tag"
+    description: "Enter CMC Front RuleChain image tag (for example: 4.0.0)."
+    type: string
+    required: true
+
+  - variable: alertmodule.back.image.tag
+    label: "Enter Alert Module image tag"
+    description: "Enter Alert Module image tag (for example: 4.0.0)."
+    type: string
+    required: true
+
+  - variable: cmc.database.string
+    label: "Enter CMC Database connection string"
+    description: "Enter CMC Database connection string (for example: mongodb://<user>:<pass>@mongodb:27017,mongodb2:27017,mongodb3:27017/?replicaSet=mongodbReplicaSet&readPreference=primary )."
+    type: string
+    required: true
+
