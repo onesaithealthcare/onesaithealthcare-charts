@@ -3,9 +3,16 @@ entries:
   onesaithealthcare-mdm-chart:
   - apiVersion: v2
     appVersion: 4.10.0
-    created: "2025-02-20T08:21:23.4650577+01:00"
+    created: "2025-02-20T13:17:05.2999034+01:00"
+    dependencies:
+    - name: ohccommons-chart
+      repository: ""
+      version: 4.0.0
+    - name: ohsso-chart
+      repository: ""
+      version: 4.10.0
     description: Onesait Healthcare MDM chart for k8s
-    digest: 5295fc5dc2528d06ea1125a24d76535c9dc96e67c2d308bc44c78a95e75d2a86
+    digest: 9e9c32fed228bda29d61bef10ee708f237f7b23934d8ce25b0bd443e18f4cfd8
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -23,7 +30,7 @@ entries:
   onesaithealthcare-ohccommons-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-02-20T08:21:23.4713693+01:00"
+    created: "2025-02-20T13:17:05.3211399+01:00"
     description: Onesait Healthcare OH Commons chart for k8s
     digest: a8d0c8cc8eed4db31774145ee5eb193885b4bc29da51b151a8103b09dbb39fdb
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -39,4 +46,24 @@ entries:
     urls:
     - onesaithealthcare-ohccommons-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-02-20T08:21:23.4595237+01:00"
+  onesaithealthcare-ohsso-chart:
+  - apiVersion: v2
+    appVersion: 4.10.0
+    created: "2025-02-20T13:17:05.3377279+01:00"
+    description: Onesait Healthcare OHSSO chart for k8s
+    digest: 5f1e808f67e4489c1ed95db92c158bcdc137b9dedafa8ba7a1b482d039f19fa2
+    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
+    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
+    keywords:
+    - Minsait
+    - Onesait Healthcare
+    - OHSSO
+    maintainers:
+    - email: soporteosh@indra.es
+      name: Onesait Healthcare
+    name: onesaithealthcare-ohsso-chart
+    type: application
+    urls:
+    - onesaithealthcare-ohsso-chart-4.10.0.tgz
+    version: 4.10.0
+generated: "2025-02-20T13:17:05.2811807+01:00"
