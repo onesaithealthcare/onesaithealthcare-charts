@@ -48,3 +48,22 @@ helm uninstall mi-release --namespace mi-namespace
 ```
 
 
+## Desarrollo
+
+Es necesario tener instalado el cliente helm en la máquina local desde la que se esté trabajando.
+
+Para añadir un chart se creará una nueva carpeta sobre el directorio raíz y en ella se añadirán los ficheros necesarios.
+
+Para empaquetar un chart (nuevo o modificado) desde el directorio raíz se ejecuta el comando:
+```sh
+helm package <nombre_de_directorio>
+```
+
+Una vez se ha (re)generado el correspondiente .tgz se ejecuta el siguiente comando para actualizar el index:
+```sh
+helm repo index .
+```
+
+Finalmente se hara commit y push al repositorio de los cambios realizados.
+
+
