@@ -64,6 +64,6 @@ Una vez se ha (re)generado el correspondiente .tgz se ejecuta el siguiente coman
 helm repo index .
 ```
 
-Finalmente se hara commit y push al repositorio de los cambios realizados.
+Finalmente se hará commit y push al repositorio de los cambios realizados.
 
 
