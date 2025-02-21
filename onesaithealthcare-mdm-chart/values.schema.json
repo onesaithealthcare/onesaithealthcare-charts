@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ohsso": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable OHSSO installation",
+          "default": true
+        }
+      },
+      "required": ["enabled"]
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "Select enviroment type",
+          "description": "Choose dev or prod",
+          "enum": ["dev", "prod"],
+          "default": "dev"
+        }
+      },
+      "required": ["type"]
+    },
+    "domain": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "title": "Select enviroment protocol",
+          "description": "Choose http or https",
+          "enum": ["http", "https"]
+        },
+        "host": {
+          "type": "string",
+          "title": "Enter enviroment domain",
+          "description": "Enter enviroment domain (for example: oh-modules.apps.lab.openshift.com)."
+        },
+        "istio": {
+          "type": "boolean",
+          "title": "Environment is using istio",
+          "default": false
+        }
+      },
+      "required": ["protocol", "host", "istio"]
+    },
+    "database": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "Select Database Type",
+          "description": "Choose mysql or oracle",
+          "enum": ["mysql", "oracle"],
+          "default": "mysql"
+        },
+        "mysql": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "title": "MySQL JDBC connection string",
+              "description": "MySQL JDBC connection string (for example: jdbc:mysql://host:port (ejemplo: jdbc:mysql:<host-bd>:3306)"
+            },
+            "properties": {
+              "type": "string",
+              "title": "MySQL Properties",
+              "description": "Properties for MySQL database",
+              "default": "?serverTimezone=UTC"
+            }
+          }
+        },
+        "oracle": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "title": "Oracle URL",
+              "description": "URL for Oracle database"
+            },
+            "properties": {
+              "type": "string",
+              "title": "Oracle Properties",
+              "description": "Properties for Oracle database"
+            }
+          }
+        }
+      },
+      "required": ["type"],
+      "if": {
+        "properties": {
+          "type": {
+            "const": "mysql"
+          }
+        }
+      },
+      "then": {
+        "required": ["mysql"]
+      },
+      "else": {
+        "required": ["oracle"]
+      }	  
+    },
+    "docker": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "object",
+          "properties": {
+            "default_oh_registry": {
+              "type": "boolean",
+              "title": "Use default Onesait Healthcare docker registry",
+              "default": true
+            }
+          },
+          "required": ["default_oh_registry"]
+        },
+        "registry": {
+          "type": "object",
+          "properties": {
+            "host": {
+              "type": "string",
+              "title": "Docker Registry Host",
+              "description": "Enter docker registry host (for example: docker-registry.organization.com).",
+              "default": "docksdtr.indra.es"
+            },
+            "project": {
+              "type": "string",
+              "title": "Docker Registry Project",
+              "description": "Enter docker registry project (for example: onesait-healthcare).",
+              "default": "multhn_cmhn20_2"
+            }
+          },
+          "required": ["host", "project"]
+        }
+      },
+      "required": ["use"],
+      "if": {
+        "properties": {
+          "use": {
+            "properties": {
+              "default_oh_registry": {
+                "const": false
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["registry"]
+      },
+      "else": {
+        "properties": {
+          "registry": {
+            "properties": {
+              "host": {
+                "default": ""
+              },
+              "project": {
+                "default": ""
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["ohsso", "environment", "domain", "database", "docker"]
+}

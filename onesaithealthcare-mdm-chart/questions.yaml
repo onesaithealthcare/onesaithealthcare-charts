@@ -51,6 +51,13 @@ questions:
     required: true
     show_subquestion_if: database.type=mysql
 
+  - variable: database.mysql.properties
+    label: "Propiedades de conexion para mysql"
+    description: "Ingrese las propiedades de conexión para mysql"
+    type: string
+    required: true
+    show_subquestion_if: database.type=mysql
+
   - variable: database.oracle.url
     label: "Host y Puerto de Oracle"
     description: "Ingrese la dirección en formato jdbc:oracle:thin:@host:port:SID (ejemplo: jdbc:oracle:thin:@<host-bd>:1521:SID)"
@@ -58,9 +65,16 @@ questions:
     required: true
     show_subquestion_if: database.type=oracle
 
+  - variable: database.oracle.properties
+    label: "Propiedades de conexion para oracle"
+    description: "Ingrese las propiedades de conexión para oracle"
+    type: string
+    required: true
+    show_subquestion_if: database.type=oracle
+
   - variable: docker.use.default_oh_registry
-    label: "Environment is using istio"
-    description: "Environment is using istio."
+    label: "Use default Onesait Healthcare docker registry"
+    description: "Use default Onesait Healthcare docker registry."
     type: boolean
     required: true
 
