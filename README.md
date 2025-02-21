@@ -9,6 +9,7 @@ Este repositorio contiene una colección de charts de Helm para desplegar Onesai
 - [Onesait Healthcare BPM](onesaithealthcare-bpm-chart/): Módulos relacionados con la gestión de procesos.
 - [Onesait Healthcare Integration Engine](onesaithealthcare-iengine-chart/): Motor de integración.
 - [Onesait Healthcare Analytics](onesaithealthcare-analytics-chart/): Módulos analíticos.
+- [Onesait Healthcare Command Center](onesaithealthcare-cmc-chart/): Módulos de Command Center.
 
 
 ## Requisitos
