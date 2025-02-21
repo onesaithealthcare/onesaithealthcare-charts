@@ -4,18 +4,12 @@ domain:
   protocol: # Opciones: http, https
   host:
   istio: false
-database:
-  type: mysql # Opciones: mysql, oracle
-  mysql:
-    url: 
-    properties: ?serverTimezone=UTC
-  oracle:
-    url:
-    properties:
 docker:
   registry:
     host: docksdtr.indra.es
     project: multhn_cmhn20_2
-ohsso:
-  initial:
-    adminpassword: 
+cmc:
+  database:
+    mongodb:
+      connection_string: 
+    

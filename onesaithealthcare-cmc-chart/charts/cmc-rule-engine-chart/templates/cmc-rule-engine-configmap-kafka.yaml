@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+{{ if eq .Values.environment.type "prod" }}
+  TB_KAFKA_SERVERS: {{ .Values.cmc.kafka.bootstrap_server_url }}
+  TB_QUEUE_KAFKA_CONFLUENT_SASL_JAAS_CONFIG: org.apache.kafka.common.security.scram.ScramLoginModule required username="{{ .Values.cmc.kafka.user }}" password="{{ .Values.cmc.kafka.pass }}";
+  TB_QUEUE_KAFKA_CONFLUENT_SASL_MECHANISM: {{ .Values.cmc.kafka.sasl_mechanism }}
+  TB_QUEUE_KAFKA_CONFLUENT_SECURITY_PROTOCOL: {{ .Values.cmc.kafka.security_protocol }}
+  TB_QUEUE_KAFKA_USE_CONFLUENT_CLOUD: "true"
+  TB_QUEUE_PREFIX: cmc_core
+{{ else if eq .Values.environment.type "dev" }}  
+  TB_QUEUE_TYPE: in-memory
+{{ end }}
+kind: ConfigMap
+metadata:
+  labels:
+    name: rule-engine-kafka-config
+  name: rule-engine-kafka-config
+  namespace: oh-modules

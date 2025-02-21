@@ -1,3 +1,5 @@
+ohsso:
+  enabled: true
 environment:
   type: dev # Opciones: dev, prod 
 domain:
@@ -16,6 +18,3 @@ docker:
   registry:
     host: docksdtr.indra.es
     project: multhn_cmhn20_2
-ohsso:
-  initial:
-    adminpassword: 

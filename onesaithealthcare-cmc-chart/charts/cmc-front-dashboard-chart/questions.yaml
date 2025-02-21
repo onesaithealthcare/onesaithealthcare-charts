@@ -1,9 +1,4 @@
 questions:
-  - variable: ohsso.initial.adminpassword
-    label: "Enter OHSSO initial admin password"
-    description: "Enter OHSSO initial admin password."
-    type: string
-    required: true
 # Requeriría todos los parámetros siguientes pero se comentan porque estarán en el questions.yaml de MDM
 #  - variable: environment.type
 #    label: "Select enviroment type"
@@ -13,6 +8,7 @@ questions:
 #      - dev
 #      - prod
 #    required: true
+#
 #  - variable: domain.host
 #    label: "Enter enviroment domain"
 #    description: "Enter enviroment domain (for example: oh-modules.apps.lab.openshift.com)."
@@ -33,40 +29,27 @@ questions:
 #    description: "Environment is using istio."
 #    type: boolean
 #    required: true
-#    
-#  - variable: database.type
-#    label: "Seleccione el tipo de base de datos"
-#    description: "Elija entre MySQL u Oracle"
-#    type: enum
-#    options:
-#      - mysql
-#      - oracle
-#    required: true
 #
-#  - variable: database.mysql.url
-#    label: "Cadena de conexion para mysql"
-#    description: "Ingrese la url en formato jdbc:mysql://host:port (ejemplo: jdbc:mysql:<host-bd>:3306)"
-#    type: string
+#  - variable: docker.use.default_oh_registry
+#    label: "Environment is using istio"
+#    description: "Environment is using istio."
+#    type: boolean
 #    required: true
-#    show_subquestion_if: database.type=mysql
-#
-#  - variable: database.oracle.url
-#    label: "Host y Puerto de Oracle"
-#    description: "Ingrese la dirección en formato jdbc:oracle:thin:@host:port:SID (ejemplo: jdbc:oracle:thin:@<host-bd>:1521:SID)"
-#    type: string
-#    required: true
-#    show_subquestion_if: database.type=oracle
 #
 #  - variable: docker.registry.host
 #    label: "Enter docker registry host"
 #    description: "Enter docker registry host (for example: docker-registry.organization.com)."
 #    type: string
 #    required: true
+#    show_subquestion_if: false
+#    show_if: "docker.use.default_oh_registry=false"
 #
 #  - variable: docker.registry.project
 #    label: "Enter docker registry project"
 #    description: "Enter docker registry project (for example: onesait-healthcare)."
 #    type: string
 #    required: true
+#    show_subquestion_if: false
+#    show_if: "docker.use.default_oh_registry=false"
 #
-    
+#

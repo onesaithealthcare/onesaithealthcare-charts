@@ -1,18 +1,55 @@
 apiVersion: v1
 entries:
+  onesaithealthcare-cmc-chart:
+  - apiVersion: v2
+    appVersion: 4.0.0
+    created: "2025-02-21T10:19:27.4235708+01:00"
+    dependencies:
+    - name: onesaithealthcare-cmc-front-chart
+      repository: ""
+      version: 4.0.0
+    - name: onesaithealthcare-cmc-front-dashboard-chart
+      repository: ""
+      version: 4.0.0
+    - name: onesaithealthcare-cmc-alertmodule-chart
+      repository: ""
+      version: 4.0.0
+    - name: onesaithealthcare-cmc-mongodb-rest-chart
+      repository: ""
+      version: 4.0.0
+    - name: onesaithealthcare-cmc-rule-engine-chart
+      repository: ""
+      version: 4.0.0
+    description: Onesait Healthcare CMC chart for k8s
+    digest: 8002d7adf1f8604f26e500154b3d709417661330850aa7c815d4ea8d209e253a
+    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
+    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
+    keywords:
+    - Minsait
+    - Onesait Healthcare
+    - CMC
+    maintainers:
+    - email: soporteosh@indra.es
+      name: Onesait Healthcare
+    name: onesaithealthcare-cmc-chart
+    type: application
+    urls:
+    - onesaithealthcare-cmc-chart-4.0.0.tgz
+    version: 4.0.0
   onesaithealthcare-mdm-chart:
   - apiVersion: v2
     appVersion: 4.10.0
-    created: "2025-02-20T13:17:05.2999034+01:00"
+    created: "2025-02-21T10:19:27.426872+01:00"
     dependencies:
-    - name: ohccommons-chart
+    - name: onesaithealthcare-ohccommons-chart
       repository: ""
       version: 4.0.0
-    - name: ohsso-chart
+    - condition: ohsso.enabled
+      name: onesaithealthcare-ohsso-chart
       repository: ""
       version: 4.10.0
     description: Onesait Healthcare MDM chart for k8s
-    digest: 9e9c32fed228bda29d61bef10ee708f237f7b23934d8ce25b0bd443e18f4cfd8
+    digest: 91182097a19da31b0af8c6945570f16ee7e4ade9428a10056fa7800a74542d9d
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -27,43 +64,4 @@ entries:
     urls:
     - onesaithealthcare-mdm-chart-4.10.0.tgz
     version: 4.10.0
-  onesaithealthcare-ohccommons-chart:
-  - apiVersion: v2
-    appVersion: 4.0.0
-    created: "2025-02-20T13:17:05.3211399+01:00"
-    description: Onesait Healthcare OH Commons chart for k8s
-    digest: a8d0c8cc8eed4db31774145ee5eb193885b4bc29da51b151a8103b09dbb39fdb
-    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
-    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
-    keywords:
-    - Minsait
-    - Onesait Healthcare
-    maintainers:
-    - email: soporteosh@indra.es
-      name: Onesait Healthcare
-    name: onesaithealthcare-ohccommons-chart
-    type: application
-    urls:
-    - onesaithealthcare-ohccommons-chart-4.0.0.tgz
-    version: 4.0.0
-  onesaithealthcare-ohsso-chart:
-  - apiVersion: v2
-    appVersion: 4.10.0
-    created: "2025-02-20T13:17:05.3377279+01:00"
-    description: Onesait Healthcare OHSSO chart for k8s
-    digest: 5f1e808f67e4489c1ed95db92c158bcdc137b9dedafa8ba7a1b482d039f19fa2
-    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
-    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
-    keywords:
-    - Minsait
-    - Onesait Healthcare
-    - OHSSO
-    maintainers:
-    - email: soporteosh@indra.es
-      name: Onesait Healthcare
-    name: onesaithealthcare-ohsso-chart
-    type: application
-    urls:
-    - onesaithealthcare-ohsso-chart-4.10.0.tgz
-    version: 4.10.0
-generated: "2025-02-20T13:17:05.2811807+01:00"
+generated: "2025-02-21T10:19:27.4191182+01:00"

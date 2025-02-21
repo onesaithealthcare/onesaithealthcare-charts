@@ -1,8 +1,0 @@
-database:
-  type: mysql # Opciones: mysql, oracle
-  mysql:
-    url: 
-    properties: ?serverTimezone=UTC
-  oracle:
-    url:
-    properties:

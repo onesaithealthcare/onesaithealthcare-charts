@@ -1,0 +1,74 @@
+{{- if .Values.domain.istio }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: 'ohsso-virtual-service'
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - '{{ .Values.domain.host }}'
+  http:
+    - fault:
+        abort:
+          httpStatus: 404
+          percentage:
+            value: 100
+      match:
+        - uri:
+            prefix: /auth/metrics
+      route:
+        - destination:
+            host: error-404
+    - fault:
+        abort:
+          httpStatus: 404
+          percentage:
+            value: 100
+      match:
+        - uri:
+            regex: /auth/realms/.*/metrics.*
+      route:
+        - destination:
+            host: error-404
+    - corsPolicy:
+        allowHeaders:
+          - x-requested-with
+          - Content-Type
+          - jwtheader
+          - origin
+          - authorization
+          - accept
+          - client-security-token
+          - x-preserve-id
+          - if-none-exist
+          - prefer
+          - referer
+          - host
+          - origin
+        allowMethods:
+          - GET
+          - POST
+          - OPTIONS
+          - PUT
+          - DELETE
+        allowOrigin:
+          - 'https://{{ .Values.domain.host }}'
+      headers:
+        request:
+          set:
+            X-Forwarded-Host: '{{ .Values.domain.host }}'
+            X-Forwarded-Port: '{{ if eq .Values.domain.protocol "http" }}80{{ else if eq .Values.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.domain.protocol }}
+        response:
+          set:
+            Referrer-Policy: origin
+      match:
+        - uri:
+            prefix: /auth
+      route:
+        - destination:
+            host: 'ohsso'
+            port:
+              number: 8080
+{{- end }}              

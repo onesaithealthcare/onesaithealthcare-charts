@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  DATABASE_TS_TYPE: sql
+  SPRING_DATASOURCE_PASSWORD: us_rule_engine
+  SPRING_DATASOURCE_URL: {{ .Values.cmc.database.postgresql.connection_string }}
+  SPRING_DATASOURCE_USERNAME: us_rule_engine
+  SPRING_DRIVER_CLASS_NAME: org.postgresql.Driver
+  SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+kind: ConfigMap
+metadata:
+  labels:
+    name: rule-engine-db-config
+  name: rule-engine-db-config
+  namespace: oh-modules

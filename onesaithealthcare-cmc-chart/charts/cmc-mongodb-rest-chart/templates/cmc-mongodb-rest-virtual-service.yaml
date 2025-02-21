@@ -1,0 +1,51 @@
+{{- if .Values.domain.istio }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cmc-mongodb-rest-virtual-service
+  namespace: oh-modules
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - {{ .Values.domain.host }}
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.domain.protocol "http" }}80{{ else if eq .Values.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.domain.protocol }}
+        response:
+          set:
+            Referrer-Policy: origin
+      match:
+        - uri:
+            prefix: /restheart/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: restheart
+            port:
+              number: 8080
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.domain.protocol "http" }}80{{ else if eq .Values.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.domain.protocol }}
+        response:
+          set:
+            Referrer-Policy: origin
+      match:
+        - uri:
+            prefix: /restheart
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: restheart
+            port:
+              number: 8080
+{{- end }}              

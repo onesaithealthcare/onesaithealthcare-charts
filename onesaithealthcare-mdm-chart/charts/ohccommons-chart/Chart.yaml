@@ -1,5 +1,5 @@
 apiVersion: v2
-name: ohccommons-chart
+name: onesaithealthcare-ohccommons-chart
 description: Onesait Healthcare OH Commons chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application

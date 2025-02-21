@@ -5,7 +5,7 @@ kind: Deployment
     labels:
       app: 'ohsso'
   spec:
-    replicas: '1'
+    replicas: '{{ if eq .Values.environment.type "dev" }}1{{ else if eq .Values.environment.type "prod" }}2{{ end}}'
     selector:
       matchLabels:
         app: 'ohsso'
@@ -19,7 +19,7 @@ kind: Deployment
         restartPolicy: Always
         serviceAccountName: oh-module
         imagePullSecrets:
-          - name: '{{ .Values.docker.registry.secret }}'
+          - name: 'oh-docker-creds'
         schedulerName: default-scheduler
         affinity:
           podAntiAffinity:
@@ -96,17 +96,17 @@ kind: Deployment
                 mountPath: /opt/keycloak/conf/keycloak.conf
                 subPath: keycloak.conf
               - name: ohsso-configmap-realm
-                mountPath: '/opt/keycloak/ishome/${GENERAL_OHSSO_REALM}/integration.properties'
+                mountPath: '/opt/keycloak/ishome/oh-base/integration.properties'
                 subPath: integration.properties
               - name: ohsso-configmap-realm
-                mountPath: '/opt/keycloak/ishome/${GENERAL_OHSSO_REALM}/password.properties'
+                mountPath: '/opt/keycloak/ishome/oh-base/password.properties'
                 subPath: password.properties
               - name: cert-domain
                 mountPath: /cert/cert-domain.crt
                 subPath: tls.crt
             terminationMessagePolicy: File
             image: >-
-              {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohsso-x:{{ .Values.ohsso.image.tag }}
+              {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohsso-x:{{ .Values.Chart.appVersion }}
         serviceAccount: oh-module
         volumes:
           - name: ohsso-configmap-global
