@@ -1,10 +1,9 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ohcmc-rulechain-front-cfg
 data:
   env.json: |-
     {
         "keycloak-js-dist": "{{ .Values.domain.protocol }}://{{ .Values.domain.host }}/ohcmc-thingsboard/ohsso-lib.js"
     }
-kind: ConfigMap
-metadata:
-  name: ohcmc-rulechain-front-cfg
-  namespace: oh-modules

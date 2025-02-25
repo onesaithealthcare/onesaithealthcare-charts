@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ohcmc-front-i18n
+data:
+  en.json: "{\n  \n}"
+  es.json: "{\n  \n}"

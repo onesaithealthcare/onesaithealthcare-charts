@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ohcmc-front
-  namespace: oh-modules
+  name: ohcmc-rulechain-front
 spec:
   internalTrafficPolicy: Cluster
   ipFamilies:
@@ -14,6 +13,6 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: ohcmc-front
+    app: ohcmc-rulechain-front
   sessionAffinity: None
   type: ClusterIP

@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: restheart
-  namespace: oh-modules
 spec:
   ipFamilies:
     - IPv4

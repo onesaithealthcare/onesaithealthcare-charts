@@ -6,4 +6,3 @@ metadata:
   labels:
     name: rule-engine-cache-config
   name: rule-engine-cache-config
-  namespace: oh-modules

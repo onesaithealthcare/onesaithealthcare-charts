@@ -1,9 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  creationTimestamp: "2025-01-13T10:07:01Z"
   name: alert-module
-  namespace: oh-modules
 spec:
   gateways:
     - oh-modules-gateway

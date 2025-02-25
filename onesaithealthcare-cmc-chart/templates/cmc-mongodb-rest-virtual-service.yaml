@@ -3,7 +3,6 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: cmc-mongodb-rest-virtual-service
-  namespace: oh-modules
 spec:
   gateways:
     - oh-modules-gateway

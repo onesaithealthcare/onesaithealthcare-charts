@@ -4,7 +4,6 @@ metadata:
   labels:
     app: alert-module
   name: alert-module
-  namespace: oh-modules
 spec:
   progressDeadlineSeconds: 600
   replicas: '{{ if eq .Values.environment.type "dev" }}1{{ else if eq .Values.environment.type "prod" }}2{{ end}}'
@@ -28,7 +27,7 @@ spec:
             - name: MONGODB_CONNECTION_STRING
               value: {{ .Values.cmc.database.string }}
             - name: MONGODB_DATABASE
-              value: cmc
+              value: {{ .Values.cmc.database.mongodb.dbname }}
           image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/alert-module:{{ .Values.Chart.appVersion }}
           imagePullPolicy: IfNotPresent
           livenessProbe:

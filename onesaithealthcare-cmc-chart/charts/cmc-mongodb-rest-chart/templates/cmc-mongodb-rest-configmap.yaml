@@ -1,8 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: restheart
-  namespace: oh-modules
-data:
-  rho: >-
-    /mclient/connection-string->"{{ .Values.cmc.database.mongodb.connection_string }}";/http-listener/host->"0.0.0.0";/fullAuthorizer/enabled->true;/fullAuthorizer/authentication-required->false;

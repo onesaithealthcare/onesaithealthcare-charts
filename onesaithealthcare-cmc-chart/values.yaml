@@ -12,8 +12,11 @@ cmc:
   database:
     mongodb:
       connection_string: 
+      dbname:
     postgresql:
       connection_string:
+      user: 
+      pass: 
   kafka:
     bootstrap_server_url: cluster-kafka-bootstrap:9092
     user: ohcmc

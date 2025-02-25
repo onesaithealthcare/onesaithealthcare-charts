@@ -14,15 +14,4 @@ maintainers:
     email: soporteosh@indra.es
     url: 
 icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
-dependencies:
-  - name: onesaithealthcare-cmc-front-chart
-    version: 4.0.0
-  - name: onesaithealthcare-cmc-front-dashboard-chart
-    version: 4.0.0
-  - name: onesaithealthcare-cmc-alertmodule-chart
-    version: 4.0.0
-  - name: onesaithealthcare-cmc-mongodb-rest-chart
-    version: 4.0.0
-  - name: onesaithealthcare-cmc-rule-engine-chart
-    version: 4.0.0
     

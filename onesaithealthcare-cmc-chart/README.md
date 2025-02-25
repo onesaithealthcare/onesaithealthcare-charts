@@ -6,16 +6,17 @@ Este Chart instala los módulos de Command Center.
 
 - Se debe haber instalado y configurado previamente el chart MDM (onesaithealthcare-mdm-chart).  
 
-- Se debe disponer del siguiente software base instalado así como sus datos de conexión:
-* BD MongoDB con al menos 3 nodos configurados en modo ReplicaSet (con una BD con nombre: cmc).
-* BD PostgreSQL (con usuario un us_rule_engine con permiso para el esquema del módulo)
-* Cluster Kafka
+- Se debe disponer del los siguientes recursos instalados así como sus datos de conexión:
+* BD MongoDB con al menos 3 nodos configurados en modo ReplicaSet.
+* BD PostgreSQL.
+* Cluster Kafka.
   
 ## Módulos
 
-- alertmodule: configuraciónes comunes
+- alertmodule
 - cmc-front
 - cmc-front-ruleengine
+- api rest mongobd
 - rule_engine
 
 ## Instalación
@@ -32,6 +33,20 @@ Este Chart instala los módulos de Command Center.
    ```
 
 ## Operaciones post instalación
+
+1. Acceder a la consola de administración de OHSSO y realizar los siguientes pasos:
+- Importar el client ruleengine.
+- Una vez importado acceder a la configuración del mismo y revisar las redirectUris.
+- Acceder a User Federation -> hn-provider, y en included clients añadir "ruleengine".
+
+2. ¿Propiedades HNCONF?
+
+3. ¿Catálogos HNCAT?
+
+4. ¿Permisos HNAUT?
+
+
+
 
 
 
