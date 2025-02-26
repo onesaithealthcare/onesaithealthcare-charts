@@ -3,7 +3,6 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: rule-engine-virtual-service-oh-mod
-  namespace: oh-modules
 spec:
   gateways:
     - '*'
