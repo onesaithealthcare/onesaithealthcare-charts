@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    name: rule-engine-kafka-input-config
+  name: rule-engine-kafka-input-config
 data:
   KAFKA_INPUT_KAFKA_SERVERS: {{ .Values.cmc.kafka.bootstrap_server_url }}
   KAFKA_INPUT_MAX_POLL_RECORDS: "100"
@@ -9,9 +14,3 @@ data:
   KAFKA_INPUT_TRUSTSTORE_PASSWORD: changeit
   KAFKA_INPUT_USER: {{ .Values.cmc.kafka.user }}
   alert.client.base-url: http://alert-module:8080/alert-module/api
-kind: ConfigMap
-metadata:
-  labels:
-    name: rule-engine-kafka-input-config
-  name: rule-engine-kafka-input-config
-  namespace: oh-modules

@@ -6,7 +6,7 @@ spec:
   gateways:
     - oh-modules-gateway
   hosts:
-    - oh-modules.apps.lab.openshift.com
+    - '*'
   http:
     - headers:
         response:
