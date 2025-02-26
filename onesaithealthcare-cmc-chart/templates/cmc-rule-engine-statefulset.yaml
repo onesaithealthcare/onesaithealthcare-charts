@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: rule-engine
 spec:
-  replicas: '{{ if eq .Values.environment.type "dev" }}1{{ else if eq .Values.environment.type "prod" }}2{{ end}}'
+  replicas: {{ if eq .Values.environment.type "dev" }}1{{ else if eq .Values.environment.type "prod" }}2{{ end}}
   selector:
     matchLabels:
       app: rule-engine

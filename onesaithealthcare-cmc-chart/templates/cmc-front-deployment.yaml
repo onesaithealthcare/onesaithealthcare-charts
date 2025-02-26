@@ -6,7 +6,7 @@ metadata:
   name: ohcmc-front
 spec:
   progressDeadlineSeconds: 600
-  replicas: '{{ if eq .Values.environment.type "dev" }}1{{ else if eq .Values.environment.type "prod" }}2{{ end}}'
+  replicas: {{ if eq .Values.environment.type "dev" }}1{{ else if eq .Values.environment.type "prod" }}2{{ end}}
   revisionHistoryLimit: 10
   selector:
     matchLabels:
