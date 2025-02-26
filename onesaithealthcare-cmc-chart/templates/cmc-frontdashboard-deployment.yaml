@@ -25,7 +25,7 @@ spec:
         app: ohcmc-rulechain-front
     spec:
       containers:
-        - image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohcmc-thingsboard-front:{{ .Chart.appVersion }}
+        - image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohcmc-thingsboard-front:{{ .Chart.AppVersion }}
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
