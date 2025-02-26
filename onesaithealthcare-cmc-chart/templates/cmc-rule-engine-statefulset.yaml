@@ -99,7 +99,7 @@ spec:
             - configMapRef:
                 name: rule-engine-kafka-input-config
           image: >-
-            {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/rule_engine:{{ .Values.Chart.appVersion }}
+            {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/rule_engine:{{ .Chart.appVersion }}
       volumes:
         - name: rule-engine-config
           configMap:

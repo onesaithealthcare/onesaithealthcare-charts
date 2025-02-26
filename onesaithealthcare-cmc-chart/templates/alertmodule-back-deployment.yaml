@@ -28,7 +28,7 @@ spec:
               value: {{ .Values.cmc.database.string }}
             - name: MONGODB_DATABASE
               value: {{ .Values.cmc.database.mongodb.dbname }}
-          image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/alert-module:{{ .Values.Chart.appVersion }}
+          image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/alert-module:{{ .Chart.appVersion }}
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
