@@ -74,9 +74,13 @@
             "postgresql": {
               "type": "object",
               "properties": {
-                "connection_string": {
+                "host": {
                   "type": "string",
-                  "description": "Enter CMC PostgreSQL connection string (for example: jdbc:postgresql://<db.host>:5432/<db_name> )."
+                  "description": "Enter CMC PostgreSQL Host."
+                },
+                "port": {
+                  "type": "string",
+                  "description": "Enter CMC PostgreSQL port."
                 },
                 "user": {
                   "type": "string",

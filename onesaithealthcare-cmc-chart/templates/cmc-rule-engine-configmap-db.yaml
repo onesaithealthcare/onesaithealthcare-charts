@@ -7,7 +7,7 @@ metadata:
 data:
   DATABASE_TS_TYPE: sql
   SPRING_DATASOURCE_PASSWORD: {{ .Values.cmc.database.postgresql.pass }}
-  SPRING_DATASOURCE_URL: {{ .Values.cmc.database.postgresql.connection_string }}
+  SPRING_DATASOURCE_URL: jdbc:postgresql://{{ .Values.cmc.database.postgresql.host }}:{{ .Values.cmc.database.postgresql.port }}/{{ .Values.cmc.database.postgresql.user }}
   SPRING_DATASOURCE_USERNAME: {{ .Values.cmc.database.postgresql.user }}
   SPRING_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect

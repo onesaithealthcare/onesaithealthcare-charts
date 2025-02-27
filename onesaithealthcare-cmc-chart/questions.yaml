@@ -64,9 +64,15 @@ questions:
     type: string
     required: true
 
-  - variable: cmc.database.postgresql.connection_string
-    label: "Enter CMC PostgreSQL connection string"
-    description: "Enter CMC PostgreSQL connection string (for example: jdbc:postgresql://<db.host>:5432/<db_name> )."
+  - variable: cmc.database.postgresql.host
+    label: "Enter CMC PostgreSQL Host"
+    description: "Enter CMC PostgreSQL Host."
+    type: string
+    required: true
+
+  - variable: cmc.database.postgresql.port
+    label: "Enter CMC PostgreSQL port"
+    description: "Enter CMC PostgreSQL port."
     type: string
     required: true
 
@@ -76,7 +82,7 @@ questions:
     type: string
     required: true
 
-  - variable: cmc.database.postgresql.passº
+  - variable: cmc.database.postgresql.pass
     label: "Enter CMC PostgreSQL pass"
     description: "Enter CMC PostgreSQL pass."
     type: string

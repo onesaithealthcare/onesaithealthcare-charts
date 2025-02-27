@@ -14,7 +14,8 @@ cmc:
       connection_string: 
       dbname:
     postgresql:
-      connection_string:
+      host:
+      port: 5432
       user: 
       pass: 
   kafka:
