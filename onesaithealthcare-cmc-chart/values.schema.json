@@ -79,7 +79,7 @@
                   "description": "Enter CMC PostgreSQL Host."
                 },
                 "port": {
-                  "type": "string",
+                  "type": "integer",
                   "description": "Enter CMC PostgreSQL port."
                 },
                 "user": {
@@ -91,7 +91,7 @@
                   "description": "Enter CMC PostgreSQL pass."
                 }
               },
-              "required": ["connection_string", "user", "pass"]
+              "required": ["host", "port", "user", "pass"]
             }
           }
         },
