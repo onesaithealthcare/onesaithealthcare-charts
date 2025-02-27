@@ -5,9 +5,9 @@ metadata:
   name: rule-engine-virtual-service-oh-mod
 spec:
   gateways:
-    - '*'
+    - oh-modules-gateway
   hosts:
-    - {{ .Values.domain.host }}
+    - '*'
   http:
     - headers:
         response:
