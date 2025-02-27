@@ -25,7 +25,7 @@ spec:
       containers:
         - env:
             - name: MONGODB_CONNECTION_STRING
-              value: {{ .Values.cmc.database.string }}
+              value: {{ .Values.cmc.database.mongodb.connection_string }}
             - name: MONGODB_DATABASE
               value: {{ .Values.cmc.database.mongodb.dbname }}
           image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/alert-module:{{ .Chart.AppVersion }}
