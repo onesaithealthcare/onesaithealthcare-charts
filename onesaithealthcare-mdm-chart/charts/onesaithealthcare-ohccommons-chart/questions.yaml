@@ -1,16 +1,22 @@
 questions:
-# Requeriría todos los parámetros siguientes pero se comentan porque estarán en el questions.yaml de MDM
-#  - variable: domain.host
-#    label: "Enter enviroment domain"
-#    description: "Enter enviroment domain (for example: oh-modules.apps.lab.openshift.com)."
-#    type: string
-#    required: true
-#
-#  - variable: domain.protocol
-#    label: "Select enviroment protocol"
-#    description: "Choose http or https"
-#    type: enum
-#    options:
-#      - http
-#      - https
-#    required: true
+
+  - variable: global.domain.protocol
+    default: http
+    description: "Domain protocol"
+    type: enum
+    options:
+      - http
+      - https
+    required: true
+
+  - variable: global.domain.host
+    default: ""
+    description: "Domain host"
+    type: string
+    required: true
+
+  - variable: global.domain.istio
+    default: false
+    description: "Use Istio"
+    type: boolean
+    required: true

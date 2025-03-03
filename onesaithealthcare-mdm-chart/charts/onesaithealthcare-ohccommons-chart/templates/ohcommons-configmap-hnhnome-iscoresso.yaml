@@ -114,11 +114,11 @@ data:
     
     keycloak.ssl_required=none
     
-    keycloak.url={{ .Values.domain.protocol }}://{{ .Values.domain.host }}/${keycloak.context}
+    keycloak.url={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/${keycloak.context}
     
     keycloak.url.initial=${keycloak.url}/realms/${keycloak.realm}/protocol/openid-connect/token
     
-    keycloak.url.redirect={{ .Values.domain.protocol }}://{{ .Values.domain.host }}/${keycloak.context.redirect}
+    keycloak.url.redirect={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/${keycloak.context.redirect}
     
     # keycloak.user=usuario1
     

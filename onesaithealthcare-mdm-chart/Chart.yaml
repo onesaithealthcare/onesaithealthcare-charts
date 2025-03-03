@@ -19,4 +19,4 @@ dependencies:
     version: 4.0.0
   - name: onesaithealthcare-ohsso-chart
     version: 4.10.0
-    condition: ohsso.enabled
+    condition: global.modules.ohsso

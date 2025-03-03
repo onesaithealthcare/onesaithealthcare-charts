@@ -4,9 +4,9 @@ metadata:
   name: hnhome-host-props
 data:
   host.properties: |
-    general.protocol={{ .Values.domain.protocol }}
+    general.protocol={{ .Values.global.domain.protocol }}
     
-    general.hostname={{ .Values.domain.host }}
+    general.hostname={{ .Values.global.domain.host }}
     
     ws.protocol=http
     

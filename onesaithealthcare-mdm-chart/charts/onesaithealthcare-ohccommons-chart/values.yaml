@@ -1,3 +1,4 @@
-domain:
-  protocol: # Opciones: http, https
-  host:
+global:
+  domain:
+    protocol: # Opciones: http, https
+    host:

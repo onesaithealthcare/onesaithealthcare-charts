@@ -1,95 +1,93 @@
 questions:
-  - variable: ohsso.initial.adminpassword
-    label: "Enter OHSSO initial admin password"
-    description: "Enter OHSSO initial admin password."
+  - variable: global.ohsso.enabled
+    default: true
+    description: "Enable OHSSO"
+    type: boolean
+    required: true
+
+  - variable: global.environment.type
+    default: dev
+    description: "Environment type"
+    type: enum
+    options:
+      - dev
+      - prod
+    required: true
+
+  - variable: global.domain.protocol
+    default: http
+    description: "Domain protocol"
+    type: enum
+    options:
+      - http
+      - https
+    required: true
+
+  - variable: global.domain.host
+    default: ""
+    description: "Domain host"
     type: string
     required: true
-# Requeriría todos los parámetros siguientes pero se comentan porque estarán en el questions.yaml de MDM
-#  - variable: environment.type
-#    label: "Select enviroment type"
-#    description: "Choose dev or prod"
-#    type: enum
-#    options:
-#      - dev
-#      - prod
-#    required: true
-#  - variable: domain.host
-#    label: "Enter enviroment domain"
-#    description: "Enter enviroment domain (for example: oh-modules.apps.lab.openshift.com)."
-#    type: string
-#    required: true
-#
-#  - variable: domain.protocol
-#    label: "Select enviroment protocol"
-#    description: "Choose http or https"
-#    type: enum
-#    options:
-#      - http
-#      - https
-#    required: true
-#
-#  - variable: domain.istio
-#    label: "Environment is using istio"
-#    description: "Environment is using istio."
-#    type: boolean
-#    required: true
-#    
-#  - variable: database.type
-#    label: "Seleccione el tipo de base de datos"
-#    description: "Elija entre MySQL u Oracle"
-#    type: enum
-#    options:
-#      - mysql
-#      - oracle
-#    required: true
-#
-#  - variable: database.mysql.url
-#    label: "Cadena de conexion para mysql"
-#    description: "Ingrese la url en formato jdbc:mysql://host:port (ejemplo: jdbc:mysql:<host-bd>:3306)"
-#    type: string
-#    required: true
-#    show_subquestion_if: database.type=mysql
-#
-#  - variable: database.mysql.properties
-#    label: "Propiedades de conexion para mysql"
-#    description: "Ingrese las propiedades de conexión para mysql"
-#    type: string
-#    required: true
-#    show_subquestion_if: database.type=mysql
-#
-#  - variable: database.oracle.url
-#    label: "Host y Puerto de Oracle"
-#    description: "Ingrese la dirección en formato jdbc:oracle:thin:@host:port:SID (ejemplo: jdbc:oracle:thin:@<host-bd>:1521:SID)"
-#    type: string
-#    required: true
-#    show_subquestion_if: database.type=oracle
-#
-#  - variable: database.oracle.properties
-#    label: "Propiedades de conexion para oracle"
-#    description: "Ingrese las propiedades de conexión para oracle"
-#    type: string
-#    required: true
-#    show_subquestion_if: database.type=oracle
-#
-#  - variable: docker.use.default_oh_registry
-#    label: "Use default Onesait Healthcare docker registry"
-#    description: "Use default Onesait Healthcare docker registry."
-#    type: boolean
-#    required: true
-#
-#  - variable: docker.registry.host
-#    label: "Enter docker registry host"
-#    description: "Enter docker registry host (for example: docker-registry.organization.com)."
-#    type: string
-#    required: true
-#    show_subquestion_if: false
-#    show_if: "docker.use.default_oh_registry=false"
-#
-#  - variable: docker.registry.project
-#    label: "Enter docker registry project"
-#    description: "Enter docker registry project (for example: onesait-healthcare)."
-#    type: string
-#    required: true
-#    show_subquestion_if: false
-#    show_if: "docker.use.default_oh_registry=false"
- 
+
+  - variable: global.domain.istio
+    default: false
+    description: "Use Istio"
+    type: boolean
+    required: true
+
+  - variable: global.database.type
+    default: mysql
+    description: "Database type"
+    type: enum
+    options:
+      - mysql
+      - oracle
+    required: true
+
+  - variable: global.database.mysql.url
+    default: ""
+    description: "MySQL URL"
+    type: string
+    required: true
+    show_if: "global.database.type=mysql"
+
+  - variable: global.database.mysql.properties
+    default: "?serverTimezone=UTC"
+    description: "MySQL properties"
+    type: string
+    required: false
+    show_if: "global.database.type=mysql"
+
+  - variable: global.database.oracle.url
+    default: ""
+    description: "Oracle URL"
+    type: string
+    required: true
+    show_if: "global.database.type=oracle"
+
+  - variable: global.database.oracle.properties
+    default: ""
+    description: "Oracle properties"
+    type: string
+    required: false
+    show_if: "global.database.type=oracle"
+
+  - variable: global.docker.use.default_oh_registry
+    default: true
+    description: "Use default OH registry"
+    type: boolean
+    required: true
+
+  - variable: global.docker.registry.host
+    default: "docksdtr.indra.es"
+    description: "Docker registry host"
+    type: string
+    required: true
+    show_if: "global.docker.use.default_oh_registry=false"
+
+  - variable: global.docker.registry.project
+    default: "multhn_cmhn20_2"
+    description: "Docker registry project"
+    type: string
+    required: true
+    show_if: "global.docker.use.default_oh_registry=false"

@@ -6,7 +6,7 @@ data:
   jms.properties: |
     # Configuración broker
     
-    activemq.broker.url=tcp://{{ .Values.domain.host }}:61616
+    activemq.broker.url=tcp://{{ .Values.global.domain.host }}:61616
     
     activemq.user=admin
     

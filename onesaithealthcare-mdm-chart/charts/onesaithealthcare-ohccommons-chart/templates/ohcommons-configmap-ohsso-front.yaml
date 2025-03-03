@@ -8,6 +8,6 @@ data:
       "realm" : "oh-base",
       "resource" : "hnrole",
       "public-client": true,
-      "auth-server-url": "{{ .Values.domain.protocol }}://{{ .Values.domain.host }}/auth",
+      "auth-server-url": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/auth",
       "enable-cors": true
     }
