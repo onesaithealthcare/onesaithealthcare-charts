@@ -5,13 +5,13 @@
     "global": {
       "type": "object",
       "properties": {
-        "ohsso": {
+        "modules": {
           "type": "object",
           "properties": {
-            "enabled": {
+            "ohsso": {
               "type": "boolean",
               "default": true,
-              "description": "Enable OHSSO"
+              "description": "Enable OHSSO module"
             }
           }
         },

@@ -1,6 +1,6 @@
 global:
-  ohsso:
-    enabled: true
+  modules:
+    ohsso: true
   environment:
     type: dev # Opciones: dev, prod 
   domain:

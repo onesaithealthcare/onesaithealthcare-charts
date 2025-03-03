@@ -1,7 +1,37 @@
 questions:
-  - variable: global.ohsso.enabled
+  - variable: global.modules.ohsso
     default: true
-    description: "Enable OHSSO"
+    description: "Enable OHSSO module"
+    type: boolean
+    required: true
+
+  - variable: global.modules.ohatn
+    default: true
+    description: "Enable OHATN module"
+    type: boolean
+    required: true
+
+  - variable: global.modules.ohcon
+    default: true
+    description: "Enable OHCON module"
+    type: boolean
+    required: true
+
+  - variable: global.modules.ohcat
+    default: true
+    description: "Enable OHCAT module"
+    type: boolean
+    required: true
+
+  - variable: global.modules.ohaut
+    default: true
+    description: "Enable OHAUT module"
+    type: boolean
+    required: true
+
+  - variable: global.modules.ohmpi
+    default: true
+    description: "Enable OHMPI module"
     type: boolean
     required: true
 

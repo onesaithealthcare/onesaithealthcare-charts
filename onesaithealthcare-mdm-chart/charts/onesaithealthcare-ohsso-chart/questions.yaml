@@ -1,5 +1,5 @@
 questions:
-  - variable: global.ohsso.enabled
+  - variable: global.modules.ohsso
     default: true
     description: "Enable OHSSO"
     type: boolean

@@ -5,13 +5,38 @@
     "global": {
       "type": "object",
       "properties": {
-        "ohsso": {
+        "modules": {
           "type": "object",
           "properties": {
-            "enabled": {
+            "ohsso": {
               "type": "boolean",
               "default": true,
-              "description": "Enable OHSSO"
+              "description": "Enable OHSSO module"
+            },
+            "ohatn": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable OHATN module"
+            },
+            "ohcon": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable OHCON module"
+            },
+            "ohcat": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable OHCAT module"
+            },
+            "ohaut": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable OHAUT module"
+            },
+            "ohmpi": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable OHMPI module"
             }
           }
         },
