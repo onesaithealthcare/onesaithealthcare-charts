@@ -107,6 +107,10 @@ spec:
           terminationMessagePolicy: File
           image: >-
             {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x:{{ .Chart.AppVersion }}.{{ .Values.global.database.type }}
+      hostAliases:
+        - ip: 192.168.146.114
+          hostnames:
+            - proyvalhnbd1-1.indra.es
       serviceAccount: oh-module
       volumes:
         - name: ohsso-configmap-global
