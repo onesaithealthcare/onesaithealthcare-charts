@@ -8,7 +8,35 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable OHSSO chart"
+          "description": "Enable OHSSO module"
+        },
+        "ohsso": {
+          "type": "object",
+          "properties": {
+            "db": {
+              "type": "object",
+              "properties": {
+                "adminpassword": {
+                  "type": "string",
+                  "description": "OHSSO initial adminpassword"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_keycloak",
+                  "description": "OHSSO db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHSSO db password"
+                }
+              },
+              "dependencies": {
+                "adminpassword": ["enabled"],
+                "user": ["enabled"],
+                "pass": ["enabled"]
+              }
+            }
+          }
         }
       }
     },
@@ -18,7 +46,7 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable OHATN chart"
+          "description": "Enable OHATN module"
         }
       }
     },
@@ -28,7 +56,7 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable OHCON chart"
+          "description": "Enable OHCON module"
         }
       }
     },
@@ -38,7 +66,7 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable OHCAT chart"
+          "description": "Enable OHCAT module"
         }
       }
     },
@@ -48,7 +76,7 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable OHAUT chart"
+          "description": "Enable OHAUT module"
         }
       }
     },
@@ -58,7 +86,7 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enable OHMPI chart"
+          "description": "Enable OHMPI module"
         }
       }
     },
@@ -82,12 +110,10 @@
             "protocol": {
               "type": "string",
               "enum": ["http", "https"],
-              "default": "http",
               "description": "Domain protocol"
             },
             "host": {
               "type": "string",
-              "default": "",
               "description": "Domain host"
             },
             "istio": {
@@ -111,7 +137,6 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "default": "",
                   "description": "MySQL URL"
                 },
                 "properties": {
@@ -119,9 +144,6 @@
                   "default": "?serverTimezone=UTC",
                   "description": "MySQL properties"
                 }
-              },
-              "dependencies": {
-                "type": "mysql"
               }
             },
             "oracle": {
@@ -129,17 +151,12 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "default": "",
                   "description": "Oracle URL"
                 },
                 "properties": {
                   "type": "string",
-                  "default": "",
                   "description": "Oracle properties"
                 }
-              },
-              "dependencies": {
-                "type": "oracle"
               }
             }
           }
@@ -170,9 +187,6 @@
                   "default": "multhn_cmhn20_2",
                   "description": "Docker registry project"
                 }
-              },
-              "dependencies": {
-                "use.default_oh_registry": false
               }
             }
           }

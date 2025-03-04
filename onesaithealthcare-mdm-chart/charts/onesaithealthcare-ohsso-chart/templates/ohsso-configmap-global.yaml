@@ -16,7 +16,7 @@ data:
     features=scripts
     metrics-enabled=true
     # run
-    hostname=${GENERAL_HOST}
+    hostname={{ .Values.global.domain.host }}
     proxy=passthrough
     http-port=8080
     {{- if eq .Values.global.database.type "mysql" }}

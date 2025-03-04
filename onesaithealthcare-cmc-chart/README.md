@@ -21,7 +21,7 @@ Este Chart instala los módulos de Command Center.
 
 ## Operaciones pre instalación
 
-1. Crear un Secret oh-docker-creds (si no se encuentra ya creado) con las credenciales del repositorio de imágenes docker.
+1. Si se va a usar un docker registry distinto al de Onesait Healthcare se debe crear un Secret oh-docker-creds (si no se encuentra ya creado) con las credenciales del repositorio de imágenes docker.  Si se va a usar el repositorio de Onesait Healthcare no es necesario crearlo ya que en este caso lo creará la instalación.
 
 2. Crear el esquema y modelo de datos sobre la BD PostgreSQL usando los scripts proporcionados.
 

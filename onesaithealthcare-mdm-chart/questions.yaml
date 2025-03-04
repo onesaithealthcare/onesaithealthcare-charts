@@ -126,14 +126,17 @@ questions:
     description: "OHSSO initial adminpassword"
     type: string
     required: true
+    show_if: "onesaithealthcare-ohsso-chart.enabled=true"
 
   - variable: onesaithealthcare-ohsso-chart.ohsso.db.user
     description: "OHSSO db user"
     type: string
     required: true
+    show_if: "onesaithealthcare-ohsso-chart.enabled=true"
 
   - variable: onesaithealthcare-ohsso-chart.ohsso.db.pass
     description: "OHSSO db password"
     type: string
     required: true
+    show_if: "onesaithealthcare-ohsso-chart.enabled=true"
     
