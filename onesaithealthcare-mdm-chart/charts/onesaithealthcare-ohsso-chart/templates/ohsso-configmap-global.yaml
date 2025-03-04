@@ -20,7 +20,7 @@ data:
     proxy=passthrough
     http-port=8080
     {{- if eq .Values.global.database.type "mysql" }}
-    db-url={{ .Values.global.database.mysql.url }}:us_keycloak{{ .Values.global.database.mysql.properties }}
+    db-url={{ .Values.global.database.mysql.url }}{{ .Values.global.database.mysql.properties }}
     {{- else if eq .Values.global.database.type "oracle" }}
     db-url={{ .Values.global.database.oracle.url }}{{ .Values.global.database.oracle.properties }}
     {{- end }}
