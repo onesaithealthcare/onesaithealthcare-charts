@@ -16,7 +16,7 @@ maintainers:
 icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
 dependencies:
   - name: onesaithealthcare-ohccommons-chart
-    version: 4.0.0
+    version: "4.0.0"
   - name: onesaithealthcare-ohsso-chart
-    version: 4.10.0
+    version: "4.10.0"
     condition: onesaithealthcare-ohsso-chart.enabled
