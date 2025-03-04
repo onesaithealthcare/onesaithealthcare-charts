@@ -17,5 +17,3 @@ icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-chart
 dependencies:
   - name: onesaithealthcare-ohccommons-chart
     version: "4.0.0"
-  - name: onesaithealthcare-ohsso-chart
-    version: "4.10.0"
