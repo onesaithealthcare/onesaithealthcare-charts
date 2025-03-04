@@ -9,7 +9,7 @@ global:
     type: mysql # Opciones: mysql, oracle
     mysql:
       url: 
-      properties: # ?serverTimezone=UTC
+      properties: ?serverTimezone=UTC
     oracle:
       url:
       properties:

@@ -106,7 +106,7 @@ spec:
               subPath: tls.crt
           terminationMessagePolicy: File
           image: >-
-            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x:{{ .Chart.AppVersion }}
+            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x:{{ .Chart.AppVersion }}.{{ .Values.global.database.type }}
       serviceAccount: oh-module
       volumes:
         - name: ohsso-configmap-global
