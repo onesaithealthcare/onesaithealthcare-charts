@@ -1,35 +1,35 @@
 questions:
-  - variable: global.modules.ohsso
+  - variable: onesaithealthcare-ohsso-chart.enabled
     default: true
     description: "Enable OHSSO module"
     type: boolean
     required: true
 
-  - variable: global.modules.ohatn
+  - variable: onesaithealthcare-ohatn-chart.enabled
     default: true
     description: "Enable OHATN module"
     type: boolean
     required: true
 
-  - variable: global.modules.ohcon
+  - variable: onesaithealthcare-ohcon-chart.enabled
     default: true
     description: "Enable OHCON module"
     type: boolean
     required: true
 
-  - variable: global.modules.ohcat
+  - variable: onesaithealthcare-ohcat-chart.enabled
     default: true
     description: "Enable OHCAT module"
     type: boolean
     required: true
 
-  - variable: global.modules.ohaut
+  - variable: onesaithealthcare-ohaut-chart.enabled
     default: true
     description: "Enable OHAUT module"
     type: boolean
     required: true
 
-  - variable: global.modules.ohmpi
+  - variable: onesaithealthcare-ohmpi-chart.enabled
     default: true
     description: "Enable OHMPI module"
     type: boolean

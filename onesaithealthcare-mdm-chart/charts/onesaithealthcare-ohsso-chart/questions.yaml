@@ -1,9 +1,4 @@
 questions:
-  - variable: global.modules.ohsso
-    default: true
-    description: "Enable OHSSO"
-    type: boolean
-    required: true
 
   - variable: global.environment.type
     default: dev

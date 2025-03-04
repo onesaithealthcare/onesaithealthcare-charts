@@ -2,44 +2,69 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
+    "onesaithealthcare-ohsso-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHSSO chart"
+        }
+      }
+    },
+    "onesaithealthcare-ohatn-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHATN chart"
+        }
+      }
+    },
+    "onesaithealthcare-ohcon-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHCON chart"
+        }
+      }
+    },
+    "onesaithealthcare-ohcat-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHCAT chart"
+        }
+      }
+    },
+    "onesaithealthcare-ohaut-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHAUT chart"
+        }
+      }
+    },
+    "onesaithealthcare-ohmpi-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHMPI chart"
+        }
+      }
+    },
     "global": {
       "type": "object",
       "properties": {
-        "modules": {
-          "type": "object",
-          "properties": {
-            "ohsso": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHSSO module"
-            },
-            "ohatn": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHATN module"
-            },
-            "ohcon": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHCON module"
-            },
-            "ohcat": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHCAT module"
-            },
-            "ohaut": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHAUT module"
-            },
-            "ohmpi": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHMPI module"
-            }
-          }
-        },
         "environment": {
           "type": "object",
           "properties": {

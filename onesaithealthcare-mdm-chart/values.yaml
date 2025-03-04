@@ -1,11 +1,16 @@
+onesaithealthcare-ohsso-chart:
+  enabled: true
+onesaithealthcare-ohatn-chart:
+  enabled: true
+onesaithealthcare-ohcon-chart:
+  enabled: true
+onesaithealthcare-ohcat-chart:
+  enabled: true
+onesaithealthcare-ohaut-chart:
+  enabled: true
+onesaithealthcare-ohmpi-chart:
+  enabled: true
 global:
-  modules:
-    ohsso: true
-    ohatn: true
-    ohcon: true
-    ohcat: true
-    ohaut: true
-    ohmpi: true
   environment:
     type: dev # Opciones: dev, prod 
   domain:

@@ -5,16 +5,6 @@
     "global": {
       "type": "object",
       "properties": {
-        "modules": {
-          "type": "object",
-          "properties": {
-            "ohsso": {
-              "type": "boolean",
-              "default": true,
-              "description": "Enable OHSSO module"
-            }
-          }
-        },
         "environment": {
           "type": "object",
           "properties": {
