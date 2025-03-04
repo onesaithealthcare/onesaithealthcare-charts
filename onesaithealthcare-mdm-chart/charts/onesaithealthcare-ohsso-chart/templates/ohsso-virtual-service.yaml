@@ -1,4 +1,4 @@
-{{- if .Values.domain.istio }}
+{{- if .Values.global.domain.istio }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -7,7 +7,7 @@ spec:
   gateways:
     - oh-modules-gateway
   hosts:
-    - '{{ .Values.domain.host }}'
+    - '{{ .Values.global.domain.host }}'
   http:
     - fault:
         abort:
@@ -53,13 +53,13 @@ spec:
           - PUT
           - DELETE
         allowOrigin:
-          - 'https://{{ .Values.domain.host }}'
+          - 'https://{{ .Values.global.domain.host }}'
       headers:
         request:
           set:
-            X-Forwarded-Host: '{{ .Values.domain.host }}'
-            X-Forwarded-Port: '{{ if eq .Values.domain.protocol "http" }}80{{ else if eq .Values.domain.protocol "https" }}443{{ end }}'
-            X-Forwarded-Proto: {{ .Values.domain.protocol }}
+            X-Forwarded-Host: '{{ .Values.global.domain.host }}'
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
         response:
           set:
             Referrer-Policy: origin

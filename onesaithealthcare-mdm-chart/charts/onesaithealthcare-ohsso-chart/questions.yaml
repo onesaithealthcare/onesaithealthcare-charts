@@ -86,3 +86,18 @@ questions:
     type: string
     required: true
     show_if: "global.docker.use.default_oh_registry=false"
+
+  - variable: ohsso.db.adminpassword
+    description: "OHSSO initial adminpassword"
+    type: string
+    required: true
+
+  - variable: ohsso.db.user
+    description: "OHSSO db user"
+    type: string
+    required: true
+
+  - variable: ohsso.db.pass
+    description: "OHSSO db password"
+    type: string
+    required: true

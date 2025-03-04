@@ -19,4 +19,8 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
-      
+ohsso:
+  db:
+    adminpassword:
+    user: us_keycloak
+    pass: 

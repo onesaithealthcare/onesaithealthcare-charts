@@ -5,7 +5,7 @@ metadata:
 data:
   keycloak.conf: >
     # build
-    db={{ .Values.database.type }}
+    db={{ .Values.global.database.type }}
     http-enabled=true
     health-enabled=true
     http-relative-path=auth
@@ -19,13 +19,13 @@ data:
     hostname=${GENERAL_HOST}
     proxy=passthrough
     http-port=8080
-    {{- if eq .Values.database.type "mysql" }}
-    db-url={{ .Values.database.mysql.url }}:us_keycloak{{ .Values.database.mysql.properties }}
-    {{- else if eq .Values.database.type "oracle" }}
-    db-url={{ .Values.database.oracle.url }}{{ .Values.database.oracle.properties }}
+    {{- if eq .Values.global.database.type "mysql" }}
+    db-url={{ .Values.global.database.mysql.url }}:us_keycloak{{ .Values.global.database.mysql.properties }}
+    {{- else if eq .Values.global.database.type "oracle" }}
+    db-url={{ .Values.global.database.oracle.url }}{{ .Values.global.database.oracle.properties }}
     {{- end }}
-    db-username=us_keycloak
-    db-password=us_keycloak
+    db-username={{ .Values.ohsso.db.user }}
+    db-password={{ .Values.ohsso.db.pass }}
     log=console
     log-level=INFO,es.indra:INFO,com.minsait:INFO
     spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true
