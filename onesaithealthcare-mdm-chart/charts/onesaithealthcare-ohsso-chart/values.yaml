@@ -9,7 +9,7 @@ global:
     type: mysql # Opciones: mysql, oracle
     mysql:
       url: 
-      properties: ?serverTimezone=UTC
+      properties: # ?serverTimezone=UTC
     oracle:
       url:
       properties:
@@ -19,3 +19,4 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
+      
