@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: 'ohsso-configmap-realm-oh-base'
 data:
-  integration.properties: >
+  integration.properties: |-
     hnpob.fhir.url=http://ohmpi-back:8080/ispob/fhir/  
     hnaut.fhir.url=http://ohmpi-back:8080/hnaut/fhir/
     hncat.fhir.url=http://ohont-back:8080/hncat/fhir/
@@ -75,6 +75,6 @@ data:
     ohsso.provider.patient.behalf.light.role.code.replegal=REPLEG_BASICO
     ohsso.provider.patient.behalf.otp.role.code.cuidador=CUIDADOR_AVANZADO
     ohsso.provider.patient.behalf.otp.role.code.replegal=REPLEG_AVANZADO
-  password.properties: |
+  password.properties: |-
     keycloak.login.client_id=ohsso
     keycloak.login.client_secret=???

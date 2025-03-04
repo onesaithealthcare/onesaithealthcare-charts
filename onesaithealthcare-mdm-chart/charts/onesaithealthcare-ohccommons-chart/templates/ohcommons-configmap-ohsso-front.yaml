@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: hnhome-ohsso-front
 data:
-  keycloak.json: |
+  keycloak.json: |-
     {
       "realm" : "oh-base",
       "resource" : "hnrole",

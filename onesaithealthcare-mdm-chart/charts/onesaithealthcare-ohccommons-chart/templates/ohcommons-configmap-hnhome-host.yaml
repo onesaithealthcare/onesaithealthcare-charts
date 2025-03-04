@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: hnhome-host-props
 data:
-  host.properties: |
+  host.properties: |-
     general.protocol={{ .Values.global.domain.protocol }}
     
     general.hostname={{ .Values.global.domain.host }}

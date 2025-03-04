@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: hnhome-integration-props
 data:
-  integration.properties: |
+  integration.properties: |-
     hnaut.int.url=http://ohaut-back:8080/${hnaut.context}
     
     hncat.int.url=http://ohont-back:8080/${hncat.context}

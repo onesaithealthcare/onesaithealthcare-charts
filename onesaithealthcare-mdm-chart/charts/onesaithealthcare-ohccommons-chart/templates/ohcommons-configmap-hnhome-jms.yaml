@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: hnhome-jms-props
 data:
-  jms.properties: |
+  jms.properties: |-
     # Configuración broker
     
     activemq.broker.url=tcp://{{ .Values.global.domain.host }}:61616

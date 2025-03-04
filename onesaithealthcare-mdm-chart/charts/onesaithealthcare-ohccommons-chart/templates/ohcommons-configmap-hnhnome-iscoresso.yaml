@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: hnhome-iscore-sso-props
 data:
-  sso.properties: |
+  sso.properties: |-
     application.url=${${component.name}.url}
     
     general.url=${general.protocol}://${general.hostname}

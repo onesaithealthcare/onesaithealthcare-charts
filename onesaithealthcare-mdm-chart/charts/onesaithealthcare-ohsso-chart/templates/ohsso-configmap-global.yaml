@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: 'ohsso-configmap-global'
 data:
-  keycloak.conf: >
+  keycloak.conf: |-
     # build
     db={{ .Values.global.database.type }}
     http-enabled=true
