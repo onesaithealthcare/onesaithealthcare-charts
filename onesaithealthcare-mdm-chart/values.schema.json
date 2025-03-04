@@ -29,11 +29,6 @@
                   "type": "string",
                   "description": "OHSSO db password"
                 }
-              },
-              "dependencies": {
-                "adminpassword": ["enabled"],
-                "user": ["enabled"],
-                "pass": ["enabled"]
               }
             }
           }
