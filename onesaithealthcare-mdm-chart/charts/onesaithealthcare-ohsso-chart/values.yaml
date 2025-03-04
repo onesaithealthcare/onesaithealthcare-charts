@@ -1,3 +1,8 @@
+ohsso:
+  db:
+    adminpassword:
+    user: us_keycloak
+    pass: 
 global:
   environment:
     type: dev # Opciones: dev, prod 
@@ -19,8 +24,3 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
-ohsso:
-  db:
-    adminpassword:
-    user: us_keycloak
-    pass: 
