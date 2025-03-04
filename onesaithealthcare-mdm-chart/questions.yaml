@@ -121,3 +121,19 @@ questions:
     type: string
     required: true
     show_if: "global.docker.use.default_oh_registry=false"
+    
+  - variable: onesaithealthcare-ohsso-chart.ohsso.db.adminpassword
+    description: "OHSSO initial adminpassword"
+    type: string
+    required: true
+
+  - variable: onesaithealthcare-ohsso-chart.ohsso.db.user
+    description: "OHSSO db user"
+    type: string
+    required: true
+
+  - variable: onesaithealthcare-ohsso-chart.ohsso.db.pass
+    description: "OHSSO db password"
+    type: string
+    required: true
+    
