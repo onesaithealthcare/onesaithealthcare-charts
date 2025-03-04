@@ -1,7 +1,5 @@
 onesaithealthcare-ohsso-chart:
   enabled: true
-onesaithealthcare-ohatn-chart:
-  enabled: true
 onesaithealthcare-ohcon-chart:
   enabled: true
 onesaithealthcare-ohcat-chart:
@@ -31,3 +29,9 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
+onesaithealthcare-ohsso-chart:
+  ohsso:
+    db:
+      adminpassword:
+      user: us_keycloak
+      pass: 
