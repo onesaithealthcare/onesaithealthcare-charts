@@ -53,48 +53,63 @@ Este Chart instala los módulos de Command Center.
 curl --location --request PUT 'https://<host_entorno>/restheart/cmc_alerts_alert_module' \
 --header 'Content-Type: application/json' \
 --data '{
-    "streams" : [
-      { "stages" : [
-          { "_$ifvar" : [ "typeCode" , { "_$match" :{ "fullDocument.type.code" : { "$var" : "typeCode" } } } ] },
-          { "_$ifvar" : [ "categoryCode" , { "_$match" :{ "fullDocument.category.code" : { "$var" :"categoryCode" } } } ] },
-          { "_$ifvar" : [ "entityType" , { "_$match" :{ "fullDocument.entity.type.code" : { "$var" : "entityType" } } } ] },
-          { "_$ifvar" : [ "entityId" , { "_$match" :{ "fullDocument.entityId" : { "$var" : "entityId" } } } ] },
-          { "_$ifvar" : [ "value" , { "_$match" :{ "fullDocument.value" : { "$var" : "value" } } } ] },
-          { "_$ifvar" : [ "text" , { "_$match" :{ "fullDocument.text" : { "$var" : "text" } } } ] },
-          { "_$ifvar" : [ "priority" , { "_$match" :{ "fullDocument.priority" : { "$var" : "priority" } } } ] },
-          { "_$ifvar" : [ "status" , { "_$match" :{ "fullDocument.status" : { "$var" : "status" } } } ] },
-          { "_$ifvar" : [ "trend" , { "_$match" :{ "fullDocument.trendIndication" : { "$var" : "trendIndication" } } } ] },
-          { "_$ifvar" : [ "count" , { "_$match" :{ "fullDocument.count" : { "$var" : "count" } } } ] },
-          { "_$ifvar" : [ "eventId" , { "_$match" :{ "fullDocument.event.id" : { "$var" :"eventId" } } } ] },
-          { "_$ifvar" : [ "eventTypeCode" , { "_$match" :{ "fullDocument.event.type.code" : { "$var" :"eventTypeCode" } } } ] },
-          { "_$ifvar" : [ "eventCategoryCode" , { "_$match" :{ "fullDocument.event.category.code" : { "$var" :"eventCategoryCode" } } } ] },
-          { "_$ifvar" : [ "ruleId" , { "_$match" :{ "fullDocument.rule.id" : { "$var" :"ruleId" } } } ] },
-          { "_$ifvar" : [ "ruleName" , { "_$match" :{ "fullDocument.rule.name" : { "$var" :"ruleName" } } } ] }
-        ],
-        "uri" : "filter"
-      },
-	  {
-        "stages": [
-          {
-            "_$match": {
-              "_$or": [
-                {
-                  "operationType": "insert"
-                },
-                {
-                  "operationType": "update"
-                },
-                {
-                  "operationType": "replace"
-                }
+      "streams": [
+        {
+          "stages": [
+            { "_$ifvar": [ "typeCode", { "_$match": { "fullDocument.type.code": { "$var": "typeCode" } } } ] },
+            { "_$ifvar": [ "categoryCode", { "_$match": { "fullDocument.category.code": { "$var": "categoryCode" } } } ] },
+            { "_$ifvar": [ "entityId", { "_$match": { "fullDocument.entityReference._id": { "$var": "entityId" } } } ] },
+            {
+              "_$ifvar": [
+                "priorityCode",
+                { "_$match": { "fullDocument.priority.code": { "$in": { "$var": "priorityCode" } } } }
+              ]
+            },
+            {
+              "_$ifvar": [
+                "priorityDisplay",
+                { "_$match": { "fullDocument.priority.display": { "$in": { "$var": "priorityDisplay" } } } }
+              ]
+            },
+            { "_$ifvar": [ "text", { "_$match": { "fullDocument.text": { "$var": "text" } } } ] },
+            { "_$ifvar": [ "trend", { "_$match": { "fullDocument.trendIndication": { "$var": "trend" } } } ] },
+            {
+              "_$ifvar": [
+                "status",
+                { "_$match": { "fullDocument.status": { "$in": { "$var": "status" } } } }
+              ]
+            },
+            {
+              "_$ifvar": [
+                "startDate",
+                { "_$match": { "fullDocument.created": { "$gte": { "$var": "startDate" } } } }
+              ]
+            },
+            {
+              "_$ifvar": [
+                "endDate",
+                { "_$match": { "fullDocument.created": { "$lte": { "$var": "endDate" } } } }
               ]
             }
-          }
-        ],
-        "uri": "all"
-      }
-    ]
-}'
+          ],
+          "uri": "filter"
+        },
+        {
+          "stages": [
+            {
+              "_$match": {
+                "_$or": [
+                  { "operationType": "insert" },
+                  { "operationType": "update" },
+                  { "operationType": "replace" }
+                ]
+              }
+            }
+          ],
+          "uri": "all"
+        }
+      ]
+    }'
    ```
 
 3. Importar las propiedades de HNCONF del fichero: OHCON_OHCMC_properties.csv
