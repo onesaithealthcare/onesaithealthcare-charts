@@ -47,10 +47,10 @@ data:
         <logger name="org.springframework" level="WARN" />
         <logger name="org.hibernate" level="WARN" />
 
-        <logger name="org.thingsboard.rule.engine.action" level="{{ if eq .Values.environment.type "dev" }}DEBUG{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
-        <logger name="com.minsait" level="{{ if eq .Values.environment.type "dev" }}DEBUG{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
-        <logger name="es.indra" level="{{ if eq .Values.environment.type "dev" }}DEBUG{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
-        <logger name="org.thingsboard.server.common.transport.service" level="{{ if eq .Values.environment.type "dev" }}DEBUG{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
+        <logger name="org.thingsboard.rule.engine.action" level="{{ if eq .Values.environment.type "dev" }}INFO{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
+        <logger name="com.minsait" level="{{ if eq .Values.environment.type "dev" }}INFO{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
+        <logger name="es.indra" level="{{ if eq .Values.environment.type "dev" }}INFO{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
+        <logger name="org.thingsboard.server.common.transport.service" level="{{ if eq .Values.environment.type "dev" }}INFO{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}" />
 
         <root level="{{ if eq .Values.environment.type "dev" }}INFO{{ else if eq .Values.environment.type "prod" }}ERROR{{ end}}">
             <!-- appender-ref ref="fileLogAppender"/ -->
