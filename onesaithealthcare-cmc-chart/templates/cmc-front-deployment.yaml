@@ -83,7 +83,7 @@ spec:
               name: ohsso-lib
               readOnly: true
               subPath: ohsso-lib.js
-            - name: ohsso-lib-dashboard
+            - name: ohsso-lib
               readOnly: true
               mountPath: /usr/share/nginx/html/ohcmc-dashboard/ohsso-lib.js
               subPath: ohsso-lib.js
