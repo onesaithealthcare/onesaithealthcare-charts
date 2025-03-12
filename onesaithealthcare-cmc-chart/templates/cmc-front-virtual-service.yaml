@@ -11,7 +11,7 @@ spec:
   http:
     - match:
         - uri:
-            prefix: /ohcmc-thingsboard/api/
+            prefix: /ohcmc-dashboard/api/
       rewrite:
         uri: /api/
       route:
@@ -25,28 +25,28 @@ spec:
             Cache-Control: public, max-age=31536000
       match:
         - uri:
-            regex: \/ohcmc-thingsboard\/(.*)\.js
+            regex: \/ohcmc-dashboard\/(.*)\.js
       route:
         - destination:
-            host: ohcmc-rulechain-front
+            host: ohcmc-front
             port:
               number: 8080
     - match:
         - uri:
-            prefix: /ohcmc-thingsboard/
+            prefix: /ohcmc-dashboard/
       route:
         - destination:
-            host: ohcmc-rulechain-front
+            host: ohcmc-front
             port:
               number: 8080
     - match:
         - uri:
-            prefix: /ohcmc-thingsboard
+            prefix: /ohcmc-dashboard
       rewrite:
-        uri: /ohcmc-thingsboard/
+        uri: /ohcmc-dashboard/
       route:
         - destination:
-            host: ohcmc-rulechain-front
+            host: ohcmc-front
             port:
               number: 8080
     - match:

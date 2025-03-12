@@ -64,10 +64,17 @@ spec:
             - mountPath: /usr/share/nginx/html/ohcmc/assets/config
               name: ohcmc-front-cfg
               readOnly: true
+            - mountPath: /usr/share/nginx/html/ohcmc-dashboard/assets/config
+              name: ohcmc-dashboard-front-cfg
+              readOnly: true
             - mountPath: /usr/share/nginx/html/ohcmc/keycloak.json
-              name: hnhome-ohsso-front
+              name: ohcmc-front-keycloak-cfg
               readOnly: true
               subPath: keycloak.json
+            - name: ohcmc-dashboard-keycloak-cfg
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohcmc-dashboard/keycloak.json
+              subPath: keycloak.json                
             - mountPath: /etc/nginx/nginx.conf
               name: nginx-front-cfg
               readOnly: true
@@ -76,6 +83,12 @@ spec:
               name: ohsso-lib
               readOnly: true
               subPath: ohsso-lib.js
+            - name: ohsso-lib-dashboard
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohcmc-dashboard/ohsso-lib.js
+              subPath: ohsso-lib.js
+              
+              
       dnsPolicy: ClusterFirst
       imagePullSecrets:
         - name: 'oh-docker-creds'
@@ -90,10 +103,17 @@ spec:
             defaultMode: 420
             name: ohcmc-front-cfg
           name: ohcmc-front-cfg
+        - name: ohcmc-dashboard-front-cfg
+          configMap:
+            name: ohcmc-dashboard-front-cfg
         - configMap:
             defaultMode: 420
-            name: hnhome-ohsso-front
-          name: hnhome-ohsso-front
+            name: ohcmc-front-keycloak-cfg
+          name: ohcmc-front-keycloak-cfg
+        - name: ohcmc-dashboard-keycloak-cfg
+          configMap:
+            name: ohcmc-front-keycloak-cfg
+            defaultMode: 420
         - configMap:
             defaultMode: 420
             name: nginx-front-cfg
