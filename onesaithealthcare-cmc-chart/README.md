@@ -4,7 +4,8 @@ Este Chart instala los módulos de Command Center.
 
 ## Prerrequisitos
 
-- Se debe haber instalado y configurado previamente el chart MDM (onesaithealthcare-mdm-chart).  
+- Se debe haber instalado y configurado previamente el chart MDM (onesaithealthcare-mdm-chart), la instalación de CMC
+  debe realizarse en el mismo namespace donde se encuentre desplegado MDM.
 
 - Se debe disponer del los siguientes recursos instalados así como sus datos de conexión:
 * BD MongoDB con al menos 3 nodos configurados en modo ReplicaSet.
@@ -21,11 +22,27 @@ Este Chart instala los módulos de Command Center.
 
 ## Operaciones pre instalación
 
-1. Si se va a usar un docker registry distinto al de Onesait Healthcare se debe crear un Secret oh-docker-creds (si no se encuentra ya creado) con las credenciales del repositorio de imágenes docker.  Si se va a usar el repositorio de Onesait Healthcare no es necesario crearlo ya que en este caso lo creará la instalación.
+1. Crear un Secret oh-docker-creds (si no se encuentra ya creado) con las credenciales del repositorio de imágenes docker.
 
-2. Crear el esquema y modelo de datos sobre la BD PostgreSQL usando los scripts proporcionados.
+2. Crear el esquema y modelo de datos sobre la BD PostgreSQL usando los scripts proporcionados (ejecutar el lanzador .sh desde una máquina con el cliente psql).
 
 3. Crear un usuario Kafka (si no se dispone ya del mismo) para rule_engine con los permisos necesarios para toods los topics del cluster.
+
+4. Crear la BD mongo:
+   - conectar a mongo
+   - use <nombre_db_mongo>
+   - db.test.insertOne({"test":"test"})
+   
+5. Acceder a la consola de administración de OHSSO y realizar los siguientes pasos:
+- Importar el client ruleengine-client.json.
+- Una vez importado acceder a la configuración del mismo y revisar las redirectUris.
+- Acceder a User Federation -> hn-provider, y en included clients añadir "ruleengine".
+
+6. Importar las propiedades de HNCONF del fichero: OHCON_OHCMC_properties.csv
+
+7. Importar los catálogs de HNCAT: cmc-alert-type.json, cmc-alert-priority.json, cmc-alert-status.json, cmc-alert-owner.json
+
+
 
 
 ## Instalación
@@ -43,12 +60,7 @@ Este Chart instala los módulos de Command Center.
 
 ## Operaciones post instalación
 
-1. Acceder a la consola de administración de OHSSO y realizar los siguientes pasos:
-- Importar el client ruleengine-client.json.
-- Una vez importado acceder a la configuración del mismo y revisar las redirectUris.
-- Acceder a User Federation -> hn-provider, y en included clients añadir "ruleengine".
-
-2. Lanzar la siguiente petición (sustituir host_entorno por el valor correspondiente para el entorno):
+1. Lanzar la siguiente petición (sustituir host_entorno por el valor correspondiente para el entorno):
    ```sh
 curl --location --request PUT 'https://<host_entorno>/restheart/cmc_alerts_alert_module' \
 --header 'Content-Type: application/json' \
@@ -112,10 +124,8 @@ curl --location --request PUT 'https://<host_entorno>/restheart/cmc_alerts_alert
     }'
    ```
 
-3. Importar las propiedades de HNCONF del fichero: OHCON_OHCMC_properties.csv
-
-4. Importar los catálogs de HNCAT: cmc-alert-type.json, cmc-alert-priority.json, cmc-alert-status.json, cmc-alert-owner.json
-
+2. Una vez hayan arrancado correctamente todos los Pods, verificar la instalación accediendo a la url:
+https://<dominio_entorno>/ohcmc
 
 
 
