@@ -11,7 +11,7 @@ spec:
     name: prometheus-server
     weight: 100
   port:
-    targetPort: web
+    targetPort: http
   tls:
     termination: reencrypt
   wildcardPolicy: None
