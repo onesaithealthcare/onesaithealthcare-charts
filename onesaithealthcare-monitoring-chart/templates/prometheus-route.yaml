@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: prometheus
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  host: testtemplate-prometheus.apps.lab.openshift.com
+  to:
+    kind: Service
+    name: prometheus-server
+    weight: 100
+  port:
+    targetPort: web
+  tls:
+    termination: reencrypt
+  wildcardPolicy: None

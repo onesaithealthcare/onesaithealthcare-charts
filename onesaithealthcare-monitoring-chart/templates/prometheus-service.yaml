@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: prometheus-server
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9090
+      targetPort: web
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    prometheus: oh-prometheus
+

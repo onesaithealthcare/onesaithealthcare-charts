@@ -1,0 +1,10 @@
+global:
+  environment:
+    type: dev # dev or prod
+  prometheus:
+    persistence:
+      enabled: true
+      size: 50Gi
+      storageclass: sc-oh-prometheus
+    
+  

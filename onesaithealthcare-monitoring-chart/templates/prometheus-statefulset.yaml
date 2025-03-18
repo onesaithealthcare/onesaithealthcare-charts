@@ -1,0 +1,188 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    prometheus: oh-prometheus
+  name: oh-prometheus
+spec:
+  serviceName: oh-prometheus-headless
+  selector:
+    matchLabels:
+      prometheus: oh-prometheus
+  replicas: {{ if eq .Values.global.environment.type "dev" }}1{{ else if eq .Values.global.environment.type "prod" }}2{{ end}}
+  revisionHistoryLimit: 10
+  podManagementPolicy: Parallel
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: prometheus
+      labels:
+        prometheus: oh-prometheus
+    spec:
+      schedulerName: default-scheduler
+      serviceAccountName: oh-prometheus
+      automountServiceAccountToken: true
+      containers:
+        - name: oh-prometheus-config-reloader
+          image: quay.io/prometheus-operator/prometheus-config-reloader:v0.80.1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          args:
+            - --watched-dir=/etc/config
+            - --reload-url=http://127.0.0.1:9090/-/reload
+            - --listen-address=0.0.0.0:8080
+          env:
+            - name: APPNAME
+              value: "prometheus-config-reloader"
+          ports:
+            - containerPort: 8080
+              name: metrics
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+              scheme: HTTP
+            periodSeconds: 10
+            initialDelaySeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+              scheme: HTTP
+            periodSeconds: 10
+          startupProbe:
+            enabled: false
+            httpGet:
+              path: /healthz
+              port: metrics
+              scheme: HTTP
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 100m
+              memory: 50Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true
+        - name: oh-prometheus-server
+          image: quay.io/prometheus/prometheus:v3.2.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: APPNAME
+              value: prometheus
+          args:
+            - --web.route-prefix=/prometheus
+            - --storage.tsdb.retention.time=7d
+            - --storage.tsdb.path=/prometheus
+            - --web.console.libraries=/etc/prometheus/console_libraries
+            - --web.console.templates=/etc/prometheus/consoles
+            - --web.enable-lifecycle
+            - --query.timeout=1m
+            - --query.max-concurrency=15
+          ports:
+            - containerPort: 9090
+              name: web
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /prometheus/-/ready
+              port: 9090
+              scheme: HTTP
+              httpHeaders:
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 4
+            failureThreshold: 3
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /prometheus/-/healthy
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+          startupProbe:
+            httpGet:
+              path: /prometheus/-/healthy
+              port: 9090
+              scheme: HTTP
+            failureThreshold: 30
+            periodSeconds: 5
+            timeoutSeconds: 10
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 210Mi
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+            - name: storage-volume
+              mountPath: /data
+
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+      hostNetwork: false
+      dnsPolicy: ClusterFirst
+      securityContext:
+        capabilities:
+          drop:
+            - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - oh-prometheus
+
+      terminationGracePeriodSeconds: 300
+      volumes:
+        - name: config-volume
+          configMap:
+            name: oh-prometheus-config
+{{- if .Values.global.prometheus.persistence.enabled }}
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: storage-volume
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: "{{ .Values.global.prometheus.persistence.size }}"
+        storageClassName: "{{ .Values.global.prometheus.persistence.storageclass }}"
+        volumeMode: Filesystem
+{{- else }}
+        - name: storage-volume
+          emptyDir:
+            sizeLimit: 2Gi
+{{- end }}
