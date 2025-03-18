@@ -163,7 +163,7 @@ data:
         - job
         target_label: environment
         regex: .*
-        replacement: openshift-oh-modules
+        replacement: ohmodules
         action: replace
       - source_labels:
         - job
