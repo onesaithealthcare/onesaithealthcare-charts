@@ -141,7 +141,7 @@ spec:
           configMap:
             name: oh-prometheus-config
             defaultMode: 420
-{{- if NOT .Values.global.prometheus.persistence.enabled }}
+{{- if not .Values.global.prometheus.persistence.enabled }}
         - name: storage-volume
           emptyDir:
             sizeLimit: 2Gi
