@@ -108,6 +108,7 @@ data:
       relabel_configs:
       - source_labels:
         - job
+        regex: (.*)
         target_label: __tmp_prometheus_job_name
       - action: keep
         source_labels:
@@ -133,30 +134,37 @@ data:
         target_label: pod
       - source_labels:
         - __meta_kubernetes_namespace
+        regex: (.*)
         target_label: namespace
       - source_labels:
         - __meta_kubernetes_service_name
+        regex: (.*)
         target_label: service
       - source_labels:
         - __meta_kubernetes_pod_name
+        regex: (.*)
         target_label: pod
       - source_labels:
         - __meta_kubernetes_pod_container_name
+        regex: (.*)
         target_label: container
       - source_labels:
         - __meta_kubernetes_service_name
+        regex: (.*)
         target_label: job
         replacement: ${1}
       - target_label: endpoint
+        regex: (.*)
         replacement: prom
       - source_labels:
         - __address__
+        regex: (.*)
         target_label: __tmp_hash
         modulus: 1
         action: hashmod
       - source_labels:
         - __tmp_hash
-        regex: $(SHARD)
+        regex: "0"
         action: keep
       metric_relabel_configs:
       - source_labels:
@@ -185,6 +193,7 @@ data:
       relabel_configs:
       - source_labels:
         - job
+        regex: (.*)
         target_label: __tmp_prometheus_job_name
       - action: keep
         source_labels:
@@ -211,37 +220,44 @@ data:
         target_label: pod
       - source_labels:
         - __meta_kubernetes_namespace
+        regex: (.*)
         target_label: namespace
       - source_labels:
         - __meta_kubernetes_service_name
+        regex: (.*)
         target_label: service
       - source_labels:
         - __meta_kubernetes_pod_name
+        regex: (.*)
         target_label: pod
       - source_labels:
         - __meta_kubernetes_pod_container_name
+        regex: (.*)
         target_label: container
       - source_labels:
         - __meta_kubernetes_service_name
+        regex: (.*)
         target_label: job
         replacement: ${1}
       - target_label: endpoint
+        regex: (.*)
         replacement: http
       - source_labels:
         - __address__
+        regex: (.*)
         target_label: __tmp_hash
         modulus: 1
         action: hashmod
       - source_labels:
         - __tmp_hash
-        regex: $(SHARD)
+        regex: "0"
         action: keep
       metric_relabel_configs:
       - source_labels:
         - endpoint
         target_label: ohsso_server
         regex: .*
-        replacement: ohsso-{{ .Release.Namespace }}
+        replacement: ohsso-testtemplate
         action: replace
       - source_labels:
         - job
