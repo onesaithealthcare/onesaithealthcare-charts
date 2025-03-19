@@ -141,6 +141,11 @@ spec:
           configMap:
             name: oh-prometheus-config
             defaultMode: 420
+{{- if NOT .Values.global.prometheus.persistence.enabled }}
+        - name: storage-volume
+          emptyDir:
+            sizeLimit: 2Gi
+{{- end }}
       dnsPolicy: ClusterFirst
 {{- if .Values.global.prometheus.persistence.enabled }}
   volumeClaimTemplates:
@@ -156,10 +161,6 @@ spec:
             storage: "{{ .Values.global.prometheus.persistence.size }}"
         storageClassName: "{{ .Values.global.prometheus.persistence.storageclass }}"
         volumeMode: Filesystem
-{{- else }}
-        - name: storage-volume
-          emptyDir:
-            sizeLimit: 2Gi
 {{- end }}
   serviceName: prometheus-server
   podManagementPolicy: OrderedReady
