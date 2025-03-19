@@ -6,10 +6,10 @@ spec:
   ipFamilies:
     - IPv4
   ports:
-    - name: http
+    - name: web
       protocol: TCP
       port: 9090
-      targetPort: http
+      targetPort: web
   internalTrafficPolicy: Cluster
   type: ClusterIP
   ipFamilyPolicy: SingleStack

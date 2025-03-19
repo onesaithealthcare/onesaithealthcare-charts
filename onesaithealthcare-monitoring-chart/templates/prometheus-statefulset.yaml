@@ -109,7 +109,7 @@ spec:
           ports:
             - containerPort: 9090
               protocol: TCP
-              name: http
+              name: web
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-volume
