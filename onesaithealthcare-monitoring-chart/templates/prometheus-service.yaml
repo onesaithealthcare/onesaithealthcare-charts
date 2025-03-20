@@ -10,6 +10,10 @@ spec:
       protocol: TCP
       port: 9090
       targetPort: web
+    - name: proxy
+      protocol: TCP
+      port: 9091
+      targetPort: proxy  
   internalTrafficPolicy: Cluster
   type: ClusterIP
   ipFamilyPolicy: SingleStack

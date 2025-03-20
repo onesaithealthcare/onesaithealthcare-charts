@@ -5,7 +5,7 @@ metadata:
   labels:
     prometheus: oh-prometheus
 spec:
-  replicas: {{ if eq .Values.global.environment.type "dev" }}1{{ else if eq .Values.global.environment.type "prod" }}2{{ end}}
+  replicas: {{ .Values.prometheus.replicas }}
   selector:
     matchLabels:
       prometheus: oh-prometheus
@@ -30,7 +30,7 @@ spec:
               cpu: 100m
               memory: 50Mi
             requests:
-              cpu: 100m
+              cpu: 50m
               memory: 50Mi
           readinessProbe:
             httpGet:
@@ -72,7 +72,7 @@ spec:
               readOnly: true
               mountPath: /etc/config
           terminationMessagePolicy: File
-          image: quay.io/prometheus-operator/prometheus-config-reloader:v0.80.1
+          image: quay.io/prometheus-operator/prometheus-config-reloader:{{ .Values.prometheus.config-reloader-version }}
           args:
             - --watched-dir=/etc/config
             - --listen-address=0.0.0.0:8080
@@ -117,7 +117,7 @@ spec:
             - name: storage-volume
               mountPath: /data
           terminationMessagePolicy: File
-          image: quay.io/prometheus/prometheus:v3.2.1
+          image: quay.io/prometheus/prometheus:{{ .Values.prometheus.prometheus-version }}
           args:
             - --storage.tsdb.retention.time=7d
             - --config.file=/etc/config/prometheus.yml
@@ -125,6 +125,35 @@ spec:
             - --web.console.libraries=/etc/prometheus/console_libraries
             - --web.console.templates=/etc/prometheus/consoles
             - --web.enable-lifecycle
+{{- if .Values.prometheus.persistence.enabled }}            
+        - resources:
+            limits:
+              cpu: 60m
+              memory: 256Mi
+            requests:
+              cpu: 25m
+              memory: 128Mi
+          image: quay.io/oauth2-proxy/oauth2-proxy:{{ .Values.prometheus.ohsso.oauth2-proxy-version }}
+          ports:
+            - name: proxy
+              containerPort: 9091
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          name: oauth2-proxy
+          args:
+        args:
+        - --provider=oidc
+        - --oidc-issuer-url={{ .Values.prometheus.ohsso.url }}
+        - --client-id={{ .Values.prometheus.ohsso.client-id }}
+        - --client-secret={{ .Values.prometheus.ohsso.client-secret }}
+        - --redirect-url=https://{{ .Values.prometheus.host }}/oauth2/callback
+        - --cookie-secret=<random-cookie-secret>
+        - --cookie-secure=true
+        - --cookie-samesite=lax
+        - --upstream=http://localhost:9090
+        - --http-address=0.0.0.0:4180
+        - --email-domain=*          
+{{- end }}        
       serviceAccount: oh-prometheus          
       affinity:
         podAntiAffinity:
@@ -141,13 +170,13 @@ spec:
           configMap:
             name: oh-prometheus-config
             defaultMode: 420
-{{- if not .Values.global.prometheus.persistence.enabled }}
+{{- if not .Values.prometheus.persistence.enabled }}
         - name: storage-volume
           emptyDir:
             sizeLimit: 2Gi
 {{- end }}
       dnsPolicy: ClusterFirst
-{{- if .Values.global.prometheus.persistence.enabled }}
+{{- if .Values.prometheus.persistence.enabled }}
   volumeClaimTemplates:
     - kind: PersistentVolumeClaim
       apiVersion: v1
@@ -158,8 +187,8 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: "{{ .Values.global.prometheus.persistence.size }}"
-        storageClassName: "{{ .Values.global.prometheus.persistence.storageclass }}"
+            storage: "{{ .Values.prometheus.persistence.size }}"
+        storageClassName: "{{ .Values.prometheus.persistence.storageclass }}"
         volumeMode: Filesystem
 {{- end }}
   serviceName: prometheus-server

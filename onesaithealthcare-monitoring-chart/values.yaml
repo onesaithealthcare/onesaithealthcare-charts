@@ -1,10 +1,17 @@
-global:
-  environment:
-    type: dev # dev or prod
-  prometheus:
-    persistence:
-      enabled: true
-      size: 50Gi
-      storageclass: sc-oh-prometheus
+prometheus:
+  replicas: 1
+  host: testtemplate-prometheus.apps.lab.openshift.com
+  config-reloader-version: v0.80.1
+  prometheus-version: v3.2.1
+  persistence:
+    enabled: true
+    size: 50Gi
+    storageclass: 
+  ohsso:
+    enabled: true
+    oauth2-proxy-version: v7.1.2
+    url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev/protocol/openid-connect/auth
+    client-id: grafana
+    client-secret: M7YRJSeUb4LRKF4jtL8iUMDBkHRueKUY
     
-  
+    

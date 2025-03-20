@@ -5,13 +5,13 @@ metadata:
   annotations:
     openshift.io/host.generated: 'true'
 spec:
-  host: testtemplate-prometheus.apps.lab.openshift.com
+  host: {{ .Values.prometheus.host }}
   to:
     kind: Service
     name: prometheus-server
     weight: 100
   port:
-    targetPort: web
+    targetPort: proxy
   tls:
     termination: edge
   wildcardPolicy: None
