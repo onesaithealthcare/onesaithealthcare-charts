@@ -72,7 +72,7 @@ spec:
               readOnly: true
               mountPath: /etc/config
           terminationMessagePolicy: File
-          image: quay.io/prometheus-operator/prometheus-config-reloader:{{ .Values.prometheus.config-reloader-version }}
+          image: quay.io/prometheus-operator/prometheus-config-reloader:{{ .Values.prometheus.config_reloader_version }}
           args:
             - --watched-dir=/etc/config
             - --listen-address=0.0.0.0:8080
@@ -117,7 +117,7 @@ spec:
             - name: storage-volume
               mountPath: /data
           terminationMessagePolicy: File
-          image: quay.io/prometheus/prometheus:{{ .Values.prometheus.prometheus-version }}
+          image: quay.io/prometheus/prometheus:{{ .Values.prometheus.prometheus_version }}
           args:
             - --storage.tsdb.retention.time=7d
             - --config.file=/etc/config/prometheus.yml
@@ -133,7 +133,7 @@ spec:
             requests:
               cpu: 25m
               memory: 128Mi
-          image: quay.io/oauth2-proxy/oauth2-proxy:{{ .Values.prometheus.ohsso.oauth2-proxy-version }}
+          image: quay.io/oauth2-proxy/oauth2-proxy:{{ .Values.prometheus.ohsso.oauth2_proxy_version }}
           ports:
             - name: proxy
               containerPort: 9091
@@ -144,8 +144,8 @@ spec:
         args:
         - --provider=oidc
         - --oidc-issuer-url={{ .Values.prometheus.ohsso.url }}
-        - --client-id={{ .Values.prometheus.ohsso.client-id }}
-        - --client-secret={{ .Values.prometheus.ohsso.client-secret }}
+        - --client-id={{ .Values.prometheus.ohsso.client_id }}
+        - --client-secret={{ .Values.prometheus.ohsso.client_secret }}
         - --redirect-url=https://{{ .Values.prometheus.host }}/oauth2/callback
         - --cookie-secret=<random-cookie-secret>
         - --cookie-secure=true

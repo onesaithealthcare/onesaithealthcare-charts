@@ -1,17 +1,17 @@
 prometheus:
   replicas: 1
   host: testtemplate-prometheus.apps.lab.openshift.com
-  config-reloader-version: v0.80.1
-  prometheus-version: v3.2.1
+  config_reloader_version: v0.80.1
+  prometheus_version: v3.2.1
   persistence:
-    enabled: true
+    enabled: false
     size: 50Gi
     storageclass: 
   ohsso:
     enabled: true
-    oauth2-proxy-version: v7.1.2
+    oauth2_proxy_version: v7.1.2
     url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev/protocol/openid-connect/auth
-    client-id: grafana
-    client-secret: M7YRJSeUb4LRKF4jtL8iUMDBkHRueKUY
+    client_id: grafana
+    client_secret: M7YRJSeUb4LRKF4jtL8iUMDBkHRueKUY
     
     
