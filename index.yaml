@@ -3,7 +3,7 @@ entries:
   onesaithealthcare-cmc-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-03-20T10:22:55.5804697+01:00"
+    created: "2025-03-20T15:13:17.5664873+01:00"
     description: Onesait Healthcare CMC chart for k8s
     digest: 564180e647cb63c3ab61c639695d5f655eef8ab63cc2f0f592bf1abfad4867f0
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -23,7 +23,7 @@ entries:
   onesaithealthcare-mdm-chart:
   - apiVersion: v2
     appVersion: 4.10.0
-    created: "2025-03-20T10:22:55.584041+01:00"
+    created: "2025-03-20T15:13:17.5717292+01:00"
     dependencies:
     - name: onesaithealthcare-ohccommons-chart
       repository: file://charts/onesaithealthcare-ohccommons-chart
@@ -32,7 +32,7 @@ entries:
       repository: file://charts/onesaithealthcare-ohsso-chart
       version: 4.8.0
     description: Onesait Healthcare MDM chart for k8s
-    digest: 0430c56629d927b0c32fdf73f2884602a2a9cd3f69d983578d64b05eb3ffd4b4
+    digest: 2f822ba6398d966f8f88fbcc78c8c969207e8bc1ae3881ad57cd3623a979e52e
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -50,9 +50,9 @@ entries:
   onesaithealthcare-monitoring-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-03-20T10:22:55.5874048+01:00"
+    created: "2025-03-20T15:13:17.575718+01:00"
     description: Onesait Healthcare Monitoring chart for k8s
-    digest: 2024f8d8f939b1a940c2d448d2d7b7758d4670c3cd728e38126dd4f3208a0c2e
+    digest: 783de232b76c114373df67973736e55e3f68eae3c7a3dd3af6b97d8c8b16ef15
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -67,4 +67,4 @@ entries:
     urls:
     - onesaithealthcare-monitoring-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-03-20T10:22:55.5768942+01:00"
+generated: "2025-03-20T15:13:17.5205812+01:00"

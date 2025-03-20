@@ -36,13 +36,14 @@ data:
       - role: endpoints
         namespaces:
           names:
-          - oh-kafka
+          - {{ .Values.prometheus.kafka_namespace }}
       scrape_interval: 30s
       metrics_path: /metrics
       scheme: http
       relabel_configs:
       - source_labels:
         - job
+        regex: (.*)
         target_label: __tmp_prometheus_job_name
       - action: keep
         source_labels:
@@ -68,30 +69,37 @@ data:
         target_label: pod
       - source_labels:
         - __meta_kubernetes_namespace
+        regex: (.*)
         target_label: namespace
       - source_labels:
         - __meta_kubernetes_service_name
+        regex: (.*)
         target_label: service
       - source_labels:
         - __meta_kubernetes_pod_name
+        regex: (.*)
         target_label: pod
       - source_labels:
         - __meta_kubernetes_pod_container_name
+        regex: (.*)
         target_label: container
       - source_labels:
         - __meta_kubernetes_service_name
+        regex: (.*)
         target_label: job
         replacement: ${1}
       - target_label: endpoint
+        regex: (.*)
         replacement: tcp-prometheus
       - source_labels:
         - __address__
+        regex: (.*)
         target_label: __tmp_hash
         modulus: 1
         action: hashmod
       - source_labels:
         - __tmp_hash
-        regex: $(SHARD)
+        regex: "0"
         action: keep
       metric_relabel_configs: []
     
@@ -101,7 +109,7 @@ data:
       - role: endpoints
         namespaces:
           names:
-          - oh-modules
+          - {{ .Release.Namespace }}
       scrape_interval: 30s
       metrics_path: /metrics
       scheme: http
@@ -186,7 +194,7 @@ data:
       - role: endpoints
         namespaces:
           names:
-          - oh-modules
+          - {{ .Release.Namespace }}
       scrape_interval: 30s
       metrics_path: /auth/realms/oh-base/metrics
       scheme: http
@@ -257,7 +265,7 @@ data:
         - endpoint
         target_label: ohsso_server
         regex: .*
-        replacement: ohsso-testtemplate
+        replacement: ohsso-{{ .Release.Namespace }}
         action: replace
       - source_labels:
         - job

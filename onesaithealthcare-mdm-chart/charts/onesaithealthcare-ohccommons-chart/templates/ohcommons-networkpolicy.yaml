@@ -1,0 +1,25 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: cluster-network-policy-{{ .Release.Namespace }}
+spec:
+  podSelector: {}
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 8080
+    - ports:
+        - protocol: TCP
+          port: 9093
+    - ports:
+        - protocol: TCP
+          port: 9090
+    - ports:
+        - protocol: TCP
+          port: 9091
+    - ports:
+        - protocol: TCP
+          port: 3000          
+  policyTypes:
+    - Ingress
+status: {}

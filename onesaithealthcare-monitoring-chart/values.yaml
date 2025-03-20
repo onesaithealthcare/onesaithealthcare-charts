@@ -10,8 +10,8 @@ prometheus:
   ohsso:
     enabled: true
     oauth2_proxy_version: v7.1.2
-    url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev/protocol/openid-connect/auth
-    client_id: grafana
-    client_secret: M7YRJSeUb4LRKF4jtL8iUMDBkHRueKUY
+    url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev
+    client_id: oh-monitoring
+    client_secret: b2V3MWlG1WXqPd0WGK3bXuCwtSWpgTsi
     
     
