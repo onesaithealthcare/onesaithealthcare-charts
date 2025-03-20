@@ -59,6 +59,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.podIP
+{{- if not .Values.ohsso.enabled }}                  
             - name: GF_SECURITY_ADMIN_USER
               valueFrom:
                 secretKeyRef:
@@ -69,6 +70,7 @@ spec:
                 secretKeyRef:
                   name: grafana
                   key: admin-password
+{{- end }}                 
             - name: GF_PATHS_DATA
               value: /var/lib/grafana/
             - name: GF_PATHS_LOGS
