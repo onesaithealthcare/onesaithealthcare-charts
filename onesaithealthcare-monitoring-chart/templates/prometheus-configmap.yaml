@@ -109,7 +109,7 @@ data:
       - role: endpoints
         namespaces:
           names:
-          - {{ .Release.Namespace }}
+          - {{ .Values.prometheus.oh_modules_namespace }}
       scrape_interval: 30s
       metrics_path: /metrics
       scheme: http
@@ -194,7 +194,7 @@ data:
       - role: endpoints
         namespaces:
           names:
-          - {{ .Release.Namespace }}
+          - {{ .Values.prometheus.oh_modules_namespace }}
       scrape_interval: 30s
       metrics_path: /auth/realms/oh-base/metrics
       scheme: http
@@ -265,7 +265,7 @@ data:
         - endpoint
         target_label: ohsso_server
         regex: .*
-        replacement: ohsso-{{ .Release.Namespace }}
+        replacement: ohsso-{{ .Values.prometheus.oh_modules_namespace }}
         action: replace
       - source_labels:
         - job

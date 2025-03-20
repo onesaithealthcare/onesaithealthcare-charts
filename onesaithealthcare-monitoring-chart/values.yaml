@@ -3,6 +3,7 @@ prometheus:
   host: testtemplate-prometheus.apps.lab.openshift.com
   config_reloader_version: v0.80.1
   kafka_namespace: oh-kafka
+  oh_modules_namespace: oh-modules
   prometheus_version: v3.2.1
   persistence:
     enabled: false
