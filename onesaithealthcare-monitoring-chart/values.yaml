@@ -2,6 +2,7 @@ prometheus:
   replicas: 1
   host: testtemplate-prometheus.apps.lab.openshift.com
   config_reloader_version: v0.80.1
+  kafka_namespace: oh-kafka
   prometheus_version: v3.2.1
   persistence:
     enabled: false
@@ -12,6 +13,8 @@ prometheus:
     oauth2_proxy_version: v7.1.2
     url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev
     client_id: oh-monitoring
-    client_secret: b2V3MWlG1WXqPd0WGK3bXuCwtSWpgTsi
-    
-    
+    client_secret: 
+grafana:
+  replicas: 1
+  host: testtemplate-grafana.apps.lab.openshift.com
+  grafana_version: v4.0
