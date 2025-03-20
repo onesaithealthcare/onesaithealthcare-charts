@@ -10,10 +10,12 @@ spec:
       protocol: TCP
       port: 9090
       targetPort: web
+{{- if .Values.prometheus.ohsso.enabled }}
     - name: proxy
       protocol: TCP
       port: 9091
       targetPort: proxy  
+{{- end }}
   internalTrafficPolicy: Cluster
   type: ClusterIP
   ipFamilyPolicy: SingleStack
