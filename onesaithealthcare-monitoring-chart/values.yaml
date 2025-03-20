@@ -1,3 +1,8 @@
+ohsso:
+  url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev
+  client_id: oh-monitoring
+  client_secret: 
+  enabled: true
 prometheus:
   replicas: 1
   host: testtemplate-prometheus.apps.lab.openshift.com
@@ -5,17 +10,20 @@ prometheus:
   kafka_namespace: oh-kafka
   oh_modules_namespace: oh-modules
   prometheus_version: v3.2.1
+  oauth2_proxy_version: v7.1.2
   persistence:
     enabled: false
     size: 50Gi
     storageclass: 
-  ohsso:
-    enabled: true
-    oauth2_proxy_version: v7.1.2
-    url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev
-    client_id: oh-monitoring
-    client_secret: 
 grafana:
   replicas: 1
+  protocol: https
   host: testtemplate-grafana.apps.lab.openshift.com
-  grafana_version: v4.0
+  grafana_version: 11.5.2
+  persistence:
+    enabled: false
+    size: 50Gi
+    storageclass: 
+  admin_user: admin
+  admin_pass: grafana
+  

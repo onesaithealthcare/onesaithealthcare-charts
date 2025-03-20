@@ -1,17 +1,17 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: oh-prometheus
+  name: oh-grafana
   annotations:
     openshift.io/host.generated: 'true'
 spec:
-  host: {{ .Values.prometheus.host }}
+  host: {{ .Values.grafana.host }}
   to:
     kind: Service
-    name: prometheus-server
+    name: grafana-service
     weight: 100
   port:
-    targetPort: {{ if .Values.ohsso.enabled }}proxy{{ else }}web{{ end }}
+    targetPort: grafana-http
   tls:
     termination: edge
   wildcardPolicy: None

@@ -125,7 +125,7 @@ spec:
             - --web.console.libraries=/etc/prometheus/console_libraries
             - --web.console.templates=/etc/prometheus/consoles
             - --web.enable-lifecycle
-{{- if .Values.prometheus.ohsso.enabled }}
+{{- if .Values.ohsso.enabled }}
         - resources:
             limits:
               cpu: 60m
@@ -133,7 +133,7 @@ spec:
             requests:
               cpu: 25m
               memory: 128Mi
-          image: quay.io/oauth2-proxy/oauth2-proxy:{{ .Values.prometheus.ohsso.oauth2_proxy_version }}
+          image: quay.io/oauth2-proxy/oauth2-proxy:{{ .Values.prometheus.oauth2_proxy_version }}
           ports:
             - name: proxy
               containerPort: 9091
@@ -142,9 +142,9 @@ spec:
           name: oauth2-proxy
           args:
             - --provider=oidc
-            - --oidc-issuer-url={{ .Values.prometheus.ohsso.url }}
-            - --client-id={{ .Values.prometheus.ohsso.client_id }}
-            - --client-secret={{ .Values.prometheus.ohsso.client_secret }}
+            - --oidc-issuer-url={{ .Values.ohsso.url }}
+            - --client-id={{ .Values.ohsso.client_id }}
+            - --client-secret={{ .Values.ohsso.client_secret }}
             - --redirect-url=https://{{ .Values.prometheus.host }}/oauth2/callback
             - --cookie-secret=5Hf9uqy7mMAFFb7U
             - --cookie-secure=true

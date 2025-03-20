@@ -10,7 +10,7 @@ spec:
       protocol: TCP
       port: 9090
       targetPort: web
-{{- if .Values.prometheus.ohsso.enabled }}
+{{- if .Values.ohsso.enabled }}
     - name: proxy
       protocol: TCP
       port: 9091

@@ -1,0 +1,142 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: grafana
+spec:
+  replicas: {{ .Values.grafana.replicas }}
+  selector:
+    matchLabels:
+      app: oh-grafana
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: oh-grafana
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-grafana
+      schedulerName: default-scheduler
+      enableServiceLinks: true
+      terminationGracePeriodSeconds: 30
+      shareProcessNamespace: false
+      securityContext:
+        runAsUser: 472
+        runAsGroup: 472
+        runAsNonRoot: true
+        fsGroup: 472
+      containers:
+        - resources:
+            limits:
+              cpu: 300m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: grafana
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 10
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: admin-user
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: admin-password
+            - name: GF_PATHS_DATA
+              value: /var/lib/grafana/
+            - name: GF_PATHS_LOGS
+              value: /var/log/grafana
+            - name: GF_PATHS_PLUGINS
+              value: /var/lib/grafana/plugins
+            - name: GF_PATHS_PROVISIONING
+              value: /etc/grafana/provisioning
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+          ports:
+            - name: grafana-http
+              containerPort: 3000
+              protocol: TCP
+            - name: gossip-tcp
+              containerPort: 9094
+              protocol: TCP
+            - name: gossip-udp
+              containerPort: 9094
+              protocol: UDP
+            - name: profiling
+              containerPort: 6060
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: /etc/grafana/grafana.ini
+              subPath: grafana.ini
+            - name: storage
+              mountPath: /var/lib/grafana
+          terminationMessagePolicy: File
+          image: 'docker.io/grafana/grafana:{{ .Values.grafana.grafana_version }}'
+      automountServiceAccountToken: true
+      serviceAccount: oh-grafana
+      volumes:
+        - name: config
+          configMap:
+            name: grafana
+            defaultMode: 420
+{{- if not .Values.grafana.persistence.enabled }}
+        - name: storage
+          emptyDir: {}
+{{- end }}
+      dnsPolicy: ClusterFirst
+{{- if .Values.grafana.persistence.enabled }}
+  volumeClaimTemplates:
+    - kind: PersistentVolumeClaim
+      apiVersion: v1
+      metadata:
+        name: storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: "{{ .Values.grafana.persistence.size }}"
+        storageClassName: "{{ .Values.grafana.persistence.storageclass }}"
+        volumeMode: Filesystem
+{{- end }}      
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
