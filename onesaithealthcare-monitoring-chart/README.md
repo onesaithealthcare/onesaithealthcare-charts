@@ -12,6 +12,7 @@ Este Chart instala los módulos de Onesait Healthcare Monitoring.
   Si no se tiene instalado, acceder a Client Scopes y añadir los scopes (de tipo openid-connect): openid, groups.
   Importar el client oh-monitoring con el json proporcionado.
   Revisar que las redirectUris y urls base se corresponden con el subdominio del entorno.
+  Acceder a User Federation y en hn-provider en la lista de Included clients añadir: oh-monitoring.
 
 - En openshift editar el SecurityContextConstraint anyuid y en la lista de users añadirle: 
   system:serviceaccount:<namespace-donde-se-instalara_el_chart>:oh-prometheus
