@@ -8,7 +8,7 @@ data:
     apiVersion: 1
     datasources:
     - access: proxy
-      jsonData:
+      jsonData: 
         esVersion: 0
         nodeGraph: {}
         search: {}
@@ -19,7 +19,7 @@ data:
       secureJsonData: {}
       type: loki
       url: {{ .Values.grafana.loki_datasource.url }}
-((- end }}
+{{- end }}
   prometheus-oh-datasource.yaml: |
     apiVersion: 1
     datasources:
