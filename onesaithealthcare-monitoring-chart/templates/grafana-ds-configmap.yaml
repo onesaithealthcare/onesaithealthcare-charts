@@ -1,0 +1,39 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-datasources
+data:
+{{- if .Values.grafana.loki_datasource.enabled }}
+  loki-datasource.yaml: |
+    apiVersion: 1
+    datasources:
+    - access: proxy
+      jsonData:
+        esVersion: 0
+        nodeGraph: {}
+        search: {}
+        serviceMap: {}
+        timeout: 50
+        tracesToLogs: {}
+      name: Loki
+      secureJsonData: {}
+      type: loki
+      url: {{ .Values.grafana.loki_datasource.url }}
+((- end }}
+  prometheus-oh-datasource.yaml: |
+    apiVersion: 1
+    datasources:
+    - access: proxy
+      editable: true
+      jsonData:
+        esVersion: 0
+        nodeGraph: {}
+        search: {}
+        serviceMap: {}
+        timeInterval: 5s
+        tracesToLogs: {}
+      name: Prometheus OH
+      secureJsonData: {}
+      type: prometheus
+      url: http://prometheus-server:9090
+      version: 1

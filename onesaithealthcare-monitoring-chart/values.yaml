@@ -26,4 +26,7 @@ grafana:
     storageclass: 
   admin_user: admin
   admin_pass: grafana
+  loki_datasource:
+    enabled: false
+    url: 
   
