@@ -3,27 +3,11 @@ apiVersion: v1
 metadata:
   name: grafana-datasources
 data:
-{{- if .Values.grafana.loki_datasource.enabled }}
-  loki-datasource.yaml: |
-    apiVersion: 1
-    datasources:
-    - access: proxy
-      jsonData: 
-        esVersion: 0
-        nodeGraph: {}
-        search: {}
-        serviceMap: {}
-        timeout: 50
-        tracesToLogs: {}
-      name: Loki
-      secureJsonData: {}
-      type: loki
-      url: {{ .Values.grafana.loki_datasource.url }}
-{{- end }}
   prometheus-oh-datasource.yaml: |
     apiVersion: 1
     datasources:
     - access: proxy
+      isDefault: true
       editable: true
       jsonData:
         esVersion: 0
