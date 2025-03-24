@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: grafana-dashboard-oh-modules
+  name: grafana-dashboard-kafka
 data:
   grafana-dashboard-kafka.json: |
     {
