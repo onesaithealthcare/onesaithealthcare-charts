@@ -3,7 +3,7 @@ entries:
   onesaithealthcare-cmc-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-03-24T11:31:28.3941414+01:00"
+    created: "2025-03-24T11:42:23.0489984+01:00"
     description: Onesait Healthcare CMC chart for k8s
     digest: 564180e647cb63c3ab61c639695d5f655eef8ab63cc2f0f592bf1abfad4867f0
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -23,7 +23,7 @@ entries:
   onesaithealthcare-mdm-chart:
   - apiVersion: v2
     appVersion: 4.10.0
-    created: "2025-03-24T11:31:28.4135072+01:00"
+    created: "2025-03-24T11:42:23.0559286+01:00"
     dependencies:
     - name: onesaithealthcare-ohccommons-chart
       repository: file://charts/onesaithealthcare-ohccommons-chart
@@ -50,9 +50,9 @@ entries:
   onesaithealthcare-monitoring-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-03-24T11:31:28.4169141+01:00"
+    created: "2025-03-24T11:42:23.0645002+01:00"
     description: Onesait Healthcare Monitoring chart for k8s
-    digest: 221129ba7fc91e5c717643e9788c77ea01fcf93339d234e4c97ead753bb2527b
+    digest: 90a40628e1715d618f2b68816653baf8f15e52b6f12ea44532afff4606187787
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -67,4 +67,4 @@ entries:
     urls:
     - onesaithealthcare-monitoring-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-03-24T11:31:28.3755647+01:00"
+generated: "2025-03-24T11:42:23.042232+01:00"
