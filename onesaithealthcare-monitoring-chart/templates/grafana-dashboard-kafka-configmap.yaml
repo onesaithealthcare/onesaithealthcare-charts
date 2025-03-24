@@ -28,7 +28,7 @@ data:
       "panels": [
         {
           "collapsed": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -49,7 +49,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -139,7 +139,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -229,7 +229,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -319,7 +319,7 @@ data:
             "#F2495C",
             "#d44a3a"
           ],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -410,7 +410,7 @@ data:
             "#F2495C",
             "#d44a3a"
           ],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -501,7 +501,7 @@ data:
             "#E0B400",
             "#E0B400"
           ],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "description": "Number of partitions which are at their minimum in sync replica count (| ISR | == | min.insync.replicas |).",
           "fieldConfig": {
             "defaults": {
@@ -584,7 +584,7 @@ data:
           "valueName": "current"
         },
         {
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -653,7 +653,7 @@ data:
         },
         {
           "collapsed": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -672,7 +672,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -780,7 +780,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -887,7 +887,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -994,7 +994,7 @@ data:
         },
         {
           "collapsed": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -1013,7 +1013,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -1121,7 +1121,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -1223,7 +1223,7 @@ data:
         },
         {
           "collapsed": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -1240,7 +1240,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -1347,7 +1347,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -1450,7 +1450,7 @@ data:
         },
         {
           "collapsed": false,
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -1464,7 +1464,7 @@ data:
         },
         {
           "columns": [],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1548,7 +1548,7 @@ data:
         },
         {
           "columns": [],
-          "datasource": "Prometheus oh-base",
+          "datasource": "Prometheus OH",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1644,7 +1644,7 @@ data:
               "text": "oh-kafka",
               "value": "oh-kafka"
             },
-            "datasource": "Prometheus oh-base",
+            "datasource": "Prometheus OH",
             "definition": "query_result(kafka_server_replicamanager_leadercount)",
             "error": null,
             "hide": 0,
@@ -1675,7 +1675,7 @@ data:
                 "$__all"
               ]
             },
-            "datasource": "Prometheus oh-base",
+            "datasource": "Prometheus OH",
             "definition": "label_values(kafka_consumergroup_current_offset{namespace=\"$kubernetes_namespace\"}, consumergroup)",
             "error": null,
             "hide": 0,
@@ -1706,7 +1706,7 @@ data:
                 "$__all"
               ]
             },
-            "datasource": "Prometheus oh-base",
+            "datasource": "Prometheus OH",
             "definition": "label_values(kafka_topic_partition_current_offset{namespace=\"$kubernetes_namespace\"}, topic)",
             "error": null,
             "hide": 0,
