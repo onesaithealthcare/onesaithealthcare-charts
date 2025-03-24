@@ -724,7 +724,7 @@ data:
               "expr": "rate(process_cpu_seconds_total{namespace=\"$kubernetes_namespace\",job=~\".*cluster-kafka-metrics\"}[5m])",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "\{\{pod\}\}",
+              "legendFormat": "{{pod}}",
               "metric": "process_cpu_seconds_total",
               "refId": "A",
               "step": 4
@@ -832,7 +832,7 @@ data:
               "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$kubernetes_namespace\",job=~\".*cluster-kafka-metrics\"})",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "\{\{pod\}\}",
+              "legendFormat": "{{pod}}",
               "metric": "jvm_memory_bytes_used",
               "refId": "A",
               "step": 4
@@ -943,7 +943,7 @@ data:
               "expr": "sum by (topic) (kafka_log_log_size{namespace=\"$kubernetes_namespace\",topic=~\"$topic\"})",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "\{\{topic\}\}",
+              "legendFormat": "{{topic}}",
               "metric": "jvm_gc_collection_seconds_sum",
               "refId": "A",
               "step": 4
@@ -1065,7 +1065,7 @@ data:
               "expr": "rate(process_cpu_seconds_total{namespace=\"$kubernetes_namespace\",job=~\".*zookeeper-metrics\"}[5m])",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "\{\{pod\}\}",
+              "legendFormat": "{{pod}}",
               "metric": "process_cpu_seconds_total",
               "refId": "A",
               "step": 4
@@ -1173,7 +1173,7 @@ data:
               "expr": "sum without(area)(jvm_memory_bytes_used{namespace=\"$kubernetes_namespace\",job=~\".*zookeeper-metrics\"})",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "\{\{pod\}\}",
+              "legendFormat": "{{pod}}",
               "metric": "jvm_memory_bytes_used",
               "refId": "A",
               "step": 4
@@ -1296,7 +1296,7 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "\{\{topic\}\}",
+              "legendFormat": "{{topic}}",
               "refId": "B"
             }
           ],
@@ -1402,7 +1402,7 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "\{\{topic\}\}",
+              "legendFormat": "{{topic}}",
               "refId": "A"
             }
           ],
@@ -1536,7 +1536,7 @@ data:
               "instant": true,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "\{\{topic\}\}",
+              "legendFormat": "{{topic}}",
               "refId": "A"
             }
           ],
@@ -1620,7 +1620,7 @@ data:
               "instant": true,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "\{\{topic\}\}",
+              "legendFormat": "{{topic}}",
               "refId": "A"
             }
           ],

@@ -358,7 +358,7 @@ data:
               "exemplar": true,
               "expr": "rate(process_cpu_seconds_total{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m])",
               "interval": "",
-              "legendFormat": "Instance: \{\{instance\}\} ",
+              "legendFormat": "Instance: {{instance}} ",
               "refId": "A"
             }
           ],
@@ -467,7 +467,7 @@ data:
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "Max, Instance: \{\{instance\}\} ",
+              "legendFormat": "Max, Instance: {{instance}} ",
               "refId": "A"
             },
             {
@@ -476,7 +476,7 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "Used, Instance: \{\{instance\}\} ",
+              "legendFormat": "Used, Instance: {{instance}} ",
               "refId": "B"
             },
             {
@@ -485,7 +485,7 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "Comitted, Instance: \{\{instance\}\} ",
+              "legendFormat": "Comitted, Instance: {{instance}} ",
               "refId": "C"
             }
           ],
@@ -578,7 +578,7 @@ data:
               "exemplar": true,
               "expr": "sum(increase(keycloak_logins{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m]))by (client_id)",
               "interval": "",
-              "legendFormat": "\{\{client_id\}\}",
+              "legendFormat": "{{client_id}}",
               "refId": "A"
             }
           ],
@@ -674,7 +674,7 @@ data:
               "exemplar": true,
               "expr": "sum by (client_id)(increase(keycloak_logins{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m]))",
               "interval": "",
-              "legendFormat": "\{\{client_id\}\}",
+              "legendFormat": "{{client_id}}",
               "refId": "A"
             }
           ],
@@ -770,7 +770,7 @@ data:
               "exemplar": true,
               "expr": "sum by (client_id)(increase(keycloak_failed_login_attempts{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m]))",
               "interval": "1m",
-              "legendFormat": "\{\{client_id\}\}",
+              "legendFormat": "{{client_id}}",
               "refId": "A"
             }
           ],
@@ -866,7 +866,7 @@ data:
               "exemplar": true,
               "expr": "increase(keycloak_refresh_tokens{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m])",
               "interval": "",
-              "legendFormat": "\{\{client_id\}\}",
+              "legendFormat": "{{client_id}}",
               "refId": "A"
             }
           ],
@@ -962,7 +962,7 @@ data:
               "exemplar": true,
               "expr": "increase(keycloak_refresh_tokens_errors{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m])",
               "interval": "",
-              "legendFormat": "\{\{client_id\}\}",
+              "legendFormat": "{{client_id}}",
               "refId": "A"
             }
           ],
@@ -1058,7 +1058,7 @@ data:
               "exemplar": true,
               "expr": "(increase(keycloak_user_event_LOGOUT{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m]))",
               "interval": "",
-              "legendFormat": "Instance: \{\{instance\}\}",
+              "legendFormat": "Instance: {{instance}}",
               "refId": "A"
             }
           ],
@@ -1152,7 +1152,7 @@ data:
               "exemplar": true,
               "expr": "(increase(keycloak_user_event_LOGOUT_ERROR{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m]))",
               "interval": "",
-              "legendFormat": "Instance: \{\{instance\}\}",
+              "legendFormat": "Instance: {{instance}}",
               "refId": "A"
             }
           ],
@@ -1246,7 +1246,7 @@ data:
               "exemplar": true,
               "expr": "sum by (code)(increase(keycloak_response_errors{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m]))",
               "interval": "",
-              "legendFormat": "\{\{code\}\}",
+              "legendFormat": "{{code}}",
               "refId": "A"
             }
           ],
@@ -1353,7 +1353,7 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "\{\{error\}\}",
+              "legendFormat": "{{error}}",
               "refId": "A"
             }
           ],
@@ -1440,7 +1440,7 @@ data:
               "format": "heatmap",
               "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "\{\{ le \}\}",
+              "legendFormat": "{{ le }}",
               "refId": "A"
             }
           ],
@@ -1581,7 +1581,7 @@ data:
               "format": "heatmap",
               "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "\{\{ le \}\}",
+              "legendFormat": "{{ le }}",
               "refId": "A"
             }
           ],
