@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ohsso": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "url": {
+          "type": "string",
+          "title": "OHS SSO URL",
+          "description": "The URL for the OHS SSO provider.",
+          "default": ""
+        },
+        "client_id": {
+          "type": "string",
+          "title": "OHS SSO Client ID",
+          "description": "The client ID for the OHS SSO provider.",
+          "default": "oh-monitoring"
+        },
+        "client_secret": {
+          "type": "string",
+          "title": "OHS SSO Client Secret",
+          "description": "The client secret for the OHS SSO provider.",
+          "default": ""
+        }
+      },
+      "required": ["enabled", "url", "client_id", "client_secret"]
+    },
+    "prometheus": {
+      "type": "object",
+      "properties": {
+        "replicas": {
+          "type": "integer",
+          "title": "Prometheus Replicas",
+          "description": "The number of Prometheus replicas to deploy.",
+          "default": 1,
+          "minimum": 1
+        },
+        "host": {
+          "type": "string",
+          "title": "Prometheus Host",
+          "description": "The hostname for Prometheus.",
+          "default": ""
+        },
+        "kafka_namespace": {
+          "type": "string",
+          "title": "Kafka Namespace",
+          "description": "The namespace where Kafka is deployed.",
+          "default": "oh-kafka"
+        },
+        "oh_modules_namespace": {
+          "type": "string",
+          "title": "OH Modules Namespace",
+          "description": "The namespace where OH Modules are deployed.",
+          "default": "oh-modules"
+        },
+        "persistence": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable Prometheus Persistence",
+              "default": false
+            },
+            "size": {
+              "type": "string",
+              "title": "Persistence Size",
+              "description": "The size of the persistent volume for Prometheus.",
+              "default": "50Gi",
+              "pattern": "^[0-9]+[GMTPi]+$"
+            },
+            "storageclass": {
+              "type": ["string", "null"],
+              "title": "Storage Class",
+              "description": "The storage class for the persistent volume.",
+              "default": null
+            }
+          },
+          "required": ["enabled", "size", "storageclass"]
+        }
+      },
+      "required": [
+        "replicas",
+        "host",
+        "kafka_namespace",
+        "oh_modules_namespace",
+        "persistence"
+      ]
+    },
+    "grafana": {
+      "type": "object",
+      "properties": {
+        "replicas": {
+          "type": "integer",
+          "title": "Grafana Replicas",
+          "description": "The number of Grafana replicas to deploy.",
+          "default": 1,
+          "minimum": 1
+        },
+        "protocol": {
+          "type": "string",
+          "title": "Grafana Protocol",
+          "description": "The protocol to use for Grafana (http or https).",
+          "default": "https",
+          "enum": ["http", "https"]
+        },
+        "host": {
+          "type": "string",
+          "title": "Grafana Host",
+          "description": "The hostname for Grafana.",
+          "default": ""
+        },
+        "admin_user": {
+          "type": "string",
+          "title": "Grafana Admin User",
+          "description": "The admin username for Grafana.",
+          "default": "admin"
+        },
+        "admin_pass": {
+          "type": "string",
+          "title": "Grafana Admin Password",
+          "description": "The admin password for Grafana.",
+          "default": ""
+        }
+      },
+      "required": ["replicas", "protocol", "host", "admin_user", "admin_pass"]
+    }
+  },
+  "required": ["ohsso", "prometheus", "grafana"]
+}

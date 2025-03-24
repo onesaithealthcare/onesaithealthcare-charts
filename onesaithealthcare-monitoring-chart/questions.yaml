@@ -1,0 +1,95 @@
+questions:
+  - variable: ohsso.enabled
+    label: "Enable OHS SSO"
+    description: "Enable or disable OHS SSO integration."
+    type: boolean
+    default: true
+  - variable: ohsso.url
+    label: "OHS SSO URL"
+    description: "The URL for the OHS SSO provider."
+    type: string
+    required: true
+    group: "OHS SSO"
+    show_subquestion_if: true
+    subquestions:
+      - variable: ohsso.client_id
+        label: "OHS SSO Client ID"
+        description: "The client ID for the OHS SSO provider."
+        type: string
+        required: true
+      - variable: ohsso.client_secret
+        label: "OHS SSO Client Secret"
+        description: "The client secret for the OHS SSO provider."
+        type: string
+        required: true
+
+  - variable: prometheus.replicas
+    label: "Prometheus Replicas"
+    description: "The number of Prometheus replicas to deploy."
+    type: int
+    default: 1
+  - variable: prometheus.host
+    label: "Prometheus Host"
+    description: "The hostname for Prometheus."
+    type: string
+    required: true
+  - variable: prometheus.kafka_namespace
+    label: "Kafka Namespace"
+    description: "The namespace where Kafka is deployed."
+    type: string
+    default: "oh-kafka"
+  - variable: prometheus.oh_modules_namespace
+    label: "OH Modules Namespace"
+    description: "The namespace where OH Modules are deployed."
+    type: string
+    default: "oh-modules"
+  - variable: prometheus.persistence.enabled
+    label: "Enable Prometheus Persistence"
+    description: "Enable or disable persistence for Prometheus."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: prometheus.persistence.size
+        label: "Persistence Size"
+        description: "The size of the persistent volume for Prometheus."
+        type: string
+        default: "50Gi"
+      - variable: prometheus.persistence.storageclass
+        label: "Storage Class"
+        description: "The storage class for the persistent volume."
+        type: string
+        required: false
+
+  - variable: grafana.replicas
+    label: "Grafana Replicas"
+    description: "The number of Grafana replicas to deploy."
+    type: int
+    default: 1
+  - variable: grafana.protocol
+    label: "Grafana Protocol"
+    description: "The protocol to use for Grafana (http or https)."
+    type: enum
+    options:
+      - "http"
+      - "https"
+    default: "https"
+  - variable: grafana.host
+    label: "Grafana Host"
+    description: "The hostname for Grafana."
+    type: string
+    required: true
+  - variable: grafana.admin_user
+    label: "Grafana Admin User"
+    description: "The admin username for Grafana."
+    type: string
+    required: true
+    group: "Grafana"
+    show_if: "ohsso.enabled=true"
+  - variable: grafana.admin_pass
+    label: "Grafana Admin Password"
+    description: "The admin password for Grafana."
+    type: password
+    required: true
+    group: "Grafana"
+    show_if: "ohsso.enabled=true"

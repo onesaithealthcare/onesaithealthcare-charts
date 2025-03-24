@@ -1,8 +1,8 @@
 ohsso:
+  enabled: true
   url: https://oh-modules.apps.lab.openshift.com/auth/realms/openshift-dev
   client_id: oh-monitoring
   client_secret: 
-  enabled: true
 prometheus:
   replicas: 1
   host: testtemplate-prometheus.apps.lab.openshift.com
@@ -20,13 +20,6 @@ grafana:
   protocol: https
   host: testtemplate-grafana.apps.lab.openshift.com
   grafana_version: 11.5.2
-  persistence:
-    enabled: false
-    size: 50Gi
-    storageclass: 
   admin_user: admin
   admin_pass: grafana
-  loki_datasource:
-    enabled: false
-    url: 
   

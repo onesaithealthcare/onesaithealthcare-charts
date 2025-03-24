@@ -146,26 +146,9 @@ spec:
           configMap:
             name: grafana-dashboard-definition
             defaultMode: 420
-{{- if not .Values.grafana.persistence.enabled }}
         - name: storage
           emptyDir: {}
-{{- end }}
-      dnsPolicy: ClusterFirst
-{{- if .Values.grafana.persistence.enabled }}
-  volumeClaimTemplates:
-    - kind: PersistentVolumeClaim
-      apiVersion: v1
-      metadata:
-        name: storage
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: "{{ .Values.grafana.persistence.size }}"
-        storageClassName: "{{ .Values.grafana.persistence.storageclass }}"
-        volumeMode: Filesystem
-{{- end }}      
+      dnsPolicy: ClusterFirst      
   strategy:
     type: RollingUpdate
     rollingUpdate:
