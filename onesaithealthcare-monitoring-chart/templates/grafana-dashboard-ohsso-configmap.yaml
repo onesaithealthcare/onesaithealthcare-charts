@@ -358,7 +358,7 @@ data:
               "exemplar": true,
               "expr": "rate(process_cpu_seconds_total{ohsso_server=\"$ohsso_server\",realm=\"$realm\",instance=~\"$instance\"}[1m])",
               "interval": "",
-              "legendFormat": "Instance: {{instance}} ",
+              "legendFormat": "Instance: \{\{instance\}\} ",
               "refId": "A"
             }
           ],
