@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: grafana
 spec:
-  replicas: {{ .Values.grafana.replicas }}
+  replicas: 1
   selector:
     matchLabels:
       app: oh-grafana
@@ -118,7 +118,7 @@ spec:
               mountPath: /etc/grafana/provisioning/dashboards/dashboards.yaml
               subPath: dashboards.yaml
           terminationMessagePolicy: File
-          image: 'docker.io/grafana/grafana:{{ .Values.grafana.grafana_version }}'
+          image: 'docker.io/grafana/grafana@{{ .Values.grafana.grafana_sha256 }}'
       automountServiceAccountToken: true
       serviceAccount: oh-grafana
       volumes:

@@ -72,7 +72,7 @@ spec:
               readOnly: true
               mountPath: /etc/config
           terminationMessagePolicy: File
-          image: quay.io/prometheus-operator/prometheus-config-reloader:{{ .Values.prometheus.config_reloader_version }}
+          image: quay.io/prometheus-operator/prometheus-config-reloader@{{ .Values.prometheus.config_reloader_sha256 }}
           args:
             - --watched-dir=/etc/config
             - --listen-address=0.0.0.0:8080
@@ -117,7 +117,7 @@ spec:
             - name: storage-volume
               mountPath: /data
           terminationMessagePolicy: File
-          image: quay.io/prometheus/prometheus:{{ .Values.prometheus.prometheus_version }}
+          image: quay.io/prometheus/prometheus@{{ .Values.prometheus.prometheus_sha256 }}
           args:
             - --storage.tsdb.retention.time=7d
             - --config.file=/etc/config/prometheus.yml
@@ -133,7 +133,7 @@ spec:
             requests:
               cpu: 25m
               memory: 128Mi
-          image: quay.io/oauth2-proxy/oauth2-proxy:{{ .Values.prometheus.oauth2_proxy_version }}
+          image: quay.io/oauth2-proxy/oauth2-proxy@{{ .Values.prometheus.oauth2_proxy_sha256 }}
           ports:
             - name: proxy
               containerPort: 9091
@@ -155,7 +155,7 @@ spec:
             - --ssl-insecure-skip-verify=true
             - --oidc-email-claim=preferred_username
             - --insecure-oidc-allow-unverified-email=true
-            - --oidc-groups-claim=realm_access.roles
+            - --oidc-groups-claim=groups
             - --allowed-group=OHIEN_MONITORING
 {{- end }}        
       serviceAccount: oh-prometheus          

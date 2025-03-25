@@ -6,20 +6,23 @@ ohsso:
 prometheus:
   replicas: 1
   host: testtemplate-prometheus.apps.lab.openshift.com
-  config_reloader_version: v0.80.1
+  # config_reloader_version: v0.80.1  
+  config_reloader_sha256: sha256:125886af6555c1d9726bef0ebc845e922e0f227bba68e0c70fb661295da96bfe
   kafka_namespace: oh-kafka
   oh_modules_namespace: oh-modules
-  prometheus_version: v3.2.1
-  oauth2_proxy_version: v7.1.2
+  # prometheus_version: v3.2.1
+  prometheus_sha256: sha256:6927e0919a144aa7616fd0137d4816816d42f6b816de3af269ab065250859a62
+  # oauth2_proxy_version: v7.8.1
+  oauth2_proxy_sha256: sha256:d62e2d81c6f5048f652f67c302083be1272c181b971fad80e5a30ebe2b8b75d8
   persistence:
     enabled: false
     size: 50Gi
     storageclass: 
 grafana:
-  replicas: 1
   protocol: https
   host: testtemplate-grafana.apps.lab.openshift.com
-  grafana_version: 11.5.2
+  # grafana_version: 11.5.2
+  grafana_sha256: sha256:8b37a2f028f164ce7b9889e1765b9d6ee23fec80f871d156fbf436d6198d32b7
   admin_user: admin
   admin_pass: grafana
   
