@@ -15,8 +15,9 @@ Este Chart instala los módulos de Onesait Healthcare Monitoring.
 - Se debe disponer de un Storage Class con provisión dinámica.
 
 - Acceder a OHSSO, si se tiene instalado el client oh-monitoring apuntar las credenciales del mismo ya que se utilizarán en la instalación del Chart.
-  Si no se tiene instalado, acceder a Client Scopes y añadir los scopes (de tipo openid-connect): openid, groups.
-  Importar el client oh-monitoring con el json: https://onesaithealthcare.github.io/onesaithealthcare-charts/extras/onesaithealthcare-monitoring/client-oh-monitoring.json.
+  Si no se tiene instalado seguir los siguiente pasos, en caso contrario ignorar este punto.
+  Acceder a Client Scopes y añadir los scopes (de tipo openid-connect): openid, groups.
+  Importar el client oh-monitoring con el json: [Descargar client-oh-monitoring.json]https://onesaithealthcare.github.io/onesaithealthcare-charts/extras/onesaithealthcare-monitoring/client-oh-monitoring.json.
   Revisar que las redirectUris se corresponden con las del entorno entorno (añadir las redirect uris que se vayan a asignar a prometheus y grafana).
   Acceder a User Federation y en hn-provider en la lista de Included clients añadir: oh-monitoring.
 
