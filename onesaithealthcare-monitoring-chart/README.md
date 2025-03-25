@@ -22,12 +22,9 @@ Este Chart instala los módulos de Onesait Healthcare Monitoring.
 
 - En openshift editar el SecurityContextConstraint anyuid y en la lista de users añadirle: 
   system:serviceaccount:<namespace-donde-se-instalara_el_chart>:oh-prometheus
-  Por ejemplo:
-  system:serviceaccount:oh-modules:oh-prometheus
-
-- En openshift editar el SecurityContextConstraint hostmount-anyuid y en la lista de users añadirle:
   system:serviceaccount:<namespace-donde-se-instalara_el_chart>:oh-grafana
   Por ejemplo:
+  system:serviceaccount:oh-modules:oh-prometheus
   system:serviceaccount:oh-modules:oh-grafana
 
 - Comprobar que la NetworkPolicy cluster-network-policy-<namespace_instalacion> contiene los puertos: 9090, 9091 y 3000.
