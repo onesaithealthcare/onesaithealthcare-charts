@@ -7,24 +7,26 @@
       "properties": {
         "enabled": {
           "type": "boolean",
+		  "title" : "OHSSO auth",
+		  "description" : "Enable OHSSO authentication for prometheus and grafana.",
           "default": true
         },
         "url": {
           "type": "string",
-          "title": "OHS SSO URL",
-          "description": "The URL for the OHS SSO provider.",
+          "title": "OHSSO URL",
+          "description": "OHSSO base URL (including realm, for example: https://oh-modules.apps.lab.openshift.com/auth/realms/oh-base ).",
           "default": ""
         },
         "client_id": {
           "type": "string",
-          "title": "OHS SSO Client ID",
-          "description": "The client ID for the OHS SSO provider.",
+          "title": "OHSSO Client ID",
+          "description": "The client ID for the OH Monitoring modules.",
           "default": "oh-monitoring"
         },
         "client_secret": {
           "type": "string",
-          "title": "OHS SSO Client Secret",
-          "description": "The client secret for the OHS SSO provider.",
+          "title": "OHSSO Client Secret",
+          "description": "The client secret for the OH Monitoring modules.",
           "default": ""
         }
       },
@@ -40,10 +42,17 @@
           "default": 1,
           "minimum": 1
         },
+        "protocol": {
+          "type": "string",
+          "title": "Prometheus protocol",
+          "description": "The protocol to expose Prometheus (http or https).",
+          "default": "https",
+          "enum": ["http", "https"]
+        },
         "host": {
           "type": "string",
           "title": "Prometheus Host",
-          "description": "The hostname for Prometheus.",
+          "description": "The hostname to expose Prometheus (for example: oh-modules-prometheus.apps.lab.openshift.com).",
           "default": ""
         },
         "kafka_namespace": {
@@ -64,6 +73,7 @@
             "enabled": {
               "type": "boolean",
               "title": "Enable Prometheus Persistence",
+			  "description" : "Enable Prometheus Persistence with storage class.",
               "default": false
             },
             "size": {
@@ -77,7 +87,7 @@
               "type": ["string", "null"],
               "title": "Storage Class",
               "description": "The storage class for the persistent volume.",
-              "default": null
+              "default": ""
             }
           },
           "required": ["enabled", "size", "storageclass"]
@@ -85,6 +95,7 @@
       },
       "required": [
         "replicas",
+		"protocol",
         "host",
         "kafka_namespace",
         "oh_modules_namespace",
@@ -97,26 +108,26 @@
         "protocol": {
           "type": "string",
           "title": "Grafana Protocol",
-          "description": "The protocol to use for Grafana (http or https).",
+          "description": "The protocol to expose Grafana (http or https).",
           "default": "https",
           "enum": ["http", "https"]
         },
         "host": {
           "type": "string",
           "title": "Grafana Host",
-          "description": "The hostname for Grafana.",
+          "description": "The hostname to expose Grafana (for example: oh-modules-monitoring.apps.lab.openshift.com).",
           "default": ""
         },
         "admin_user": {
           "type": "string",
           "title": "Grafana Admin User",
-          "description": "The admin username for Grafana.",
+          "description": "The admin username for Grafana (only used when OHSSO authentication is disabled).",
           "default": "admin"
         },
         "admin_pass": {
           "type": "string",
           "title": "Grafana Admin Password",
-          "description": "The admin password for Grafana.",
+          "description": "The admin password for Grafana (only used when OHSSO authentication is disabled).",
           "default": ""
         }
       },

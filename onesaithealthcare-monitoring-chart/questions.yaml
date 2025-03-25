@@ -1,36 +1,44 @@
 questions:
   - variable: ohsso.enabled
-    label: "Enable OHS SSO"
-    description: "Enable or disable OHS SSO integration."
+    label: "OHSSO auth"
+    description: "Enable OHSSO authentication for prometheus and grafana."
     type: boolean
     default: true
-  - variable: ohsso.url
-    label: "OHS SSO URL"
-    description: "The URL for the OHS SSO provider."
-    type: string
-    required: true
-    group: "OHS SSO"
+    group: "OHSSO"
     show_subquestion_if: true
     subquestions:
+      - variable: ohsso.url
+        label: "OHSSO URL"
+        description: "OHSSO base URL (including realm, for example: https://oh-modules.apps.lab.openshift.com/auth/realms/oh-base )."
+        type: string
+        required: true
       - variable: ohsso.client_id
-        label: "OHS SSO Client ID"
-        description: "The client ID for the OHS SSO provider."
+        label: "OHSSO Client ID"
+        description: "The client ID for the OH Monitoring modules."
+        default: oh-monitoring
         type: string
         required: true
       - variable: ohsso.client_secret
-        label: "OHS SSO Client Secret"
-        description: "The client secret for the OHS SSO provider."
+        label: "OHSSO Client secret"
+        description: "The client secret for the OH Monitoring modules."
         type: string
         required: true
-
   - variable: prometheus.replicas
     label: "Prometheus Replicas"
     description: "The number of Prometheus replicas to deploy."
     type: int
     default: 1
+  - variable: prometheus.protocol
+    label: "Prometheus Protocol"
+    description: "The protocol to expose Prometheus (http or https)."
+    type: enum
+    options:
+      - "http"
+      - "https"
+    default: "https"
   - variable: prometheus.host
     label: "Prometheus Host"
-    description: "The hostname for Prometheus."
+    description: "The hostname to expose Prometheus (for example: oh-modules-prometheus.apps.lab.openshift.com)."
     type: string
     required: true
   - variable: prometheus.kafka_namespace
@@ -45,7 +53,7 @@ questions:
     default: "oh-modules"
   - variable: prometheus.persistence.enabled
     label: "Enable Prometheus Persistence"
-    description: "Enable or disable persistence for Prometheus."
+    description: "Enable Prometheus Persistence with storage class."
     type: boolean
     default: false
     show_subquestion_if: true
@@ -63,7 +71,7 @@ questions:
 
   - variable: grafana.protocol
     label: "Grafana Protocol"
-    description: "The protocol to use for Grafana (http or https)."
+    description: "The protocol to expose Grafana (http or https)."
     type: enum
     options:
       - "http"
@@ -71,19 +79,19 @@ questions:
     default: "https"
   - variable: grafana.host
     label: "Grafana Host"
-    description: "The hostname for Grafana."
+    description: "The hostname to expose Grafana (for example: oh-modules-monitoring.apps.lab.openshift.com)."
     type: string
     required: true
   - variable: grafana.admin_user
     label: "Grafana Admin User"
-    description: "The admin username for Grafana."
+    description: "The admin username for Grafana (only used when OHSSO authentication is disabled)."
     type: string
     required: true
     group: "Grafana"
     show_if: "ohsso.enabled=true"
   - variable: grafana.admin_pass
     label: "Grafana Admin Password"
-    description: "The admin password for Grafana."
+    description: "The admin password for Grafana (only used when OHSSO authentication is disabled)."
     type: password
     required: true
     group: "Grafana"
