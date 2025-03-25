@@ -12,7 +12,7 @@ spec:
     weight: 100
   port:
     targetPort: {{ if .Values.ohsso.enabled }}proxy{{ else }}web{{ end }}
-{{- if .Values.prometheus.protocol }}    
+{{- if eq .Values.prometheus.protocol "https" }}
   tls:
     termination: edge
   wildcardPolicy: None

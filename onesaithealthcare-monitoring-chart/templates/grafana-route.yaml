@@ -12,7 +12,7 @@ spec:
     weight: 100
   port:
     targetPort: grafana-http
-{{- if .Values.grafana.protocol }}    
+{{- if eq .Values.grafana.protocol "https" }}    
   tls:
     termination: edge
   wildcardPolicy: None
