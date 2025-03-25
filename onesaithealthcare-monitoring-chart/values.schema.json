@@ -94,13 +94,6 @@
     "grafana": {
       "type": "object",
       "properties": {
-        "replicas": {
-          "type": "integer",
-          "title": "Grafana Replicas",
-          "description": "The number of Grafana replicas to deploy.",
-          "default": 1,
-          "minimum": 1
-        },
         "protocol": {
           "type": "string",
           "title": "Grafana Protocol",

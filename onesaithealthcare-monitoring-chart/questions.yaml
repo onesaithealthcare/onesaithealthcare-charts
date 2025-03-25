@@ -61,11 +61,6 @@ questions:
         type: string
         required: false
 
-  - variable: grafana.replicas
-    label: "Grafana Replicas"
-    description: "The number of Grafana replicas to deploy."
-    type: int
-    default: 1
   - variable: grafana.protocol
     label: "Grafana Protocol"
     description: "The protocol to use for Grafana (http or https)."
