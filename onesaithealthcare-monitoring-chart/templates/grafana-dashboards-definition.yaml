@@ -7,7 +7,7 @@ data:
     apiVersion: 1
     providers: 
       - name: 'OH Dashboards'
-        updateIntervalSeconds: 10
+        updateIntervalSeconds: 86400
         allowUiUpdates: true
         options:
           path: /etc/grafana/provisioning/dashboards

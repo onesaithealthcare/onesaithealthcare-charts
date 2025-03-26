@@ -1,6 +1,7 @@
 # Onesait Healthcare Chart: onesaithealthcare-monitoring-chart
 
 Este Chart instala los módulos de Onesait Healthcare Monitoring.
+**IMPORTANTE: Se deben descargar los ficheros referenciados en este documento antes de proceder a la instalación del chart.**
 
 ## Módulos
 
@@ -18,7 +19,7 @@ Este Chart instala los módulos de Onesait Healthcare Monitoring.
   Si no se tiene instalado seguir los siguiente pasos, en caso contrario ignorar este punto.
   Acceder a Client Scopes y añadir los scopes (de tipo openid-connect): openid, groups.
   Importar el client oh-monitoring con el json: [Descargar client-oh-monitoring.json](https://onesaithealthcare.github.io/onesaithealthcare-charts/extras/onesaithealthcare-monitoring/client-oh-monitoring.json).
-  Revisar que las redirectUris se corresponden con las del entorno entorno (añadir las redirect uris que se vayan a asignar a prometheus y grafana).
+  Revisar que las redirectUris se corresponden con las del entorno (añadir también las redirect uris que se vayan a asignar a prometheus y grafana).
   Acceder a User Federation y en hn-provider en la lista de Included clients añadir: oh-monitoring.
 
 - En openshift editar el SecurityContextConstraint anyuid y en la lista de users añadirle: 
@@ -33,13 +34,13 @@ Este Chart instala los módulos de Onesait Healthcare Monitoring.
 
 ## Instalación
 
-1. Agregar el repositorio Helm (si no se tenía ya agregado):
+1. Agregar el repositorio Helm (si no se tenía ya agregado), con el siguiente comando o mediante las funcionalidades ofrecidas por la plataforma de kubernetes concreta que se esté usando:
    ```sh
    helm repo add onesaithealthcare https://github.com/onesaithealthcare/onesaithealthcare-charts
    helm repo update
    ```
 
-2. Instalar el chart con el siguiente comando (o usando los formularios si la plataforma kubernetes usada tiene dicha posibilidad):
+2. Instalar el chart con el siguiente comando (o usando los formularios si la plataforma kubernetes usada ofrece dicha posibilidad):
    ```sh
    helm install mi-release onesaithealthcare/onesaithealthcare-monitoring-chart --namespace oh-modules
    ```
