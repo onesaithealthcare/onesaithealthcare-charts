@@ -102,25 +102,17 @@ questions:
     required: false
     show_if: "global.database.type=oracle"
 
-  - variable: global.docker.use.default_oh_registry
-    default: true
-    description: "Use default OH registry"
-    type: boolean
-    required: true
-
   - variable: global.docker.registry.host
     default: "docksdtr.indra.es"
     description: "Docker registry host"
     type: string
     required: true
-    show_if: "global.docker.use.default_oh_registry=false"
 
   - variable: global.docker.registry.project
     default: "multhn_cmhn20_2"
     description: "Docker registry project"
     type: string
     required: true
-    show_if: "global.docker.use.default_oh_registry=false"
     
   - variable: onesaithealthcare-ohsso-chart.ohsso.db.adminpassword
     description: "OHSSO initial adminpassword"

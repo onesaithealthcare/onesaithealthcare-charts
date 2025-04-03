@@ -24,8 +24,6 @@ global:
       url:
       properties:
   docker:
-    use:
-      default_oh_registry: true
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2

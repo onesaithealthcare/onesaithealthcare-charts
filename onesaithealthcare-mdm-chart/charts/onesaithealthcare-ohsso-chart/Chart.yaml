@@ -3,7 +3,7 @@ name: onesaithealthcare-ohsso-chart
 description: Onesait Healthcare OHSSO chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
-version: "4.8.0"
+version: "4.8.1"
 appVersion: "4.8.0"
 keywords:
   - Minsait

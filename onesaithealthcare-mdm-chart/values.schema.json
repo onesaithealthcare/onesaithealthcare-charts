@@ -159,16 +159,6 @@
         "docker": {
           "type": "object",
           "properties": {
-            "use": {
-              "type": "object",
-              "properties": {
-                "default_oh_registry": {
-                  "type": "boolean",
-                  "default": true,
-                  "description": "Use default OH registry"
-                }
-              }
-            },
             "registry": {
               "type": "object",
               "properties": {
