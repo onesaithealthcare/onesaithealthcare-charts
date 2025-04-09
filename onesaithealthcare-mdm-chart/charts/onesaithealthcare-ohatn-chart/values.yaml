@@ -1,11 +1,11 @@
-ohsso:
-  # image-version: 4.10.0.oracle, 4.10.0.mysql
-  sha256-oracle: sha256:c3dfdf3303fa75df3fcc3b605d380b07efa21c0be5be576036b6cad8ff31b059v
-  sha256-mysql: sha256:c00d633e6ead0e9b73d3325714e968bbe75402b32f943c8265bcdc728a9ee512
+enabled: true
+ohatn:
+  # image-version: 4.3.0
+  sha256-front: sha256:b157b38c6ed98681e5040afe005ffad76035f16fb3b7dc24e55024074dc9b2ca
+  sha256-back: sha256:f413c1e2626a4f29e4bfcb54f7fbe12fee91266472029d24d07e4161eadaae94
   db:
-    adminpassword:
-    schema: us_ohsso # usually the same as user
-    user: us_ohsso
+    schema: us_hnatna # usually the same as user
+    user: us_hnatna
     pass: 
 global:
   environment:
@@ -25,4 +25,3 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
-

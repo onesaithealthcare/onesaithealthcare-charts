@@ -1,37 +1,13 @@
-questions:
-  - variable: onesaithealthcare-ohsso-chart.enabled
+
+  - variable: onesaithealthcare-ohmpi-chart.enabled
     default: true
-    description: "Enable OHSSO module"
+    description: "Enable OHMPI module"
     type: boolean
     required: true
 
   - variable: onesaithealthcare-ohatn-chart.enabled
     default: true
     description: "Enable OHATN module"
-    type: boolean
-    required: true
-
-  - variable: onesaithealthcare-ohcon-chart.enabled
-    default: true
-    description: "Enable OHCON module"
-    type: boolean
-    required: true
-
-  - variable: onesaithealthcare-ohcat-chart.enabled
-    default: true
-    description: "Enable OHCAT module"
-    type: boolean
-    required: true
-
-  - variable: onesaithealthcare-ohaut-chart.enabled
-    default: true
-    description: "Enable OHAUT module"
-    type: boolean
-    required: true
-
-  - variable: onesaithealthcare-ohmpi-chart.enabled
-    default: true
-    description: "Enable OHMPI module"
     type: boolean
     required: true
 
@@ -59,10 +35,13 @@ questions:
     type: string
     required: true
 
-  - variable: global.domain.istio
-    default: false
-    description: "Use Istio"
-    type: boolean
+  - variable: global.domain.gateway-type
+    default: k8s-gateway
+    description: "Gateway type"
+    type: enum
+    options:
+      - istio
+      - k8s-gateway
     required: true
 
   - variable: global.database.type
@@ -74,33 +53,38 @@ questions:
       - oracle
     required: true
 
-  - variable: global.database.mysql.url
+  - variable: global.database.host
     default: ""
-    description: "MySQL URL"
+    description: "Database host"
     type: string
     required: true
-    show_if: "global.database.type=mysql"
 
-  - variable: global.database.mysql.properties
-    default: "?serverTimezone=UTC"
-    description: "MySQL properties"
+  - variable: global.database.port
+    default: 
+    description: "Database port"
+    type: string
+    required: true
+
+  - variable: global.database.properties
+    default: ""
+    description: "Database properties (for example: ?serverTimezone=UTC"
     type: string
     required: false
-    show_if: "global.database.type=mysql"
 
-  - variable: global.database.oracle.url
+  - variable: global.database.oracle_sid
     default: ""
-    description: "Oracle URL"
+    description: "Oracle SID (only needed for Oracle)"
     type: string
     required: true
     show_if: "global.database.type=oracle"
 
-  - variable: global.database.oracle.properties
-    default: ""
-    description: "Oracle properties"
-    type: string
-    required: false
+  - variable: global.database.oracle_partitioning
+    default: false
+    description: "Oracle Partitioning enabled (only needed for Oracle)"
+    type: boolean
+    required: true
     show_if: "global.database.type=oracle"
+
 
   - variable: global.docker.registry.host
     default: "docksdtr.indra.es"
@@ -118,17 +102,41 @@ questions:
     description: "OHSSO initial adminpassword"
     type: string
     required: true
-    show_if: "onesaithealthcare-ohsso-chart.enabled=true"
+
+  - variable: onesaithealthcare-ohsso-chart.ohsso.db.schema
+    description: "OHSSO db schema (usually same as user)"
+    default: us_ohsso
+    type: string
+    required: true
 
   - variable: onesaithealthcare-ohsso-chart.ohsso.db.user
     description: "OHSSO db user"
+    default: us_ohsso
     type: string
     required: true
-    show_if: "onesaithealthcare-ohsso-chart.enabled=true"
 
   - variable: onesaithealthcare-ohsso-chart.ohsso.db.pass
     description: "OHSSO db password"
     type: string
     required: true
-    show_if: "onesaithealthcare-ohsso-chart.enabled=true"
+    
+  - variable: onesaithealthcare-ohatn-chart.ohatn.db.schema
+    description: "OHATN db schema (usually same as user)"
+    default: us_hnatna
+    type: string
+    required: true
+    show_if: "onesaithealthcare-ohatn-chart.enabled=true"
+
+  - variable: onesaithealthcare-ohatn-chart.ohatn.db.user
+    description: "OHATN db user"
+    default: us_hnatna
+    type: string
+    required: true
+    show_if: "onesaithealthcare-ohatn-chart.enabled=true"
+
+  - variable: onesaithealthcare-ohatn-chart.ohatn.db.pass
+    description: "OHATN db password"
+    type: string
+    required: true
+    show_if: "onesaithealthcare-ohatn-chart.enabled=true"
     

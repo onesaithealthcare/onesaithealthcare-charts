@@ -1,0 +1,26 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: ohatn-back
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: tcp
+      protocol: TCP
+      port: 2862
+      targetPort: 2862
+    - name: udp
+      protocol: UDP
+      port: 2861
+      targetPort: 2861
+    - name: prom
+      protocol: TCP
+      port: 9093
+      targetPort: 9093
+  selector:
+    app: ohatn-back
+{{- end }}

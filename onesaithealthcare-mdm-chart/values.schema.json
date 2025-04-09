@@ -5,24 +5,24 @@
     "onesaithealthcare-ohsso-chart": {
       "type": "object",
       "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable OHSSO module"
-        },
         "ohsso": {
           "type": "object",
           "properties": {
             "db": {
               "type": "object",
               "properties": {
+                "user": {
+                  "type": "string",
+                  "default": "us_ohsso",
+                  "description": "OHSSO schema (usually same as user)"
+                },
                 "adminpassword": {
                   "type": "string",
                   "description": "OHSSO initial adminpassword"
                 },
                 "user": {
                   "type": "string",
-                  "default": "us_keycloak",
+                  "default": "us_ohsso",
                   "description": "OHSSO db user"
                 },
                 "pass": {
@@ -35,46 +35,6 @@
         }
       }
     },
-    "onesaithealthcare-ohatn-chart": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable OHATN module"
-        }
-      }
-    },
-    "onesaithealthcare-ohcon-chart": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable OHCON module"
-        }
-      }
-    },
-    "onesaithealthcare-ohcat-chart": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable OHCAT module"
-        }
-      }
-    },
-    "onesaithealthcare-ohaut-chart": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable OHAUT module"
-        }
-      }
-    },
     "onesaithealthcare-ohmpi-chart": {
       "type": "object",
       "properties": {
@@ -84,6 +44,40 @@
           "description": "Enable OHMPI module"
         }
       }
+    },
+    "onesaithealthcare-ohatn-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHATN module"
+        },
+        "ohatn": {
+          "type": "object",
+          "properties": {
+            "db": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "default": "us_hnatna",
+                  "description": "OHATN schema (usually same as user)"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_hnatna",
+                  "description": "OHATN db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHATN db password"
+                }
+              }
+            }
+          }
+        }
+	}
     },
     "global": {
       "type": "object",
@@ -111,10 +105,11 @@
               "type": "string",
               "description": "Domain host"
             },
-            "istio": {
-              "type": "boolean",
-              "default": false,
-              "description": "Use Istio"
+            "gateway-type": {
+              "type": "string",
+              "enum": ["istio", "k8s-gateway"],
+              "default": "k8s-gateway",
+              "description": "Gateway type"
             }
           }
         },
@@ -127,32 +122,25 @@
               "default": "mysql",
               "description": "Database type"
             },
-            "mysql": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string",
-                  "description": "MySQL URL"
-                },
-                "properties": {
-                  "type": "string",
-                  "default": "?serverTimezone=UTC",
-                  "description": "MySQL properties"
-                }
-              }
+            "host": {
+              "type": "string",
+              "description": "Database host"
             },
-            "oracle": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string",
-                  "description": "Oracle URL"
-                },
-                "properties": {
-                  "type": "string",
-                  "description": "Oracle properties"
-                }
-              }
+            "port": {
+              "type": "string",
+              "description": "Database port"
+            },
+            "properties": {
+              "type": "string",
+              "description": "Database properties (for example: ?serverTimezone=UTC)"
+            },
+            "oracle_sid": {
+              "type": "string",
+              "description": "Oracle SID (only needed for Oracle)"
+            },
+            "oracle_partitioning": {
+              "type": "string",
+              "description": "Oracle partitioning enabled (only needed for Oracle)"
             }
           }
         },

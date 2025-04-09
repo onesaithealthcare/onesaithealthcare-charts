@@ -20,6 +20,12 @@ spec:
     - ports:
         - protocol: TCP
           port: 3000          
+    - ports:
+        - protocol: TCP
+          port: 8000
+    - ports:
+        - protocol: TCP
+          port: 8443
   policyTypes:
     - Ingress
 

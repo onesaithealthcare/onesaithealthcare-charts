@@ -20,9 +20,9 @@ data:
     proxy=passthrough
     http-port=8080
     {{- if eq .Values.global.database.type "mysql" }}
-    db-url={{ .Values.global.database.mysql.url }}{{ .Values.global.database.mysql.properties }}
+    db-url=jdbc:mysql://{{ .Values.global.database.host }}:{{ .Values.global.database.port }}/{{ .Values.ohsso.db.schema }}{{ .Values.global.database.mysql.properties }}
     {{- else if eq .Values.global.database.type "oracle" }}
-    db-url={{ .Values.global.database.oracle.url }}{{ .Values.global.database.oracle.properties }}
+    db-url=jdbc:oracle:thin:@{{ .Values.global.database.host }}:{{ .Values.global.database.port }}:{{ .Values.global.database.oracle_sid }}{{ .Values.global.database.properties }}
     {{- end }}
     db-username={{ .Values.ohsso.db.user }}
     db-password={{ .Values.ohsso.db.pass }}

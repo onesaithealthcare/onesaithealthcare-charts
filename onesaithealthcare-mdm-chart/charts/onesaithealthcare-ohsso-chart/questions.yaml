@@ -39,10 +39,13 @@ questions:
     type: string
     required: true
 
-  - variable: global.domain.istio
-    default: false
-    description: "Use Istio"
-    type: boolean
+  - variable: global.domain.gateway-type
+    default: k8s-gateway
+    description: "Gateway type"
+    type: enum
+    options:
+      - istio
+      - k8s-gateway
     required: true
 
   - variable: global.database.type

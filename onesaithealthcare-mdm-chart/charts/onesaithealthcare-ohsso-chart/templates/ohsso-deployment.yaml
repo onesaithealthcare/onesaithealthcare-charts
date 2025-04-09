@@ -16,7 +16,7 @@ spec:
       annotations:
         sidecar.istio.io/inject: 'false'
     spec:
-      restartPolicy: Always
+      restartPolicy: IfNotPresent
       serviceAccountName: oh-module
       imagePullSecrets:
         - name: 'oh-docker-creds'
@@ -106,7 +106,7 @@ spec:
               subPath: tls.crt
           terminationMessagePolicy: File
           image: >-
-            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x:{{ .Chart.AppVersion }}.{{ .Values.global.database.type }}
+            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x@{{ if eq .Values.global.database.type "mysql" }}{{ .Values.onesaithealthcare-ohsso-chart.ohsso.sha256-mysql }}{{ else }}{{ .Values.onesaithealthcare-ohsso-chart.ohsso.sha256-oracle }}{{ end }}
       serviceAccount: oh-module
       volumes:
         - name: ohsso-configmap-global

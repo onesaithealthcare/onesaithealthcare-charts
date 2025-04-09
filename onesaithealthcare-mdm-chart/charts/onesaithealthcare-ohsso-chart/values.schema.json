@@ -51,10 +51,11 @@
               "type": "string",
               "description": "Domain host"
             },
-            "istio": {
-              "type": "boolean",
-              "default": false,
-              "description": "Use Istio"
+            "gateway-type": {
+              "type": "string",
+              "enum": ["istio", "k8s-gateway"],
+              "default": "k8s-gateway",
+              "description": "Gateway type"
             }
           }
         },

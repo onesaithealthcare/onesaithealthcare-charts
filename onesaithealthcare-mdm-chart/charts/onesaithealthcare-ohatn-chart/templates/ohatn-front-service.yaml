@@ -1,0 +1,14 @@
+{{- if .Values.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: ohatn-front
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: ohatn-front
+{{- end }}

@@ -21,3 +21,6 @@ dependencies:
   - name: onesaithealthcare-ohsso-chart
     version: "4.8.1"
     repository: "file://charts/onesaithealthcare-ohsso-chart"
+  - name: onesaithealthcare-ohatn-chart
+    version: "4.3.0"
+    repository: "file://charts/onesaithealthcare-ohatn-chart"
