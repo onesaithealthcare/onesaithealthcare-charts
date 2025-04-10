@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'ohcon-back-jetty-cfg'
+data:
+  jetty-env.xml: >
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+    <!DOCTYPE Configure    PUBLIC "-//Jetty//Configure//EN"
+    "configure_10_0.dtd">
+
+    <Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="contextPath">/hnconf</Set>
+    
+      <!-- Datasource -->
+      <New id="HNCONF_DS" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/hnconf</Arg>
+        <Arg>
+          <New class="org.apache.commons.dbcp2.BasicDataSource">
+{{- if eq .Values.global.database.type "mysql" }}
+            <Set name="driverClassName">com.mysql.cj.jdbc.Driver</Set>
+            <Set name="url">jdbc:mysql://{{ .Values.global.database.host }}:{{ .Values.global.database.port }}/{{ .Values.ohcon.db.schema }}{{ .Values.global.database.mysql.properties }}</Set>
+{{- else }}
+            <Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
+            <Set name="url">jdbc:oracle:thin:@{{ .Values.global.database.host }}:{{ .Values.global.database.port }}:{{ .Values.global.database.oracle_sid }}{{ .Values.global.database.properties }}</Set>
+{{- end }}
+            <Set name="username">{{ .Values.ohcon.db.user }}</Set>
+            <Set name="Password">{{ .Values.ohcon.db.pass }}</Set>
+            <Set name="initialSize">2</Set>
+            <Set name="maxTotal">50</Set>
+            <Set name="validationQuery">SELECT 1 FROM dual</Set>         
+          </New>
+        </Arg>
+      </New>
+    </Configure>

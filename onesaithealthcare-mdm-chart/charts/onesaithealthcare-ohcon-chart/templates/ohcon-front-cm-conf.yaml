@@ -1,0 +1,62 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: 'ohcon-front-cfg'
+data:
+  env.json: |-
+    {
+      "hnconf_url": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf",
+      "keycloak-js-dist":"{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf/ohsso-lib.js",
+      "app_theme":"./assets/css/themes/default"
+    }
+  menu-items.json: |-
+    [
+      {
+        "id": "men1",
+        "label": "label.admin.settings",
+        "icon": "type-administration",
+        "routerLink": "/config",
+        "permissions": "HNCON_GEST_PARAM"
+      },
+      {
+        "id": "men12",
+        "label": "label.work.lists",
+        "icon": "icon-names",
+        "routerLink": "/work-lists",
+        "permissions": "HNCON_CLI"
+      },
+      {
+        "id": "men13",
+        "label": "label.app.clinic",
+        "icon": "type-administration",
+        "routerLink": "/appList",
+        "permissions": "HNCON_CLI",
+        "visible": false,
+        "Commentary": "Deshabilitada hasta que se retome el desarrollo, para que no aparezca vacio"
+      },
+      {
+        "id": "men14",
+        "label": "label.title.domains",
+        "icon": "icon-and",
+        "routerLink": "/domains",
+        "permissions": "HNCON_DOMAIN_READ|HNCON_DOMAIN_WRITE"
+      }
+    ]
+  properties.json: |-
+    {
+      "resourceType": "Parameters",
+      "parameter": [
+        {
+            "name": "hncat.url",
+            "valueString": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat"
+        },
+        {
+            "name": "hnconf.url",
+            "valueString": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf"
+        },
+        {
+            "name": "hnaut.url",
+            "valueString": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnaut"
+        }
+      ]
+    }

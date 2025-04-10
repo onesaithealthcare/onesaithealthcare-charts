@@ -139,4 +139,20 @@
     type: string
     required: true
     show_if: "onesaithealthcare-ohatn-chart.enabled=true"
-    
+
+  - variable: onesaithealthcare-ohcon-chart.ohcon.db.schema
+    description: "OHCON db schema (usually same as user)"
+    default: us_hnconf
+    type: string
+    required: true
+
+  - variable: onesaithealthcare-ohcon-chart.ohcon.db.user
+    description: "OHCON db user"
+    default: us_hnconf
+    type: string
+    required: true
+
+  - variable: onesaithealthcare-ohcon-chart.ohcon.db.pass
+    description: "OHCON db password"
+    type: string
+    required: true

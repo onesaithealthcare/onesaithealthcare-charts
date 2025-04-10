@@ -30,6 +30,17 @@ onesaithealthcare-ohsso-chart:
       schema: us_ohsso # usually the same as user
       user: us_ohsso
       pass: 
+onesaithealthcare-ohcon-chart:
+  ohcon:
+    # image-version: 4.7.0
+    sha256-front: sha256:b5a4c74477e085f165d3df970aaa240f1c795c6ba3ff4c2fe50d3521dad0857a
+    sha256-ng15-front: sha256:197b7d19daf5710cdb6a2be628d8968ad13dacd3b84e7ba5642a2f660bbdbf86
+    sha256-front-webc: sha256:f83c05c8fb34fec3e3ca75439afb816cbf5a89261c0e10576bd95514a5afd054
+    sha256-back: sha256:16ff665be6424f41e4f265ec56a235f040e592d8ec5451d5e1262d447248d813
+    db:
+      schema: us_hnconf # usually the same as user
+      user: us_hnconf
+      pass: 
 onesaithealthcare-ohatn-chart:
   ohatn:
     # image-version: 4.3.0

@@ -68,7 +68,7 @@ data:
     <logger name="org.apache" level="WARN" />
     <logger name="net.*" level="WARN" />
     <logger name="loggerPersistFile" level="WARN" additive="false" />
-    <root level="DEBUG">
+    <root level="INFO">
       <appender-ref ref="STDOUT"/>
     </root>
     </included>

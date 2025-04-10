@@ -1,20 +1,19 @@
-{{- if .Values.enabled }}
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: ohatn-front
+  name: ohcon-ng15-front
   labels:
-    app: ohatn-front
+    app: ohcon-ng15-front
 spec:
   replicas: {{ if eq .Values.global.environment.type "dev" }}1{{ else if eq .Values.global.environment.type "prod" }}2{{ end}}
   selector:
     matchLabels:
-      app: ohatn-front
+      app: ohcon-ng15-front
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: ohatn-front
+        app: ohcon-ng15-front
       annotations:
         sidecar.istio.io/inject: 'false'
     spec:
@@ -31,7 +30,7 @@ spec:
                   - key: app
                     operator: In
                     values:
-                      - ohatn-front
+                      - ohcon-ng15-front
               topologyKey: kubernetes.io/hostname
       terminationGracePeriodSeconds: 30
       securityContext: {}
@@ -39,13 +38,13 @@ spec:
         - resources:
             limits:
               cpu: 50m
-              memory: 48Mi
+              memory: 64Mi
             requests:
               cpu: 25m
               memory: 16Mi
           readinessProbe:
             httpGet:
-              path: /ARRLocalRepo/index.html
+              path: /ohconf/index.html
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 60
@@ -54,10 +53,10 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           terminationMessagePath: /dev/termination-log
-          name: ohatn-front
+          name: ohcon-ng15-front
           livenessProbe:
             httpGet:
-              path: /ARRLocalRepo/index.html
+              path: /ohconf/index.html
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 20
@@ -66,38 +65,32 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           volumeMounts:
-            - name: ohatn-front-cfg
-              readOnly: true
-              mountPath: /usr/share/nginx/html/ARRLocalRepo/assets/config/env.json
-              subPath: env.json
-            - name: hnhome-ohsso-front
-              readOnly: true
-              mountPath: /usr/share/nginx/html/ARRLocalRepo/keycloak.json
-              subPath: keycloak.json
             - name: nginx-front-cfg
               readOnly: true
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
             - name: ohsso-lib
               readOnly: true
-              mountPath: /usr/share/nginx/html/ARRLocalRepo/ohsso-lib.js
+              mountPath: /usr/share/nginx/html/ohconf/ohsso-lib.js
               subPath: ohsso-lib.js
+            - name: hnhome-ohsso-front
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohconf/keycloak.json
+              subPath: keycloak.json
+            - name: ohcon-ng15-front-cfg
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohconf/assets/config
+            - name: ohcon-ng15-front-i18n
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohconf/assets/i18n
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohatn-front@{{ .Values.onesaithealthcare-ohatn-chart.ohatn.sha256-front }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-ng15-front@{{ .Values.onesaithealthcare-ohcon-chart.ohcon.sha256-ng15-front }}'
       serviceAccount: oh-module
       volumes:
-        - name: ohatn-front-cfg
-          configMap:
-            name: ohatn-front-cfg
-            defaultMode: 420
-        - name: hnhome-ohsso-front
-          configMap:
-            name: hnhome-ohsso-front
-            defaultMode: 420
         - name: nginx-front-cfg
           configMap:
             name: nginx-front-cfg
@@ -106,6 +99,21 @@ spec:
           configMap:
             name: ohsso-lib
             defaultMode: 420
+        - name: hnhome-ohsso-front
+          configMap:
+            name: hnhome-ohsso-front
+            defaultMode: 420
+        - name: ohcon-ng15-front-cfg
+          configMap:
+            name: ohcon-ng15-front-cfg
+            defaultMode: 420
+        - name: ohcon-ng15-front-i18n
+          configMap:
+            name: ohcon-ng15-front-i18n
+            defaultMode: 420
+        - name: ohcon-ng15-front-keycloak-cfg
+          configMap:
+            name: ohcon-ng15-front-keycloak-cfg
       dnsPolicy: ClusterFirst
   strategy:
     type: RollingUpdate
@@ -114,4 +122,3 @@ spec:
       maxSurge: 25%
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
-{{- end }}

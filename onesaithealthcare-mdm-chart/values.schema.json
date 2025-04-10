@@ -45,7 +45,40 @@
         }
       }
     },
-    "onesaithealthcare-ohatn-chart": {
+    "onesaithealthcare-ohcon-chart": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable OHCON module"
+        },
+        "ohcon": {
+          "type": "object",
+          "properties": {
+            "db": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "default": "us_hnconf",
+                  "description": "OHCON schema (usually same as user)"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_hnconf",
+                  "description": "OHCON db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHCON db password"
+                }
+              }
+            }
+          }
+        }
+	}
+    },    "onesaithealthcare-ohatn-chart": {
       "type": "object",
       "properties": {
         "enabled": {
