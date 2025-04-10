@@ -14,7 +14,7 @@ global:
   domain:
     protocol: # Opciones: http, https
     host:
-    gateway_type: # Opciones: istio, k8s-gateway
+    gateway_type: # Opciones: istio, k8s_gateway
   database:
     type: mysql # Opciones: mysql, oracle
     host:
