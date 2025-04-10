@@ -1,7 +1,3 @@
-onesaithealthcare_ohmpi_chart:
-  enabled: true
-onesaithealthcare_ohatn_chart:
-  enabled: true
 global:
   environment:
     type: dev # Opciones: dev, prod 
@@ -42,6 +38,7 @@ onesaithealthcare_ohcon_chart:
       user: us_hnconf
       pass: 
 onesaithealthcare_ohatn_chart:
+  enabled: true
   ohatn:
     # image-version: 4.3.0
     sha256_front: sha256:b157b38c6ed98681e5040afe005ffad76035f16fb3b7dc24e55024074dc9b2ca
@@ -50,3 +47,5 @@ onesaithealthcare_ohatn_chart:
       schema: us_hnatna # usually the same as user
       user: us_hnatna
       pass: 
+onesaithealthcare_ohmpi_chart:
+  enabled: true
