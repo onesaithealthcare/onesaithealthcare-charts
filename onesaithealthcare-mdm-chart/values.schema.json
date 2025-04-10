@@ -11,7 +11,7 @@
             "db": {
               "type": "object",
               "properties": {
-                "user": {
+                "schema": {
                   "type": "string",
                   "default": "us_ohsso",
                   "description": "OHSSO schema (usually same as user)"
@@ -59,7 +59,7 @@
             "db": {
               "type": "object",
               "properties": {
-                "user": {
+                "schema": {
                   "type": "string",
                   "default": "us_hnconf",
                   "description": "OHCON schema (usually same as user)"
@@ -92,7 +92,7 @@
             "db": {
               "type": "object",
               "properties": {
-                "user": {
+                "schema": {
                   "type": "string",
                   "default": "us_hnatna",
                   "description": "OHATN schema (usually same as user)"
