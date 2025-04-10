@@ -1,11 +1,11 @@
 
-  - variable: onesaithealthcare-ohmpi-chart.enabled
+  - variable: onesaithealthcare_ohmpi_chart.enabled
     default: true
     description: "Enable OHMPI module"
     type: boolean
     required: true
 
-  - variable: onesaithealthcare-ohatn-chart.enabled
+  - variable: onesaithealthcare_ohatn_chart.enabled
     default: true
     description: "Enable OHATN module"
     type: boolean
@@ -35,7 +35,7 @@
     type: string
     required: true
 
-  - variable: global.domain.gateway-type
+  - variable: global.domain.gateway_type
     default: k8s-gateway
     description: "Gateway type"
     type: enum
@@ -98,61 +98,61 @@
     type: string
     required: true
     
-  - variable: onesaithealthcare-ohsso-chart.ohsso.db.adminpassword
+  - variable: onesaithealthcare_ohsso_chart.ohsso.db.adminpassword
     description: "OHSSO initial adminpassword"
     type: string
     required: true
 
-  - variable: onesaithealthcare-ohsso-chart.ohsso.db.schema
+  - variable: onesaithealthcare_ohsso_chart.ohsso.db.schema
     description: "OHSSO db schema (usually same as user)"
     default: us_ohsso
     type: string
     required: true
 
-  - variable: onesaithealthcare-ohsso-chart.ohsso.db.user
+  - variable: onesaithealthcare_ohsso_chart.ohsso.db.user
     description: "OHSSO db user"
     default: us_ohsso
     type: string
     required: true
 
-  - variable: onesaithealthcare-ohsso-chart.ohsso.db.pass
+  - variable: onesaithealthcare_ohsso_chart.ohsso.db.pass
     description: "OHSSO db password"
     type: string
     required: true
     
-  - variable: onesaithealthcare-ohatn-chart.ohatn.db.schema
+  - variable: onesaithealthcare_ohatn_chart.ohatn.db.schema
     description: "OHATN db schema (usually same as user)"
     default: us_hnatna
     type: string
     required: true
-    show_if: "onesaithealthcare-ohatn-chart.enabled=true"
+    show_if: "onesaithealthcare_ohatn_chart.enabled=true"
 
-  - variable: onesaithealthcare-ohatn-chart.ohatn.db.user
+  - variable: onesaithealthcare_ohatn_chart.ohatn.db.user
     description: "OHATN db user"
     default: us_hnatna
     type: string
     required: true
-    show_if: "onesaithealthcare-ohatn-chart.enabled=true"
+    show_if: "onesaithealthcare_ohatn_chart.enabled=true"
 
-  - variable: onesaithealthcare-ohatn-chart.ohatn.db.pass
+  - variable: onesaithealthcare_ohatn_chart.ohatn.db.pass
     description: "OHATN db password"
     type: string
     required: true
-    show_if: "onesaithealthcare-ohatn-chart.enabled=true"
+    show_if: "onesaithealthcare_ohatn_chart.enabled=true"
 
-  - variable: onesaithealthcare-ohcon-chart.ohcon.db.schema
+  - variable: onesaithealthcare_ohcon_chart.ohcon.db.schema
     description: "OHCON db schema (usually same as user)"
     default: us_hnconf
     type: string
     required: true
 
-  - variable: onesaithealthcare-ohcon-chart.ohcon.db.user
+  - variable: onesaithealthcare_ohcon_chart.ohcon.db.user
     description: "OHCON db user"
     default: us_hnconf
     type: string
     required: true
 
-  - variable: onesaithealthcare-ohcon-chart.ohcon.db.pass
+  - variable: onesaithealthcare_ohcon_chart.ohcon.db.pass
     description: "OHCON db password"
     type: string
     required: true

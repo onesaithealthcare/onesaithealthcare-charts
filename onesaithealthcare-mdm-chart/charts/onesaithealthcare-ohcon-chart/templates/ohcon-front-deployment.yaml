@@ -85,7 +85,7 @@ spec:
               mountPath: /usr/share/nginx/html/hnconf/ohsso-lib.js
               subPath: ohsso-lib.js
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-front@{{ .Values.onesaithealthcare-ohcon-chart.ohcon.sha256-front }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-front@{{ .Values.ohcon.sha256_front }}'
       serviceAccount: oh-module
       volumes:
         - name: ohcon-front-cfg

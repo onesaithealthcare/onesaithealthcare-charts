@@ -88,7 +88,7 @@ spec:
               readOnly: true
               mountPath: /usr/share/nginx/html/ohconf/assets/i18n
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-ng15-front@{{ .Values.onesaithealthcare-ohcon-chart.ohcon.sha256-ng15-front }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-ng15-front@{{ .Values.ohcon.sha256_front_ng15 }}'
       serviceAccount: oh-module
       volumes:
         - name: nginx-front-cfg

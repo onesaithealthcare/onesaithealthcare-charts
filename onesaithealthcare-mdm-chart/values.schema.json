@@ -35,7 +35,7 @@
         }
       }
     },
-    "onesaithealthcare-ohmpi-chart": {
+    "onesaithealthcare_ohmpi_chart": {
       "type": "object",
       "properties": {
         "enabled": {
@@ -45,7 +45,7 @@
         }
       }
     },
-    "onesaithealthcare-ohcon-chart": {
+    "onesaithealthcare_ohcon_chart": {
       "type": "object",
       "properties": {
         "enabled": {
@@ -78,7 +78,7 @@
           }
         }
 	}
-    },    "onesaithealthcare-ohatn-chart": {
+    },    "onesaithealthcare_ohatn_chart": {
       "type": "object",
       "properties": {
         "enabled": {
@@ -138,7 +138,7 @@
               "type": "string",
               "description": "Domain host"
             },
-            "gateway-type": {
+            "gateway_type": {
               "type": "string",
               "enum": ["istio", "k8s-gateway"],
               "default": "k8s-gateway",
@@ -172,7 +172,7 @@
               "description": "Oracle SID (only needed for Oracle)"
             },
             "oracle_partitioning": {
-              "type": "string",
+              "type": "boolean",
               "description": "Oracle partitioning enabled (only needed for Oracle)"
             }
           }

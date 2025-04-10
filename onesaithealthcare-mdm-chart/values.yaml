@@ -1,6 +1,6 @@
-onesaithealthcare-ohmpi-chart:
+onesaithealthcare_ohmpi_chart:
   enabled: true
-onesaithealthcare-ohatn-chart:
+onesaithealthcare_ohatn_chart:
   enabled: true
 global:
   environment:
@@ -8,7 +8,7 @@ global:
   domain:
     protocol: # Opciones: http, https
     host:
-    gateway-type: # Opciones: istio, k8s-gateway
+    gateway_type: # Opciones: istio, k8s-gateway
   database:
     type: mysql # Opciones: mysql, oracle
     host:
@@ -20,32 +20,32 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
-onesaithealthcare-ohsso-chart:
+onesaithealthcare_ohsso_chart:
   ohsso:
     # image-version: 4.10.0.oracle, 4.10.0.mysql
-    sha256-oracle: sha256:c3dfdf3303fa75df3fcc3b605d380b07efa21c0be5be576036b6cad8ff31b059v
-    sha256-mysql: sha256:c00d633e6ead0e9b73d3325714e968bbe75402b32f943c8265bcdc728a9ee512
+    sha256_oracle: sha256:c3dfdf3303fa75df3fcc3b605d380b07efa21c0be5be576036b6cad8ff31b059v
+    sha256_mysql: sha256:c00d633e6ead0e9b73d3325714e968bbe75402b32f943c8265bcdc728a9ee512
     db:
       adminpassword:
       schema: us_ohsso # usually the same as user
       user: us_ohsso
       pass: 
-onesaithealthcare-ohcon-chart:
+onesaithealthcare_ohcon_chart:
   ohcon:
     # image-version: 4.7.0
-    sha256-front: sha256:b5a4c74477e085f165d3df970aaa240f1c795c6ba3ff4c2fe50d3521dad0857a
-    sha256-ng15-front: sha256:197b7d19daf5710cdb6a2be628d8968ad13dacd3b84e7ba5642a2f660bbdbf86
-    sha256-front-webc: sha256:f83c05c8fb34fec3e3ca75439afb816cbf5a89261c0e10576bd95514a5afd054
-    sha256-back: sha256:16ff665be6424f41e4f265ec56a235f040e592d8ec5451d5e1262d447248d813
+    sha256_front: sha256:b5a4c74477e085f165d3df970aaa240f1c795c6ba3ff4c2fe50d3521dad0857a
+    sha256_front_ng15: sha256:197b7d19daf5710cdb6a2be628d8968ad13dacd3b84e7ba5642a2f660bbdbf86
+    sha256_front_webc: sha256:f83c05c8fb34fec3e3ca75439afb816cbf5a89261c0e10576bd95514a5afd054
+    sha256_back: sha256:16ff665be6424f41e4f265ec56a235f040e592d8ec5451d5e1262d447248d813
     db:
       schema: us_hnconf # usually the same as user
       user: us_hnconf
       pass: 
-onesaithealthcare-ohatn-chart:
+onesaithealthcare_ohatn_chart:
   ohatn:
     # image-version: 4.3.0
-    sha256-front: sha256:b157b38c6ed98681e5040afe005ffad76035f16fb3b7dc24e55024074dc9b2ca
-    sha256-back: sha256:f413c1e2626a4f29e4bfcb54f7fbe12fee91266472029d24d07e4161eadaae94
+    sha256_front: sha256:b157b38c6ed98681e5040afe005ffad76035f16fb3b7dc24e55024074dc9b2ca
+    sha256_back: sha256:f413c1e2626a4f29e4bfcb54f7fbe12fee91266472029d24d07e4161eadaae94
     db:
       schema: us_hnatna # usually the same as user
       user: us_hnatna

@@ -106,7 +106,7 @@ spec:
               subPath: tls.crt
           terminationMessagePolicy: File
           image: >-
-            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x@{{ if eq .Values.global.database.type "mysql" }}{{ .Values.onesaithealthcare-ohsso-chart.ohsso.sha256-mysql }}{{ else }}{{ .Values.onesaithealthcare-ohsso-chart.ohsso.sha256-oracle }}{{ end }}
+            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x@{{ if eq .Values.global.database.type "mysql" }}{{ .Values.ohsso.sha256_mysql }}{{ else }}{{ .Values.ohsso.sha256_oracle }}{{ end }}
       serviceAccount: oh-module
       volumes:
         - name: ohsso-configmap-global

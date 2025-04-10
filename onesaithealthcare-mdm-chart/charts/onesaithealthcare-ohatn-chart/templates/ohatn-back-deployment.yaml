@@ -108,7 +108,7 @@ spec:
               mountPath: /cert/cert-domain.crt
               subPath: tls.crt
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohatn-back@{{ .Values.onesaithealthcare-ohatn-chart.ohatn.sha256-back }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohatn-back@{{ .Values.ohatn.sha256_back }}'
       serviceAccount: oh-module
       volumes:
         - name: ohatn-back-cfg

@@ -51,7 +51,7 @@ data:
           <New class="org.apache.commons.dbcp2.BasicDataSource">
 {{- if eq .Values.global.database.type "mysql" }}
             <Set name="driverClassName">com.mysql.cj.jdbc.Driver</Set>
-            <Set name="url">jdbc:mysql://{{ .Values.global.database.host }}:{{ .Values.global.database.port }}/{{ .Values.ohatn.db.schema }}{{ .Values.global.database.mysql.properties }}</Set>
+            <Set name="url">jdbc:mysql://{{ .Values.global.database.host }}:{{ .Values.global.database.port }}/{{ .Values.ohatn.db.schema }}{{ .Values.global.database.properties }}</Set>
 {{- else }}
             <Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
             <Set name="url">jdbc:oracle:thin:@{{ .Values.global.database.host }}:{{ .Values.global.database.port }}:{{ .Values.global.database.oracle_sid }}{{ .Values.global.database.properties }}</Set>

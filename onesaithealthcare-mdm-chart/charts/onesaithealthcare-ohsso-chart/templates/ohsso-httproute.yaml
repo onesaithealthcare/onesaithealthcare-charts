@@ -1,4 +1,4 @@
-{{- if eq .Values.global.domain.gateway-type "k8s-gateway"  }}
+{{- if eq .Values.global.domain.gateway_type "k8s-gateway"  }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:

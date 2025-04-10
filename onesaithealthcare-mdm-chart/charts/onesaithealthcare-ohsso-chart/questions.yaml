@@ -39,7 +39,7 @@ questions:
     type: string
     required: true
 
-  - variable: global.domain.gateway-type
+  - variable: global.domain.gateway_type
     default: k8s-gateway
     description: "Gateway type"
     type: enum

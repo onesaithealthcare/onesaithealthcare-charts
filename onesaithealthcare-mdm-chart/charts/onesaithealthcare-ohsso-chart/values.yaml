@@ -1,7 +1,7 @@
 ohsso:
   # image-version: 4.10.0.oracle, 4.10.0.mysql
-  sha256-oracle: sha256:c3dfdf3303fa75df3fcc3b605d380b07efa21c0be5be576036b6cad8ff31b059v
-  sha256-mysql: sha256:c00d633e6ead0e9b73d3325714e968bbe75402b32f943c8265bcdc728a9ee512
+  sha256_oracle: sha256:c3dfdf3303fa75df3fcc3b605d380b07efa21c0be5be576036b6cad8ff31b059v
+  sha256_mysql: sha256:c00d633e6ead0e9b73d3325714e968bbe75402b32f943c8265bcdc728a9ee512
   db:
     adminpassword:
     schema: us_ohsso # usually the same as user
@@ -13,7 +13,7 @@ global:
   domain:
     protocol: # Opciones: http, https
     host:
-    gateway-type: # Opciones: istio, k8s-gateway
+    gateway_type: # Opciones: istio, k8s-gateway
   database:
     type: mysql # Opciones: mysql, oracle
     host:

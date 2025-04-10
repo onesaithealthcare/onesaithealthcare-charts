@@ -18,12 +18,12 @@ dependencies:
   - name: onesaithealthcare-ohccommons-chart
     version: "4.0.1"
     repository: "file://charts/onesaithealthcare-ohccommons-chart"
-  - name: onesaithealthcare-ohsso-chart
+  - name: onesaithealthcare_ohsso_chart
     version: "4.8.1"
-    repository: "file://charts/onesaithealthcare-ohsso-chart"
-  - name: onesaithealthcare-ohcon-chart
+    repository: "file://charts/onesaithealthcare_ohsso_chart"
+  - name: onesaithealthcare_ohcon_chart
     version: "4.7.0"
-    repository: "file://charts/onesaithealthcare-ohcon-chart"
-  - name: onesaithealthcare-ohatn-chart
+    repository: "file://charts/onesaithealthcare_ohcon_chart"
+  - name: onesaithealthcare_ohatn_chart
     version: "4.3.0"
-    repository: "file://charts/onesaithealthcare-ohatn-chart"
+    repository: "file://charts/onesaithealthcare_ohatn_chart"

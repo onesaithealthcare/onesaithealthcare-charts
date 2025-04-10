@@ -1,5 +1,5 @@
 apiVersion: v2
-name: onesaithealthcare-ohsso-chart
+name: onesaithealthcare_ohsso_chart
 description: Onesait Healthcare OHSSO chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
