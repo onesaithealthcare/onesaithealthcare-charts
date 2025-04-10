@@ -60,7 +60,7 @@
     required: true
 
   - variable: global.database.port
-    default: 
+    default: ""
     description: "Database port"
     type: string
     required: true
