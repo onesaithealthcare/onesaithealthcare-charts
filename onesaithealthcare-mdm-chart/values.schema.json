@@ -180,7 +180,7 @@
               "description": "Oracle partitioning enabled (only needed for Oracle)"
             }
           },
-		  "required" : [ "type", "host", "port", "properties" ]
+		  "required" : [ "type", "host", "port" ]
         },
         "docker": {
           "type": "object",
