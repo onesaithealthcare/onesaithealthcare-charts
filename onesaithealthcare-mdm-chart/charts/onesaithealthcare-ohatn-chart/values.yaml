@@ -20,7 +20,7 @@ global:
     port:
     oracle_sid: # only needed for Oracle
     oracle_partitioning: false # true|false, only needed for Oracle
-    properties: # for example: ?serverTimezone=UTC
+    props: # for example: ?serverTimezone=UTC
   docker:
     registry:
       host: docksdtr.indra.es

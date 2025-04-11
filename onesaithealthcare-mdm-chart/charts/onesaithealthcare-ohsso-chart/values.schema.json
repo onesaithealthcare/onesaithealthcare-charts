@@ -2,29 +2,36 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
-    "ohsso": {
-      "type": "object",
-      "properties": {
-        "db": {
+
+        "ohsso": {
           "type": "object",
           "properties": {
-            "adminpassword": {
-              "type": "string",
-              "description": "OHSSO initial adminpassword"
-            },
-            "user": {
-              "type": "string",
-              "default": "us_keycloak",
-              "description": "OHSSO db user"
-            },
-            "pass": {
-              "type": "string",
-              "description": "OHSSO db password"
+            "db": {
+              "type": "object",
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "default": "us_ohsso",
+                  "description": "OHSSO schema (usually same as user)"
+                },
+                "adminpassword": {
+                  "type": "string",
+                  "description": "OHSSO initial adminpassword"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_ohsso",
+                  "description": "OHSSO db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHSSO db password"
+                }
+              }
             }
           }
         }
-      }
-    },
+      ,
     "global": {
       "type": "object",
       "properties": {
@@ -51,10 +58,10 @@
               "type": "string",
               "description": "Domain host"
             },
-            "gateway-type": {
+            "gateway_type": {
               "type": "string",
-              "enum": ["istio", "k8s-gateway"],
-              "default": "k8s-gateway",
+              "enum": ["istio", "k8s_gateway"],
+              "default": "k8s_gateway",
               "description": "Gateway type"
             }
           }
@@ -68,48 +75,35 @@
               "default": "mysql",
               "description": "Database type"
             },
-            "mysql": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string",
-                  "description": "MySQL URL"
-                },
-                "properties": {
-                  "type": "string",
-                  "default": "?serverTimezone=UTC",
-                  "description": "MySQL properties"
-                }
-              }
+            "host": {
+              "type": "string",
+              "description": "Database host"
             },
-            "oracle": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string",
-                  "description": "Oracle URL"
-                },
-                "properties": {
-                  "type": "string",
-                  "description": "Oracle properties"
-                }
-              }
+            "port": {
+              "type": "string",
+              "description": "Database port"
+            },
+            "props": {
+              "type": "string",
+			  "default" : " ",
+              "description": "Database properties (for example: ?serverTimezone=UTC)"
+            },
+            "oracle_sid": {
+              "type": "string",
+			  "default" : " ",
+              "description": "Oracle SID (only needed for Oracle)"
+            },
+            "oracle_partitioning": {
+              "type": "boolean",
+			  "default" : "false",
+              "description": "Oracle partitioning enabled (only needed for Oracle)"
             }
-          }
+          },
+		  "required" : [ "type", "host", "port" ]
         },
         "docker": {
           "type": "object",
           "properties": {
-            "use": {
-              "type": "object",
-              "properties": {
-                "default_oh_registry": {
-                  "type": "boolean",
-                  "default": true,
-                  "description": "Use default OH registry"
-                }
-              }
-            },
             "registry": {
               "type": "object",
               "properties": {
