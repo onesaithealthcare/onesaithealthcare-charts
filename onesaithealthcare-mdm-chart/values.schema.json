@@ -166,6 +166,7 @@
             },
             "properties": {
               "type": "string",
+			  "default" : "",
               "description": "Database properties (for example: ?serverTimezone=UTC)"
             },
             "oracle_sid": {
@@ -176,7 +177,8 @@
               "type": "boolean",
               "description": "Oracle partitioning enabled (only needed for Oracle)"
             }
-          }
+          },
+		  "required" : [ "type", "host", "port", "properties" ]
         },
         "docker": {
           "type": "object",
