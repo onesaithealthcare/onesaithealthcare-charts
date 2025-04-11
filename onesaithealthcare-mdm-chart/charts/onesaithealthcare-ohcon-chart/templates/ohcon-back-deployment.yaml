@@ -70,7 +70,7 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: ohcon-back-jetty-cfg
               readOnly: true
