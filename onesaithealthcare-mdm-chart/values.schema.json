@@ -78,7 +78,8 @@
           }
         }
 	}
-    },    "onesaithealthcare_ohatn_chart": {
+    },    
+	"onesaithealthcare_ohatn_chart": {
       "type": "object",
       "properties": {
         "enabled": {
@@ -140,8 +141,8 @@
             },
             "gateway_type": {
               "type": "string",
-              "enum": ["istio", "k8s-gateway"],
-              "default": "k8s-gateway",
+              "enum": ["istio", "k8s_gateway"],
+              "default": "k8s_gateway",
               "description": "Gateway type"
             }
           }

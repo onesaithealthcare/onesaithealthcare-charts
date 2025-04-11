@@ -1,5 +1,11 @@
 questions:
 
+  - variable: ohsso.db.schema
+    description: "OHSSO db schema (usually same as user)"
+    default: us_ohsso
+    type: string
+    required: true
+
   - variable: ohsso.db.adminpassword
     description: "OHSSO initial adminpassword"
     type: string
@@ -57,50 +63,47 @@ questions:
       - oracle
     required: true
 
-  - variable: global.database.mysql.url
+  - variable: global.database.host
     default: ""
-    description: "MySQL URL"
+    description: "Database host"
     type: string
     required: true
-    show_if: "global.database.type=mysql"
 
-  - variable: global.database.mysql.properties
-    default: "?serverTimezone=UTC"
-    description: "MySQL properties"
+  - variable: global.database.port
+    default: ""
+    description: "Database port"
+    type: string
+    required: true
+
+  - variable: global.database.properties
+    default: ""
+    description: "Database properties (for example: ?serverTimezone=UTC"
     type: string
     required: false
-    show_if: "global.database.type=mysql"
 
-  - variable: global.database.oracle.url
+  - variable: global.database.oracle_sid
     default: ""
-    description: "Oracle URL"
-    type: string
-    required: true
-    show_if: "global.database.type=oracle"
-
-  - variable: global.database.oracle.properties
-    default: ""
-    description: "Oracle properties"
+    description: "Oracle SID (only needed for Oracle)"
     type: string
     required: false
     show_if: "global.database.type=oracle"
 
-  - variable: global.docker.use.default_oh_registry
-    default: true
-    description: "Use default OH registry"
+  - variable: global.database.oracle_partitioning
+    default: false
+    description: "Oracle Partitioning enabled (only needed for Oracle)"
     type: boolean
-    required: true
+    required: false
+    show_if: "global.database.type=oracle"
+
 
   - variable: global.docker.registry.host
     default: "docksdtr.indra.es"
     description: "Docker registry host"
     type: string
     required: true
-    show_if: "global.docker.use.default_oh_registry=false"
 
   - variable: global.docker.registry.project
     default: "multhn_cmhn20_2"
     description: "Docker registry project"
     type: string
     required: true
-    show_if: "global.docker.use.default_oh_registry=false"

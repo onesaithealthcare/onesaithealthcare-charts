@@ -76,14 +76,14 @@ questions:
     default: ""
     description: "Oracle SID (only needed for Oracle)"
     type: string
-    required: true
+    required: false
     show_if: "global.database.type=oracle"
 
   - variable: global.database.oracle_partitioning
     default: false
     description: "Oracle Partitioning enabled (only needed for Oracle)"
     type: boolean
-    required: true
+    required: false
     show_if: "global.database.type=oracle"
 
 
