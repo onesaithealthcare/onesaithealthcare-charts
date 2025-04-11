@@ -68,7 +68,7 @@ questions:
 
   - variable: global.database.props
     default: ""
-    description: "Database properties (for example: ?serverTimezone=UTC"
+    description: "Database properties (for example: ?serverTimezone=UTC)"
     type: string
     required: false
 

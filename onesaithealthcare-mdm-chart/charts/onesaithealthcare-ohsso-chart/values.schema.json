@@ -85,12 +85,12 @@
             },
             "props": {
               "type": "string",
-			  "default" : " ",
+			  "default" : "",
               "description": "Database properties (for example: ?serverTimezone=UTC)"
             },
             "oracle_sid": {
               "type": "string",
-			  "default" : " ",
+			  "default" : "",
               "description": "Oracle SID (only needed for Oracle)"
             },
             "oracle_partitioning": {
