@@ -171,10 +171,12 @@
             },
             "oracle_sid": {
               "type": "string",
+			  "default" : "",
               "description": "Oracle SID (only needed for Oracle)"
             },
             "oracle_partitioning": {
               "type": "boolean",
+			  "default" : "false",
               "description": "Oracle partitioning enabled (only needed for Oracle)"
             }
           },
