@@ -67,13 +67,13 @@ questions:
     required: true
 
   - variable: global.database.props
-    default: " "
+    default: ""
     description: "Database properties (for example: ?serverTimezone=UTC"
     type: string
     required: false
 
   - variable: global.database.oracle_sid
-    default: " "
+    default: ""
     description: "Oracle SID (only needed for Oracle)"
     type: string
     required: false
