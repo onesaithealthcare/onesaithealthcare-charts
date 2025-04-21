@@ -19,11 +19,11 @@ data:
     </Configuration>
   hnatna.properties: |
     datasource.hnatna=jdbc/hnatna
-{{- if eq .Values.global.database.type "mysql" }}    
+{{- if eq .Values.global.database.type "mysql" }}
     hib.dialect=org.hibernate.dialect.MySQLDialect
 {{- else }}
     hib.dialect=org.hibernate.dialect.Oracle10gDialect
-{{- end }}    
+{{- end }}
     database.selected={{ .Values.global.database.type }}
     hib.hbm2ddl.auto=none
     persist.database=true

@@ -118,11 +118,11 @@ data:
     defaultSchema.hnconf={{ .Values.ohcon.db.schema }}
     hibernate.transaction.flush_before_completion=true
     hibernate.current_session_context_class=jta
-{{- if eq .Values.global.database.type "mysql" }}    
+{{- if eq .Values.global.database.type "mysql" }}
     hibernate.dialect=org.hibernate.dialect.MySQLDialect
 {{- else }}
     hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
-{{- end }}        
+{{- end }}
     hibernate.jdbc.batch_size=25
     hibernate.jdbc.fetch_size=25
     hibernate.jdbc.batch_fetch_size=25
