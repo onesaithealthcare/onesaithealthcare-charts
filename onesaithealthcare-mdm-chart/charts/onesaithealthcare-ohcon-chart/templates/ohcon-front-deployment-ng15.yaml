@@ -84,9 +84,6 @@ spec:
             - name: ohcon-ng15-front-cfg
               readOnly: true
               mountPath: /usr/share/nginx/html/ohconf/assets/config
-            - name: ohcon-ng15-front-i18n
-              readOnly: true
-              mountPath: /usr/share/nginx/html/ohconf/assets/i18n
           terminationMessagePolicy: File
           image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-ng15-front@{{ .Values.ohcon.sha256_front_ng15 }}'
       serviceAccount: oh-module
@@ -107,13 +104,6 @@ spec:
           configMap:
             name: ohcon-ng15-front-cfg
             defaultMode: 420
-        - name: ohcon-ng15-front-i18n
-          configMap:
-            name: ohcon-ng15-front-i18n
-            defaultMode: 420
-        - name: ohcon-ng15-front-keycloak-cfg
-          configMap:
-            name: ohcon-ng15-front-keycloak-cfg
       dnsPolicy: ClusterFirst
   strategy:
     type: RollingUpdate
