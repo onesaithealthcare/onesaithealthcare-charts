@@ -6,15 +6,10 @@
       "type": "object",
       "properties": {
         "environment": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["dev", "prod"],
-              "default": "dev",
-              "description": "Environment type"
-            }
-          }
+          "type": "string",
+          "enum": ["dev", "prod"],
+		  "default": "dev",
+          "description": "Environment type"
         },
         "domain": {
           "type": "object",
@@ -22,11 +17,15 @@
             "protocol": {
               "type": "string",
               "enum": ["http", "https"],
-              "description": "Domain protocol"
+			  "description": "Domain protocol"
             },
             "host": {
               "type": "string",
               "description": "Domain host"
+            },
+            "gateway": {
+              "type": "string",
+			  "description": "GATEWAY DEL VIRTUAL SERVICE"
             },
             "gateway_type": {
               "type": "string",
@@ -34,7 +33,8 @@
               "default": "k8s_gateway",
               "description": "Gateway type"
             }
-          }
+          },
+          "required": ["host"]
         },
         "docker": {
           "type": "object",
@@ -43,49 +43,74 @@
               "type": "object",
               "properties": {
                 "host": {
-                  "type": "string",
-                  "default": "docksdtr.indra.es",
-                  "description": "Docker registry host"
+                  "type": "string"
+				  "description": "docker registry host"
                 },
                 "project": {
-                  "type": "string",
-                  "default": "multhn_cmhn20_2",
-                  "description": "Docker registry project"
+                  "type": "string"
+				  "description": "docker registry project"
                 }
-              }
+              },
+              "required": ["host", "project"]
             }
           }
         }
-      }
+      },
+      "required": ["environment", "domain", "docker"]
     },
     "bi": {
       "type": "object",
       "properties": {
-		"module": {
+        "sha256": {
+          "type": "object",
+          "properties": {
+            "back": {
+              "type": "string"
+            },
+            "front": {
+              "type": "string"
+            }
+          },
+          "required": ["back", "front"]
+        },
+        "module": {
           "type": "object",
           "properties": {
             "ohbi_app_name": {
-			  "type": "string",
+              "type": "string",
 			  "description": "Nombre del módulo"
-			},
-			"namespace": {
-			  "type": "string",
+            },
+            "namespace": {
+              "type": "string",
 			  "description": "Namespace"
-			},
-			"gateway": {
-			  "type": "string",
+            },
+            "storageclassname": {
+              "type": "string",
 			  "description": "GATEWAY DEL VIRTUAL SERVICE"
-			},
-			"fhost": {
-			  "type": "string",
-			  "description": "Host en el que está disponible OHBI (Este valor se define en el GATEWAY)"
-			},
-			"storageclassname": {
-			  "type": "string",
-			  "description": "NOMBRE DEL STORAGECLASS"
-			}
+            }
           },
-		  "required": ["ohbi_app_name", "namespace", "gateway", "fhost", "storageclassname"]
+          "required": ["ohbi_app_name"]
+        },
+        "mail": {
+          "type": "object",
+          "properties": {
+            "ohbi_mail_configuration_host_name": {
+              "type": "string",
+			  "description": "Configuración correo: Destino"
+            },
+            "ohbi_mail_configuration_port": {
+              "type": "string",
+			  "description": "Configuración correo: Puerto"			  
+            },
+            "ohbi_mail_configuration_from": {
+              "type": "string",
+			  "description": "Configuración correo: Remite"
+            },
+            "ohbi_mail_configuration_password": {
+              "type": "string",
+			  "description": "Configuración correo: Password"
+            }
+          }
         },
         "database": {
           "type": "object",
@@ -93,55 +118,35 @@
             "mysql": {
               "type": "object",
               "properties": {
-				"ohbi_db_driver": {
+                "ohbi_db_driver": {
                   "type": "string",
-                  "description": "Driver de la base de datos MySql (Ejemplo: com.mysql.cj.jdbc.Driver)"
+				  "description": "Driver de la base de datos MySql (Ejemplo: com.mysql.cj.jdbc.Driver)"
                 },
                 "ohbi_db_url": {
                   "type": "string",
-                  "description": "URL de conexión a la base de datos MySql (Ejemplo: jdbc:mysql://proyvalhnbd1-1.indra.es:3306/ohbi?useSSL=false&serverTimezone=UTC&create=true&allowPublicKeyRetrieval=true). En caso de alta disponibilidad añadir los siguientes parámetros a la url: autoReconnect=true&failOverReadOnly=false"
+				  "description": "URL de conexión a la base de datos MySql (Ejemplo: jdbc:mysql://proyvalhnbd1-1.indra.es:3306/ohbi?useSSL=false&serverTimezone=UTC&create=true&allowPublicKeyRetrieval=true). En caso de alta disponibilidad añadir los siguientes parámetros a la url: autoReconnect=true&failOverReadOnly=false"
                 },
                 "ohbi_db_dialect": {
                   "type": "string",
-                  "description": "Dialecto de la base de datos MySql (Ejemplo: org.hibernate.dialect.MySQLDialect)"
+                  "const": "org.hibernate.dialect.MySQLDialect",
+				  "description": "Dialecto de la base de datos MySql (Ejemplo: org.hibernate.dialect.MySQLDialect)"
+				  
                 },
                 "ohbi_db_user": {
                   "type": "string",
-                  "description": "Usuario"
+				  "description": "Usuario"
                 },
                 "ohbi_db_pass": {
                   "type": "string",
-                  "description": "Contraseña"
+				  "description": "Contraseña"
                 }
               },
-              "required": ["ohbi_db_driver", "ohbi_db_url", "ohbi_db_dialect", "ohbi_db_user"]
+              "required": ["ohbi_db_dialect"]
             }
           }
-        },
-        "mail": {
-          "type": "object",
-          "properties": {
-            "ohbi_mail_configuration_host_name": {
-              "type": "string",
-              "description": "Configuración correo: Destino"
-            },
-            "ohbi_mail_configuration_port": {
-              "type": "string",
-              "description": "Configuración correo: Puerto"
-            },
-            "ohbi_mail_configuration_from": {
-              "type": "string",
-              "description": "Configuración correo: Remite"
-            },
-            "ohbi_mail_configuration_password": {
-              "type": "string",
-              "description": "Configuración correo: Password"
-            }
-          },
-          "required": ["ohbi_mail_configuration_port"]
         }
       }
     }
   },
-  "required": ["docker", "bi"]
+  "required": ["global", "bi"]
 }

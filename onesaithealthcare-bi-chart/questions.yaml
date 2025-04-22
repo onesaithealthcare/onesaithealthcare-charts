@@ -45,7 +45,7 @@ questions:
     type: string
     required: true
     
-  - variable: bi.module.name
+  - variable: bi.module.ohbi_app_name
     label: "Nombre del módulo"
     description: "Nombre del módulo"
     type: string
