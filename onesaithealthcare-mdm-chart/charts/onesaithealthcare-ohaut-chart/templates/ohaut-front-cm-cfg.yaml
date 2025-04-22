@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ohaut-front-cfg
+data:
+  env.json: |-
+    {    
+      "hnconf_url": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf",
+      "keycloak-js-dist": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf/ohsso-lib.js",
+      "app_theme":"./assets/css/themes/default"
+    }

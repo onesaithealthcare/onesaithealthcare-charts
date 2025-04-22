@@ -1,0 +1,91 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ohaut-virtual-service
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - '{{ .Values.global.domain.host }}'
+  http:
+    - headers:
+        request:
+          set:
+            Accept: application/fhir+json;fhirVersion=3.0
+            Content-Type: application/fhir+json;fhirVersion=3.0
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - queryParams:
+            _query:
+              exact: findCentersByUser
+          uri:
+            prefix: /hnaut/fhir/UserCenter
+      route:
+        - destination:
+            host: ohaut-back
+            port:
+              number: 8080
+    - headers:
+        request:
+          set:
+            Accept: application/fhir+json;fhirVersion=3.0
+            Content-Type: application/fhir+json;fhirVersion=3.0
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            prefix: /hnaut/fhir/$login
+        - uri:
+            prefix: /hnaut/fhir/$changePassword
+        - uri:
+            prefix: /hnaut/fhir/AccessOption
+      route:
+        - destination:
+            host: ohaut-back
+            port:
+              number: 8080
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            prefix: /hnaut/fhir/
+        - uri:
+            prefix: /hnaut/fhir
+        - uri:
+            prefix: /hnaut/StreamServlet/
+        - uri:
+            exact: /hnaut/keycloak.json
+        - uri:
+            exact: /hnaut/healthcheck
+      route:
+        - destination:
+            host: ohaut-back
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /hnaut
+      rewrite:
+        uri: /hnaut/
+      route:
+        - destination:
+            host: ohaut-front
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /hnaut/
+      route:
+        - destination:
+            host: ohaut-front
+            port:
+              number: 80
+{{- end }}

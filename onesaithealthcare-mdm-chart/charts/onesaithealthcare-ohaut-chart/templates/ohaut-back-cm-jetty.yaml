@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ohaut-back-jetty
+data:
+  jetty-env.xml: |
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <!DOCTYPE Configure    PUBLIC "-//Jetty//Configure//EN" "configure_9_0.dtd">
+    <Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="contextPath">/hnaut</Set>
+      
+      <!-- La parte comentada a continuacion seria para jetty 9, para jetty 10 hay que quitarla. -->
+      <!-- New class="org.eclipse.jetty.server.HttpConfiguration" id="httpConfig">
+        <Set name="secureScheme">https</Set>
+        <Set name="outputBufferSize">64768</Set>
+        <Set name="requestHeaderSize">64192</Set>
+        <Set name="responseHeaderSize">64192</Set>
+        <Set name="sendServerVersion">true</Set>
+        <Set name="sendDateHeader">false</Set>
+        <Set name="headerCacheSize">512</Set>
+      </New>
+      <Get name="server" id="server">
+        <Set name="connectors">
+          <Array type="org.eclipse.jetty.server.ServerConnector">
+            <Item>
+              <New class="org.eclipse.jetty.server.ServerConnector">
+                <Arg name="server"><Ref refid="server" /></Arg>
+                <Arg name="factories">
+                  <Array type="org.eclipse.jetty.server.ConnectionFactory">
+                    <Item>
+                      <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                        <Arg name="config"><Ref refid="httpConfig" /></Arg>
+                      </New>
+                    </Item>
+                  </Array>
+                </Arg>
+                <Set name="port">8080</Set>
+                <Set name="idleTimeout">30000</Set>
+              </New>
+            </Item>
+          </Array>
+        </Set>
+      </Get -->
+      
+      <New id="HNAUT_DS" class="org.eclipse.jetty.plus.jndi.Resource">
+          <Arg></Arg>
+          <Arg>HNAUT_DS</Arg>
+          <Arg>
+             <New class="org.apache.commons.dbcp2.BasicDataSource">
+{{- if eq .Values.global.database.type "mysql" }}
+                <Set name="driverClassName">com.mysql.cj.jdbc.Driver</Set>
+                <Set name="url">jdbc:mysql://{{ .Values.global.database.host }}:{{ .Values.global.database.port }}/{{ .Values.ohaut.db.schema }}{{ .Values.global.database.props }}</Set>
+{{- else }}
+                <Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
+                <Set name="url">jdbc:oracle:thin:@{{ .Values.global.database.host }}:{{ .Values.global.database.port }}:{{ .Values.global.database.oracle_sid }}{{ .Values.global.database.props }}</Set>
+{{- end }}
+                <Set name="username">{{ .Values.ohaut.db.user }}</Set>
+                <Set name="password">{{ .Values.ohaut.db.pass }}</Set>
+                <Set name="maxTotal">50</Set>
+                <Set name="validationQuery">SELECT 1 FROM DUAL</Set>
+                <Set name="minIdle">5</Set>
+                <Set name="maxIdle">20</Set>
+                <Set name="maxWaitMillis">30000</Set>
+                <Set name="testOnBorrow">true</Set>
+                <Set name="testWhileIdle">true</Set>
+                <Set name="timeBetweenEvictionRunsMillis">5000</Set>
+                <Set name="minEvictableIdleTimeMillis">60000</Set>
+                <Set name="numTestsPerEvictionRun">3</Set>
+                <Set name="jmxName">OHAUT_DS</Set>
+             </New>
+          </Arg>
+      </New>
+      
+    </Configure>

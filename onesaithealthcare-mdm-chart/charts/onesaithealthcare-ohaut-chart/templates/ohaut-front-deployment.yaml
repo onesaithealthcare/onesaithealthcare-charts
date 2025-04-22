@@ -1,0 +1,114 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ohaut-front
+  labels:
+    app: ohaut-front
+spec:
+  replicas: {{ if eq .Values.global.environment.type "dev" }}1{{ else if eq .Values.global.environment.type "prod" }}2{{ end}}
+  selector:
+    matchLabels:
+      app: ohaut-front
+  template:
+    metadata:
+      labels:
+        app: ohaut-front
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: 'oh-docker-creds'
+      schedulerName: default-scheduler
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ohaut-front
+              topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              cpu: 50m
+              memory: 48Mi
+            requests:
+              cpu: 25m
+              memory: 16Mi
+          readinessProbe:
+            httpGet:
+              path: /hnaut/index.html
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: ohaut-front
+          livenessProbe:
+            httpGet:
+              path: /hnaut/index.html
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: ohaut-front-cfg
+              readOnly: true
+              mountPath: /usr/share/nginx/html/hnaut/assets/config
+            - name: nginx-front-cfg
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: hnhome-ohsso-front
+              readOnly: true
+              mountPath: /usr/share/nginx/html/hnaut/keycloak.json
+              subPath: keycloak.json
+            - name: ohsso-lib
+              readOnly: true
+              mountPath: /usr/share/nginx/html/hnaut/ohsso-lib.js
+              subPath: ohsso-lib.js
+          terminationMessagePolicy: File
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohaut-front@{{ .Values.ohaut.sha256_front }}'
+      serviceAccount: oh-module
+      volumes:
+        - name: ohaut-front-cfg
+          configMap:
+            name: ohaut-front-cfg
+            defaultMode: 420
+        - name: nginx-front-cfg
+          configMap:
+            name: nginx-front-cfg
+            defaultMode: 420
+        - name: hnhome-ohsso-front
+          configMap:
+            name: hnhome-ohsso-front
+            defaultMode: 420
+        - name: ohsso-lib
+          configMap:
+            name: ohsso-lib
+            defaultMode: 420
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+
