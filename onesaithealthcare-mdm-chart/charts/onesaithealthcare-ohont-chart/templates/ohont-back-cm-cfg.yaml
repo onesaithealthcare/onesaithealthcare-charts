@@ -1,0 +1,319 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ohont-back-cfg
+data:
+  ehcache.xml: >
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <ehcache name="hncatCache"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+      <defaultCache eternal="false" maxElementsInMemory="100"
+         overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="3600" timeToLiveSeconds="14400" memoryStoreEvictionPolicy="LRU" />
+                       
+      <cache name="ohont.ohcon.property" eternal="false" maxElementsInMemory="200"
+          overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="900" timeToLiveSeconds="1800" memoryStoreEvictionPolicy="LRU" />
+
+      <cache name="ohont.codesystem.r3" eternal="false"
+        maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+        timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+        memoryStoreEvictionPolicy="LRU" />
+
+      <cache name="ohont.codesystem.r4" eternal="false"
+        maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+        timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+        memoryStoreEvictionPolicy="LRU" />
+
+      <cache name="ohont.valueset.r3" eternal="false"
+        maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+        timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+        memoryStoreEvictionPolicy="LRU" />
+
+      <cache name="ohont.valueset.r4" eternal="false"
+        maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+        timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+        memoryStoreEvictionPolicy="LRU" />
+    </ehcache>
+  hncat.properties: >
+    logout.url=${hncat.url}/sso/logout
+
+    datasource.hncat=HNCAT_DS
+
+    defaultSchema.hncat={{ .Values.ohont.db.schema }}
+
+    hibernate.transaction.flush_before_completion=true
+
+    hibernate.current_session_context_class=jta
+    
+{{- if eq .Values.global.database.type "mysql" }}
+    hibernate.dialect=org.hibernate.dialect.MySQLDialect
+{{- else }}
+    hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+{{- end }}
+
+    database.selected={{ .Values.global.database.type }}
+
+    # posibles valores com.atomikos.icatch.jta.hibernate4.AtomikosPlatform | JBossAS | Weblogic
+
+    hibernate.transaction.jta.platform=com.atomikos.icatch.jta.hibernate4.AtomikosPlatform
+
+    hibernate.jdbc.batch_size=25
+
+    hibernate.jdbc.fetch_size=25
+
+    hibernate.jdbc.batch_fetch_size=25
+
+    datatableElementsByPageSearch=15
+
+    datatableElementsByPageEdition=8
+
+    maxElementsSelectAll=300
+
+    #propiedades relacionadas con FHIR
+
+    fhir.url.system=http://indra.hn.es/fhir/codesystems/
+
+    # delimitadores aceptados para la importacion de CSV (separados por |)
+
+    file.import.delimiters=;
+
+    # report unit de informe de exportacion de catalogos CSV
+
+    report.unit.catalog.export=/hncat/catalogExport/catalogExportRU
+
+    #report unit de informe de plantilla de importacion CSV
+
+    report.unit.catalog.template=/hncat/catalogExport/catalogExportHeaderRU
+
+    # valor para sin etiquetas
+
+    label.without=Sin etiquetas
+
+    #Masimo numero de elementos por defecto seleccionables en las relaciones de tipo atributo 
+
+    maxElementsInDefaultValues=5
+
+    #Maximo numero de elementos en el combo de catalogos
+
+    maxElementsInCombos=100
+
+    #Maximo numero de elementos devueltos
+
+    fhir.max.concepts.size=500
+
+    #Maximo numero de elementos para borrar
+
+    maxElementsDelete=1000
+
+    jms.initial.factory.class.wl=weblogic.jndi.WLInitialContextFactory
+
+    jms.initial.factory.class.jboss=org.jnp.interfaces.NamingContextFactory
+
+    #Snomed valor por defecto
+
+    snomed.item.code=138875005
+
+    snomed.item.name=Concepto SNOMED
+
+    # notificacion a mirth
+
+    mirth.notification.enable=false
+
+    catalog.maxLengthCode=50
+
+    catalog.maxLengthValue=200
+
+    catalog.maxLengthDescription=500
+
+    downloadHelp.path=D:\\HN\\Manuals\\ManualdeusuarioEscritorio.pdf
+
+    ######## ActiveMQ ########
+
+    activemq.enabled=false
+
+    # cache.type=infinispan
+
+
+    # tiempo (ms) en que el acceso a la caché real se deshabilita por un fallo previo en dicho acceso
+
+    # si no se especifica, tiempo por defecto en aplicación
+
+    #cache.error.timer=20000
+
+    ######## Liquibase ########
+
+    liquibase.enable=true
+  hotrod-client.properties: >
+    # Connection
+
+    infinispan.client.hotrod.server_list=infinispan.oh-base.svc.cluster.local:11222
+
+    infinispan.client.hotrod.client_intelligence=BASIC
+
+    infinispan.client.hotrod.use_auth=true
+
+    infinispan.client.hotrod.use_ssl=false
+
+
+    # Application user credentials.
+
+    infinispan.client.hotrod.auth_username=test
+
+    infinispan.client.hotrod.auth_password=changeit
+
+    infinispan.client.hotrod.auth_server_name=infinispan
+
+    infinispan.client.hotrod.sasl_properties.javax.security.sasl.credentials=true
+
+    infinispan.client.hotrod.sasl_mechanism=DIGEST-MD5
+
+    infinispan.client.hotrod.auth_realm=default
+
+
+    # Path to the TLS certificate. 
+
+    # Clients automatically generate trust stores from certificates.
+
+    #infinispan.client.hotrod.trust_store_path=./certificado.crt
+
+
+    infinispan.client.hotrod.socket_timeout=1000
+
+    infinispan.client.hotrod.connect_timeout=1000
+
+    infinispan.client.hotrod.max_retries=1
+  logback-config.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <included>
+      <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+          <pattern>[%d{dd/MM/yy HH:mm:ss.SSS}][%-5p][%C{0}.%M] %msg %n</pattern>
+        </layout>
+      </appender>
+      <logger name="ca.uhn.fhir.rest" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="org.springframework.security" level="error" />
+      <logger name="org.springframework" level="info" />
+      <logger name="org.springframework.orm.jpa" level="error" />
+      <logger name="org.springframework.transaction" level="error" />
+      <logger name="org.hibernate" level="info" />
+      <logger name="es.indra.ihs" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="es.indra.ihs.iscore" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="es.indra.hn.hncat" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="es.indra.hn.keycloak" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="es.indra.hn.plugins" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="es.indra.indrasalud" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="es.indra.indrasalud.hncat" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <logger name="hnLoggable" level="debug" />
+      <logger name="org.keycloak" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
+      <root level="INFO">
+        <appender-ref ref="stdout" />
+      </root>
+    </included>
+  queries.properties: >
+    # Oracle
+
+    AdditionalCatalogFieldEntity.insertDuplicateCatalog=insert into
+    dat_additional_item_field (idx_id, dat_value, fk_item,
+    fk_additional_catalog_field) select GET_NEXTVAL('SEQ_DAT_ADD_ITEM_FIELD'),
+    dat.dat_value, item2.idx_id, dat.fk_additional_catalog_field from
+    dat_additional_item_field dat, dat_item item, dat_item item2 where
+    dat.fk_item = item.idx_id and item.fk_catalog_version = ? and
+    item2.fk_catalog_version =? and item.key_cod = item2.key_cod
+
+    ItemEntity.insertDuplicate=insert into dat_item (idx_id, key_cod, dat_name,
+    dat_description, flg_status, fk_catalog, fk_catalog_version, dt_creation,
+    dt_modification, user_audit) select GET_NEXTVAL('SEQ_DAT_ITEM') as idx_id,
+    key_cod, dat_name, dat_description, flg_status, fk_catalog, ?1 as
+    fk_catalog_version, sysdate as dt_creation, sysdate as dt_modification, ?2
+    as user_audit from dat_item where fk_catalog = ?3 and fk_catalog_version =
+    ?4
+
+    ItemEntity.insertDuplicateCatalog=insert into dat_item (idx_id, key_cod,
+    dat_name, dat_description, flg_status, fk_catalog_version, dt_creation,
+    dt_modification, user_audit) select GET_NEXTVAL('SEQ_DAT_ITEM'), key_cod,
+    dat_name, dat_description, flg_status, ? as fk_catalog_version, sysdate as
+    dt_creation, sysdate as dt_modification, ? as user_audit from dat_item where
+    fk_catalog_version = ?
+
+    ItemEntity.insertDuplicateNew=insert into dat_item (idx_id, key_cod,
+    dat_name, dat_description, flg_status, fk_catalog, fk_catalog_version,
+    dt_creation, dt_modification, user_audit) select GET_NEXTVAL('SEQ_DAT_ITEM')
+    as idx_id, key_cod, dat_name, dat_description, flg_status, fk_catalog, '?1'
+    as fk_catalog_version, sysdate as dt_creation, sysdate as dt_modification,
+    'prueba' as user_audit from dat_item where fk_catalog = ?2 and
+    fk_catalog_version = ?3
+
+    RelCatalogVersionEntity.insertDuplicateCatalog=insert into
+    rel_cat_ver_cat_ver (idx_id, fk_catalog_version_source,
+    fk_catalog_version_target, fk_rel_catalog_catalog, dt_creation,
+    dat_creation_user) select GET_NEXTVAL('SEQ_REL_CAT_VER_CAT_VER') , ?,
+    fk_catalog_version_target, fk_rel_catalog_catalog, sysdate, ? from
+    REL_CAT_VER_CAT_VER cvcv INNER JOIN rel_catalog_catalog cc on cc.idx_id =
+    cvcv.fk_rel_catalog_catalog where cvcv.fk_catalog_version_source = ?
+
+    RelItemEntity.insertDuplicateCatalog=insert into REL_ITEM_ITEM (IDX_ID,
+    FK_ITEM_SOURCE, FK_ITEM_TARGET, FK_REL_CAT_VER) select
+    GET_NEXTVAL('SEQ_REL_ITEM'), item2.idx_id, rItem.fk_item_target, cvcv.idx_id
+    from rel_item_item rItem INNER JOIN dat_item item ON Item.idx_id =
+    rItem.fk_item_source INNER JOIN dat_cat_ver_items cv on cv.IDX_ID =
+    item.FK_CATALOG_VERSION INNER JOIN REL_CAT_VER_CAT_VER cvcv on
+    cvcv.fk_catalog_version_source = ? JOIN dat_item item2 on
+    item2.fk_catalog_version =? and item.key_cod = item2.key_cod where CV.IDX_ID
+    = ?
+
+    UserEntity.findUserByDomain=select distinct u from UserEntity u LEFT JOIN
+    FETCH u.domains d where u.flgAllDomain = 1 or d.code = :codDomain ORDER BY
+    NLSSORT(u.name, 'NLS_SORT =SPANISH')
+
+
+    # Mysql
+
+    #UserEntity.findUserByDomain=select distinct u from UserEntity u LEFT JOIN
+    FETCH u.domains d where  u.flgAllDomain = 1 or d.code = :codDomain ORDER BY
+    u.name
+
+    #ItemEntity.insertDuplicateCatalog = insert into dat_item (key_cod,
+    dat_name, dat_description, flg_status, fk_catalog_version, dt_creation,
+    dt_modification, user_audit) select key_cod, dat_name, dat_description,
+    flg_status, ? as fk_catalog_version, now() as dt_creation, now() as
+    dt_modification, ? as user_audit from dat_item where fk_catalog_version = ?
+
+    #AdditionalCatalogFieldEntity.insertDuplicateCatalog = insert into
+    dat_additional_item_field (dat_value, fk_item, fk_additional_catalog_field)
+    select dat.dat_value, item2.idx_id, dat.fk_additional_catalog_field from
+    dat_additional_item_field dat, dat_item item, dat_item item2 where
+    dat.fk_item = item.idx_id and item.fk_catalog_version = ? and
+    item2.fk_catalog_version=? and item.key_cod = item2.key_cod
+
+    #RelCatalogVersionEntity.insertDuplicateCatalog = insert into
+    rel_cat_ver_cat_ver (fk_catalog_version_source, fk_catalog_version_target,
+    fk_rel_catalog_catalog, dt_creation, dat_creation_user) select ?,
+    fk_catalog_version_target, fk_rel_catalog_catalog, now(),  ?  from
+    REL_CAT_VER_CAT_VER cvcv  INNER JOIN rel_catalog_catalog cc on cc.idx_id =
+    cvcv.fk_rel_catalog_catalog where cvcv.fk_catalog_version_source  = ?
+
+    #RelItemEntity.insertDuplicateCatalog = insert into REL_ITEM_ITEM
+    (FK_ITEM_SOURCE, FK_ITEM_TARGET, FK_REL_CAT_VER)  select item2.idx_id,
+    rItem.fk_item_target, cvcv.idx_id  from rel_item_item rItem  INNER JOIN
+    dat_item item ON Item.idx_id = rItem.fk_item_source INNER JOIN
+    dat_cat_ver_items cv on cv.IDX_ID = item.FK_CATALOG_VERSION INNER JOIN
+    REL_CAT_VER_CAT_VER cvcv on cvcv.fk_catalog_version_source = ? JOIN dat_item
+    item2 on item2.fk_catalog_version=? and item.key_cod = item2.key_cod  where
+    CV.IDX_ID = ? 
+
+    #ItemEntity.insertDuplicate = insert into dat_item (key_cod, dat_name,
+    dat_description, flg_status, fk_catalog, fk_catalog_version, dt_creation,
+    dt_modification, user_audit) select key_cod, dat_name, dat_description,
+    flg_status, fk_catalog, ?1 as fk_catalog_version, now() as dt_creation,
+    now() as dt_modification,?2 as user_audit  from dat_item where fk_catalog =
+    ?3 and fk_catalog_version = ?4
+
+    #ItemEntity.insertDuplicateNew = insert into dat_item (key_cod, dat_name,
+    dat_description, flg_status, fk_catalog, fk_catalog_version, dt_creation,
+    dt_modification, user_audit) select key_cod, dat_name, dat_description,
+    flg_status, fk_catalog, '?1' as fk_catalog_version, now() as dt_creation,
+    now() as dt_modification, 'prueba' as user_audit  from dat_item where
+    fk_catalog = ?2 and fk_catalog_version = ?3    
+

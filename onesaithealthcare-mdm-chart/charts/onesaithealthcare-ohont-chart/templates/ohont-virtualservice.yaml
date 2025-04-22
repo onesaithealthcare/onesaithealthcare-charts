@@ -1,0 +1,48 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ohont-virtual-service
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - '{{ .Values.global.domain.host }}'
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            prefix: /hncat/fhir/
+        - uri:
+            exact: /hncat/keycloak.json
+        - uri:
+            exact: /hncat/healthcheck
+      route:
+        - destination:
+            host: ohont-back
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /hncat/
+      route:
+        - destination:
+            host: ohont-front
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /hncat
+      rewrite:
+        uri: /hncat/
+      route:
+        - destination:
+            host: ohont-front
+            port:
+              number: 8080
+{{- end }}
