@@ -16,17 +16,17 @@ bi:
     front: sha256:50cf5234414a53b767da433b5d1d25c6f042a1063dc9d28cd2403a7f052ff63f
   module:
     ohbi_app_name: ohbi
-    namespace:      
-    storageclassname:    
+    namespace: oh-modules      
+    storageclassname: ohbi-sc   
   mail:
-    ohbi_mail_configuration_host_name:
-    ohbi_mail_configuration_port:
-    ohbi_mail_configuration_from:
-    ohbi_mail_configuration_password:
+    ohbi_mail_configuration_host_name: support@indra.es
+    ohbi_mail_configuration_port: 54
+    ohbi_mail_configuration_from: user@indra.es
+    ohbi_mail_configuration_password: userPass
   database:
     mysql:
-      ohbi_db_driver:
-      ohbi_db_url:
+      ohbi_db_driver: com.mysql.cj.jdbc.Driver
+      ohbi_db_url: jdbc:mysql://proyvalhnbd1-1.indra.es:3306/ohbi?useSSL=false&serverTimezone=UTC&create=true&allowPublicKeyRetrieval=true
       ohbi_db_dialect: org.hibernate.dialect.MySQLDialect
-      ohbi_db_user:
-      ohbi_db_pass:
+      ohbi_db_user: us_ohbi
+      ohbi_db_pass: us_ohbi

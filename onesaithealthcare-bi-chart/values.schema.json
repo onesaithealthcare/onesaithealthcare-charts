@@ -43,11 +43,11 @@
               "type": "object",
               "properties": {
                 "host": {
-                  "type": "string"
+                  "type": "string",
 				  "description": "docker registry host"
                 },
                 "project": {
-                  "type": "string"
+                  "type": "string",
 				  "description": "docker registry project"
                 }
               },
