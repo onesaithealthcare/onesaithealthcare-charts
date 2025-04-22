@@ -24,6 +24,15 @@ dependencies:
   - name: onesaithealthcare_ohcon_chart
     version: "4.7.0"
     repository: "file://charts/onesaithealthcare_ohcon_chart"
+  - name: onesaithealthcare_ohont_chart
+    version: "4.6.0"
+    repository: "file://charts/onesaithealthcare_ohont_chart"
+  - name: onesaithealthcare_ohaut_chart
+    version: "4.8.0"
+    repository: "file://charts/onesaithealthcare_ohaut_chart"
+  - name: onesaithealthcare_ohmpi_chart
+    version: "4.10.0"
+    repository: "file://charts/onesaithealthcare_ohmpi_chart"
   - name: onesaithealthcare_ohatn_chart
     version: "4.3.0"
     repository: "file://charts/onesaithealthcare_ohatn_chart"
