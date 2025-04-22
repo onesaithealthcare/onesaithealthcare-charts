@@ -48,8 +48,10 @@ data:
     hibernate.current_session_context_class=jta
     
 {{- if eq .Values.global.database.type "mysql" }}
+
     hibernate.dialect=org.hibernate.dialect.MySQLDialect
 {{- else }}
+
     hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
 {{- end }}
 
@@ -197,7 +199,7 @@ data:
       <logger name="org.springframework" level="info" />
       <logger name="org.springframework.orm.jpa" level="error" />
       <logger name="org.springframework.transaction" level="error" />
-      <logger name="org.hibernate" level="info" />
+      <logger name="org.hibernate" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <logger name="es.indra.ihs" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <logger name="es.indra.ihs.iscore" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <logger name="es.indra.hn.hncat" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
@@ -205,7 +207,7 @@ data:
       <logger name="es.indra.hn.plugins" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <logger name="es.indra.indrasalud" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <logger name="es.indra.indrasalud.hncat" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
-      <logger name="hnLoggable" level="debug" />
+      <logger name="hnLoggable" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <logger name="org.keycloak" level="{{ if eq .Values.global.environment.type "dev" }}INFO{{ else if eq .Values.global.environment.type "prod" }}ERROR{{ end}}" />
       <root level="INFO">
         <appender-ref ref="stdout" />

@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ohmpi-back
+  labels:
+    app: ohmpi-back
+spec:
+  replicas: {{ if eq .Values.global.environment.type "dev" }}1{{ else if eq .Values.global.environment.type "prod" }}2{{ end}}
+  selector:
+    matchLabels:
+      app: ohmpi-back
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ohmpi-back
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: 'oh-docker-creds'
+      schedulerName: default-scheduler
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ohmpi-back
+              topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              cpu: 300m
+              memory: 1200Mi
+            requests:
+              cpu: 200m
+              memory: 750Mi
+          readinessProbe:
+            httpGet:
+              path: /ispob/healthcheck
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: ohmpi-back
+          livenessProbe:
+            httpGet:
+              path: /ispob/healthcheck
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 200
+            timeoutSeconds: 15
+            periodSeconds: 22
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: JVM_OPTS
+              value: >-
+                -Dindrasalud.home=/hn_home
+                -Dcom.atomikos.icatch.file=/hn_home/jta.properties
+                -Dcom.sun.net.ssl.checkRevocation=false -Xms256m -Xmx1024M
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+              - name: ohmpi-back-jetty
+                readOnly: true
+                mountPath: /var/lib/jetty/webapps/ROOT/WEB-INF/jetty-env.xml
+                subPath: jetty-env.xml
+              - name: ohmpi-back-cfg
+                readOnly: true
+                mountPath: /hn_home/ispob/conf
+              - name: ohmpi-back-host-props
+                readOnly: true
+                mountPath: /hn_home/host.properties
+                subPath: host.properties
+              - name: ohmpi-back-integration-props
+                readOnly: true
+                mountPath: /hn_home/integration.properties
+                subPath: integration.properties
+              - name: ohmpi-back-jms-props
+                readOnly: true
+                mountPath: /hn_home/jms.properties
+                subPath: jms.properties
+              - name: ohmpi-back-iscore-sso-props
+                readOnly: true
+                mountPath: /hn_home/iscore/conf
+              - name: cert-domain
+                mountPath: /cert/cert-domain.crt
+                subPath: tls.crt
+          terminationMessagePolicy: File
+          image:  '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohmpi-back@{{ .Values.ohmpi.sha256_front }}'
+      serviceAccount: oh-module
+      volumes:
+        - name: ohmpi-back-cfg
+          configMap:
+            name: ohmpi-back-cfg
+            defaultMode: 420
+        - name: ohmpi-back-jetty
+          configMap:
+            name: ohmpi-back-jetty
+            defaultMode: 420
+        - name: ohmpi-back-host-props
+          configMap:
+            name: hnhome-host-props
+            defaultMode: 420
+        - name: ohmpi-back-integration-props
+          configMap:
+            name: hnhome-integration-props
+            defaultMode: 420
+        - name: ohmpi-back-jms-props
+          configMap:
+            name: hnhome-jms-props
+            defaultMode: 420
+        - name: ohmpi-back-iscore-sso-props
+          configMap:
+            name: hnhome-iscore-sso-props
+            defaultMode: 420
+        - name: cert-domain
+          secret:
+           secretName: cert-domain
+           items:
+             - key: tls.crt
+               path: tls.crt
+           defaultMode: 420
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

@@ -1,0 +1,47 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ohmpi-http-route
+spec:
+  hostnames:
+    - {{ .Values.global.domain.host }}
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: oh-modules-gateway
+      sectionName: oh-modules
+  rules:
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohmpi-back
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.global.domain.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.global.domain.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+          type: RequestHeaderModifier
+      matches:
+        - path:
+            type: PathPrefix
+            value: /ispob/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohmpi-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /mpi
+{{- end }}
