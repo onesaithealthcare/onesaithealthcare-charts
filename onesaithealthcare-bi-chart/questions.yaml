@@ -1,5 +1,50 @@
 questions:
 
+  - variable: global.environment.type
+    default: dev
+    description: "Environment type"
+    type: enum
+    options:
+      - dev
+      - prod
+    required: true
+
+  - variable: global.domain.protocol
+    default: http
+    description: "Domain protocol"
+    type: enum
+    options:
+      - http
+      - https
+    required: true
+
+  - variable: global.domain.host
+    default: ""
+    description: "Domain host"
+    type: string
+    required: true
+
+  - variable: global.domain.gateway_type
+    default: k8s_gateway
+    description: "Gateway type"
+    type: enum
+    options:
+      - istio
+      - k8s_gateway
+    required: true
+    
+  - variable: global.docker.registry.host
+    default: "docksdtr.indra.es"
+    description: "Docker registry host"
+    type: string
+    required: true
+
+  - variable: global.docker.registry.project
+    default: "multhn_cmhn20_2"
+    description: "Docker registry project"
+    type: string
+    required: true
+    
   - variable: bi.module.name
     label: "Nombre del módulo"
     description: "Nombre del módulo"
@@ -27,12 +72,6 @@ questions:
   - variable: bi.module.storageclassname
     label: "Nombre del STORAGECLASS"
     description: "NOMBRE DEL STORAGECLASS"
-    type: string
-    required: true
-
-  - variable: bi.module.version
-    label: "Versión de la imagen"
-    description: "Versión de la imagen"
     type: string
     required: true
 

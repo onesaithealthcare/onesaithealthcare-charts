@@ -1,17 +1,18 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
 kind: VirtualService
 apiVersion: networking.istio.io/v1beta1
 metadata:
   name: {{ .Values.bi.module.ohbi_app_name }}
 spec:
   gateways:
-    - {{ .Values.bi.module.gateway }}
+    - {{ .Values.global.domain.gateway }}
   hosts:
     - '*'
   http:      
     - headers:
         request:
           set:
-            X-Forwarded-Host: {{ .Values.bi.module.fhost }}
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
             X-Forwarded-Port: '443'
             X-Forwarded-Proto: https
       match:
@@ -26,7 +27,7 @@ spec:
     - headers:
         request:
           set:
-            X-Forwarded-Host: {{ .Values.bi.module.fhost }}
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
             X-Forwarded-Port: '443'
             X-Forwarded-Proto: https
       match:
@@ -43,7 +44,7 @@ spec:
     - headers:
         request:
           set:
-            X-Forwarded-Host: {{ .Values.bi.module.fhost }}
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
             X-Forwarded-Port: '443'
             X-Forwarded-Proto: https
       match:
@@ -60,7 +61,7 @@ spec:
     - headers:
         request:
           set:
-            X-Forwarded-Host: {{ .Values.bi.module.fhost }}
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
             X-Forwarded-Port: '443'
             X-Forwarded-Proto: https
       match:
@@ -75,7 +76,7 @@ spec:
     - headers:
         request:
           set:
-            X-Forwarded-Host: {{ .Values.bi.module.fhost }}
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
             X-Forwarded-Port: '443'
             X-Forwarded-Proto: https
       match:
@@ -89,3 +90,4 @@ spec:
             port:
               number: 8085
       timeout: 1000s
+{{- end }}

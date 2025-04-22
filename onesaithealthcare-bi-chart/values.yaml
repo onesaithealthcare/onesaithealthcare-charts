@@ -1,11 +1,23 @@
+global:
+  environment:
+    type: dev # Opciones: dev, prod 
+  domain:
+    protocol: # Opciones: http, https
+    host: oh-modules.apps.lab.openshift.com
+    gateway: oh-modules-gateway
+    gateway_type: # Opciones: istio, k8s_gateway  
+  docker:
+    registry:
+      host: docksdtr.indra.es
+      project: multhn_cmhn20_2
 bi:
+  sha256:
+    back: sha256:22d584cef1097c1c0ae2c9844aae046f8fd3dfcb92091060e89ac3e4c79ce90c
+    front: sha256:50cf5234414a53b767da433b5d1d25c6f042a1063dc9d28cd2403a7f052ff63f
   module:
     ohbi_app_name: ohbi
-    namespace:
-    gateway: oh-modules-gateway
-    fhost: oh-modules.apps.lab.openshift.com
-    storageclassname:
-    version: 4.3.0
+    namespace:      
+    storageclassname:    
   mail:
     ohbi_mail_configuration_host_name:
     ohbi_mail_configuration_port:
