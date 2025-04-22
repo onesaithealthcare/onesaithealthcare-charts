@@ -1,0 +1,69 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.bi.module.ohbi_app_name }}
+spec:
+  selector:
+    matchLabels:
+      app: oh-bi
+  template:
+    metadata:
+      labels:
+        app: oh-bi
+    spec:
+      imagePullSecrets:
+        - name: docksdtr.indra.es
+      serviceAccountName: oh-module
+      containers:
+        - name: oh-bi
+          resources:
+            limits:
+              cpu: 300m
+              memory: 3Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          image: docksdtr.indra.es/multhn_cmhn20_2/oh_bi:{{ .Values.bi.module.version }}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /usr/local/tomcat/webapps/oh-biservice/WEB-INF/classes/customAuthentication.properties
+              subPath: customAuthentication.properties
+              name: configmap
+            - mountPath: /usr/local/helical-insight/conf/env.properties
+              subPath: env.properties
+              name: configmap
+            - mountPath: /usr/local/tomcat/conf/server.xml
+              subPath: server.xml
+              name: configmap
+            - mountPath: /usr/local/tomcat/bin/setenv.sh
+              subPath: setenv.sh
+              name: configmap
+            - mountPath: /usr/local/helical-insight/hi-repository/System/Mail/mailConfiguration.properties
+              subPath: mailConfiguration.properties
+              name: configmap
+            - mountPath: /usr/local/helical-insight/hi-repository/System/Drivers
+              name: volume-drivers
+          ports:
+            - containerPort: 8443
+            - containerPort: 8085
+            - containerPort: 8080
+            - containerPort: 25
+      volumes:
+        - name: configmap
+          configMap:
+              name: {{ .Values.bi.module.ohbi_app_name }}-cfg
+              items:
+                - key: customAuthentication.properties
+                  path: customAuthentication.properties
+                - key: env.properties
+                  path: env.properties
+                - key: server.xml
+                  path: server.xml
+                - key: setenv.sh
+                  path: setenv.sh
+                - key: mailConfiguration.properties
+                  path: mailConfiguration.properties
+              defaultMode: 420
+        - name: volume-drivers
+          persistentVolumeClaim:
+            claimName: {{ .Values.bi.module.ohbi_app_name }}

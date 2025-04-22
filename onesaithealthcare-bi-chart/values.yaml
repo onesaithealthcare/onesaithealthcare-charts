@@ -1,0 +1,20 @@
+bi:
+  module:
+    ohbi_app_name: ohbi
+    namespace:
+    gateway: oh-modules-gateway
+    fhost: oh-modules.apps.lab.openshift.com
+    storageclassname:
+    version: 4.3.0
+  mail:
+    ohbi_mail_configuration_host_name:
+    ohbi_mail_configuration_port:
+    ohbi_mail_configuration_from:
+    ohbi_mail_configuration_password:
+  database:
+    mysql:
+      ohbi_db_driver:
+      ohbi_db_url:
+      ohbi_db_dialect: org.hibernate.dialect.MySQLDialect
+      ohbi_db_user:
+      ohbi_db_pass:

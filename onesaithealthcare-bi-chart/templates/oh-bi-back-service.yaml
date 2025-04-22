@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.bi.module.ohbi_app_name }}
+spec:
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085
+  selector:
+    app: oh-bi

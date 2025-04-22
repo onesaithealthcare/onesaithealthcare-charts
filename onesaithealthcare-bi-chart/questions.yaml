@@ -1,0 +1,91 @@
+questions:
+
+  - variable: bi.module.name
+    label: "Nombre del módulo"
+    description: "Nombre del módulo"
+    type: string
+    required: true
+
+  - variable: bi.module.namespace
+    label: "Namespace"
+    description: "Namespace"
+    type: string
+    required: true
+
+  - variable: bi.module.gateway
+    label: "GATEWAY"
+    description: "GATEWAY DEL VIRTUAL SERVICE"
+    type: string
+    required: true
+
+  - variable: bi.module.fhost
+    label: "Host de la aplicación"
+    description: "Host en el que está disponible OHBI (Este valor se define en el GATEWAY)"
+    type: string
+    required: true
+
+  - variable: bi.module.storageclassname
+    label: "Nombre del STORAGECLASS"
+    description: "NOMBRE DEL STORAGECLASS"
+    type: string
+    required: true
+
+  - variable: bi.module.version
+    label: "Versión de la imagen"
+    description: "Versión de la imagen"
+    type: string
+    required: true
+
+  - variable: bi.database.mysql.ohbi_db_driver
+    label: "Driver de la base de datos MySql"
+    description: "Driver de la base de datos MySql (Ejemplo: com.mysql.cj.jdbc.Driver)"
+    type: string
+    required: true
+
+  - variable: bi.database.mysql.ohbi_db_url
+    label: "URL MySql"
+    description: "URL de conexión a la base de datos MySql (Ejemplo: jdbc:mysql://proyvalhnbd1-1.indra.es:3306/ohbi?useSSL=false&serverTimezone=UTC&create=true&allowPublicKeyRetrieval=true). En caso de alta disponibilidad añadir los siguientes parámetros a la url: autoReconnect=true&failOverReadOnly=false"
+    type: string
+    required: true
+
+  - variable: bi.database.mysql.ohbi_db_dialect
+    label: "Dialecto MySql"
+    description: "Dialecto de la base de datos MySql (Ejemplo: org.hibernate.dialect.MySQLDialect)"
+    type: string
+    required: true
+
+  - variable: bi.database.mysql.ohbi_db_user
+    label: "Usuario"
+    description: "Usuario"
+    type: string
+    required: true
+
+  - variable: bi.database.mysql.ohbi_db_pass
+    label: "Contraseña"
+    description: "Contraseña"
+    type: string
+    required: false
+
+  - variable: bi.mail.ohbi_mail_configuration_host_name
+    label: "hostName"
+    description: "Configuración correo: Destino"
+    type: string
+    required: false
+
+  - variable: bi.mail.ohbi_mail_configuration_port
+    label: "port"
+    description: "Configuración correo: Puerto"
+    type: string
+    required: true
+
+  - variable: bi.mail.ohbi_mail_configuration_from
+    label: "from"
+    description: "Configuración correo: Remite"
+    type: string
+    required: false
+
+  - variable: bi.mail.ohbi_mail_configuration_password
+    label: "password"
+    description: "Configuración correo: Password"
+    type: string
+    required: false

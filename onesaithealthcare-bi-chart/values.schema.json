@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "bi": {
+      "type": "object",
+      "properties": {
+		"module": {
+          "type": "object",
+          "properties": {
+            "ohbi_app_name": {
+			  "type": "string",
+			  "description": "Nombre del módulo"
+			},
+			"namespace": {
+			  "type": "string",
+			  "description": "Namespace"
+			},
+			"gateway": {
+			  "type": "string",
+			  "description": "GATEWAY DEL VIRTUAL SERVICE"
+			},
+			"fhost": {
+			  "type": "string",
+			  "description": "Host en el que está disponible OHBI (Este valor se define en el GATEWAY)"
+			},
+			"storageclassname": {
+			  "type": "string",
+			  "description": "NOMBRE DEL STORAGECLASS"
+			},
+			"version": {
+			  "type": "string",
+			  "description": "Versión de la imagen"
+			}
+          },
+		  "required": ["ohbi_app_name", "namespace", "gateway", "fhost", "storageclassname", "version"]
+        },
+        "database": {
+          "type": "object",
+          "properties": {
+            "mysql": {
+              "type": "object",
+              "properties": {
+				"ohbi_db_driver": {
+                  "type": "string",
+                  "description": "Driver de la base de datos MySql (Ejemplo: com.mysql.cj.jdbc.Driver)"
+                },
+                "ohbi_db_url": {
+                  "type": "string",
+                  "description": "URL de conexión a la base de datos MySql (Ejemplo: jdbc:mysql://proyvalhnbd1-1.indra.es:3306/ohbi?useSSL=false&serverTimezone=UTC&create=true&allowPublicKeyRetrieval=true). En caso de alta disponibilidad añadir los siguientes parámetros a la url: autoReconnect=true&failOverReadOnly=false"
+                },
+                "ohbi_db_dialect": {
+                  "type": "string",
+                  "description": "Dialecto de la base de datos MySql (Ejemplo: org.hibernate.dialect.MySQLDialect)"
+                },
+                "ohbi_db_user": {
+                  "type": "string",
+                  "description": "Usuario"
+                },
+                "ohbi_db_pass": {
+                  "type": "string",
+                  "description": "Contraseña"
+                }
+              },
+              "required": ["ohbi_db_driver", "ohbi_db_url", "ohbi_db_dialect", "ohbi_db_user"]
+            }
+          }
+        },
+        "mail": {
+          "type": "object",
+          "properties": {
+            "ohbi_mail_configuration_host_name": {
+              "type": "string",
+              "description": "Configuración correo: Destino"
+            },
+            "ohbi_mail_configuration_port": {
+              "type": "string",
+              "description": "Configuración correo: Puerto"
+            },
+            "ohbi_mail_configuration_from": {
+              "type": "string",
+              "description": "Configuración correo: Remite"
+            },
+            "ohbi_mail_configuration_password": {
+              "type": "string",
+              "description": "Configuración correo: Password"
+            }
+          },
+          "required": ["ohbi_mail_configuration_port"]
+        }
+      }
+    }
+  },
+  "required": ["docker", "bi"]
+}
