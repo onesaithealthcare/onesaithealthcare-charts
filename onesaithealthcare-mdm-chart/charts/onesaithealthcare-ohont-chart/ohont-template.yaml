@@ -1,0 +1,1754 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: ohont-template
+  annotations:
+    description: "OHONT template"
+    iconClass: icon-jetty
+    openshift.io/provider-display-name: "Onesait Healthcare"
+objects:
+
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: ${OHONT_BACK_APP_NAME}-jetty
+  data:
+    jetty-env.xml: |
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <!DOCTYPE Configure    PUBLIC "-//Jetty//Configure//EN" "configure_10_0.dtd">
+      <Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext">
+        <Set name="contextPath">/hncat</Set>
+        
+        <!-- La parte comentada a continuacion seria para jetty 9, para jetty 10 hay que quitarla. -->
+        <!-- New class="org.eclipse.jetty.server.HttpConfiguration" id="httpConfig">
+          <Set name="secureScheme">https</Set>
+          <Set name="outputBufferSize">64768</Set>
+          <Set name="requestHeaderSize">64192</Set>
+          <Set name="responseHeaderSize">64192</Set>
+          <Set name="sendServerVersion">true</Set>
+          <Set name="sendDateHeader">false</Set>
+          <Set name="headerCacheSize">512</Set>
+        </New>
+        <Get name="server" id="server">
+          <Set name="connectors">
+            <Array type="org.eclipse.jetty.server.ServerConnector">
+              <Item>
+                <New class="org.eclipse.jetty.server.ServerConnector">
+                  <Arg name="server"><Ref refid="server" /></Arg>
+                  <Arg name="factories">
+                    <Array type="org.eclipse.jetty.server.ConnectionFactory">
+                      <Item>
+                        <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                          <Arg name="config"><Ref refid="httpConfig" /></Arg>
+                        </New>
+                      </Item>
+                    </Array>
+                  </Arg>
+                  <Set name="port">8080</Set>
+                  <Set name="idleTimeout">30000</Set>
+                </New>
+              </Item>
+            </Array>
+          </Set>
+        </Get -->
+      
+        <!-- Template -->
+        <New id="HNCAT_DS" class="org.eclipse.jetty.plus.jndi.Resource">
+          <Arg></Arg>
+          <Arg>HNCAT_DS</Arg>
+          <Arg>
+            <New class="org.apache.commons.dbcp2.BasicDataSource">
+              <Set name="driverClassName">${GENERAL_JDBC_DRIVER}</Set>
+              <Set name="url">${OHONT_DB_URL}</Set>
+              <Set name="username">${OHONT_DB_USER}</Set>
+              <Set name="password">${OHONT_DB_PASS}</Set>
+              <Set name="initialSize">${OHONT_DB_INITIAL_SIZE}</Set>
+              <Set name="maxTotal">${OHONT_DB_MAX_SIZE}</Set>
+              <Set name="validationQuery">SELECT 1 FROM DUAL</Set>
+              <Set name="minIdle">${OHONT_DB_MIN_IDLE}</Set>
+              <Set name="maxIdle">${OHONT_DB_MAX_IDLE}</Set>
+              <Set name="maxWaitMillis">30000</Set>
+              <Set name="testOnBorrow">true</Set>
+              <Set name="testWhileIdle">true</Set>
+              <Set name="timeBetweenEvictionRunsMillis">5000</Set>
+              <Set name="minEvictableIdleTimeMillis">60000</Set>
+              <Set name="numTestsPerEvictionRun">3</Set>
+              <Set name="jmxName">OHONT_DS</Set>
+            </New>
+          </Arg>
+        </New>
+        
+      </Configure>
+  
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: ${OHONT_BACK_APP_NAME}-cfg
+  data:
+    ehcache.xml: >
+      <?xml version="1.0" encoding="UTF-8"?>
+  
+      <ehcache name="hncatCache"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+  
+        <defaultCache eternal="false" maxElementsInMemory="100"
+           overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="3600" timeToLiveSeconds="14400" memoryStoreEvictionPolicy="LRU" />
+                         
+        <cache name="ohont.ohcon.property" eternal="false" maxElementsInMemory="200"
+            overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="900" timeToLiveSeconds="1800" memoryStoreEvictionPolicy="LRU" />
+  
+        <cache name="ohont.codesystem.r3" eternal="false"
+          maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+          timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+          memoryStoreEvictionPolicy="LRU" />
+  
+        <cache name="ohont.codesystem.r4" eternal="false"
+          maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+          timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+          memoryStoreEvictionPolicy="LRU" />
+  
+        <cache name="ohont.valueset.r3" eternal="false"
+          maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+          timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+          memoryStoreEvictionPolicy="LRU" />
+  
+        <cache name="ohont.valueset.r4" eternal="false"
+          maxElementsInMemory="50" overflowToDisk="false" diskPersistent="false"
+          timeToIdleSeconds="14400" timeToLiveSeconds="7200" 
+          memoryStoreEvictionPolicy="LRU" />
+      </ehcache>
+    hncat.properties: >
+      logout.url=${hncat.url}/sso/logout
+  
+      datasource.hncat=HNCAT_DS
+  
+      defaultSchema.hncat=${OHONT_DB_DEFAULT_SCHEMA}
+  
+      hibernate.transaction.flush_before_completion=true
+  
+      hibernate.current_session_context_class=jta
+  
+      database.selected = ${GENERAL_DB_TYPE}
+  
+      hibernate.dialect=${GENERAL_JDBC_DIALECT}
+  
+      #database.selected = MySql
+  
+      #hibernate.dialect=org.hibernate.dialect.MySQLDialect
+  
+      # posibles valores com.atomikos.icatch.jta.hibernate4.AtomikosPlatform | JBossAS | Weblogic
+  
+      hibernate.transaction.jta.platform=com.atomikos.icatch.jta.hibernate4.AtomikosPlatform
+  
+      hibernate.jdbc.batch_size=25
+  
+      hibernate.jdbc.fetch_size=25
+  
+      hibernate.jdbc.batch_fetch_size=25
+  
+      datatableElementsByPageSearch=15
+  
+      datatableElementsByPageEdition=8
+  
+      maxElementsSelectAll=300
+  
+      #propiedades relacionadas con FHIR
+  
+      fhir.url.system=http://indra.hn.es/fhir/codesystems/
+  
+      # delimitadores aceptados para la importacion de CSV (separados por |)
+  
+      file.import.delimiters=;
+  
+      # report unit de informe de exportacion de catalogos CSV
+  
+      report.unit.catalog.export=/hncat/catalogExport/catalogExportRU
+  
+      #report unit de informe de plantilla de importacion CSV
+  
+      report.unit.catalog.template=/hncat/catalogExport/catalogExportHeaderRU
+  
+      # valor para sin etiquetas
+  
+      label.without=Sin etiquetas
+  
+      #Masimo numero de elementos por defecto seleccionables en las relaciones de tipo atributo 
+  
+      maxElementsInDefaultValues=5
+  
+      #Maximo numero de elementos en el combo de catalogos
+  
+      maxElementsInCombos=100
+  
+      #Maximo numero de elementos devueltos
+  
+      fhir.max.concepts.size=500
+  
+      #Maximo numero de elementos para borrar
+  
+      maxElementsDelete=1000
+  
+      jms.initial.factory.class.wl=weblogic.jndi.WLInitialContextFactory
+  
+      jms.initial.factory.class.jboss=org.jnp.interfaces.NamingContextFactory
+  
+      #Snomed valor por defecto
+  
+      snomed.item.code=138875005
+  
+      snomed.item.name=Concepto SNOMED
+  
+      # notificacion a mirth
+  
+      mirth.notification.enable=false
+  
+      catalog.maxLengthCode=50
+  
+      catalog.maxLengthValue=200
+  
+      catalog.maxLengthDescription=500
+  
+      downloadHelp.path=D:\\HN\\Manuals\\ManualdeusuarioEscritorio.pdf
+  
+      ######## ActiveMQ ########
+  
+      activemq.enabled=false
+  
+      # cache.type=infinispan
+  
+  
+      # tiempo (ms) en que el acceso a la caché real se deshabilita por un fallo previo en dicho acceso
+  
+      # si no se especifica, tiempo por defecto en aplicación
+  
+      #cache.error.timer=20000
+  
+      ######## Liquibase ########
+  
+      liquibase.enable=true
+    hotrod-client.properties: >
+      # Connection
+  
+      infinispan.client.hotrod.server_list=infinispan.oh-base.svc.cluster.local:11222
+  
+      infinispan.client.hotrod.client_intelligence=BASIC
+  
+      infinispan.client.hotrod.use_auth=true
+  
+      infinispan.client.hotrod.use_ssl=false
+  
+  
+      # Application user credentials.
+  
+      infinispan.client.hotrod.auth_username=test
+  
+      infinispan.client.hotrod.auth_password=changeit
+  
+      infinispan.client.hotrod.auth_server_name=infinispan
+  
+      infinispan.client.hotrod.sasl_properties.javax.security.sasl.credentials=true
+  
+      infinispan.client.hotrod.sasl_mechanism=DIGEST-MD5
+  
+      infinispan.client.hotrod.auth_realm=default
+  
+  
+      # Path to the TLS certificate. 
+  
+      # Clients automatically generate trust stores from certificates.
+  
+      #infinispan.client.hotrod.trust_store_path=./certificado.crt
+  
+  
+      infinispan.client.hotrod.socket_timeout=1000
+  
+      infinispan.client.hotrod.connect_timeout=1000
+  
+      infinispan.client.hotrod.max_retries=1
+    logback-config.xml: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <included>
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+          <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[%d{dd/MM/yy HH:mm:ss.SSS}][%-5p][%C{0}.%M] %msg %n</pattern>
+          </layout>
+        </appender>
+        <logger name="ca.uhn.fhir.rest" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="org.springframework.security" level="error" />
+        <logger name="org.springframework" level="info" />
+        <logger name="org.springframework.orm.jpa" level="error" />
+        <logger name="org.springframework.transaction" level="error" />
+        <logger name="org.hibernate" level="info" />
+        <logger name="es.indra.ihs" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="es.indra.ihs.iscore" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="es.indra.hn.hncat" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="es.indra.hn.keycloak" level="error" />
+        <logger name="es.indra.hn.plugins" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="es.indra.indrasalud" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="es.indra.indrasalud.hncat" level="${OHONT_LOG_LEVEL_OH}" />
+        <logger name="hnLoggable" level="debug" />
+        <logger name="org.keycloak" level="warn" />
+        <root level="error">
+          <appender-ref ref="stdout" />
+        </root>
+      </included>
+    queries.properties: >
+      # Oracle
+  
+      AdditionalCatalogFieldEntity.insertDuplicateCatalog=insert into
+      dat_additional_item_field (idx_id, dat_value, fk_item,
+      fk_additional_catalog_field) select GET_NEXTVAL('SEQ_DAT_ADD_ITEM_FIELD'),
+      dat.dat_value, item2.idx_id, dat.fk_additional_catalog_field from
+      dat_additional_item_field dat, dat_item item, dat_item item2 where
+      dat.fk_item = item.idx_id and item.fk_catalog_version = ? and
+      item2.fk_catalog_version =? and item.key_cod = item2.key_cod
+  
+      ItemEntity.insertDuplicate=insert into dat_item (idx_id, key_cod, dat_name,
+      dat_description, flg_status, fk_catalog, fk_catalog_version, dt_creation,
+      dt_modification, user_audit) select GET_NEXTVAL('SEQ_DAT_ITEM') as idx_id,
+      key_cod, dat_name, dat_description, flg_status, fk_catalog, ?1 as
+      fk_catalog_version, sysdate as dt_creation, sysdate as dt_modification, ?2
+      as user_audit from dat_item where fk_catalog = ?3 and fk_catalog_version =
+      ?4
+  
+      ItemEntity.insertDuplicateCatalog=insert into dat_item (idx_id, key_cod,
+      dat_name, dat_description, flg_status, fk_catalog_version, dt_creation,
+      dt_modification, user_audit) select GET_NEXTVAL('SEQ_DAT_ITEM'), key_cod,
+      dat_name, dat_description, flg_status, ? as fk_catalog_version, sysdate as
+      dt_creation, sysdate as dt_modification, ? as user_audit from dat_item where
+      fk_catalog_version = ?
+  
+      ItemEntity.insertDuplicateNew=insert into dat_item (idx_id, key_cod,
+      dat_name, dat_description, flg_status, fk_catalog, fk_catalog_version,
+      dt_creation, dt_modification, user_audit) select GET_NEXTVAL('SEQ_DAT_ITEM')
+      as idx_id, key_cod, dat_name, dat_description, flg_status, fk_catalog, '?1'
+      as fk_catalog_version, sysdate as dt_creation, sysdate as dt_modification,
+      'prueba' as user_audit from dat_item where fk_catalog = ?2 and
+      fk_catalog_version = ?3
+  
+      RelCatalogVersionEntity.insertDuplicateCatalog=insert into
+      rel_cat_ver_cat_ver (idx_id, fk_catalog_version_source,
+      fk_catalog_version_target, fk_rel_catalog_catalog, dt_creation,
+      dat_creation_user) select GET_NEXTVAL('SEQ_REL_CAT_VER_CAT_VER') , ?,
+      fk_catalog_version_target, fk_rel_catalog_catalog, sysdate, ? from
+      REL_CAT_VER_CAT_VER cvcv INNER JOIN rel_catalog_catalog cc on cc.idx_id =
+      cvcv.fk_rel_catalog_catalog where cvcv.fk_catalog_version_source = ?
+  
+      RelItemEntity.insertDuplicateCatalog=insert into REL_ITEM_ITEM (IDX_ID,
+      FK_ITEM_SOURCE, FK_ITEM_TARGET, FK_REL_CAT_VER) select
+      GET_NEXTVAL('SEQ_REL_ITEM'), item2.idx_id, rItem.fk_item_target, cvcv.idx_id
+      from rel_item_item rItem INNER JOIN dat_item item ON Item.idx_id =
+      rItem.fk_item_source INNER JOIN dat_cat_ver_items cv on cv.IDX_ID =
+      item.FK_CATALOG_VERSION INNER JOIN REL_CAT_VER_CAT_VER cvcv on
+      cvcv.fk_catalog_version_source = ? JOIN dat_item item2 on
+      item2.fk_catalog_version =? and item.key_cod = item2.key_cod where CV.IDX_ID
+      = ?
+  
+      UserEntity.findUserByDomain=select distinct u from UserEntity u LEFT JOIN
+      FETCH u.domains d where u.flgAllDomain = 1 or d.code = :codDomain ORDER BY
+      NLSSORT(u.name, 'NLS_SORT =SPANISH')
+  
+  
+      # Mysql
+  
+      #UserEntity.findUserByDomain=select distinct u from UserEntity u LEFT JOIN
+      FETCH u.domains d where  u.flgAllDomain = 1 or d.code = :codDomain ORDER BY
+      u.name
+  
+      #ItemEntity.insertDuplicateCatalog = insert into dat_item (key_cod,
+      dat_name, dat_description, flg_status, fk_catalog_version, dt_creation,
+      dt_modification, user_audit) select key_cod, dat_name, dat_description,
+      flg_status, ? as fk_catalog_version, now() as dt_creation, now() as
+      dt_modification, ? as user_audit from dat_item where fk_catalog_version = ?
+  
+      #AdditionalCatalogFieldEntity.insertDuplicateCatalog = insert into
+      dat_additional_item_field (dat_value, fk_item, fk_additional_catalog_field)
+      select dat.dat_value, item2.idx_id, dat.fk_additional_catalog_field from
+      dat_additional_item_field dat, dat_item item, dat_item item2 where
+      dat.fk_item = item.idx_id and item.fk_catalog_version = ? and
+      item2.fk_catalog_version=? and item.key_cod = item2.key_cod
+  
+      #RelCatalogVersionEntity.insertDuplicateCatalog = insert into
+      rel_cat_ver_cat_ver (fk_catalog_version_source, fk_catalog_version_target,
+      fk_rel_catalog_catalog, dt_creation, dat_creation_user) select ?,
+      fk_catalog_version_target, fk_rel_catalog_catalog, now(),  ?  from
+      REL_CAT_VER_CAT_VER cvcv  INNER JOIN rel_catalog_catalog cc on cc.idx_id =
+      cvcv.fk_rel_catalog_catalog where cvcv.fk_catalog_version_source  = ?
+  
+      #RelItemEntity.insertDuplicateCatalog = insert into REL_ITEM_ITEM
+      (FK_ITEM_SOURCE, FK_ITEM_TARGET, FK_REL_CAT_VER)  select item2.idx_id,
+      rItem.fk_item_target, cvcv.idx_id  from rel_item_item rItem  INNER JOIN
+      dat_item item ON Item.idx_id = rItem.fk_item_source INNER JOIN
+      dat_cat_ver_items cv on cv.IDX_ID = item.FK_CATALOG_VERSION INNER JOIN
+      REL_CAT_VER_CAT_VER cvcv on cvcv.fk_catalog_version_source = ? JOIN dat_item
+      item2 on item2.fk_catalog_version=? and item.key_cod = item2.key_cod  where
+      CV.IDX_ID = ? 
+  
+      #ItemEntity.insertDuplicate = insert into dat_item (key_cod, dat_name,
+      dat_description, flg_status, fk_catalog, fk_catalog_version, dt_creation,
+      dt_modification, user_audit) select key_cod, dat_name, dat_description,
+      flg_status, fk_catalog, ?1 as fk_catalog_version, now() as dt_creation,
+      now() as dt_modification,?2 as user_audit  from dat_item where fk_catalog =
+      ?3 and fk_catalog_version = ?4
+  
+      #ItemEntity.insertDuplicateNew = insert into dat_item (key_cod, dat_name,
+      dat_description, flg_status, fk_catalog, fk_catalog_version, dt_creation,
+      dt_modification, user_audit) select key_cod, dat_name, dat_description,
+      flg_status, fk_catalog, '?1' as fk_catalog_version, now() as dt_creation,
+      now() as dt_modification, 'prueba' as user_audit  from dat_item where
+      fk_catalog = ?2 and fk_catalog_version = ?3    
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${OHONT_BACK_APP_NAME}
+    labels:
+      app: ${OHONT_BACK_APP_NAME}
+  spec:
+    replicas: ${{OHONT_REPLICAS}}
+    selector:
+      matchLabels:
+        app: ${OHONT_BACK_APP_NAME}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: ${OHONT_BACK_APP_NAME}
+        annotations:
+          sidecar.istio.io/inject: 'false'
+      spec:
+        restartPolicy: Always
+        serviceAccountName: oh-module
+        imagePullSecrets:
+          - name: ${GENERAL_DOCKER_REGISTRY_SECRET_NAME}
+        schedulerName: default-scheduler
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - ${OHONT_BACK_APP_NAME}
+                topologyKey: kubernetes.io/hostname
+        terminationGracePeriodSeconds: 30
+        securityContext: {}
+        containers:
+          - resources:
+              limits:
+                cpu: 300m
+                memory: 1200Mi
+              requests:
+                cpu: 200m
+                memory: 750Mi
+            readinessProbe:
+              httpGet:
+                path: /hncat/healthcheck
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 1
+              periodSeconds: 20
+              successThreshold: 1
+              failureThreshold: 3
+            terminationMessagePath: /dev/termination-log
+            name: ${OHONT_BACK_APP_NAME}
+            livenessProbe:
+              httpGet:
+                path: /hncat/healthcheck
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 200
+              timeoutSeconds: 15
+              periodSeconds: 22
+              successThreshold: 1
+              failureThreshold: 3
+            env:
+              - name: JVM_OPTS
+                value: "-Dindrasalud.home=/hn_home -Dcom.atomikos.icatch.file=/hn_home/jta.properties -Dcom.sun.net.ssl.checkRevocation=false -Xms256m -Xmx1024M"
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            imagePullPolicy: Always
+            volumeMounts:
+              - name: ohont-back-jetty
+                readOnly: true
+                mountPath: /var/lib/jetty/webapps/ROOT/WEB-INF/jetty-env.xml
+                subPath: jetty-env.xml
+              - name: ohont-back-cfg
+                readOnly: true
+                subPath: ehcache.xml
+                mountPath: /hn_home/hncat/conf/ehcache.xml
+              - name: ohont-back-cfg
+                readOnly: true
+                subPath: hncat.properties
+                mountPath: /hn_home/hncat/conf/hncat.properties
+              - name: ohont-back-cfg
+                readOnly: true
+                subPath: logback-config.xml
+                mountPath: /hn_home/hncat/conf/logback-config.xml
+              - name: ohont-back-cfg
+                readOnly: true
+                subPath: hotrod-client.properties
+                mountPath: /hn_home/hncat/conf/hotrod-client.properties
+              - name: ohont-back-cfg
+                readOnly: true
+                subPath: queries.properties
+                mountPath: /hn_home/hncat/conf/queries.properties
+              - name: ohont-back-host-props
+                readOnly: true
+                mountPath: /hn_home/host.properties
+                subPath: host.properties
+              - name: ohont-back-integration-props
+                readOnly: true
+                mountPath: /hn_home/integration.properties
+                subPath: integration.properties
+              - name: ohont-back-jms-props
+                readOnly: true
+                mountPath: /hn_home/jms.properties
+                subPath: jms.properties
+              - name: ohont-back-iscore-sso-props
+                readOnly: true
+                mountPath: /hn_home/iscore/conf
+              - name: cert-domain
+                mountPath: /cert/cert-domain.crt
+                subPath: tls.crt
+            terminationMessagePolicy: File
+            image: '${GENERAL_DOCKER_REGISTRY_HOST}/${GENERAL_DOCKER_REGISTRY_PROJECT}/ohont-back:${OHONT_BACK_IMAGE_TAG}'
+        serviceAccount: oh-module
+        volumes:
+          - name: ohont-back-cfg
+            configMap:
+              name: ${OHONT_BACK_APP_NAME}-cfg
+              defaultMode: 420
+          - name: ohont-back-jetty
+            configMap:
+              name: ${OHONT_BACK_APP_NAME}-jetty
+              defaultMode: 420
+          - name: ohont-back-host-props
+            configMap:
+              name: hnhome-host-props
+              defaultMode: 420
+          - name: ohont-back-integration-props
+            configMap:
+              name: hnhome-integration-props
+              defaultMode: 420
+          - name: ohont-back-jms-props
+            configMap:
+              name: hnhome-jms-props
+              defaultMode: 420
+          - name: ohont-back-iscore-sso-props
+            configMap:
+              name: hnhome-iscore-sso-props
+              defaultMode: 420
+          - name: cert-domain
+            secret:
+              secretName: cert-domain
+              items:
+               - key: tls.crt
+                 path: tls.crt
+              defaultMode: 420
+        dnsPolicy: ClusterFirst
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 25%
+        maxSurge: 25%
+    revisionHistoryLimit: 10
+    progressDeadlineSeconds: 600
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${OHONT_BACK_APP_NAME}
+    labels:
+      app: ohont-back
+  spec:
+    ports:
+      - name: http
+        protocol: TCP
+        port: 8080
+        targetPort: 8080
+      - name: prom
+        protocol: TCP
+        port: 9093
+        targetPort: 9093
+    selector:
+      app: ${OHONT_BACK_APP_NAME}
+
+- kind: ConfigMap
+  apiVersion: v1
+  metadata:
+    name: ${OHONT_FRONT_APP_NAME}-cfg
+  data:
+    env.json: |-
+      {
+        "services_host": "${GENERAL_PROTOCOL}://${GENERAL_HOST}",
+        "keycloak-js-dist":"${GENERAL_PROTOCOL}://${GENERAL_HOST}/hnconf/ohsso-lib.js",
+        "app_theme": "./assets/css/themes/default"
+      }
+    hncat-wl-code-system-config.json: |-
+      {
+          "urlSearch": "hncat/fhir/rest-pag/CodeSystem",
+          "rowActionDefault": "CONCEPTS",
+          "rowActions": [
+              {
+                  "label": "hncatcomponents.label.action.consult.detail",
+                  "nameAction": "CONSULT_DETAIL",
+                  "icon": "ui-hn-icon icon-eye",
+                  "default": true
+              },
+              {
+                  "label": "hncatcomponents.label.action.concepts",
+                  "nameAction": "CONCEPTS",
+                  "icon": "ui-hn-icon icon-link",
+                  "default": false
+              },
+              {
+                  "label": "hncatcomponents.label.action.manage.events",
+                  "nameAction": "MANAGER_EVENTS",
+                  "icon": "ui-hn-icon icon-adjustable-wrench",
+                  "default": false
+              },
+              {
+                  "label": "hncatcomponents.label.action.relations",
+                  "nameAction": "RELATIONS",
+                  "icon": "ui-hn-icon type-duplicate-management",
+                  "default": false
+              }
+          ],
+          "filters": [
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.status",
+                  "attribute": "status",
+                  "type": 2,
+                  "default": true,
+                  "flgVisible": true,
+                  "values": [
+                      {
+                          "label": "hncatcomponents.label.all",
+                          "value": ""
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.active",
+                          "value": "active",
+                          "icon": "circle inline-block green-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.draft",
+                          "value": "draft",
+                          "icon": "circle inline-block cyan-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.unknown",
+                          "value": "unknown",
+                          "icon": "circle inline-block pearl-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.retired",
+                          "value": "retired",
+                          "icon": "circle inline-block greyDark-background"
+                      }
+                  ],
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "showItemIcon": true
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.id",
+                  "attribute": "code",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.name",
+                  "attribute": "name",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.ontological.spaces",
+                  "attribute": "context",
+                  "type": 9,
+                  "renderParam": "$HNCONF_manage_domains",
+                  "default": false,
+                  "flgVisible": false,
+                  "valuesURL": "hncat/fhir/AdminDomainRS?_format=json;name;code",
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "sortCatalog": "name",
+                      "filterCombo": true,
+                      "placeholder": "hncatcomponents.label.all",
+                      "showToggleAll": true,
+                      "labelAllElements": "hncatcomponents.label.all"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.uri",
+                  "attribute": "url",
+                  "type": 1,
+                  "default": false,
+                  "flgVisible": false,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.title",
+                  "attribute": "title",
+                  "type": 1,
+                  "default": false,
+                  "flgVisible": false,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.filter.use",
+                  "attribute": "useCode",
+                  "type": 2,
+                  "default": false,
+                  "flgVisible": false,
+                  "values": [
+                      {
+                          "label": "hncatcomponents.label.all",
+                          "value": "",
+                          "icon": "hncat-catalog-list-comboCirclesIcon circle white-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.filter.recent.use",
+                          "value": "1",
+                          "icon": "circle green-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.filter.without.use.recently",
+                          "value": "2",
+                          "icon": "circle amber-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.filter.without.use",
+                          "value": "3",
+                          "icon": "circle blood-background"
+                      }
+                  ],
+                  "otherProperties": {
+                      "widthSize": "very-small-width showIconOnlyTop use-panel",
+                      "showItemIcon": true,
+                      "stylePanelCombo": "use-panel",
+                      "maxLength": "50"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.labels",
+                  "attribute": "tag",
+                  "type": 9,
+                  "default": false,
+                  "flgVisible": false,
+                  "valuesURL": "hncat/fhir/AdminValueSetRS?&_query=getLabels;name;id",
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "sortCatalog": "name",
+                      "filterCombo": true,
+                      "placeholder": "hncatcomponents.label.all",
+                      "showToggleAll": true,
+                      "labelAllElements": "hncatcomponents.label.all"
+                  }
+              }
+          ],
+          "columns": [
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.date.create",
+                  "attribute": "date",
+                  "flgVisible": false,
+                  "default": false,
+                  "sortable": true,
+                  "order": "creationDate",
+                  "columnClass": "width-date",
+                  "field": {
+                      "type": 5,
+                      "columnClass": "width-date"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.status",
+                  "attribute": "status",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "width-status",
+                  "field": {
+                      "columnClass": "width-status",
+                      "elementClass": "hn-label-field"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.name",
+                  "attribute": "name",
+                  "flgVisible": true,
+                  "sortable": true,
+                  "order": "name",
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.id",
+                  "attribute": "identifier",
+                  "flgVisible": true,
+                  "sortable": true,
+                  "order": "code",
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.version",
+                  "attribute": "version",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "width-version",
+                  "field": {
+                      "columnClass": "width-version"
+                  }
+              },
+              {
+                  "labelFilterColumn": "hncatcomponents.label.code.system.column.events",
+                  "attribute": "events",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "width-events",
+                  "field": {
+                      "columnClass": "width-events"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.filter.use",
+                  "attribute": "useCode",
+                  "flgVisible": true,
+                  "default": true,
+                  "sortable": true,
+                  "order": "useCode",
+                  "columnClass": "width-use-code",
+                  "field": {
+                      "columnClass": "width-use-code",
+                      "elementClass": "circle"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.ontological.space",
+                  "attribute": "useContext",
+                  "renderParam": "$HNCONF_manage_domains",
+                  "flgVisible": false,
+                  "default": false,
+                  "columnClass": "width-domains",
+                  "field": {
+                      "elementClass": "hn-label-item",
+                      "columnClass": "width-domains"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.uri",
+                  "attribute": "url",
+                  "flgVisible": false,
+                  "sortable": true,
+                  "order": "url",
+                  "default": false
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.title",
+                  "attribute": "title",
+                  "flgVisible": false,
+                  "sortable": true,
+                  "order": "title",
+                  "default": false
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.description",
+                  "attribute": "description",
+                  "flgVisible": false,
+                  "sortable": true,
+                  "order": "description",
+                  "default": false
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.labels",
+                  "attribute": "tags",
+                  "flgVisible": false,
+                  "default": false,
+                  "columnClass": "width-tags",
+                  "field": {
+                      "elementClass": "hn-label-item",
+                      "columnClass": "width-tags"
+                  }
+              }
+          ]
+      }
+    hncat-wl-coding-config.json: |-
+      {
+          "urlSearch": "hncat/fhir/CodingRS",
+          "rowActions": [
+              {
+                  "label": "hncatcomponents.label.action.consult.detail",
+                  "nameAction": "CONSULT_DETAIL",
+                  "icon": "ui-hn-icon icon-eye",
+                  "default": true
+              }
+          ],
+          "filters": [
+              { 
+                  "label": "hncatcomponents.label.coding.filter.display",
+                  "attribute": "display",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.coding.filter.code",
+                  "attribute": "code",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.coding.filter.type",
+                  "attribute": "type",
+                  "type": 2,
+                  "valuesURL": "hncat/fhir/CodingRS?_format=json&_query=getCodingType;name;id",
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "large-width",
+                      "sortCatalog": "name",
+                      "filterCombo": true,
+                      "placeholder": "hncatcomponents.placeholder.select"
+                  }
+              }
+          ],
+          "columns": [
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.coding.column.display",
+                  "attribute": "display",
+                  "flgVisible": true,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.coding.column.code",
+                  "attribute": "code",
+                  "flgVisible": true,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.coding.column.system",
+                  "attribute": "system",
+                  "flgVisible": true,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.coding.column.version",
+                  "attribute": "version",
+                  "flgVisible": true,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.coding.column.type",
+                  "attribute": "type",
+                  "flgVisible": true,
+                  "default": true,
+                  "field": {
+                      "elementClass": "type-field"
+                  }
+              }
+          ]
+      }
+    hncat-wl-concept-map-config.json: |-
+      {
+          "urlSearch": "hncat/fhir/rest-pag/ConceptMap",
+          "rowActionDefault": "CONCEPT_MAP_RELATIONS",
+          "rowActions": [
+              {
+                  "label": "hncatcomponents.label.action.consult.detail",
+                  "nameAction": "CONSULT_DETAIL",
+                  "icon": "ui-hn-icon icon-eye",
+                  "default": true
+              },
+              {
+                  "label": "hncatcomponents.label.action.relations",
+                  "nameAction": "CONCEPT_MAP_RELATIONS",
+                  "icon": "ui-hn-icon type-duplicate-management",
+                  "default": true
+              }
+          ],
+          "filters": [
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.status",
+                  "attribute": "status",
+                  "type": 2,
+                  "default": true,
+                  "flgVisible": true,
+                  "values": [
+                      {
+                          "label": "hncatcomponents.label.all",
+                          "value": ""
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.active",
+                          "value": "active",
+                          "icon": "circle inline-block green-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.draft",
+                          "value": "draft",
+                          "icon": "circle inline-block cyan-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.unknown",
+                          "value": "unknown",
+                          "icon": "circle inline-block pearl-background"
+                      },
+                      {
+                          "label": "hncatcomponents.label.status.retired",
+                          "value": "retired",
+                          "icon": "circle inline-block greyDark-background"
+                      }
+                  ],
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "showItemIcon": true
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.id",
+                  "attribute": "id",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.code.system.filter.uri",
+                  "attribute": "uri",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "maxLength": "250"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.codeSystem.origin",
+                  "attribute": "sourceSystem",
+                  "type": 3,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "large-width",
+                      "maxLength": "250",
+                      "textHint": "hncatcomponents.label.startwrite",
+                      "showValue": false,
+                      "presetNotDropdown": true
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.codeSystem.destination",
+                  "attribute": "targetSystem",
+                  "type": 3,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "large-width",
+                      "maxLength": "250",
+                      "textHint": "hncatcomponents.label.startwrite",
+                      "showValue": false,
+                      "presetNotDropdown": true
+                  }
+              }
+          ],
+          "columns": [
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.date.create",
+                  "attribute": "date",
+                  "flgVisible": true,
+                  "default": true,
+                  "sortable": true,
+                  "order": "creationDate",
+                  "columnClass": "width-date",
+                  "field": {
+                      "type": 5,
+                      "columnClass": "width-date"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.status",
+                  "attribute": "status",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "width-status",
+                  "field": {
+                      "columnClass": "width-status",
+                      "elementClass": "hn-label-field"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.id",
+                  "attribute": "idRow",
+                  "flgVisible": true,
+                  "sortable": true,
+                  "order": "id",
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.code.system.column.uri",
+                  "attribute": "url",
+                  "flgVisible": true,
+                  "sortable": true,
+                  "order": "uri",
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.codeSystem.origin",
+                  "attribute": "sourceUri",
+                  "flgVisible": true,
+                  "sortable": false,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.codeSystem.destination",
+                  "attribute": "targetUri",
+                  "flgVisible": true,
+                  "sortable": false,
+                  "default": true
+              }
+          ]
+      }  
+    hncat-wl-concepts-config.json: |-
+      {
+          "rowActions": [
+              {
+                  "label": "hncatcomponents.label.action.consult.detail",
+                  "nameAction": "CONSULT_DETAIL",
+                  "icon": "ui-hn-icon icon-eye",
+                  "default": true
+              }
+          ],
+          "filters": [
+              { 
+                  "label": "hncatcomponents.label.concept.filter.code",
+                  "attribute": "code",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "modeLocalSearch":"contains"
+  
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.concept.filter.display",
+                  "attribute": "display",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "modeLocalSearch":"contains"
+                  }
+              }
+          ],
+          "columns": [
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.concept.column.code",
+                  "attribute": "code",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "width-code",
+                  "field": {
+                      "columnClass": "width-code"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.concept.column.display",
+                  "attribute": "display",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "width-display",
+                  "field": {
+                      "columnClass": "width-display"
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.concept.column.definition",
+                  "attribute": "definition",
+                  "flgVisible": true,
+                  "default": true
+              }
+          ]
+      }  
+    hncat-wl-concepts-map-relations.json: |-
+      {
+          "filters": [
+              { 
+                  "label": "hncatcomponents.concept.map.code.origin",
+                  "attribute": "codeSource",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width"
+  
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.concept.map.code.destination",
+                  "attribute": "codeTarget",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.concept.map.display.origin",
+                  "attribute": "nameSource",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.concept.map.display.destination",
+                  "attribute": "nameTarget",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width"
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.concept.map.type.relation",
+                  "attribute": "elementRelType",
+                  "type": 2,
+                  "default": true,
+                  "flgVisible": true,
+                  "values": [
+                      {
+                          "label": "hncatcomponents.label.all",
+                          "value": ""
+                      },
+                      {
+                          "label": "hncatcomponents.label.relatedto",
+                          "value": "relatedto"
+                      },
+                      {
+                          "label": "hncatcomponents.label.equivalent",
+                          "value": "equivalent"
+                      },
+                      {
+                          "label": "hncatcomponents.label.equal",
+                          "value": "equal"
+                      },
+                      {
+                          "label": "hncatcomponents.label.wider",
+                          "value": "wider"
+                      },
+                      {
+                          "label": "hncatcomponents.label.subsumes",
+                          "value": "subsumes"
+                      },
+                      {
+                          "label": "hncatcomponents.label.narrower",
+                          "value": "narrower"
+                      },
+                      {
+                          "label": "hncatcomponents.label.specializes",
+                          "value": "specializes"
+                      },
+                      {
+                          "label": "hncatcomponents.label.inexact",
+                          "value": "inexact"
+                      },
+                      {
+                          "label": "hncatcomponents.label.unmatched",
+                          "value": "unmatched"
+                      },
+                      {
+                          "label": "hncatcomponents.label.disjoint",
+                          "value": "disjoint"
+                      }
+                  ],
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "showItemIcon": true
+                  }
+              }
+          ],
+          "columns": [
+              {
+                  "labelHeaderColumn": "hncatcomponents.concept.code.origin",
+                  "attribute": "codeOrigin",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "",
+                  "field": {
+                      "columnClass": ""
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.concept.display.origin",
+                  "attribute": "displayOrigin",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "",
+                  "field": {
+                      "columnClass": ""
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.concept.code.destination",
+                  "attribute": "codeDestination",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "",
+                  "field": {
+                      "columnClass": ""
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.concept.display.destination",
+                  "attribute": "displayDestination",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "",
+                  "field": {
+                      "columnClass": ""
+                  }
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.concept.map.type.relation",
+                  "attribute": "typeRelBetweenElement",
+                  "flgVisible": true,
+                  "default": true,
+                  "columnClass": "",
+                  "field": {
+                      "columnClass": ""
+                  }
+              }
+          ]
+      }  
+    hncat-wl-concepts-searcher.json: |-
+      {
+          "filters": [
+              { 
+                  "label": "hncatcomponents.label.concept.filter.system",
+                  "attribute": "system",
+                  "type": 2,
+                  "default": true,
+                  "flgVisible": true,
+                  "values": [
+                      {
+                          "label": "hncatcomponents.label.select.one",
+                          "value": ""
+                      },
+                      {
+                          "label": "TODO yuemei",
+                          "value": "y"
+                      }
+                  ],
+                  "otherProperties": {
+                      "widthSize": "large-width"
+  
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.concept.filter.code",
+                  "attribute": "code",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "disabled": true
+  
+                  }
+              },
+              { 
+                  "label": "hncatcomponents.label.concept.filter.display",
+                  "attribute": "display",
+                  "type": 1,
+                  "default": true,
+                  "flgVisible": true,
+                  "otherProperties": {
+                      "widthSize": "medium-width",
+                      "disabled": true
+                  }
+              }
+          ],
+          "columns": [
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.concept.column.code",
+                  "attribute": "code",
+                  "flgVisible": true,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.concept.column.display",
+                  "attribute": "display",
+                  "flgVisible": true,
+                  "default": true
+              },
+              {
+                  "labelHeaderColumn": "hncatcomponents.label.concept.column.system",
+                  "attribute": "system",
+                  "flgVisible": true,
+                  "default": true
+              }
+          ]
+      }  
+    menu-items.json: |-
+      [
+        {
+            "id": "men12",
+            "label": "label.menu.terminology",
+            "icon": "icon-agenda",
+            "routerLink": "/terminology",
+            "permissions": "HNCAT_TERMINOLOGY_READ|HNCAT_TERMINOLOGY_WRITE|HNCAT_TERMINOLOGY_DRAFT"
+        },      
+       {
+          "id": "men14",
+          "label": "label.menu.concept.map",
+          "icon": "ui-hn-icon type-duplicate-management",
+          "routerLink": "/conceptMap",
+          "permissions": "HNCAT_TERMINOLOGY_READ|HNCAT_TERMINOLOGY_WRITE|HNCAT_TERMINOLOGY_DRAFT"
+      },
+        {
+            "id": "men1",
+            "label": "label.menu.catalog.search",
+            "icon": "icon-section-generic",
+            "routerLink": "/catalog",
+            "permissions": "HNCAT_ONTOLOGY_READ"
+        },
+        {
+            "id": "men11",
+            "label": "label.benefits",
+            "icon": "icon-nurse-bag",
+            "routerLink": "/benefit",
+            "permissions": "HNCAT_CONF_PREST"
+        },
+        {
+            "id": "men13",
+            "label": "label.ontology.space",
+            "icon": "icon-folder2",
+            "routerLink": "/administration",
+            "permissions": "HNCAT_SPA_READ|HNCAT_SPA_WRITE"
+        }
+      ]
+
+- kind: Deployment
+  apiVersion: apps/v1
+  metadata:
+    name: ${OHONT_FRONT_APP_NAME}
+    labels:
+      app: ${OHONT_FRONT_APP_NAME}
+  spec:
+    replicas: ${{OHONT_REPLICAS}}
+    selector:
+      matchLabels:
+        app: ${OHONT_FRONT_APP_NAME}
+    template:
+      metadata:
+        labels:
+          app: ${OHONT_FRONT_APP_NAME}
+        annotations:
+          sidecar.istio.io/inject: 'false'
+      spec:
+        restartPolicy: Always
+        serviceAccountName: oh-module
+        imagePullSecrets:
+          - name: ${GENERAL_DOCKER_REGISTRY_SECRET_NAME}
+        schedulerName: default-scheduler
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - ${OHONT_FRONT_APP_NAME}
+                topologyKey: kubernetes.io/hostname
+        terminationGracePeriodSeconds: 30
+        securityContext: {}
+        containers:
+          - resources:
+              limits:
+                cpu: 50m
+                memory: 48Mi
+              requests:
+                cpu: 25m
+                memory: 16Mi
+            readinessProbe:
+              httpGet:
+                path: /hncat/index.html
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 1
+              periodSeconds: 20
+              successThreshold: 1
+              failureThreshold: 3
+            terminationMessagePath: /dev/termination-log
+            name: ${OHONT_FRONT_APP_NAME}
+            livenessProbe:
+              httpGet:
+                path: /hncat/index.html
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 20
+              timeoutSeconds: 1
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            imagePullPolicy: Always
+            volumeMounts:
+              - name: ${OHONT_FRONT_APP_NAME}-cfg
+                readOnly: true
+                mountPath: /usr/share/nginx/html/hncat/assets/config
+              - name: hnhome-ohsso-front
+                readOnly: true
+                mountPath: /usr/share/nginx/html/hncat/keycloak.json
+                subPath: keycloak.json
+              - name: nginx-front-cfg
+                readOnly: true
+                mountPath: /etc/nginx/nginx.conf
+                subPath: nginx.conf
+              - name: ohsso-lib
+                readOnly: true
+                mountPath: /usr/share/nginx/html/hncat/ohsso-lib.js
+                subPath: ohsso-lib.js
+            terminationMessagePolicy: File
+            image: '${GENERAL_DOCKER_REGISTRY_HOST}/${GENERAL_DOCKER_REGISTRY_PROJECT}/ohont-front:${OHONT_FRONT_IMAGE_TAG}'
+        serviceAccount: oh-module
+        volumes:
+          - name: ${OHONT_FRONT_APP_NAME}-cfg
+            configMap:
+              name: ${OHONT_FRONT_APP_NAME}-cfg
+              defaultMode: 420
+          - name: hnhome-ohsso-front
+            configMap:
+              name: hnhome-ohsso-front
+              defaultMode: 420
+          - name: nginx-front-cfg
+            configMap:
+              name: nginx-front-cfg
+              defaultMode: 420
+          - name: ohsso-lib
+            configMap:
+              name: ohsso-lib
+              defaultMode: 420
+        dnsPolicy: ClusterFirst
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 25%
+        maxSurge: 25%
+    revisionHistoryLimit: 10
+    progressDeadlineSeconds: 600
+
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: ${OHONT_FRONT_APP_NAME}
+  spec:
+    ports:
+      - name: http
+        protocol: TCP
+        port: 8080
+        targetPort: 8080
+    selector:
+      app: ${OHONT_FRONT_APP_NAME}
+
+- apiVersion: networking.istio.io/v1alpha3
+  kind: VirtualService
+  metadata:
+    name: ${OHONT_BACK_APP_NAME}-virtual-service
+  spec:
+    gateways:
+      - oh-modules-gateway
+    hosts:
+      - '${GENERAL_HOST}'
+    http:
+      - headers:
+          request:
+            set:
+              X-Forwarded-Host: ${GENERAL_HOST}
+              X-Forwarded-Port: '${GENERAL_PORT}'
+              X-Forwarded-Proto: ${GENERAL_PROTOCOL}
+        match:
+          - uri:
+              prefix: /hncat/fhir/
+          - uri:
+              exact: /hncat/keycloak.json
+          - uri:
+              exact: /hncat/healthcheck
+        route:
+          - destination:
+              host: ${OHONT_BACK_APP_NAME}
+              port:
+                number: 8080
+      - match:
+          - uri:
+              prefix: /hncat/
+        route:
+          - destination:
+              host: ${OHONT_FRONT_APP_NAME}
+              port:
+                number: 8080
+      - match:
+          - uri:
+              prefix: /hncat
+        rewrite:
+          uri: /hncat/
+        route:
+          - destination:
+              host: ${OHONT_FRONT_APP_NAME}
+              port:
+                number: 8080
+
+parameters:
+  - name: GENERAL_PROTOCOL
+    displayName: OH modules Protocol
+    description: 'Protocol which OH modules will be exposed (http|https). Generally it will be the protocol defined in the oh-modules Gateway.'
+    value: https
+    required: true
+  - name: GENERAL_PORT
+    displayName: OH modules Port
+    description: 'Port which OH modules will be exposed (80|443). Generally it will be the port defined in the oh-modules Gateway.'
+    value: '443'
+    required: true
+  - name: GENERAL_HOST
+    displayName: OH modules Host
+    description: 'Host where OH modules will be exposed (for example: oh-modules.apps.lab.openshift.com).  Generally it will be the protocol defined in the oh-modules Gateway.'
+    required: true
+  - name: GENERAL_DB_TYPE
+    displayName: Database Type
+    description: 'Database Type (MYSQL|ORACLE)'
+    required: true
+  - name: GENERAL_JDBC_DRIVER
+    displayName: JDBC Driver
+    description: 'Database driver class (example for MySQL: com.mysql.cj.jdbc.Driver, example for Oracle: oracle.jdbc.driver.OracleDriver)'
+    required: true
+  - name: GENERAL_JDBC_DIALECT
+    displayName: Database dialect
+    description: 'Database dialect class (example for MySQL: org.hibernate.dialect.MySQLDialect, example for Oracle: org.hibernate.dialect.Oracle10gDialect)'
+    required: true
+  - name: GENERAL_DOCKER_REGISTRY_HOST
+    displayName: Docker registry domain
+    description: 'Docker registry domain (for example: docksdtr.indra.es)'
+    required: true
+  - name: GENERAL_DOCKER_REGISTRY_SECRET_NAME
+    displayName: Secret name for docker registry credentials
+    description: 'Secret name for docker registry credentialst (for example: docksdtr.indra.es)'
+    required: true
+  - name: GENERAL_DOCKER_REGISTRY_PROJECT
+    displayName: Docker registry project for OH images
+    description: 'Docker registry project for OH images (for example: multhn_cmhn20_2)'
+    required: true
+  - description: OHONT backend application name
+    displayName: OHONT backend application name
+    name: OHONT_BACK_APP_NAME
+    value: ohont-back
+    required: true
+  - description: 'JBDC Connection string to DataBase (example for MySQL: jdbc:mysql://database_host:3306/db_schema?serverTimezone=UTC. example for Oracle: jdbc:oracle:thin:@database_host:1521:SID)'
+    displayName: JBDC Connection string to DataBase
+    name: OHONT_DB_URL
+    required: true
+  - description: Database connection user
+    displayName: Database connection user
+    name: OHONT_DB_USER
+    required: true
+  - description: Database connection password
+    displayName: Database connection password
+    name: OHONT_DB_PASS
+    required: true
+  - description: Database default schema
+    displayName: Database default schema
+    name: OHONT_DB_DEFAULT_SCHEMA
+    value: US_HNCAT
+    required: true
+  - description: Datasource initial pool size
+    displayName: Datasource initial pool size
+    name: OHONT_DB_INITIAL_SIZE
+    value: '2'
+    required: true
+  - description: Datasource max pool size
+    displayName: Datasource max pool size
+    name: OHONT_DB_MAX_SIZE
+    value: '50'
+    required: true
+  - description: Datasource min idle
+    displayName: Datasource min idle
+    name: OHONT_DB_MIN_IDLE
+    value: '5'
+    required: true
+  - description: Datasource max idle
+    displayName: Datasource max idle
+    name: OHONT_DB_MAX_IDLE
+    value: '20'
+    required: true
+  - description: 'Log level for OH packages (DEBUG, INFO, WARN, ERROR)'
+    displayName: Log level for OH packages
+    name: OHONT_LOG_LEVEL_OH
+    value: WARN
+    required: true
+  - description: 'Log level for hibernate and sql (TRACE, DEBUG, INFO, WARN, ERROR)'
+    displayName: Log level for hibernate and sql
+    name: OHONT_LOG_LEVEL_SQL
+    value: ERROR
+    required: true
+  - description: Number of pods to be deployed
+    displayName: Number of pods to be deployed
+    name: OHONT_REPLICAS  
+    value: '1'
+    required: true
+  - description: 'Docker image tag for OHONT backend (for example: 4.6.0)'
+    displayName: Docker image tag for OHONT backend
+    name: OHONT_BACK_IMAGE_TAG
+    required: true
+  - description: OHONT frontend application name
+    displayName: OHONT frontend application name
+    name: OHONT_FRONT_APP_NAME
+    value: ohont-front
+    required: true
+  - description: 'Docker image tag for OHONT frontend (for example: 4.6.0)'
+    displayName: Docker image tag for OHONT frontend
+    name: OHONT_FRONT_IMAGE_TAG
+    required: true

@@ -1,11 +1,5 @@
 questions:
 
-  - variable: onesaithealthcare_ohmpi_chart.enabled
-    default: true
-    description: "Enable OHMPI module"
-    type: boolean
-    required: true
-
   - variable: onesaithealthcare_ohatn_chart.enabled
     default: true
     description: "Enable OHATN module"

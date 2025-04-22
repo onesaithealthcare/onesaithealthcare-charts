@@ -3,7 +3,7 @@ name: onesaithealthcare-mdm-chart
 description: Onesait Healthcare MDM chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
-version: "4.10.1"
+version: "4.10.2"
 appVersion: "4.10.0"
 keywords:
   - Minsait

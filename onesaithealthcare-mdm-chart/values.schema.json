@@ -35,13 +35,90 @@
         }
       }
     },
+    "onesaithealthcare_ohaut_chart": {
+      "type": "object",
+      "properties": {
+        "ohaut": {
+          "type": "object",
+          "properties": {
+            "db": {
+              "type": "object",
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "default": "us_hnaut",
+                  "description": "OHAUT schema (usually same as user)"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_hnaut",
+                  "description": "OHAUT db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHAUT db password"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "onesaithealthcare_ohont_chart": {
+      "type": "object",
+      "properties": {
+        "ohont": {
+          "type": "object",
+          "properties": {
+            "db": {
+              "type": "object",
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "default": "us_hncat",
+                  "description": "OHONT schema (usually same as user)"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_hncat",
+                  "description": "OHONT db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHONT db password"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "onesaithealthcare_ohmpi_chart": {
       "type": "object",
       "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable OHMPI module"
+        "ohmpi": {
+          "type": "object",
+          "properties": {
+            "db": {
+              "type": "object",
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "default": "us_hnpob",
+                  "description": "OHMPI schema (usually same as user)"
+                },
+                "user": {
+                  "type": "string",
+                  "default": "us_hnpob",
+                  "description": "OHMPI db user"
+                },
+                "pass": {
+                  "type": "string",
+                  "description": "OHMPI db password"
+                }
+              }
+            }
+          }
         }
       }
     },
