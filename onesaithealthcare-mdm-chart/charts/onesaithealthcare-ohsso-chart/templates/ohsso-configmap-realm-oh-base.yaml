@@ -9,7 +9,7 @@ data:
     hncat.fhir.url=http://ohont-back:8080/hncat/fhir/
     hnconf.fhir.url=http://ohcon-back:8080/hnconf/fhir/
     homec.fhir.url=http://ohhom-back:8080/ohhom/fhir/
-    keycloak.url.initial={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/realms/oh-base/protocol/openid-connect/token
+    keycloak.url.initial={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/auth/realms/oh-base/protocol/openid-connect/token
     keycloak.client.id=hnrole
     ohsso.provider.core.lastlogin.enabled=true
     ohsso.provider.core.lastlogin.format=yyyy/MM/dd HH:mm
