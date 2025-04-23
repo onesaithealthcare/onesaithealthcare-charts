@@ -45,6 +45,8 @@ onesaithealthcare_ohaut_chart:
     # image-version: 4.8.0
     sha256_front: sha256:93f0e09aa47ca2bb4ab36c687565688cde8f6310d006951e122611eeb6f85897
     sha256_back: sha256:ec2c915c8d11a6088e95646115123d5da4cf6f8efd5a9e5ae6a645f625f0172f
+    # image-version: 4.7.0    
+    sha256_front_wcint: sha256:11b0cff5232d7b18e201329bcad06a6f29d999bb571d4137cedc5e65f09ac7e5
     db:
       schema: us_hnaut # usually the same as user
       user: us_hnaut
