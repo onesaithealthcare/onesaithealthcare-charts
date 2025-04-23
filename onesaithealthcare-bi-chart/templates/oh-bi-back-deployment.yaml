@@ -12,7 +12,7 @@ spec:
         app: oh-bi
     spec:
       imagePullSecrets:
-        - name: docksdtr.indra.es
+        - name: 'oh-docker-creds'
       serviceAccountName: oh-module
       containers:
         - name: oh-bi
