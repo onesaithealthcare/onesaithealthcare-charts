@@ -278,6 +278,21 @@
               }
             }
           }
+        },
+        "host_alias": {
+          "type": "object",
+          "properties": {
+            "enabled" : {
+              "type": "boolean",
+              "default" : "false",
+              "description" : "Enabled host alias for domain host"
+            },
+            "ip" : {
+              "type": "string",
+              "default" : "",
+              "description" : "IP for domain host"
+            }
+          }
         }
       }
     }

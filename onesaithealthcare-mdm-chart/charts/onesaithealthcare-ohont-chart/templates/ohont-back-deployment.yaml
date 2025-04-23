@@ -117,6 +117,12 @@ spec:
           terminationMessagePolicy: File
           image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohont-back@{{ .Values.ohont.sha256_back }}'
       serviceAccount: oh-module
+{{- if eq .Values.global.host_alias.enabled }}
+      hostAliases:
+        - ip: {{ .Values.global.host_alias.ip }}
+          hostnames:
+            - {{ .Values.global.domain.host }}
+{{- end }}
       volumes:
         - name: ohont-back-cfg
           configMap:

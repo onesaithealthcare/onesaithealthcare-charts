@@ -79,8 +79,20 @@ questions:
     type: boolean
     required: false
     show_if: "global.database.type=oracle"
+    
+  - variable: global.host_alias.enabled
+    default: false
+    description: "Enable host alias for domain host"
+    type: boolean
+    required: required
 
-
+  - variable: global.host_alias.ip
+    default: false
+    description: "IP for domain host"
+    type: string
+    required: false
+    show_if: "global.host_alias.enabled=true"
+    
   - variable: global.docker.registry.host
     default: "docksdtr.indra.es"
     description: "Docker registry host"

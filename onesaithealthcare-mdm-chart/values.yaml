@@ -16,6 +16,9 @@ global:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
+  host_alias:
+    enabled: false
+    ip: 
 onesaithealthcare_ohsso_chart:
   ohsso:
     # image-version: 4.10.0.oracle, 4.10.0.mysql
