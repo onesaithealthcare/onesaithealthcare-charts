@@ -3,7 +3,7 @@ global:
     type: dev # Opciones: dev, prod
   domain:
     protocol: # Opciones: http, https
-    host: oh-modules.apps.lab.openshift.com
+    host: oh-modules.ohrancherha1-1.indra.es
     gateway: oh-modules-gateway
     gateway_type: # Opciones: istio, k8s_gateway
   docker:
