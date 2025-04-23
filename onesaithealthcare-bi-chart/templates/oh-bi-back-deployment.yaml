@@ -41,8 +41,8 @@ spec:
             - mountPath: /usr/local/helical-insight/hi-repository/System/Mail/mailConfiguration.properties
               subPath: mailConfiguration.properties
               name: configmap
-            - mountPath: /usr/local/helical-insight/hi-repository/System/Drivers
-              name: volume-drivers
+#            - mountPath: /usr/local/helical-insight/hi-repository/System/Drivers
+#              name: volume-drivers
           ports:
             - containerPort: 8443
             - containerPort: 8085
@@ -64,6 +64,6 @@ spec:
                 - key: mailConfiguration.properties
                   path: mailConfiguration.properties
               defaultMode: 420
-        - name: volume-drivers
-          persistentVolumeClaim:
-            claimName: {{ .Values.bi.module.ohbi_app_name }}
+#        - name: volume-drivers
+#          persistentVolumeClaim:
+#            claimName: {{ .Values.bi.module.ohbi_app_name }}
