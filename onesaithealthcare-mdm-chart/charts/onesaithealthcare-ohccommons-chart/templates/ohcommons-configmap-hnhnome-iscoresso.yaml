@@ -126,7 +126,7 @@ data:
     
     keycloak.login.client_id=ohsso
     
-    keycloak.login.client_secret=???
+    keycloak.login.client_secret=6r5GMS3zEfhuTwvW2gGHCMGYlm7Vk1Uo
     
     keycloak.token.minimum.time.to.live=300
     
