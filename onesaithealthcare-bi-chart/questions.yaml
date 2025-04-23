@@ -57,21 +57,21 @@ questions:
     type: string
     required: true
 
-  - variable: bi.module.gateway
+  - variable: bi.module.storageclassname
+    label: "Nombre del STORAGECLASS"
+    description: "NOMBRE DEL STORAGECLASS"
+    type: string
+    required: true
+    
+  - variable: global.domain.gateway
     label: "GATEWAY"
     description: "GATEWAY DEL VIRTUAL SERVICE"
     type: string
     required: true
 
-  - variable: bi.module.fhost
+  - variable: global.domain.fhost
     label: "Host de la aplicación"
     description: "Host en el que está disponible OHBI (Este valor se define en el GATEWAY)"
-    type: string
-    required: true
-
-  - variable: bi.module.storageclassname
-    label: "Nombre del STORAGECLASS"
-    description: "NOMBRE DEL STORAGECLASS"
     type: string
     required: true
 
@@ -114,7 +114,7 @@ questions:
   - variable: bi.mail.ohbi_mail_configuration_port
     label: "port"
     description: "Configuración correo: Puerto"
-    type: string
+    type: integer
     required: true
 
   - variable: bi.mail.ohbi_mail_configuration_from
