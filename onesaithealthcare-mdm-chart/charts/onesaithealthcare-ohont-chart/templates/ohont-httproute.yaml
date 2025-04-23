@@ -49,6 +49,22 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /hncat/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohont-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
             value: /hncat
-
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /hncat/
 {{- end }}

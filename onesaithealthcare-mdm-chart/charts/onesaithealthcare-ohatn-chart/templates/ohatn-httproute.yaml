@@ -74,6 +74,23 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /ARRLocalRepo/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohatn-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
             value: /ARRLocalRepo
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /ARRLocalRepo/
 {{- end }}
 {{- end }}

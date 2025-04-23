@@ -64,6 +64,22 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /hnaut/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohaut-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
             value: /hnaut
-
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /hnaut/
 {{- end }}

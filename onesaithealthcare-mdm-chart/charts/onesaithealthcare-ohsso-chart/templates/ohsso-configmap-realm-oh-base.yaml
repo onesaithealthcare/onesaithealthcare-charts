@@ -5,7 +5,7 @@ metadata:
 data:
   integration.properties: |-
     hnpob.fhir.url=http://ohmpi-back:8080/ispob/fhir/  
-    hnaut.fhir.url=http://ohmpi-back:8080/hnaut/fhir/
+    hnaut.fhir.url=http://ohaut-back:8080/hnaut/fhir/
     hncat.fhir.url=http://ohont-back:8080/hncat/fhir/
     hnconf.fhir.url=http://ohcon-back:8080/hnconf/fhir/
     homec.fhir.url=http://ohhom-back:8080/ohhom/fhir/

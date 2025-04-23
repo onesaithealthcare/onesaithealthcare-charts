@@ -43,5 +43,22 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /mpi/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohmpi-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
             value: /mpi
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /mpi/
 {{- end }}
