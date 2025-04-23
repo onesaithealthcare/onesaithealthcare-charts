@@ -83,7 +83,7 @@ spec:
               subPath: nginx.conf
           terminationMessagePolicy: File
           image: >-
-            '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcore-webcomponents-integration@{{ .Values.ohaut.sha256_front_wcint }}
+            '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcore-webcomponents-integration@{{ .Values.ohaut.sha256_front_wcint }}'
       serviceAccount: oh-module
       volumes:
         - name: ohcore-webcomponents-integration-front-cfg
