@@ -77,4 +77,4 @@ data:
     ohsso.provider.patient.behalf.otp.role.code.replegal=REPLEG_AVANZADO
   password.properties: |-
     keycloak.login.client_id=ohsso
-    keycloak.login.client_secret=6r5GMS3zEfhuTwvW2gGHCMGYlm7Vk1Uo
+    keycloak.login.client_secret=NnI1R01TM3pFZmh1VHd2VzJnR0hDTUdZbG03VmsxVW8=

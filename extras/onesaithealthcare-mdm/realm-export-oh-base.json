@@ -1000,6 +1000,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
+        "HNCAT_TERMINOLOGY_WRITE",
         "HNCIT_CIT_RESCHEDULE",
         "HDR_BASE_R",
         "HNCIT_CIT_NEW",

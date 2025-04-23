@@ -39,6 +39,7 @@ Este Chart instala los módulos core de la solución.
 
 - Una vez arrancado ohsso se deberá crear el realm oh-base importando el archivo: 
 [Descargar realm-export-oh-base.json](https://onesaithealthcare.github.io/onesaithealthcare-charts/extras/onesaithealthcare-mdm/realm-export-oh-base.json)
-Y reiniciar ohsso y los despliegues de backend.
+Acceder al client hnrole y añadir la redirect uri correspondiente al dominio del entorno donde se está desplegando.
+Reiniciar ohsso y los despliegues de backend.
 
 
