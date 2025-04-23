@@ -1,11 +1,11 @@
 global:
   environment:
-    type: dev # Opciones: dev, prod 
+    type: dev # Opciones: dev, prod
   domain:
     protocol: # Opciones: http, https
     host: oh-modules.apps.lab.openshift.com
     gateway: oh-modules-gateway
-    gateway_type: # Opciones: istio, k8s_gateway  
+    gateway_type: # Opciones: istio, k8s_gateway
   docker:
     registry:
       host: docksdtr.indra.es
@@ -16,8 +16,8 @@ bi:
     front: sha256:50cf5234414a53b767da433b5d1d25c6f042a1063dc9d28cd2403a7f052ff63f
   module:
     ohbi_app_name: ohbi
-    namespace: oh-modules      
-    storageclassname: ohbi-sc   
+    namespace: oh-modules
+    storageclassname: ohbi-sc
   mail:
     ohbi_mail_configuration_host_name: support@indra.es
     ohbi_mail_configuration_port: 54

@@ -105,7 +105,7 @@
             },
             "ohbi_mail_configuration_port": {
               "type": "integer",
-			  "description": "Configuración correo: Puerto"			  
+			  "description": "Configuración correo: Puerto"
             },
             "ohbi_mail_configuration_from": {
               "type": "string",
@@ -135,7 +135,7 @@
                   "type": "string",
                   "const": "org.hibernate.dialect.MySQLDialect",
 				  "description": "Dialecto de la base de datos MySql (Ejemplo: org.hibernate.dialect.MySQLDialect)"
-				  
+
                 },
                 "ohbi_db_user": {
                   "type": "string",

@@ -32,7 +32,7 @@ questions:
       - istio
       - k8s_gateway
     required: true
-    
+
   - variable: global.docker.registry.host
     default: "docksdtr.indra.es"
     description: "Docker registry host"
@@ -44,7 +44,7 @@ questions:
     description: "Docker registry project"
     type: string
     required: true
-    
+
   - variable: bi.module.ohbi_app_name
     label: "Nombre del módulo"
     description: "Nombre del módulo"
@@ -62,7 +62,7 @@ questions:
     description: "NOMBRE DEL STORAGECLASS"
     type: string
     required: true
-    
+
   - variable: global.domain.gateway
     label: "GATEWAY"
     description: "GATEWAY DEL VIRTUAL SERVICE"
