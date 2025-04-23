@@ -31,7 +31,7 @@ spec:
               - name: Accept
                 value: application/fhir+json;fhirVersion=3.0
               - name: Content-Type
-                value: application/fhir+json;fhirVersion=3.0                
+                value: application/fhir+json;fhirVersion=3.0
           type: RequestHeaderModifier
       matches:
         - path:
@@ -63,10 +63,7 @@ spec:
         - path:
             type: PathPrefix
             value: /hi-ee/
-            
-            
-            
-     - backendRefs:
+    - backendRefs:
         - group: ''
           kind: Service
           name: {{ .Values.bi.module.ohbi_app_name }}
@@ -85,7 +82,7 @@ spec:
               - name: Accept
                 value: application/fhir+json;fhirVersion=3.0
               - name: Content-Type
-                value: application/fhir+json;fhirVersion=3.0                
+                value: application/fhir+json;fhirVersion=3.0
           type: RequestHeaderModifier
       matches:
         - path:
@@ -116,5 +113,5 @@ spec:
       matches:
         - path:
             type: PathPrefix
-            value: /oh-biservice/           
+            value: /oh-biservice/
 {{- end }}
