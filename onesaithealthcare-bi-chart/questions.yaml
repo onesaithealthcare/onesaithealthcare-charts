@@ -69,7 +69,7 @@ questions:
     type: string
     required: true
 
-  - variable: global.domain.fhost
+  - variable: global.domain.host
     label: "Host de la aplicación"
     description: "Host en el que está disponible OHBI (Este valor se define en el GATEWAY)"
     type: string
