@@ -6,7 +6,7 @@ data:
   keycloak.json: |-
     {
       "realm" : "oh-base",
-      "resource" : "hnrole",
+      "resource" : "hn-install",
       "public-client": true,
       "auth-server-url": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/auth",
       "enable-cors": true

@@ -28,10 +28,10 @@ spec:
           port: 8443
     - ports:
         - protocol: TCP
-          port: 2662
+          port: 2862
     - ports:
         - protocol: UDP
-          port: 2661
+          port: 2861
   policyTypes:
     - Ingress
 
