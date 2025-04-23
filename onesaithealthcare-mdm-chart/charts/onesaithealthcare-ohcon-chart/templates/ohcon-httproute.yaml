@@ -84,6 +84,23 @@ spec:
     - backendRefs:
         - group: ''
           kind: Service
+          name: ohcon-webcomponents-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
+            value: /ohconf-webcomponents
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /ohconf-webcomponents/
+    - backendRefs:
+        - group: ''
+          kind: Service
           name: ohcon-ng15-front
           namespace: {{ .Release.Namespace }}
           port: 8080
@@ -92,4 +109,21 @@ spec:
         - path:
             type: PathPrefix
             value: /ohconf/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohcon-ng15-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
+            value: /ohconf
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /ohconf/
 {{- end }}
