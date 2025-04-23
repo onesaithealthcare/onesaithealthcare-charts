@@ -36,10 +36,13 @@ data:
       ######## Config BD  ########
       
 {{- if eq .Values.global.database.type "mysql" }}
+
       hibernate.dialect=org.hibernate.dialect.MySQLDialect
 {{- else }}
+
       hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
 {{- end }}
+
       database.selected={{ .Values.global.database.type }}
       
       ######## Datasource ########
