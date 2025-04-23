@@ -108,7 +108,7 @@ spec:
           image: >-
             {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x@{{ if eq .Values.global.database.type "mysql" }}{{ .Values.ohsso.sha256_mysql }}{{ else }}{{ .Values.ohsso.sha256_oracle }}{{ end }}
       serviceAccount: oh-module
-{{- if eq .Values.global.host_alias.enabled }}
+{{- if .Values.global.host_alias.enabled }}
       hostAliases:
         - ip: {{ .Values.global.host_alias.ip }}
           hostnames:

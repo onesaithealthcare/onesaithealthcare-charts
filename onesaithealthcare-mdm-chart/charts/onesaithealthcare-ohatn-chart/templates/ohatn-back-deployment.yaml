@@ -110,6 +110,12 @@ spec:
           terminationMessagePolicy: File
           image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohatn-back@{{ .Values.ohatn.sha256_back }}'
       serviceAccount: oh-module
+{{- if .Values.global.host_alias.enabled }}
+      hostAliases:
+        - ip: {{ .Values.global.host_alias.ip }}
+          hostnames:
+            - {{ .Values.global.domain.host }}
+{{- end }}
       volumes:
         - name: ohatn-back-cfg
           configMap:
