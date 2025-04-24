@@ -25,12 +25,14 @@
           "type": "string",
           "description": "Enter environment domain (for example: oh-modules.apps.lab.openshift.com)."
         },
-        "istio": {
-          "type": "boolean",
-          "description": "Environment is using istio."
+        "gateway_type": {
+          "type": "string",
+          "enum": ["istio", "k8s_gateway"],
+          "default": "k8s_gateway",
+          "description": "Gateway type"
         }
       },
-      "required": ["protocol", "host", "istio"]
+      "required": ["protocol", "host", "gateway_type"]
     },
     "docker": {
       "type": "object",

@@ -1,0 +1,77 @@
+{{- if eq .Values.domain.gateway_type "k8s_gateway"  }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: cmc-mongodb-rest-http-route
+spec:
+  hostnames:
+    - {{ .Values.domain.host }}
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: oh-modules-gateway
+      sectionName: oh-modules
+  rules:
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: restheart
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /restheart/
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.domain.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.domain.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ if eq .Values.domain.protocol "http" }}80{{ else if eq .Values.domain.protocol "https" }}443{{ end }}'
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: origin
+          type: ResponseHeaderModifier
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: restheart
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
+            value: /restheart
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.domain.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.domain.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ if eq .Values.domain.protocol "http" }}80{{ else if eq .Values.domain.protocol "https" }}443{{ end }}'
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: origin
+          type: ResponseHeaderModifier
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /
+{{- end }}

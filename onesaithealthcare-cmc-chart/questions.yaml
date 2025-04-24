@@ -24,15 +24,18 @@ questions:
       - https
     required: true
 
-  - variable: domain.istio
-    label: "Environment is using istio"
-    description: "Environment is using istio."
-    type: boolean
+  - variable: domain.gateway_type
+    default: k8s_gateway
+    description: "Gateway type"
+    type: enum
+    options:
+      - istio
+      - k8s_gateway
     required: true
 
   - variable: docker.use.default_oh_registry
-    label: "Environment is using istio"
-    description: "Environment is using istio."
+    label: "Environment is using default OH registry"
+    description: "Environment is using default OH registry."
     type: boolean
     required: true
 

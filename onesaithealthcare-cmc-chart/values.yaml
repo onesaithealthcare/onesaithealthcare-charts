@@ -3,7 +3,7 @@ environment:
 domain:
   protocol: # Opciones: http, https
   host:
-  istio: false
+  gateway_type: # Opciones: istio, k8s_gateway
 docker:
   registry:
     host: docksdtr.indra.es

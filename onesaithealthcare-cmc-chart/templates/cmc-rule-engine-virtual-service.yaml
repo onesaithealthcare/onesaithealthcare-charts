@@ -1,4 +1,4 @@
-{{- if .Values.domain.istio }}
+{{- if eq .Values.domain.gateway_type "istio"  }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
