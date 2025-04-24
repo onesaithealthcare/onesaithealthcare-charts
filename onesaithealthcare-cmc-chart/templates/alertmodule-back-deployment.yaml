@@ -70,3 +70,9 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+{{- if .Values.host_alias.enabled }}
+      hostAliases:
+        - ip: {{ .Values.host_alias.ip }}
+          hostnames:
+            - {{ .Values.domain.host }}
+{{- end }}

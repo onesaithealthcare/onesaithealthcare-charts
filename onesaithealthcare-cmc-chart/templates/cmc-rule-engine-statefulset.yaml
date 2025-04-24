@@ -99,6 +99,12 @@ spec:
                 name: rule-engine-kafka-input-config
           image: >-
             {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/rule_engine:{{ .Chart.AppVersion }}
+{{- if .Values.host_alias.enabled }}
+      hostAliases:
+        - ip: {{ .Values.host_alias.ip }}
+          hostnames:
+            - {{ .Values.domain.host }}
+{{- end }}
       volumes:
         - name: rule-engine-config
           configMap:

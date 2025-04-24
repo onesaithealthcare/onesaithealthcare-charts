@@ -8,6 +8,9 @@ docker:
   registry:
     host: docksdtr.indra.es
     project: multhn_cmhn20_2
+host_alias:
+  enabled: false
+  ip: 
 cmc:
   database:
     mongodb:
