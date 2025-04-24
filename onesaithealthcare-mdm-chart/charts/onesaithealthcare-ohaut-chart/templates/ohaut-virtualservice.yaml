@@ -79,7 +79,7 @@ spec:
         - destination:
             host: ohaut-front
             port:
-              number: 80
+              number: 8080
     - match:
         - uri:
             prefix: /hnaut/
@@ -87,5 +87,5 @@ spec:
         - destination:
             host: ohaut-front
             port:
-              number: 80
+              number: 8080
 {{- end }}
