@@ -35,7 +35,7 @@ spec:
               memory: 16Mi
 
           name: oh-bi-front
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_bi@{{ .Values.bi.sha256.front }}' 
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh-bi-front@{{ .Values.bi.sha256.front }}' 
           ports:
             - containerPort: 8080
               protocol: TCP
