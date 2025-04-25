@@ -1,3 +1,4 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
 kind: VirtualService 
 apiVersion: networking.istio.io/v1beta1
 metadata:
@@ -38,3 +39,4 @@ spec:
             host: oh-bi-front.{{ .Values.bi.module.namespace }}.svc.cluster.local
             port:
               number: 8080
+{{- end }}
