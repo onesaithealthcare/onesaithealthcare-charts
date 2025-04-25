@@ -41,8 +41,8 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: ReplaceFullPath
-              replaceFullPath: /
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
     - backendRefs:
         - group: ''
           kind: Service
@@ -72,6 +72,6 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: ReplaceFullPath
-              replaceFullPath: /
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
 {{- end }}

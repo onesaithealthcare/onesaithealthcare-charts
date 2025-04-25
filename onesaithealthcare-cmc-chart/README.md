@@ -33,7 +33,8 @@ Este Chart instala los módulos de Command Center.
    - use <nombre_db_mongo>
    - db.test.insertOne({"test":"test"})
    
-5. Acceder a la consola de administración de OHSSO y realizar los siguientes pasos:
+5. Acceder a la consola de administración de OHSSO si existe el client ruleengine revisar sus redirectUris, si 
+  no existe crearlo realizando los siguientes pasos:
 - Importar el client ruleengine-client.json.
 - Una vez importado acceder a la configuración del mismo y revisar las redirectUris.
 - Acceder a User Federation -> hn-provider, y en included clients añadir "ruleengine".

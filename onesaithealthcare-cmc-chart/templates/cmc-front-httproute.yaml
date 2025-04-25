@@ -27,8 +27,8 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: ReplaceFullPath
-              replaceFullPath: /api/
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /api/
     - backendRefs:
         - group: ''
           kind: Service
