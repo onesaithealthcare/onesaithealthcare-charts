@@ -1,0 +1,33 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: oh-bi-front-cfg
+data:
+  app-config.json: |-
+    {
+        "msgCrucePacientes": "Se produjo un error al mostrar el paciente. Por favor, cierre la pestaña y vuelva a acceder al paciente.",
+        "urlParent": "https://${FHOST}/desktop-hd/launch.html",
+        "logoFooter": [
+            "pie.svg"
+        ],
+        "modePatient": false,
+        "externalJwtUrl": "https://${FHOST}/auth/realms/hnrole/protocol/openid-connect/token-from-external-jwt",
+        "urlHnaut": "https://${FHOST}/hnaut/fhir",
+        "urlBaseHelicalInsight": "https://${FHOST}/hi-ee",
+        "urlBakendHelicalInsight": "https://${FHOST}/oh-biservice",
+        "keepSessionOpenTime": 99999
+    }
+  env.json: |-
+    {
+        "services_host": "https://${FHOST}",
+        "keycloak-js-dist": "https://${FHOST}/hnconf/ohsso-lib.js",
+        "app_theme": "./assets/css/themes/default"
+    }
+  keycloak.json: |-
+    {
+      "realm" : "${REALMNAME}",
+      "resource" : "${RESOURCE}",
+      "public-client": true,
+      "auth-server-url": "https://${FHOST}/auth",
+      "enable-cors": true
+    }

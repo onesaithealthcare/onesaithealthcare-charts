@@ -2,7 +2,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: oh-bi-back-http-route
+  name: oh-bi-front-http-route
 spec:
   hostnames:
     - {{ .Values.global.domain.host }}
@@ -15,7 +15,7 @@ spec:
     - backendRefs:
         - group: ''
           kind: Service
-          name: oh-bi-back
+          name: oh-bi-front
           namespace: {{ .Values.bi.module.namespace }}
           port: 8085
           weight: 1
@@ -36,7 +36,7 @@ spec:
       matches:
         - path:
             type: PathPrefix
-            value: /hi-ee/
+            value: /oh-bi/
           headers:
           - type: RegularExpression
             name: Referer
@@ -45,9 +45,9 @@ spec:
     - backendRefs:
         - group: ''
           kind: Service
-          name: oh-bi-back
+          name: oh-bi-front
           namespace: {{ .Values.bi.module.namespace }}
-          port: 8085
+          port: 8080
           weight: 1
       filters:
         - requestHeaderModifier:
@@ -62,5 +62,5 @@ spec:
       matches:
         - path:
             type: PathPrefix
-            value: /hi-ee/
+            value: /oh-bi/
 {{- end }}

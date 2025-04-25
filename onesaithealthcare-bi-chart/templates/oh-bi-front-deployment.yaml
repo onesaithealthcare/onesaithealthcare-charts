@@ -1,0 +1,102 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: oh-bi-front
+  labels:
+    app: oh-bi-front
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oh-bi-front
+  template:
+    metadata:
+      labels:
+        app: oh-bi-front
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      imagePullSecrets:
+        - name: docksdtr.indra.es
+      serviceAccountName: oh-module
+      containers:
+        - resources:
+            limits:
+              cpu: 30m
+              memory: 64Mi
+            requests:
+              cpu: 20m
+              memory: 16Mi
+
+          name: oh-bi-front
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_bi@{{ .Values.bi.sha256.front }}' 
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /oh-bi/index.html
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /oh-bi/index.html
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          volumeMounts:
+            - name: oh-bi-front-i18n
+              mountPath: /usr/share/nginx/html/oh-bi/res/i18n
+              readOnly: true
+
+            - name: oh-bi-front-keycloak-cfg
+              mountPath: /usr/share/nginx/html/oh-bi/keycloak.json
+              subPath: keycloak.json
+              readOnly: true
+
+            - name: oh-bi-front-app-cfg
+              mountPath: /usr/share/nginx/html/oh-bi/assets/api/config/app-config.json
+              subPath: app-config.json
+              readOnly: true
+
+            - name: oh-bi-front-env-cfg
+              mountPath: /usr/share/nginx/html/oh-bi/assets/config/env.json
+              subPath: env.json
+              readOnly: true
+
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: oh-bi-front-keycloak-cfg
+          configMap:
+            name: oh-bi-front-cfg
+            items:
+              - key : "keycloak.json"
+                path : "keycloak.json"
+
+        - name: oh-bi-front-env-cfg
+          configMap:
+            name: oh-bi-front-cfg
+            items:
+              - key : "env.json"
+                path : "env.json"
+
+        - name: oh-bi-front-app-cfg
+          configMap:
+            name: oh-bi-front-cfg
+            items:
+              - key : "app-config.json"
+                path : "app-config.json"
+
+        - name: oh-bi-front-i18n
+          configMap:
+            name: oh-bi-front-cfg-i18n

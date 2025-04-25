@@ -15,7 +15,6 @@ bi:
     back: sha256:22d584cef1097c1c0ae2c9844aae046f8fd3dfcb92091060e89ac3e4c79ce90c
     front: sha256:50cf5234414a53b767da433b5d1d25c6f042a1063dc9d28cd2403a7f052ff63f
   module:
-    ohbi_app_name: ohbi
     namespace: oh-modules
     storageclassname: ohbi-sc
   mail:
