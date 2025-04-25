@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'ohien-control-panel-frontend-config'
+  labels:
+    app: 'ohien-control-panel'
+data:
+  env.json: |-
+    {
+      "services_host": "{{ .Values.general.protocol }}://{{ .Values.general.host }}",
+      "keycloak-js-dist":"{{ .Values.general.protocol }}://{{ .Values.general.host }}/ohien/ohsso-lib/ohsso-lib.js",
+      "app_theme": "./assets/css/themes/default"
+    }

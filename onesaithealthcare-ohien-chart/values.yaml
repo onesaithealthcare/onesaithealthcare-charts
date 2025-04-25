@@ -1,0 +1,156 @@
+# -- Número de réplicas para el deployment principal
+replicaCount: 1
+
+# -- Configuración del registry
+registry:
+  host: docksdtr.indra.es
+  project: multhn_cmhn20_2
+  backendImage: ohien-control-panel
+  frontendImage: ohien-control-panel-frontend
+
+# -- Secret para acceso a Docker Registry
+imagePullSecrets:
+  - name: docksdtr-indra-secret
+
+# -- Versiones y políticas de imagen
+image:
+  backend:
+    tag: 3.13.0
+    pullPolicy: IfNotPresent
+  frontend:
+    tag: 3.13.0
+    pullPolicy: IfNotPresent
+
+# -- Nombre del deployment
+deploymentName: ohien-control-panel
+
+# -- Valores generales de red
+general:
+  protocol: https
+  host: ohien.apps.cluster.local
+  port: 443
+
+# -- Configuración de Istio VirtualService
+istio:
+  enabled: true
+  gateway: istio-system/ohien-gateway
+  host: ""     # si se deja vacío, se usa general.host
+  port: ""     # si se deja vacío, se usa general.port
+  exposeAdmin: false
+  cors:
+    enabled: true
+    allowOrigins:
+      - "*"
+    allowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+    allowHeaders:
+      - Content-Type
+      - Authorization
+
+# -- Configuración de los ConfigMaps
+configMaps:
+  backend:
+    logback: >
+      <?xml version="1.0" encoding="UTF-8"?>
+      <included>
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+          <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[%d{dd/MM/yyyy HH:mm:ss.SSS}] [%thread] %-5level %class - %msg%n%rEx</pattern>
+          </layout>
+        </appender>
+        <logger name="org.apache.kafka" level="error" additivity="false">
+          <appender-ref ref="stdout"/>
+        </logger>
+        <root level="error">
+          <appender-ref ref="stdout"/>
+        </root>
+      </included>
+  frontend:
+    envJson: >
+      {
+        "services_host": "{{PROTOCOL}}://{{HOST}}",
+        "keycloak-js-dist": "{{PROTOCOL}}://{{HOST}}/ohien/ohsso-lib/ohsso-lib.js",
+        "app_theme": "./assets/css/themes/default"
+      }
+
+# -- Configuración del ServiceAccount
+serviceAccount:
+  create: true
+  name: "ohien-svac"
+  annotations: {}
+
+# -- Configuración de RBAC y ámbito
+rbac:
+  enabled: true
+  role: admin
+  scope:
+    type: namespace # namespace | multiple-namespaces | cluster
+    namespaces: []
+
+# -- Configuración del servicio
+service:
+  type: ClusterIP
+  labels:
+    tier: backend
+    env: production
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  externalIPs: []
+  loadBalancerIP: ""
+
+# -- Configuración de Elasticsearch para el backend ohien
+# Si se habilita, se espera que el servicio de Elasticsearch esté disponible
+elasticsearch:
+  enabled: false
+  host: elasticsearch.oh-base.svc
+  port: 9200
+
+# -- Zona horaria del backend
+timezone: Europe/Madrid
+
+# -- Configuración del Pipeline Handler
+pipelineHandler:
+  # -- Habilitar el despliegue de Pipeline Handler
+  enabled: true
+  # -- Número de réplicas para el Pipeline Handler
+  replicaCount: 1
+  # -- Configuración de la imagen del Pipeline Handler
+  image:
+    # -- Nombre de la imagen del Pipeline Handler
+    name: ohien-control-panel-handler
+    # -- Tag de la imagen del Pipeline Handler
+    tag: streams
+    # -- Política de pull para la imagen
+    pullPolicy: IfNotPresent
+  # -- Configuración de recursos para el Pipeline Handler
+  resources:
+    limits:
+      cpu: 150m
+      memory: 1200Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  # -- Configuración del health check de liveness
+  livenessProbe:
+    initialDelaySeconds: 120
+    periodSeconds: 20
+    timeoutSeconds: 10
+    failureThreshold: 5
+  # -- Configuración del health check de readiness
+  readinessProbe:
+    initialDelaySeconds: 120
+    periodSeconds: 20
+    timeoutSeconds: 10
+    failureThreshold: 5
+  # -- Variables de entorno adicionales para el Pipeline Handler
+  env: []
+  # -- Annotations para los pods del Pipeline Handler
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
+  # -- Configuración de volúmenes para el Pipeline Handler
+  volumes: []
+  # -- Configuración de montajes de volúmenes
+  volumeMounts: []

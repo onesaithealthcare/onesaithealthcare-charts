@@ -1,0 +1,152 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'ohien-control-panel-backend-config'
+  labels:
+    app: 'ohien-control-panel'
+data:
+  logback-config.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <included>
+      <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+          <pattern>[%d{dd/MM/yyyy HH:mm:ss.SSS}] [%thread] %-5level %class - %msg%n%rEx</pattern>
+        </layout>
+      </appender>
+      <!-- hapi -->
+      <logger name="ca.uhn.fhir.context" level="info" additivity="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <!-- istio -->
+      <logger name="me.snowdrop.istio.api" level="info" additivity="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <!-- Kafka -->
+      <logger name="org.apache.kafka" level="error" additivity="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <!-- ohien -->
+      <logger name="com.minsait.onesait.healthcare.ohien" level="info" additivity="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <!-- Security -->
+      <logger name="es.indra.hn.keycloak" level="error" additive="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <logger name="org.keycloak.adapters" level="error" additive="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <logger name="org.springframework.security" level="error" additive="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <!-- spring -->
+      <logger name="org.springframework" level="error" additive="false">
+        <appender-ref ref="stdout"/>
+      </logger>
+      <root level="error">
+        <appender-ref ref="stdout"/>
+      </root>
+    </included>  
+  template.json: |-
+    {
+      "order": 0,
+      "index_patterns": [
+        "gateway*"
+      ],
+      "settings": {
+        "index": {
+          "number_of_shards": "5",
+          "number_of_replicas": "1"
+        }
+      },
+      "mappings": {
+        "properties": {
+          "messageIn": {
+            "type": "nested",
+            "properties": {
+              "headers": {
+                "type": "nested",
+                "properties": {
+                  "key": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256                                
+                      }
+                    }
+                  },
+                  "value": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256                   
+                      }
+                    }
+                  }
+                }
+              },
+              "type": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "service": {
+                "type": "keyword",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                    
+                  }
+                },
+                "index": true
+              }
+            }
+          },
+          "messageOut": {
+            "type": "nested",
+            "properties": {
+              "headers": {
+                "type": "nested",
+                "properties": {
+                  "key": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "value": {                    
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "type": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256               
+                  }
+                }
+              }
+            }
+          }                          
+        }
+      },
+      "aliases": {}
+    }

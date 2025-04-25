@@ -1,0 +1,176 @@
+{{- if not .Values.istio.enabled }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ohien-control-panel-http-route
+spec:
+  hostnames:
+    - {{ .Values.general.host }}
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: oh-modules-gateway
+      sectionName: oh-modules
+  rules:
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohien-control-panel
+          namespace: {{ .Release.Namespace }}
+          port: 8081
+          weight: 1
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.general.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.general.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ .Values.general.port }}'
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: no-referer-when-downgrade
+          type: ResponseHeaderModifier
+      matches:
+        - path:
+            type: PathPrefix
+            value: /ohien/api
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohien-kafka-connect
+          namespace: {{ .Release.Namespace }}
+          port: 8083
+          weight: 1
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.general.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.general.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ .Values.general.port }}'
+            remove:
+              - name: Authorization
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: no-referer-when-downgrade
+          type: ResponseHeaderModifier
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /connectors/
+      matches:
+        - path:
+            type: PathPrefix
+            value: /ohien/connectors/
+        - path:
+            type: PathPrefix
+            value: /ohien/connectors
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohien-kafka-connect
+          namespace: {{ .Release.Namespace }}
+          port: 8083
+          weight: 1
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.general.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.general.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ .Values.general.port }}'
+            remove:
+              - name: Authorization
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: no-referer-when-downgrade
+          type: ResponseHeaderModifier
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /connector-plugins/
+      matches:
+        - path:
+            type: PathPrefix
+            value: /ohien/connector-plugins/
+        - path:
+            type: PathPrefix
+            value: /ohien/connector-plugins
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohien-control-panel
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      filters:
+        - requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.general.host }}
+              - name: X-Forwarded-Proto
+                value: {{ .Values.general.protocol }}
+              - name: X-Forwarded-Port
+                value: '{{ .Values.general.port }}'
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: no-referer-when-downgrade
+          type: ResponseHeaderModifier
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /ohien/
+      matches:
+        - path:
+            type: PathPrefix
+            value: /ohien/
+        - path:
+            type: PathPrefix
+            value: /ohien
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohien-kafka-schema-registry
+          namespace: {{ .Release.Namespace }}
+          port: 8081
+          weight: 1
+      filters:
+        - requestHeaderModifier:
+            remove:
+              - name: Authorization
+          type: RequestHeaderModifier
+        - responseHeaderModifier:
+            set:
+              - name: Referrer-Policy
+                value: no-referer-when-downgrade
+          type: ResponseHeaderModifier
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      matches:
+        - path:
+            type: PathPrefix
+            value: /kafka-schema-registry/
+        - path:
+            type: PathPrefix
+            value: /kafka-schema-registry
+{{- end }}
