@@ -1,0 +1,169 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.prm.app.backend_app }}-config
+  namespace: {{ .Values.prm.app.namespace }}
+data:
+  ohprm.config.properties: |-
+    fhir.version=R4
+    fhir.versionSTU3=DSTU3
+
+
+    ehrserver.fhir.url=https://{{ .Values.prm.app.host }}/ehrserver/fhir
+    hnpob.fhir.url=https://{{ .Values.prm.app.host }}/ispob/fhir
+    ohcsm.fhir.url=https://{{ .Values.prm.app.host }}/ohcsm/fhir    
+    ohbpm.fhir.url=https://{{ .Values.prm.app.host }}/ohbpm/api/fhir
+    hnalert.fhir.url=https://{{ .Values.prm.app.host }}/ehrserver/fhir
+
+
+    max-http-header-size=524288
+    auth.bearer=Bearer
+
+    mpi.use.fhirServer=true
+    consent.use.fhirServer=true
+    ohbpm.use.fhirServer=false
+    ohale.use.fhirServer=false
+
+    #deshabilitamos la validacion de SSL en local. Por defecto false
+    ssl.disabled.validation=false
+
+    fhir.resources.providers=CarePlan, Goal, Task, Consent, Observation, Patient, QuestionnaireResponse, OperationDefinition, Communication, CommunicationRequest
+    fhir.interceptor.request.operations=$addRelation, $update-consent
+    fhir.interceptor.register=true
+    fhir.interceptor.request=true
+    fhir.interceptor.response=true
+
+    fhir.resources.consent.categories=APP, CRL  
+    
+    cipaut.identifier.oid={{ .Values.prm.app.cipaut }}
+
+  logback-config.xml: >-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <included>
+    
+      <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+          <pattern>%-4relative [%thread] %-5level %class - %msg%n%rEx</pattern>
+        </layout>
+      </appender>
+      
+      <!-- ohprm -->
+      <logger name="com.minsait.onesait.healthcare.ohprm" level="error" additivity="false"></logger>			
+      
+      <!-- Security -->
+      <logger name="es.indra.hn.keycloak" level="error" additive="false"></logger>
+      
+      <logger name="org.keycloak.adapters" level="error" additive="false"></logger>
+      
+      <logger name="org.springframework.security" level="error" additive="false"></logger>		
+          
+      <!-- spring -->
+      <logger name="org.springframework" level="error" additive="false"></logger>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>        
+      
+    </included>
+    
+  template.json: |-
+    {
+      "order": 0,
+      "index_patterns": [
+          "gateway*"
+      ],
+      "settings": {
+          "index": {
+            "number_of_shards": "5",
+            "number_of_replicas": "1"
+          }
+      },
+      "mappings": {
+          "properties": {
+            "messageIn": {
+                "type": "nested",
+                "properties": {
+                  "headers": {
+                      "type": "nested",
+                      "properties": {
+                        "key": {
+                            "type": "text",
+                            "fields": {
+                              "keyword": {
+                                  "type": "keyword",
+                                  "ignore_above": 256
+                              }
+                            }
+                        },
+                        "value": {
+                            "type": "text",
+                            "fields": {
+                              "keyword": {
+                                  "type": "keyword",
+                                  "ignore_above": 256
+                              }
+                            }
+                        }
+                      }
+                  },
+                  "type": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                      }
+                  },
+                  "service": {
+                      "type": "keyword",
+                      "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                      },
+                      "index": true
+                  }
+                }
+            },
+            "messageOut": {
+                "type": "nested",
+                "properties": {
+                  "headers": {
+                      "type": "nested",
+                      "properties": {
+                        "key": {
+                            "type": "text",
+                            "fields": {
+                              "keyword": {
+                                  "type": "keyword",
+                                  "ignore_above": 256
+                              }
+                            }
+                        },
+                        "value": {
+                            "type": "text",
+                            "fields": {
+                              "keyword": {
+                                  "type": "keyword",
+                                  "ignore_above": 256
+                              }
+                            }
+                        }
+                      }
+                  },
+                  "type": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                      }
+                  }
+                }
+            }
+          }
+      },
+      "aliases": {}
+    }   

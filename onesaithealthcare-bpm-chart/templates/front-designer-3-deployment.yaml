@@ -1,0 +1,97 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.bpm.app.name }}-designer-front
+  labels:
+    app: {{ .Values.bpm.app.name }}-designer-front
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+  replicas: {{ .Values.bpm.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.bpm.app.name }}-designer-front
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.bpm.app.name }}-designer-front
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.docker.registry.host }}
+      serviceAccountName: oh-module
+      containers:
+        - name: ohbpm-designer-front
+          image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohbpm-designer-front:{{ .Values.bpm.version.designer_front_image_tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /ohbpm-designer/index.html
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /ohbpm-designer/index.html
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          volumeMounts:
+            - name: {{ .Values.bpm.app.name }}-designer-front-cfg
+              mountPath: /usr/share/nginx/html/ohbpm-designer/assets/config/env.json
+              subPath: env.json
+              readOnly: true
+            - name: {{ .Values.bpm.app.name }}-designer-front-i18n
+              mountPath: /usr/share/nginx/html/ohbpm-designer/assets/i18n
+              readOnly: true
+            - name: hnhome-ohsso-front
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohbpm-designer/keycloak.json
+              subPath: keycloak.json
+            - name: nginx-front-cfg
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: ohsso-lib
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohbpm-designer/ohsso-lib.js
+              subPath: ohsso-lib.js
+              
+          resources:
+            limits:
+              cpu: 50m
+              memory: 48Mi
+            requests:
+              cpu: 25m
+              memory: 16Mi
+          imagePullPolicy: Always
+
+      volumes:
+        - name: ohbpm-designer-front-cfg
+          configMap:
+            name: {{ .Values.bpm.app.name }}-designer-front-cfg
+        - name: ohbpm-designer-front-i18n
+          configMap:
+            name: {{ .Values.bpm.app.name }}-designer-front-i18n
+        - name: hnhome-ohsso-front
+          configMap:
+            name: hnhome-ohsso-front
+            defaultMode: 420
+        - name: nginx-front-cfg
+          configMap:
+            name: nginx-front-cfg
+            defaultMode: 420
+        - name: ohsso-lib
+          configMap:
+            name: ohsso-lib
+            defaultMode: 420

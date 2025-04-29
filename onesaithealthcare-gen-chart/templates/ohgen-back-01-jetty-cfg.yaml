@@ -1,0 +1,69 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.gen.app.name_back }}-jetty
+data:
+  jetty-env.xml: |
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <!DOCTYPE Configure    PUBLIC "-//Jetty//Configure//EN" "configure_9_0.dtd">
+    <Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="contextPath">/dsforms</Set>
+      <New class="org.eclipse.jetty.server.HttpConfiguration" id="httpConfig">
+        <Set name="secureScheme">https</Set>
+        <Set name="outputBufferSize">64768</Set>
+        <Set name="requestHeaderSize">64192</Set>
+        <Set name="responseHeaderSize">64192</Set>
+        <Set name="sendServerVersion">true</Set>
+        <Set name="sendDateHeader">false</Set>
+        <Set name="headerCacheSize">512</Set>
+      </New>
+      <Get name="server" id="server">
+        <Set name="connectors">
+          <Array type="org.eclipse.jetty.server.ServerConnector">
+            <Item>
+              <New class="org.eclipse.jetty.server.ServerConnector">
+                <Arg name="server"><Ref refid="server" /></Arg>
+                <Arg name="factories">
+                  <Array type="org.eclipse.jetty.server.ConnectionFactory">
+                    <Item>
+                      <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                        <Arg name="config"><Ref refid="httpConfig" /></Arg>
+                      </New>
+                    </Item>
+                  </Array>
+                </Arg>
+                <Set name="port">8080</Set>
+                <Set name="idleTimeout">30000</Set>
+              </New>
+            </Item>
+          </Array>
+        </Set>
+      </Get>
+    
+      <!-- Template -->
+      <New id="OWN_DSF" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/DsForms-DS</Arg>
+        <Arg>
+          <New class="org.apache.commons.dbcp2.BasicDataSource">
+            <Set name="driverClassName">{{ .Values.gen.database.driver }}</Set>
+            <Set name="url">{{ .Values.gen.database.url }}</Set>
+            <Set name="username">{{ .Values.gen.database.user }}</Set>
+            <Set name="password">{{ .Values.gen.database.pass }}</Set>
+            <Set name="initialSize">{{ .Values.gen.database.initial_size }}</Set>
+            <Set name="maxTotal">{{ .Values.gen.database.max_size }}</Set>
+            <Set name="validationQuery">SELECT 1 FROM DUAL</Set>
+            <Set name="minIdle">{{ .Values.gen.database.min_idle }}</Set>
+            <Set name="maxIdle">{{ .Values.gen.database.max_idle }}</Set>
+            <Set name="maxWaitMillis">30000</Set>
+            <Set name="testOnBorrow">true</Set>
+            <Set name="testWhileIdle">true</Set>
+            <Set name="timeBetweenEvictionRunsMillis">5000</Set>
+            <Set name="minEvictableIdleTimeMillis">60000</Set>
+            <Set name="numTestsPerEvictionRun">3</Set>
+            <Set name="jmxName">OWN_DSF</Set>
+          </New>
+        </Arg>
+      </New>
+      
+    </Configure>

@@ -1,0 +1,764 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.gen.app.name_back }}-i18n
+data:
+  messages.properties: >
+
+    application.title=HN FORM
+
+    label.title.hn=HN
+
+    label.title.module=Form
+
+    # Label comunes
+
+    label.signOut=Logout
+
+    label.desktop=Desktop
+
+    label.header.confirmation=Confirmation
+
+    label.yes=Yes
+
+    label.no=No
+
+    label.select.one=Select one
+
+    label.all=All
+
+    label.back=Back
+
+    DSFORMS_ERR_00_000_0001=Error en modelo. Operacion: Varias. Descripcion: Error general.
+
+    DSFORMS_ERR_00_000_0002=Error en modelo. Operacion: Varias. Descripcion: Error DAO general.
+
+    # FormularioResourceProvider
+
+    DSFORMS_ERR_01_001_0000=Error al crear formulario: Error general
+
+    DSFORMS_ERR_01_001_0001=Error al crear formulario: Identificador recibido
+
+    DSFORMS_ERR_01_002_0000=Error al modificar formulario: Error general
+
+    DSFORMS_ERR_01_002_0001=Error al modificar formulario: Identificador no recibido
+
+    DSFORMS_ERR_01_002_0002=Error en busqueda de formulario: Error general.
+
+    DSFORMS_ERR_01_002_0003=Error en busqueda paginada de formulario: Error general.
+
+    # EtiquetaResourceProvider
+
+    DSFORMS_ERR_02_001_0000=Error al crear etiqueta: Error general
+
+    DSFORMS_ERR_02_001_0001=Error al crear etiqueta: Identificador recibido
+
+    DSFORMS_ERR_02_001_0002=Error al crear etiqueta: nombre es obligatorio
+
+    DSFORMS_ERR_02_002_0000=Error al buscar etiqueta: Error general
+
+    DSFORMS_ERR_02_002_0001=Error al buscar etiqueta: nombre es obligatorio
+
+    # ServicePlainProvider
+
+    DSFORMS_ERR_03_001_0001=Error findCatalogo: codigo es obligatorio
+
+    DSFORMS_ERR_03_002_0001=Error findRespuestas: campo es obligatorio
+
+    # QuestionnaireResourceProvider
+
+    DSFORMS_ERR_04_001_0000=Error finalize: Error general
+
+    DSFORMS_ERR_04_001_0001=Error finalize: Identificador no recibido
+
+    DSFORMS_ERR_04_001_0002=Error finalize: El questionnaire a finalizar no tiene items o componentes asociados
+
+    DSFORMS_ERR_04_001_0003=Error finalize: El questionnaire a finalizar debe tener el estado Borrador
+
+    DSFORMS_ERR_04_001_0004=Error finalize: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_001_0005=No se permite finalizar un cuestionario escala sin formula asociada
+
+    DSFORMS_ERR_04_002_0000=Error publish: Error general
+
+    DSFORMS_ERR_04_002_0001=Error publish: Identificador no recibido
+
+    DSFORMS_ERR_04_002_0002=Error publish: No se encuentra questionnaire a publicar
+
+    DSFORMS_ERR_04_002_0003=Error publish: Existe un questionnaire con el mismo título publicado
+
+    DSFORMS_ERR_04_002_0004=No se permite publicar un cuestionario sin contenido
+
+    DSFORMS_ERR_04_002_0005=No se permite publicar un cuestionario escala sin formula asociada
+
+    DSFORMS_ERR_04_002_0006=No se permite publicar un cuestionario escala sin subformula asociada
+
+    DSFORMS_ERR_04_003_0000=Error deactivate: Error general
+
+    DSFORMS_ERR_04_003_0001=Error deactivate: Identificador no recibido
+
+    DSFORMS_ERR_04_003_0002=Error deactivate: Identificador debe ser numérico
+
+    DSFORMS_ERR_04_003_0003=Error deactivate: El questionnaire debe estar publicado
+
+    DSFORMS_ERR_04_003_0004=Error deactivate: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_004_0000=Error delete: Error general
+
+    DSFORMS_ERR_04_004_0001=Error delete: Identificador no recibido
+
+    DSFORMS_ERR_04_004_0002=Error delete: Identificador debe ser numérico
+
+    DSFORMS_ERR_04_004_0003=Error delete: El questionnaire no debe estar publicado
+
+    DSFORMS_ERR_04_004_0004=Error delete: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_005_0000=Error al buscar historico versiones: Error general
+
+    DSFORMS_ERR_04_005_0001=Error al buscar historico versiones: Identificador no recibido
+
+    DSFORMS_ERR_04_006_0000=Error addVersion: Error general
+
+    DSFORMS_ERR_04_006_0001=Error addVersion: Identificador no recibido
+
+    DSFORMS_ERR_04_006_0002=Error addVersion: nombre es obligatorio
+
+    DSFORMS_ERR_04_006_0003=Error addVersion: extension-Type es obligatorio
+
+    DSFORMS_ERR_04_006_0004=Error addVersion: extension-OwnerCode es obligatorio
+
+    DSFORMS_ERR_04_006_0005=Error copyOrAddVersion: No se encuentra questionnaire a versionar
+
+    DSFORMS_ERR_04_006_0006=Error copyOrAddVersion: No hay version en el questionnaire origen
+
+    DSFORMS_ERR_04_007_0000=Error al crear questionnaire: Error general
+
+    DSFORMS_ERR_04_007_0001=Error al crear questionnaire: Identificador recibido
+
+    DSFORMS_ERR_04_007_0002=Error al crear questionnaire: title es obligatorio
+
+    DSFORMS_ERR_04_007_0003=Error al crear questionnaire: tipo formulario es obligatorio
+
+    DSFORMS_ERR_04_007_0004=Error al crear questionnaire: propietario es obligatorio
+
+    DSFORMS_ERR_04_007_0005=Error al crear questionnaire: lenguaje es obligatorio
+
+    DSFORMS_ERR_04_007_0006=Error al crear questionnaire: Ya existe un formulario con el mismo título en estado Borrador o Pendiente de publicar
+
+    DSFORMS_ERR_04_007_0007=Error al crear questionnaire: Ya existe un formulario versionado en estado Borrador o Pendiente de publicar
+
+    DSFORMS_ERR_04_008_0000=Error al copiar questionnaire: Error general 
+
+    DSFORMS_ERR_04_008_0001=Error al copiar questionnaire: Identificador no recibido
+
+    DSFORMS_ERR_04_008_0002=Error al copiar questionnaire: Nombre es obligatorio
+
+    DSFORMS_ERR_04_008_0003=Error al copiar questionnaire: Type es obligatorio
+
+    DSFORMS_ERR_04_008_0004=Error al copiar questionnaire: CodOwner es obligatorio
+
+    DSFORMS_ERR_04_009_0000=Error al modificar questionnaire: Error general
+
+    DSFORMS_ERR_04_009_0001=Error al modificar questionnaire: Identificador no recibido
+
+    DSFORMS_ERR_04_009_0002=Error al modificar questionnaire: Title es obligatorio
+
+    DSFORMS_ERR_04_009_0003=Error al modificar questionnaire: Type es obligatorio
+
+    DSFORMS_ERR_04_010_0000=Error getByIdAndLang: Error general
+
+    DSFORMS_ERR_04_010_0001=Error getByIdAndLang: Identificador no recibido
+
+    DSFORMS_ERR_04_011_0000=Error en busqueda de questionnaire: Error general.
+
+    # FormularioTraduccionService
+
+    DSFORMS_ERR_05_001_0000=Error findByFormularioId: Identificador no recibido
+
+    DSFORMS_ERR_05_001_0001=Error findByFormularioId: Error al realizar la consulta
+
+    DSFORMS_ERR_05_002_0000=Error findByFormularioIdCodigoLenguajeLite: Identificador no recibido
+
+    DSFORMS_ERR_05_002_0001=Error findByFormularioIdCodigoLenguajeLite: Error al realizar la consulta
+
+    DSFORMS_ERR_05_003_0000=Error findByFormularioIdCodigoLenguajeFull: Identificador no recibido
+
+    DSFORMS_ERR_05_003_0001=Error findByFormularioIdCodigoLenguajeFull: Error al realizar la consulta
+
+    # QuestionnaireTranslationResourceProvider
+
+    DSFORMS_ERR_06_001_0000=Error al buscar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_001_0001=Error al buscar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_002_0000=Error al crear questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_002_0001=Error al crear questionnaireTranslation: Identificador recibido
+
+    DSFORMS_ERR_06_002_0002=Error al crear questionnaireTranslation: Identificador formulario asociado NO recibido
+
+    DSFORMS_ERR_06_002_0003=Error al crear questionnaireTranslation: No existe el formulario al que añadir el idioma
+
+    DSFORMS_ERR_06_002_0004=Error al crear questionnaireTranslation: Titulo no recibido
+
+    DSFORMS_ERR_06_002_0005=Error al crear questionnaireTranslation: CodeLanguage no recibido
+
+    DSFORMS_ERR_06_002_0006=Error al crear questionnaireTranslation: Lenguaje existente para formulario
+
+    DSFORMS_ERR_06_002_0007=Error al crear questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_002_0008=Error al crear questionnaireTranslation: No puede haber items con propiedades sin code o value, estos campos son obligatorios
+
+    DSFORMS_ERR_06_002_0009=Error al crear questionnaireTranslation: No puede haber items con respuestas sin code o description, estos campos son obligatorios
+
+    DSFORMS_ERR_06_003_0000=Error al actualizar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_003_0001=Error al actualizar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_003_0002=Error al actualizar questionnaireTranslation: Formulario Traduccion a modificar no encontrado en BD
+
+    DSFORMS_ERR_06_003_0003=Error al actualizar questionnaireTranslation: CodeLanguage no recibido
+
+    DSFORMS_ERR_06_003_0004=Error al actualizar questionnaireTranslation: Identificador formulario asociado NO recibido
+
+    DSFORMS_ERR_06_003_0005=Error al actualizar questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_003_0006=Error al actualizar questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_003_0007=Error al actualizar questionnaireTranslation: No puede haber items con propiedades sin code o value, estos campos son obligatorios
+
+    DSFORMS_ERR_06_004_0000=Error al eliminar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_004_0001=Error al eliminar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_004_0002=Error al eliminar questionnaireTranslation: No existe el QuestionnaireTranaslation con el id en cuestión
+
+    # ComponentResourceProvider
+
+    DSFORMS_ERR_07_001_0000=Error al crear: Error general
+
+    DSFORMS_ERR_07_001_0001=Error al crear componentRS: Identificador recibido
+
+    DSFORMS_ERR_07_001_0002=Error al crear componentRS: propiedad code es obligatorio
+
+    DSFORMS_ERR_07_001_0003=Error al crear componentRS: propiedad type es obligatorio
+
+    DSFORMS_ERR_07_002_0000=Error al consultar componentRS: Error general
+
+    DSFORMS_ERR_07_002_0001=Error al consultar componentRS: Identificador no recibido
+
+    # HistoryQuestionnaireService
+
+    DSFORMS_ERR_08_000_0001=Error al crear HistoryQuestionnaire: No se puede guardar el historial
+
+    # FileController
+
+    DSFORMS_ERR_09_000_0001=Error al crear PDF: Identificador cuestionario no recibido
+
+    DSFORMS_ERR_09_000_0002=Error al crear PDF: Identificador cuestionario no es numerico
+
+    DSFORMS_ERR_09_000_0003=Error al crear PDF: QuestionnaireResponse incorrecto
+
+    DSFORMS_ERR_09_000_0004=Error al crear PDF: Template vacio
+
+    DSFORMS_ERR_09_000_0005=Error al crear PDF: No se ha podido cargar la plantilla
+
+    DSFORMS_ERR_09_000_0006=Error al crear PDF: Problema en la generacion de PDF
+
+    DSFORMS_ERR_09_000_0007=Error al crear PDF: Cuestionario no encontrado
+
+  messages_en.properties: >
+
+    application.title=HN FORM
+
+    label.title.hn=HN
+
+    label.title.module=Form
+
+    # Label comunes
+
+    label.signOut=Logout
+
+    label.desktop=Desktop
+
+    label.header.confirmation=Confirmation
+
+    label.yes=Yes
+
+    label.no=No
+
+    label.select.one=Select one
+
+    label.all=All
+
+    label.back=Back
+
+    DSFORMS_ERR_00_000_0001=Error en modelo. Operacion: Varias. Descripcion: Error general.
+
+    DSFORMS_ERR_00_000_0002=Error en modelo. Operacion: Varias. Descripcion: Error DAO general.
+
+    # FormularioResourceProvider
+
+    DSFORMS_ERR_01_001_0000=Error al crear formulario: Error general
+
+    DSFORMS_ERR_01_001_0001=Error al crear formulario: Identificador recibido
+
+    DSFORMS_ERR_01_002_0000=Error al modificar formulario: Error general
+
+    DSFORMS_ERR_01_002_0001=Error al modificar formulario: Identificador no recibido
+
+    DSFORMS_ERR_01_002_0002=Error en busqueda de formulario: Error general.
+
+    DSFORMS_ERR_01_002_0003=Error en busqueda paginada de formulario: Error general.
+
+    # EtiquetaResourceProvider
+
+    DSFORMS_ERR_02_001_0000=Error al crear etiqueta: Error general
+
+    DSFORMS_ERR_02_001_0001=Error al crear etiqueta: Identificador recibido
+
+    DSFORMS_ERR_02_001_0002=Error al crear etiqueta: nombre es obligatorio
+
+    DSFORMS_ERR_02_002_0000=Error al buscar etiqueta: Error general
+
+    DSFORMS_ERR_02_002_0001=Error al buscar etiqueta: nombre es obligatorio
+
+    # ServicePlainProvider
+
+    DSFORMS_ERR_03_001_0001=Error findCatalogo: codigo es obligatorio
+
+    DSFORMS_ERR_03_002_0001=Error findRespuestas: campo es obligatorio
+
+    # QuestionnaireResourceProvider
+
+    DSFORMS_ERR_04_001_0000=Error finalize: Error general
+
+    DSFORMS_ERR_04_001_0001=Error finalize: Identificador no recibido
+
+    DSFORMS_ERR_04_001_0002=Error finalize: El questionnaire a finalizar no tiene items o componentes asociados
+
+    DSFORMS_ERR_04_001_0003=Error finalize: El questionnaire a finalizar debe tener el estado Borrador
+
+    DSFORMS_ERR_04_001_0004=Error finalize: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_001_0005=No se permite finalizar un cuestionario escala sin formula asociada
+
+    DSFORMS_ERR_04_002_0000=Error publish: Error general
+
+    DSFORMS_ERR_04_002_0001=Error publish: Identificador no recibido
+
+    DSFORMS_ERR_04_002_0002=Error publish: No se encuentra questionnaire a publicar
+
+    DSFORMS_ERR_04_002_0003=Error publish: Existe un questionnaire con el mismo título publicado
+
+    DSFORMS_ERR_04_002_0004=No se permite publicar un cuestionario sin contenido
+
+    DSFORMS_ERR_04_002_0005=No se permite publicar un cuestionario escala sin formula asociada
+
+    DSFORMS_ERR_04_002_0006=No se permite publicar un cuestionario escala sin subformula asociada
+
+    DSFORMS_ERR_04_003_0000=Error deactivate: Error general
+
+    DSFORMS_ERR_04_003_0001=Error deactivate: Identificador no recibido
+
+    DSFORMS_ERR_04_003_0002=Error deactivate: Identificador debe ser numérico
+
+    DSFORMS_ERR_04_003_0003=Error deactivate: El questionnaire debe estar publicado
+
+    DSFORMS_ERR_04_003_0004=Error deactivate: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_004_0000=Error delete: Error general
+
+    DSFORMS_ERR_04_004_0001=Error delete: Identificador no recibido
+
+    DSFORMS_ERR_04_004_0002=Error delete: Identificador debe ser numérico
+
+    DSFORMS_ERR_04_004_0003=Error delete: El questionnaire no debe estar publicado
+
+    DSFORMS_ERR_04_004_0004=Error delete: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_005_0000=Error al buscar historico versiones: Error general
+
+    DSFORMS_ERR_04_005_0001=Error al buscar historico versiones: Identificador no recibido
+
+    DSFORMS_ERR_04_006_0000=Error addVersion: Error general
+
+    DSFORMS_ERR_04_006_0001=Error addVersion: Identificador no recibido
+
+    DSFORMS_ERR_04_006_0002=Error addVersion: nombre es obligatorio
+
+    DSFORMS_ERR_04_006_0003=Error addVersion: extension-Type es obligatorio
+
+    DSFORMS_ERR_04_006_0004=Error addVersion: extension-OwnerCode es obligatorio
+
+    DSFORMS_ERR_04_006_0005=Error copyOrAddVersion: No se encuentra questionnaire a versionar
+
+    DSFORMS_ERR_04_006_0006=Error copyOrAddVersion: No hay version en el questionnaire origen
+
+    DSFORMS_ERR_04_007_0000=Error al crear questionnaire: Error general
+
+    DSFORMS_ERR_04_007_0001=Error al crear questionnaire: Identificador recibido
+
+    DSFORMS_ERR_04_007_0002=Error al crear questionnaire: title es obligatorio
+
+    DSFORMS_ERR_04_007_0003=Error al crear questionnaire: tipo formulario es obligatorio
+
+    DSFORMS_ERR_04_007_0004=Error al crear questionnaire: propietario es obligatorio
+
+    DSFORMS_ERR_04_007_0005=Error al crear questionnaire: lenguaje es obligatorio
+
+    DSFORMS_ERR_04_007_0006=Error al crear questionnaire: Ya existe un formulario con el mismo título en estado Borrador o Pendiente de publicar
+
+    DSFORMS_ERR_04_007_0007=Error al crear questionnaire: Ya existe un formulario versionado en estado Borrador o Pendiente de publicar
+
+    DSFORMS_ERR_04_008_0000=Error al copiar questionnaire: Error general
+
+    DSFORMS_ERR_04_008_0001=Error al copiar questionnaire: Identificador no recibido
+
+    DSFORMS_ERR_04_008_0002=Error al copiar questionnaire: Nombre es obligatorio
+
+    DSFORMS_ERR_04_008_0003=Error al copiar questionnaire: Type es obligatorio
+
+    DSFORMS_ERR_04_008_0004=Error al copiar questionnaire: CodOwner es obligatorio
+
+    DSFORMS_ERR_04_009_0000=Error al modificar questionnaire: Error general
+
+    DSFORMS_ERR_04_009_0001=Error al modificar questionnaire: Identificador no recibido
+
+    DSFORMS_ERR_04_009_0002=Error al modificar questionnaire: Title es obligatorio
+
+    DSFORMS_ERR_04_009_0003=Error al modificar questionnaire: Type es obligatorio
+
+    DSFORMS_ERR_04_010_0000=Error getByIdAndLang: Error general
+
+    DSFORMS_ERR_04_010_0001=Error getByIdAndLang: Identificador no recibido
+
+    DSFORMS_ERR_04_011_0000=Error en busqueda de questionnaire: Error general.
+
+    # FormularioTraduccionService
+
+    DSFORMS_ERR_05_001_0000=Error findByFormularioId: Identificador no recibido
+
+    DSFORMS_ERR_05_001_0001=Error findByFormularioId: Error al realizar la
+    consulta
+
+    DSFORMS_ERR_05_002_0000=Error findByFormularioIdCodigoLenguajeLite: Identificador no recibido
+
+    DSFORMS_ERR_05_002_0001=Error findByFormularioIdCodigoLenguajeLite: Error al realizar la consulta
+
+    DSFORMS_ERR_05_003_0000=Error findByFormularioIdCodigoLenguajeFull: Identificador no recibido
+
+    DSFORMS_ERR_05_003_0001=Error findByFormularioIdCodigoLenguajeFull: Error al realizar la consulta
+
+    # QuestionnaireTranslationResourceProvider
+
+    DSFORMS_ERR_06_001_0000=Error al buscar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_001_0001=Error al buscar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_002_0000=Error al crear questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_002_0001=Error al crear questionnaireTranslation: Identificador recibido
+
+    DSFORMS_ERR_06_002_0002=Error al crear questionnaireTranslation: Identificador formulario asociado NO recibido
+
+    DSFORMS_ERR_06_002_0003=Error al crear questionnaireTranslation: No existe el formulario al que añadir el idioma
+
+    DSFORMS_ERR_06_002_0004=Error al crear questionnaireTranslation: Titulo no recibido
+
+    DSFORMS_ERR_06_002_0005=Error al crear questionnaireTranslation: CodeLanguage no recibido
+
+    DSFORMS_ERR_06_002_0006=Error al crear questionnaireTranslation: Lenguaje existente para formulario
+
+    DSFORMS_ERR_06_002_0007=Error al crear questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_002_0008=Error al crear questionnaireTranslation: No puede haber items con propiedades sin code o value, estos campos son obligatorios
+
+    DSFORMS_ERR_06_002_0009=Error al crear questionnaireTranslation: No puede haber items con respuestas sin code o description, estos campos son obligatorios
+
+    DSFORMS_ERR_06_003_0000=Error al actualizar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_003_0001=Error al actualizar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_003_0002=Error al actualizar questionnaireTranslation: Formulario Traduccion a modificar no encontrado en BD
+
+    DSFORMS_ERR_06_003_0003=Error al actualizar questionnaireTranslation: CodeLanguage no recibido
+
+    DSFORMS_ERR_06_003_0004=Error al actualizar questionnaireTranslation: Identificador formulario asociado NO recibido
+
+    DSFORMS_ERR_06_003_0005=Error al actualizar questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_003_0006=Error al actualizar questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_003_0007=Error al actualizar questionnaireTranslation: No puede haber items con propiedades sin code o value, estos campos son obligatorios
+
+    DSFORMS_ERR_06_004_0000=Error al eliminar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_004_0001=Error al eliminar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_004_0002=Error al eliminar questionnaireTranslation: No existe el QuestionnaireTranaslation con el id en cuestión
+
+    # ComponentResourceProvider
+
+    DSFORMS_ERR_07_001_0000=Error al crear: Error general
+
+    DSFORMS_ERR_07_001_0001=Error al crear componentRS: Identificador recibido
+
+    DSFORMS_ERR_07_001_0002=Error al crear componentRS: propiedad code es obligatorio
+
+    DSFORMS_ERR_07_001_0003=Error al crear componentRS: propiedad type es obligatorio
+
+    DSFORMS_ERR_07_002_0000=Error al consultar componentRS: Error general
+
+    DSFORMS_ERR_07_002_0001=Error al consultar componentRS: Identificador no recibido
+
+    # HistoryQuestionnaireService
+
+    DSFORMS_ERR_08_000_0001=Error al crear HistoryQuestionnaire: No se puede guardar el historial
+  messages_es.properties: >
+
+    application.title=HN FORMULARIO
+
+    label.title.hn=HN
+
+    label.title.module=Formulario
+
+    # Label comunes
+
+    label.signOut=Salir
+
+    label.desktop=Escritorio
+
+    label.header.confirmation=Confirmaci\u00f3n
+
+    label.yes=S\u00ed
+
+    label.no=No
+
+    label.select.one=Seleccione uno
+
+    label.all=Todos
+
+    label.back=Atr\u00e1s
+
+    DSFORMS_ERR_00_000_0001=Error en modelo. Operacion: Varias. Descripcion: Error general.
+
+    DSFORMS_ERR_00_000_0002=Error en modelo. Operacion: Varias. Descripcion: Error DAO general.
+
+    # FormularioResourceProvider
+
+    DSFORMS_ERR_01_001_0000=Error al crear formulario: Error general
+
+    DSFORMS_ERR_01_001_0001=Error al crear formulario: Identificador recibido
+
+    DSFORMS_ERR_01_002_0000=Error al modificar formulario: Error general
+
+    DSFORMS_ERR_01_002_0001=Error al modificar formulario: Identificador no recibido
+
+    DSFORMS_ERR_01_002_0002=Error en busqueda de formulario: Error general.
+
+    DSFORMS_ERR_01_002_0003=Error en busqueda paginada de formulario: Error general.
+
+    # EtiquetaResourceProvider
+
+    DSFORMS_ERR_02_001_0000=Error al crear etiqueta: Error general
+
+    DSFORMS_ERR_02_001_0001=Error al crear etiqueta: Identificador recibido
+
+    DSFORMS_ERR_02_001_0002=Error al crear etiqueta: nombre es obligatorio
+
+    DSFORMS_ERR_02_002_0000=Error al buscar etiqueta: Error general
+
+    DSFORMS_ERR_02_002_0001=Error al buscar etiqueta: nombre es obligatorio
+
+    # ServicePlainProvider
+
+    DSFORMS_ERR_03_001_0001=Error findCatalogo: codigo es obligatorio
+
+    DSFORMS_ERR_03_002_0001=Error findRespuestas: campo es obligatorio
+
+    # QuestionnaireResourceProvider
+
+    DSFORMS_ERR_04_001_0000=Error finalize: Error general
+
+    DSFORMS_ERR_04_001_0001=Error finalize: Identificador no recibido
+
+    DSFORMS_ERR_04_001_0002=Error finalize: El questionnaire a finalizar no tiene items o componentes asociados
+
+    DSFORMS_ERR_04_001_0003=Error finalize: El questionnaire a finalizar debe tener el estado Borrador
+
+    DSFORMS_ERR_04_001_0004=Error finalize: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_001_0005=No se permite finalizar un cuestionario escala sin formula asociada
+
+    DSFORMS_ERR_04_002_0000=Error publish: Error general
+
+    DSFORMS_ERR_04_002_0001=Error publish: Identificador no recibido
+
+    DSFORMS_ERR_04_002_0002=Error publish: No se encuentra questionnaire a publicar
+
+    DSFORMS_ERR_04_002_0003=Error publish: Existe un questionnaire con el mismo título publicado
+
+    DSFORMS_ERR_04_002_0004=No se permite publicar un cuestionario sin contenido
+
+    DSFORMS_ERR_04_002_0005=No se permite publicar un cuestionario escala sin formula asociada
+
+    DSFORMS_ERR_04_002_0006=No se permite publicar un cuestionario escala sin subformula asociada
+
+    DSFORMS_ERR_04_003_0000=Error deactivate: Error general
+
+    DSFORMS_ERR_04_003_0001=Error deactivate: Identificador no recibido
+
+    DSFORMS_ERR_04_003_0002=Error deactivate: Identificador debe ser numérico
+
+    DSFORMS_ERR_04_003_0003=Error deactivate: El questionnaire debe estar publicado
+
+    DSFORMS_ERR_04_003_0004=Error deactivate: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_004_0000=Error delete: Error general
+
+    DSFORMS_ERR_04_004_0001=Error delete: Identificador no recibido
+
+    DSFORMS_ERR_04_004_0002=Error delete: Identificador debe ser numérico
+
+    DSFORMS_ERR_04_004_0003=Error delete: El questionnaire no debe estar publicado
+
+    DSFORMS_ERR_04_004_0004=Error delete: No se encuentra questionnaire
+
+    DSFORMS_ERR_04_005_0000=Error al buscar historico versiones: Error general
+
+    DSFORMS_ERR_04_005_0001=Error al buscar historico versiones: Identificador no recibido
+
+    DSFORMS_ERR_04_006_0000=Error addVersion: Error general
+
+    DSFORMS_ERR_04_006_0001=Error addVersion: Identificador no recibido
+
+    DSFORMS_ERR_04_006_0002=Error addVersion: nombre es obligatorio
+
+    DSFORMS_ERR_04_006_0003=Error addVersion: extension-Type es obligatorio
+
+    DSFORMS_ERR_04_006_0004=Error addVersion: extension-OwnerCode es obligatorio
+
+    DSFORMS_ERR_04_006_0005=Error copyOrAddVersion: No se encuentra questionnaire a versionar
+
+    DSFORMS_ERR_04_006_0006=Error copyOrAddVersion: No hay version en el questionnaire origen
+
+    DSFORMS_ERR_04_007_0000=Error al crear questionnaire: Error general
+
+    DSFORMS_ERR_04_007_0001=Error al crear questionnaire: Identificador recibido
+
+    DSFORMS_ERR_04_007_0002=Error al crear questionnaire: title es obligatorio
+
+    DSFORMS_ERR_04_007_0003=Error al crear questionnaire: tipo formulario es obligatorio
+
+    DSFORMS_ERR_04_007_0004=Error al crear questionnaire: propietario es obligatorio
+
+    DSFORMS_ERR_04_007_0005=Error al crear questionnaire: lenguaje es obligatorio
+
+    DSFORMS_ERR_04_007_0006=Error al crear questionnaire: Ya existe un formulario con el mismo título en estado Borrador o Pendiente de publicar
+
+    DSFORMS_ERR_04_007_0007=Error al crear questionnaire: Ya existe un formulario versionado en estado Borrador o Pendiente de publicar
+
+    DSFORMS_ERR_04_008_0000=Error al copiar questionnaire: Error general
+
+    DSFORMS_ERR_04_008_0001=Error al copiar questionnaire: Identificador no recibido
+
+    DSFORMS_ERR_04_008_0002=Error al copiar questionnaire: Nombre es obligatorio
+
+    DSFORMS_ERR_04_008_0003=Error al copiar questionnaire: Type es obligatorio
+
+    DSFORMS_ERR_04_008_0004=Error al copiar questionnaire: CodOwner es obligatorio
+
+    DSFORMS_ERR_04_009_0000=Error al modificar questionnaire: Error general
+
+    DSFORMS_ERR_04_009_0001=Error al modificar questionnaire: Identificador no recibido
+
+    DSFORMS_ERR_04_009_0002=Error al modificar questionnaire: Title es obligatorio
+
+    DSFORMS_ERR_04_009_0003=Error al modificar questionnaire: Type es obligatorio
+
+    DSFORMS_ERR_04_010_0000=Error getByIdAndLang: Error general
+
+    DSFORMS_ERR_04_010_0001=Error getByIdAndLang: Identificador no recibido
+
+    DSFORMS_ERR_04_011_0000=Error en busqueda de questionnaire: Error general.
+
+    # FormularioTraduccionService
+
+    DSFORMS_ERR_05_001_0000=Error findByFormularioId: Identificador no recibido
+
+    DSFORMS_ERR_05_001_0001=Error findByFormularioId: Error al realizar la consulta
+
+    DSFORMS_ERR_05_002_0000=Error findByFormularioIdCodigoLenguajeLite: Identificador no recibido
+
+    DSFORMS_ERR_05_002_0001=Error findByFormularioIdCodigoLenguajeLite: Error al realizar la consulta
+
+    DSFORMS_ERR_05_003_0000=Error findByFormularioIdCodigoLenguajeFull: Identificador no recibido
+
+    DSFORMS_ERR_05_003_0001=Error findByFormularioIdCodigoLenguajeFull: Error al realizar la consulta
+
+    # QuestionnaireTranslationResourceProvider
+
+    DSFORMS_ERR_06_001_0000=Error al buscar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_001_0001=Error al buscar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_002_0000=Error al crear questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_002_0001=Error al crear questionnaireTranslation: Identificador recibido
+
+    DSFORMS_ERR_06_002_0002=Error al crear questionnaireTranslation: Identificador formulario asociado NO recibido
+
+    DSFORMS_ERR_06_002_0003=Error al crear questionnaireTranslation: No existe el formulario al que añadir el idioma
+
+    DSFORMS_ERR_06_002_0004=Error al crear questionnaireTranslation: Titulo no recibido
+
+    DSFORMS_ERR_06_002_0005=Error al crear questionnaireTranslation: CodeLanguage no recibido
+
+    DSFORMS_ERR_06_002_0006=Error al crear questionnaireTranslation: Lenguaje existente para formulario
+
+    DSFORMS_ERR_06_002_0007=Error al crear questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_002_0008=Error al crear questionnaireTranslation: No puede haber items con propiedades sin code o value, estos campos son obligatorios
+
+    DSFORMS_ERR_06_002_0009=Error al crear questionnaireTranslation: No puede haber items con respuestas sin code o description, estos campos son obligatorios
+
+    DSFORMS_ERR_06_003_0000=Error al actualizar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_003_0001=Error al actualizar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_003_0002=Error al actualizar questionnaireTranslation: Formulario Traduccion a modificar no encontrado en BD
+
+    DSFORMS_ERR_06_003_0003=Error al actualizar questionnaireTranslation: CodeLanguage no recibido
+
+    DSFORMS_ERR_06_003_0004=Error al actualizar questionnaireTranslation: Identificador formulario asociado NO recibido
+
+    DSFORMS_ERR_06_003_0005=Error al actualizar questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_003_0006=Error al actualizar questionnaireTranslation: No puede haber items sin linkId, este campo es obligatorio
+
+    DSFORMS_ERR_06_003_0007=Error al actualizar questionnaireTranslation: No puede haber items con propiedades sin code o value, estos campos son obligatorios
+
+    DSFORMS_ERR_06_004_0000=Error al eliminar questionnaireTranslation: Error general
+
+    DSFORMS_ERR_06_004_0001=Error al eliminar questionnaireTranslation: Identificador no recibido
+
+    DSFORMS_ERR_06_004_0002=Error al eliminar questionnaireTranslation: No existe el QuestionnaireTranaslation con el id en cuestión
+
+    # ComponentResourceProvider
+
+    DSFORMS_ERR_07_001_0000=Error al crear: Error general
+
+    DSFORMS_ERR_07_001_0001=Error al crear componentRS: Identificador recibido
+
+    DSFORMS_ERR_07_001_0002=Error al crear componentRS: propiedad code es obligatorio
+
+    DSFORMS_ERR_07_001_0003=Error al crear componentRS: propiedad type es obligatorio
+
+    DSFORMS_ERR_07_002_0000=Error al consultar componentRS: Error general
+
+    DSFORMS_ERR_07_002_0001=Error al consultar componentRS: Identificador no recibido
+
+    # HistoryQuestionnaireService
+
+    DSFORMS_ERR_08_000_0001=Error al crear HistoryQuestionnaire: No se puede guardar el historial

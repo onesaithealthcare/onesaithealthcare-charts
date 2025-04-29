@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.prm.app.backend_app }}
+  namespace: {{ .Values.prm.app.namespace }}
+spec:
+  selector:
+    app: {{ .Values.prm.app.backend_app }}
+  ports:
+    - name: {{ .Values.prm.app.backend_app }}
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

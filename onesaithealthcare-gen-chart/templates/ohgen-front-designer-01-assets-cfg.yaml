@@ -1,0 +1,20 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.gen.app.name_front_designer }}-cfg
+data:
+  app-config.json: |-
+    {
+      "urlBase": "{{ .Values.con.protocol }}://{{ .Values.con.host }}",
+      "urlPalette": "/dsforms/fhir/rest/ComponentRS",
+      "urlPreview": "/dsforms/#/preview/",
+      "urlEtiquetas": "/dsforms/fhir/rest/EtiquetaRS",
+      "idFormulario": "4100201"
+    }
+  env.json: |-
+    {
+        "hnconf_url": "{{ .Values.con.protocol }}://{{ .Values.con.host }}/hnconf",
+        "isolated_module": "false",        
+        "keycloak-js-dist":"{{ .Values.con.protocol }}://{{ .Values.con.host }}/hnconf/ohsso-lib.js",
+        "app_theme": "./assets/css/themes/default"
+    }

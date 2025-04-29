@@ -1,0 +1,219 @@
+questions:
+  - variable: environment.type
+    default: dev
+    description: "Selecciona el tipo de entorno (dev o prod)"
+    type: enum
+    options:
+      - dev
+      - prod
+
+  - variable: domain.protocol
+    default: ""
+    description: "Protocolo del dominio (http o https)"
+    type: enum
+    options:
+      - http
+      - https
+
+  - variable: domain.host
+    default: ""
+    description: "Introduce el host del dominio"
+    type: string
+
+  - variable: domain.istio
+    default: false
+    description: "¿Istio habilitado?"
+    type: boolean
+
+  - variable: docker.registry.host
+    default: docksdtr.indra.es
+    description: "Host del registro Docker"
+    type: string
+
+  - variable: docker.registry.project
+    default: multhn_cmhn20_2
+    description: "Proyecto del registro Docker"
+    type: string
+
+  - variable: bpm.app.name
+    default: ohbpm
+    description: "Nombre de la aplicación BPM"
+    type: string
+
+  - variable: bpm.app.gateway
+    default: oh-modules-gateway
+    description: "Gateway de la aplicación BPM"
+    type: string
+
+  - variable: bpm.app.locale_default
+    default: ES
+    description: "Configuración regional predeterminada"
+    type: string
+
+  - variable: bpm.app.host
+    default: oh-modules.apps.lab.openshift.com
+    description: "Host de la aplicación BPM"
+    type: string
+
+  - variable: bpm.app.replicas
+    default: 1
+    description: "Número de réplicas para la aplicación BPM"
+    type: int
+
+  - variable: bpm.app.cod_passive_cause_death
+    default: 2
+    description: "Código de causa pasiva de muerte"
+    type: int
+
+  - variable: bpm.app.flag.patient_merge
+    default: true
+    description: "¿Habilitar la fusión de pacientes?"
+    type: boolean
+
+  - variable: bpm.app.flag.audit_enable
+    default: false
+    description: "¿Habilitar auditoría?"
+    type: boolean
+
+  - variable: bpm.app.flag.disable_process_pasive_patient
+    default: false
+    description: "¿Deshabilitar el procesamiento de pacientes pasivos?"
+    type: boolean
+
+  - variable: bpm.app.flag.enable_profile_search
+    default: true
+    description: "¿Habilitar la búsqueda de perfiles?"
+    type: boolean
+
+  - variable: bpm.app.flag.enable_obs_generation
+    default: true
+    description: "¿Habilitar la generación de observaciones?"
+    type: boolean
+
+  - variable: bpm.app.flag.enable_kafka_replication
+    default: true
+    description: "¿Habilitar la replicación de Kafka?"
+    type: boolean
+
+  - variable: bpm.app.flag.enable_kpi_generation
+    default: true
+    description: "¿Habilitar la generación de KPIs?"
+    type: boolean
+
+  - variable: bpm.app.log.level
+    default: WARN
+    description: "Nivel de log para la aplicación BPM"
+    type: string
+
+  - variable: bpm.app.log.sql_level
+    default: ERROR
+    description: "Nivel de log SQL para la aplicación BPM"
+    type: string
+
+  - variable: bpm.database.type
+    default: ORACLE
+    description: "Tipo de base de datos (ORACLE o MYSQL)"
+    type: enum
+    options:
+      - ORACLE
+      - MYSQL
+
+  - variable: bpm.database.max_pool_size
+    default: 20
+    description: "Tamaño máximo del pool de conexiones a la base de datos"
+    type: int
+
+  - variable: bpm.database.driver
+    default: oracle.jdbc.driver.OracleDriver
+    description: "Driver JDBC para la base de datos"
+    type: string
+
+  - variable: bpm.database.url
+    default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    description: "URL de conexión a la base de datos"
+    type: string
+
+  - variable: bpm.database.user
+    default: us_ohbpm
+    description: "Usuario de la base de datos"
+    type: string
+
+  - variable: bpm.database.pass
+    default: us_ohbpm
+    description: "Contraseña de la base de datos"
+    type: password
+
+  - variable: bpm.database.min_idle
+    default: 10
+    description: "Número mínimo de conexiones activas en alta demanda"
+    type: int
+
+  - variable: bpm.database.con_timeout
+    default: 30000
+    description: "Tiempo de espera para lanzar una excepción si no hay conexión (s)"
+    type: int
+
+  - variable: bpm.database.idle_timeout
+    default: 600000
+    description: "Tiempo de espera de inactividad para cerrar una conexión (min)"
+    type: int
+
+  - variable: bpm.database.max_lifetime
+    default: 1800000
+    description: "Tiempo máximo de vida de una conexión (ms)"
+    type: int
+
+  - variable: bpm.database.val_timeout
+    default: 5000
+    description: "Tiempo de espera para validación de conexiones (ms)"
+    type: int
+
+  - variable: bpm.database.leak_detection
+    default: 15000
+    description: "Tiempo para detección de fugas de conexiones (ms)"
+    type: int
+
+  - variable: bpm.prm.enable_notifications
+    default: true
+    description: "¿Habilitar notificaciones?"
+    type: boolean
+
+  - variable: bpm.prm.organization_notifications
+    default: SES
+    description: "Organización para notificaciones"
+    type: string
+
+  - variable: bpm.version.app
+    default: 4.9.0
+    description: "Versión de la aplicación BPM"
+    type: string
+
+  - variable: bpm.version.back_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del backend"
+    type: string
+
+  - variable: bpm.version.front_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend"
+    type: string
+
+  - variable: bpm.version.smart_front_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend inteligente"
+    type: string
+
+  - variable: bpm.version.webcomponents_front_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen de los webcomponents del frontend"
+    type: string
+
+  - variable: bpm.version.designer_front_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del diseñador del frontend"
+    type: string
+
+  - variable: bpm.version.prof_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del perfil"
+    type: string
