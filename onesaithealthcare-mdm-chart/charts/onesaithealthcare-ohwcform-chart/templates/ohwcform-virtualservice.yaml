@@ -1,0 +1,34 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: ohgeneric-form-webcomponents-front-virtual-service
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - "*"
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            prefix: /ohgeneric-form-webcomponents/
+      route:
+        - destination:
+            host: ohgeneric-form-webcomponents-front
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /ohgeneric-form-webcomponents/
+      route:
+        - destination:
+            host: ohgeneric-form-webcomponents-front
+            port:
+              number: 8080
+{{- end }}
