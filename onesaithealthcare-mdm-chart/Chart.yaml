@@ -39,4 +39,7 @@ dependencies:
   - name: onesaithealthcare_ohwcform_chart
     version: "4.9.0"
     repository: "file://charts/onesaithealthcare_ohwcform_chart"
+  - name: onesaithealthcare_ohwcviewer_chart
+    version: "4.6.0"
+    repository: "file://charts/onesaithealthcare_ohwcviewer_chart"
 
