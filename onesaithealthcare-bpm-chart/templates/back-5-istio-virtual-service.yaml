@@ -1,4 +1,4 @@
-{{- if eq .Values.domain.istio  }}
+{{- if .Values.domain.istio  }}
 kind: VirtualService
 apiVersion: networking.istio.io/v1alpha3
 metadata:
