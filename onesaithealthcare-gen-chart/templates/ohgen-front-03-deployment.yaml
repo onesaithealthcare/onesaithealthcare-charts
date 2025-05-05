@@ -5,7 +5,7 @@ metadata:
   labels:
     app: {{ .Values.gen.app.name_front }}
 spec:
-  replicas: ${{OHGEN_REPLICAS}}
+  replicas: {{ .Values.gen.app.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.gen.app.name_front }}
