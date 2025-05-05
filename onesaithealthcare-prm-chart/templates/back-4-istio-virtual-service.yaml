@@ -1,3 +1,4 @@
+{{- if .Values.domain.istio  }}
 kind: VirtualService
 apiVersion: networking.istio.io/v1beta1
 metadata:
@@ -115,3 +116,4 @@ spec:
             host: {{ .Values.prm.app.front_app }}
             port:
               number: 8080
+{{- end }}
