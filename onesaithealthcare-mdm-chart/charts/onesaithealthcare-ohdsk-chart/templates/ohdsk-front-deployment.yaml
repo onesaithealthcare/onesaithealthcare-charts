@@ -82,7 +82,7 @@ spec:
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
           terminationMessagePolicy: File
-          image: 'docksdtr.indra.es/multhn_cmhn20_2/ohdsk-front@{{ .Values.ohdsk.sha256_front }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohdsk-front@{{ .Values.ohdsk.sha256_front }}'
       serviceAccount: oh-module
       volumes:
         - name: hnhome-ohsso-front
