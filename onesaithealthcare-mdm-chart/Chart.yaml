@@ -42,4 +42,7 @@ dependencies:
   - name: onesaithealthcare_ohwcviewer_chart
     version: "4.6.0"
     repository: "file://charts/onesaithealthcare_ohwcviewer_chart"
+  - name: onesaithealthcare_ohdsk_chart
+    version: "3.23.0"
+    repository: "file://charts/onesaithealthcare_ohdsk_chart"
 
