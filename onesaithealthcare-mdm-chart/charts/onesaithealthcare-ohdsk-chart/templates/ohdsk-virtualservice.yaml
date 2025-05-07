@@ -1,0 +1,42 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: ohdsk-front-virtual-service
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - '*'
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            exact: /desktop-hd
+      rewrite:
+        uri: /desktop-hd/
+      route:
+        - destination:
+            host: ohdsk-front
+            port:
+              number: 8080
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            prefix: /desktop-hd/
+      route:
+        - destination:
+            host: ohdsk-front
+            port:
+              number: 8080
+{{- end }}

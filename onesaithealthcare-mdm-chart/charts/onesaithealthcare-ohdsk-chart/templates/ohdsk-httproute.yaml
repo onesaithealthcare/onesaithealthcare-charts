@@ -1,0 +1,43 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ohdsk-http-route
+spec:
+  hostnames:
+    - {{ .Values.global.domain.host }}
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: oh-modules-gateway
+      sectionName: oh-modules
+  rules:
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohdsk-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /desktop-hd/
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: ohdsk-front
+          namespace: {{ .Release.Namespace }}
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
+            value: /desktop-hd
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /desktop-hd/
+{{- end }}

@@ -1,0 +1,3477 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ohdsk-front-cfg
+data:
+  desktop-config.json: |-
+    {
+      "data": {
+        "id": 1,
+        "checkPerms": true,
+        "name": "default",
+        "description": "Default practitioner desktop",
+        "iss": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ehrserver/fhir",
+        "repPatient": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ispob/fhir",
+        "hnconfUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf/fhir",
+        "desktopHandBookUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/desktop-hd/assets/api/manual/ManualDesktop.html",
+        "auditATNAUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnatna/fhir/AuditEvent/$notificateFront?_format=json",
+        "endpointAccessAppsUrl": "",
+        "urlrlHncat": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat/fhir/CodeSystem",
+        "urlOrganizationAdscripciones": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ehrserver/fhir/Organization",
+        "idCatalogAccessApps": "btgReasons",
+        "oAuth": true,
+        "codeAdscripcionMedica": "ADSCRMEDICA",
+        "showAdscriptionSearch": true,
+        "mpiDemographicPatientInfo": true,
+        "showHNIDinDemographicData": false,
+        "permNotificationPatient": "OHDSK_PATIENTNOTIFICATIONS",
+        "patientShowChat": true,
+        "permChatPatient": "OHDSK_CONTEXT_PATIENT_CHAT",
+        "bannerStyle":{
+            "headerPatientTextColor": "#333333",
+            "headerPatientHorizontalBackgroundColor": "#ffffff",
+            "headerPatientHorizontalBorderColor": "#C9D5DD",
+            "headerPatientShadowColor": "0 2px 5px rgba(182, 197, 209, 0.2)",
+            "headerPatientVerticalBackgroundColor": "#EEEFF1",
+            "headerPatientVerticalBorderColor": "#C8D4DC",
+            "headerPatientVerticalMenuBackgroundColor": "#FAFBFC",
+            "headerPatientLinesColor":"rgba(51, 51, 51, 0.1)",
+            "headerPatientSelectedMenuColor": "rgba(51, 51, 51, 0.12)",
+            "headerPatientHoverColor": "rgba(51, 51, 51, 0.05)",
+            "headerPatientMenuColor": "rgba(51, 51, 51, 0)",
+            "headerPatientVerticalMenuBorderColor": "#C9D5DD",
+            "headerPatientVerticalScroll": "rgba(88, 102, 116, 0.3)",
+            "headerPatientAvatarHoverColor":"#6D8CA3",
+            "headerPatientAvatarHoverBackgroundColor": "rgba(109, 140, 163, 0.2)",
+            "headerPatientNotificationBorder": "0.5px solid rgba(51, 51, 51, 0.2)",
+            "headerPatientNotificationBgColor": "rgba(205, 205, 205, 0)",
+            "headerPatientNotificationIconColor": "rgba(51, 51, 51, 0.8)",
+            "headerPatientNotificationBgColorHover": "rgba(51, 51, 51, 0.1)",
+            "headerPatientNotificationBgColorActive": "rgba(51, 51, 51, 0.1)",
+            "headerPatientCareTeam": "rgba(51, 51, 51, 0.5)",
+            "headerColorComboAppsPractHeaderCompact": "rgba(0, 141, 162, 1)",
+            "headerColorIndicadoresCareTeam":"rgba(215, 223, 230, 1)",
+            "headerPatientChatBorder": "0.5px solid rgba(51, 51, 51, 0.2)",
+            "headerPatientChatBgColorHover": "rgba(51, 51, 51, 0.1)",
+            "headerPatientChatIconColor": "rgba(51, 51, 51, 0.8)",
+            "headerPatientChatBgColor": "rgba(205, 205, 205, 0)"
+        },
+        "showTabAccessEmbedeed": true,
+        "configTimeAppsSession": {
+            "activateSaveAppsSession": false,
+            "initTime": 6000,
+            "timePractitionerApp": 5000,
+            "timePatientApp": 20000
+        },
+        "optionsShowInfoPatient": {
+            "showIconCard": "ui-hn-icon icon-profile-card-patient",
+            "showBirthdate": true,
+            "showIdentifierPatientBySystem": "2.16.724.4.40.222",
+            "showTelecomIcon": "ui-hn-icon icon-contact-phone",
+            "showTelecomSystem": "phone",
+            "showTelecomUse": "work",
+            "hiddenFlags": false
+        },
+        "optionsTooltipCareTeam": {
+            "showTooltipCareTeam": true,
+            "idCatalogAdscripciones": "tipo_adscripcion",
+            "urlExtensionSubtypeAdscripciones": "subtype",
+            "urlExtensionSubtypeChildrenAdscripciones": "subtype_children",
+            "sectionTelecom": {
+                "showSection": true,
+                "showTelecomSystem": "phone",
+                "showTelecomUse": "work"
+            },
+            "sectionEquipoSeguimiento": {
+                "showSection": true,
+                "subTypeSection": "ADS"
+            },
+            "sectionCuidadores": {
+                "showSection": true,
+                "subTypeSection": "PATIENT",
+                "subTypeChildrenSection": "C"
+            },
+            "sectionRepresentantesLegales": {
+                "showSection": true,
+                "subTypeSection": "PATIENT",
+                "subTypeChildrenSection": "RL",
+                "pathDisplay": "participant[0].member.display",
+                "pathReference": "participant[0].member.reference",
+                "showParentesco": false,
+                "pathParentesco": "participant[0].role.coding[0].display"
+            }
+        },
+        "optionsComponentNotifications": {
+            "activedNewComponentNotifications": true,
+            "timerCommunications": 10,
+            "urlCommunications": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohale/api/fhir/Communication",
+            "urlCategoryCommunications": "http://hl7.org/fhir/notification-category",
+            "statusToShowCommunications": [
+                "in-progress",
+                "completed"
+            ],
+            "statusRead": "completed",
+            "statusNotRead": "in-progress",
+            "numElementsPerPage": 5,
+            "numElementsLoading": 100,
+            "patientParametersPending": [
+                {
+                    "nameParam": "status",
+                    "valueParam": "in-progress"
+                }
+            ],
+            "patientParametersCompleted": [
+                {
+                    "nameParam": "status",
+                    "valueParam": "completed"
+                }
+            ],
+            "urlSearchRecipientPatientNotifications": "hnaut/fhir/Organization?identifier=",
+            "valueSearchRecipientPatientNotifications": "Cod_Sector%7ca1234234",
+            "patientNotificationsMenu": true,
+            "patientNotificationsNotDelete": true,
+            "patientNotificationsPanelLightColor": true,
+            "professionalNotificationsPanelLightColor": false,
+            "patientShowNotifications": true
+        },
+        "showSocialName": true,
+        "optionsPatientAndAdvancedSearch": {
+                "parametersPatientAdvancedSearch":[
+                  {
+                      "idParameter":"inputIdentifier",
+                      "labelField":"label.documentIdent",
+                      "typeElement": "combo-input-type-text",
+                      "styleClassDiv":"col-md-6 col-sm-12 col-xs-12",
+                      "urlCatalog": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/desktop-hd/assets/api/module/patient/identifiers.json",
+                      "urlCatalogListElements": "entry",
+                      "urlCatalogSystem": "system",
+                      "urlCatalogDisplay": "display",
+                      "paramToSearch": "identifier=",
+                      "separatorSearch": "%7C",
+                      "pathSystemCatalogSearch": "system"
+                  },
+                  {
+                      "idParameter":"inputNameAndFamilyName",
+                      "labelField":"label.NameAndFamilyName",
+                      "typeElement": "input-type",
+                      "classDiv": "input-group",
+                      "typeInputType": "text",
+                      "classInput": "form-control",
+                      "minCharacters": 3,
+                      "maxCharacters": 35,
+                      "styleClassDiv": "col-md-6 col-sm-12 col-xs-12",
+                      "listRegExpressions": [
+                          {
+                              "regExp": "^[^0-9]+$",
+                              "message": "must_not_contain_numbers"
+                          }
+                      ],
+                      "paramToSearch": "phonetic:contains="
+                  },
+                  {
+                      "idParameter":"inputName",
+                      "labelField":"label.Name",
+                      "typeElement": "input-type",
+                      "classDiv": "input-group",
+                      "typeInputType": "text",
+                      "classInput": "form-control",
+                      "minCharacters": 3,
+                      "maxCharacters": 35,
+                      "styleClassDiv": "col-md-6 col-sm-12 col-xs-12",
+                      "listRegExpressions": [
+                          {
+                              "regExp": "^[^0-9]+$",
+                              "message": "must_not_contain_numbers"
+                          }
+                      ],
+                      "paramToSearch": "given="
+                  },
+                  {
+                      "idParameter":"inputFamilyName",
+                      "labelField":"label.FamilyName",
+                      "typeElement": "input-type",
+                      "classDiv": "input-group",
+                      "typeInputType": "text",
+                      "classInput": "form-control",
+                      "minCharacters": 3,
+                      "maxCharacters": 35,
+                      "styleClassDiv": "col-md-6 col-sm-12 col-xs-12",
+                      "listRegExpressions": [
+                          {
+                              "regExp": "^[^0-9]+$",
+                              "message": "must_not_contain_numbers"
+                          }
+                      ],
+                      "paramToSearch": "family="
+                  },
+                  {
+                      "idParameter":"inputContactType",
+                      "labelField":"label.contactType",
+                      "typeElement": "combo-input-type-text",
+                      "styleClassDiv":"col-md-6 col-sm-12 col-xs-12",
+                      "urlCatalog": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/desktop-hd/assets/api/module/patient/contact_type.json",
+                      "urlCatalogListElements": "entry",
+                      "urlCatalogSystem": "code",
+                      "urlCatalogDisplay": "display",
+                      "paramToSearch": "telecom=",
+                      "separatorSearch": "%7C",
+                      "pathSystemCatalogSearch": "code"
+                  },
+                  {
+                      "idParameter":"inputCenter",
+                      "labelField":"label.center",
+                      "loadWithPerms": [
+                          {
+                              "hasPerm":["OHDSK_ACCESS_PATIENT_CENTER"],
+                              "notHasPerm": ["OHDSK_ACCESS_PATIENT"],
+                              "requirementsKeycloakApiService": [
+                                  {
+                                      "pathKeycloak": "resource",
+                                      "typePath": "array",
+                                      "existsValue": true,
+                                      "valuesCondition":[
+                                          "UserCenter/"
+                                      ]
+                                  }
+                                  
+                              ],
+                              "params":{
+                                  "typeElement": "input-type",
+                                  "classDiv": "input-group",
+                                  "typeInputType": "text",
+                                  "classInput": "form-control",
+                                  "styleClassDiv":"col-md-6 col-sm-12 col-xs-12",
+                                  "disabledElement": true,
+                                  "modelPut": {
+                                      "from": "keycloakApiService",
+                                      "code": {
+                                          "pathKeycloak": "resource",
+                                          "typePath": "array",
+                                          "includeValue": "UserCenter/",
+                                          "typeData":"reference"
+                                      },
+                                      "display": {
+                                          "pathKeycloak": "center_name",
+                                          "typePath": "direct"
+                                      }
+                                  },
+                                  "paramToSearch": "centroCIAS="
+                              }
+                          },
+                          {
+                              "params":{
+                                  "typeElement": "autocomplete",
+                                  "styleClassDiv":"col-md-6 col-sm-12 col-xs-12",
+                                  "urlCatalog": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnaut/fhir/Organization/?_format=json&partof=GER12&type=crt",
+                                  "urlCatalogListElements": "entry",
+                                  "urlCatalogLabel": "resource.name",
+                                  "urlCatalogValue": "resource.id",
+                                  "pushCatalogValueAll": true,
+                                  "labelAll": "label.advancedSearch.comboSector.all",
+                                  "valueAll": "null",
+                                  "discardValueSelectedValidatedSearch":[
+                                      "null",
+                                      "all"
+                                  ],
+                                  "pathDiscardValueSelectedValidatedSearch": "value",
+                                  "urlLoadMoreCatalog": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnaut/fhir/Organization/?_format=json&partof=GER12&type=crt&name=",
+                                  "urlLoadMoreCatalogListElements": "entry",
+                                  "urlLoadMoreCatalogLabel": "resource.name",
+                                  "urlLoadMoreCatalogValue": "resource.id",
+                                  "paramToSearch": "centroCIAS="
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "idParameter":"inputSector",
+                      "labelField":"label.sector",
+                      "typeElement": "autocomplete",
+                      "styleClassDiv":"col-md-6 col-sm-12 col-xs-12",
+                      "urlCatalog": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat/fhir/CodeSystem/Sectores",
+                      "urlCatalogListElements": "concept",
+                      "urlCatalogLabel": "display",
+                      "urlCatalogValue": "code",
+                      "pushCatalogValueAll": true,
+                      "labelAll": "label.advancedSearch.comboSector.all",
+                      "valueAll": "null",
+                      "discardValueSelectedValidatedSearch":[
+                          "null",
+                          "all"
+                      ],
+                      "pathDiscardValueSelectedValidatedSearch": "value",
+                      "paramToSearch": "sector="
+                  },
+                  {
+                      "idParameter":"inputGender",
+                      "labelField":"label.gender",
+                      "typeElement": "combo",
+                      "styleClassDiv":"col-md-3 col-sm-12 col-xs-12",
+                      "urlCatalog": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/desktop-hd/assets/api/module/patient/gender.json",
+                      "urlCatalogListElements": "entry",
+                      "urlCatalogSystem": "system",
+                      "urlCatalogDisplay": "display",
+                      "discardValueSelectedValidatedSearch":[
+                          null,
+                          "all"
+                      ],
+                      "pathDiscardValueSelectedValidatedSearch": "system",
+                      "notEssential": true,
+                      "pathSystemCatalogSearch": "system",
+                      "paramToSearch": "gender="
+                  },
+                  {
+                      "idParameter":"inputBirthdate",
+                      "labelField":"label.birthdate",
+                      "typeElement": "input-type",
+                      "classDiv": "input-group-birthdate",
+                      "typeInputType": "date",
+                      "classInput": "form-control date-before",
+                      "patternInput": "[0-9]{4}-[0-9]{2}-[0-9]{2}",
+                      "placeholderInput": "aaaa-mm-dd",
+                      "styleClassDiv":"col-md-3 col-sm-5 col-xs-6",
+                      "paramToSearch": "birthdate="
+                  },
+                  {
+                      "idParameter":"inputAge",
+                      "labelField":"label.age",
+                      "typeElement": "set-input-type",
+                      "styleClassDiv":"age col-md-6 col-sm-7 col-xs-6",
+                      "listElements": [
+                          {
+                              "typeElement": "input-type",
+                              "classDiv": "input-group-age from",
+                              "typeInputType": "number",
+                              "classInput": "form-control inputNumber",
+                              "placeholderInput" : "label.from",
+                              "paramToSearch": "birthdate=le",
+                              "transformDateSearch":{
+                                  "operation": "subtract",
+                                  "originDate": "getFullYear",
+                                  "updateDate": "setFullYear"
+                              }
+                          },
+                          {
+                              "typeElement": "input-type",
+                              "classDiv": "input-group-age to",
+                              "typeInputType": "number",
+                              "classInput": "form-control inputNumber",
+                              "placeholderInput" : "label.to",
+                              "paramToSearch": "birthdate=ge",
+                              "transformDateSearch":{
+                                  "operation": "subtract",
+                                  "originDate": "getFullYear",
+                                  "updateDate": "setFullYear",
+                                  "extraOp": {
+                                      "operation": "subtract",
+                                      "howYear": 1
+                                  }
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "idParameter":"inputPassive",
+                      "labelField":"label.include.passive",
+                      "typeElement": "input-type",
+                      "typeInputType": "checkbox",
+                      "idForCheck": "mm-gd-searchPatient-passive",
+                      "styleClassDiv":"col-md-12 col-sm-12 col-xs-12",
+                      "paramToSearch": "active=",
+                      "notEssential": true,
+                      "searchWithValues":[
+                          false
+                      ],
+                      "transformValueSearch":[
+                          {
+                              "whenValue": false,
+                              "changeValueSearch": true
+                          }
+                      ]                    
+                  },
+                  {
+                      "idParameter":"inputInactive",
+                      "labelField":"label.inactivePatients",
+                      "typeElement": "input-type",
+                      "typeInputType": "checkbox",
+                      "idForCheck": "mm-gd-searchPatient-inactive",
+                      "styleClassDiv":"col-md-12 col-sm-12 col-xs-12",
+                      "hiddenField": true,
+                      "model": true,
+                      "paramToSearch": "activeBDAC=",
+                      "notEssential": true
+                  }
+              ],
+              "showInfoPatientAdvancedSearch": [
+                  {
+                      "type": "selectableInfoPatient",
+                      "style": "text_pac groupInfoPatient",
+                      "listParams": [
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path": "fullName"
+                              }                            
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path": "secondaryName"
+                              },
+                              "separator": " · "
+                          }
+                      ]
+                  },
+                  {
+                      "type": "additionalInfoPatient",
+                      "style": "groupInfoPatient",
+                      "listParams": [
+                          {
+                              "type": "text-translate",
+                              "class": "patient-gender",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path" : "gender"
+                              }
+                          },
+                          {
+                              "type": "date-format",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path" : "birthDate"
+                              },
+                              "formatDate": "d MMM y",
+                              "separator": ", "
+                          },
+                          {
+                              "checkToShow": [
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  "2"
+                                              ]
+                                          }
+                                      ],
+                                      "type": "date-other",
+                                      "transformResult": {
+                                          "class": "DateUtil-getAgeOnADate",
+                                          "listPathDates": [
+                                              {
+                                                  "type": "direct",
+                                                  "path" : "birthDate"
+                                              },
+                                              {
+                                                  "type": "extension",
+                                                  "pathExtension": "jsonPatientData.extension",
+                                                  "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passivate-date",
+                                                  "pathValueExtension": "valueDate"
+                                              }
+                                          ]
+                                      },
+                                      "separator": ", "
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": true,
+                                              "notValuesCondition": [
+                                                  "2"
+                                              ]
+                                          }
+                                      ],
+                                      "type": "date-age-pipe",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "birthDate"
+                                      },
+                                      "separator": ", "
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "date-age-pipe",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "birthDate"
+                                      },
+                                      "separator": ", "
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      "type": "additionalInfoPatient",
+                      "style": "groupInfoPatient",
+                      "listParams": [
+                          {
+                              "checkToShow": [
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.text"
+                                              },
+                                              "existValue": true
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "identifier",
+                                          "infoIdentifier":{
+                                              "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                              "listSystem": [],
+                                              "pathSystemIdentifier": "system",
+                                              "pathInIdentifier": "type.text"
+                                          }
+                                      }
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.text"
+                                              },
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "put-data",
+                                          "data" : "Internal ID"
+                                      }
+                                  }
+                              ]
+                          },
+                          {
+                              "checkToShow":[
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "extension[0].url"
+                                              },                                            
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  "http://hn.indra.es/fhir/StructureDefinition/identifier-guardian"
+                                              ]
+                                          },
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "extension[0].valueBoolean"
+                                              },
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  true
+                                              ]
+                                          }
+                                      ],
+                                      "type": "text-translate",
+                                      "pathObj" : {
+                                          "type": "put-data",
+                                          "data" : "label.guardian"
+                                      }
+                                  }
+                              ]
+                          },
+                          {
+                              "checkToShow":[
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.coding"
+                                              },
+                                              "existValue": true
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "identifier",
+                                          "infoIdentifier":{
+                                              "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                              "listSystem": [],
+                                              "pathSystemIdentifier": "system",
+                                              "pathInIdentifier": "value"
+                                          }
+                                      }
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.coding"
+                                              },
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "jsonPatientData.id"
+                                      }
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      "type": "additionalInfoPatient",
+                      "style": "groupInfoPatient",
+                      "listParams": [
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "direct",
+                                      "path": "managingOrganization[0].display"
+                                  }
+                              }
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "array",
+                                      "path": "participant[0].role.coding",
+                                      "forElement": "display"
+                                  }
+                              },
+                              "separator": " - "
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "direct",
+                                      "path": "participant[0].member.display"
+                                  }
+                              },
+                              "separator": " - "
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "extension",
+                                      "pathExtension": "extension",
+                                      "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/careteam/temporality",
+                                      "pathValueExtension": "valueCodeableConcept.coding[0].display"
+                                  }
+                              },
+                              "parentheses": true
+                          }
+                      ]
+                  }
+              ],
+              "showInfoPatientSearch": [
+                  {
+                      "type": "selectableInfoPatient",
+                      "style": "text_pac",
+                      "listParams": [
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path": "fullName"
+                              }                            
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path": "secondaryName"
+                              },
+                              "separator": " · "
+                          }
+                      ]
+                  },
+                  {
+                      "type": "additionalInfoPatient",
+                      "listParams": [
+                          {
+                              "type": "text-translate",
+                              "class": "patient-gender",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path" : "gender"
+                              },
+                              "separator": ", "
+                          },
+                          {
+                              "checkToShow": [
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.text"
+                                              },
+                                              "existValue": true
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "identifier",
+                                          "infoIdentifier":{
+                                              "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                              "listSystem": [],
+                                              "pathSystemIdentifier": "system",
+                                              "pathInIdentifier": "type.text"
+                                          }
+                                      }
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.text"
+                                              },
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "put-data",
+                                          "data" : "Internal ID"
+                                      }
+                                  }
+                              ],
+                              "separator": ", "
+                          },
+                          {
+                              "checkToShow":[
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "extension[0].url"
+                                              },                                            
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  "http://hn.indra.es/fhir/StructureDefinition/identifier-guardian"
+                                              ]
+                                          },
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "extension[0].valueBoolean"
+                                              },
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  true
+                                              ]
+                                          }
+                                      ],
+                                      "type": "text-translate",
+                                      "pathObj" : {
+                                          "type": "put-data",
+                                          "data" : "label.guardian"
+                                      }
+                                  }
+                              ]
+                          },
+                          {
+                              "checkToShow":[
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.coding"
+                                              },
+                                              "existValue": true
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "identifier",
+                                          "infoIdentifier":{
+                                              "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                              "listSystem": [],
+                                              "pathSystemIdentifier": "system",
+                                              "pathInIdentifier": "value"
+                                          }
+                                      }
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.coding"
+                                              },
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "jsonPatientData.id"
+                                      }
+                                  }
+                              ]
+                          },
+                          {
+                              "checkToShow": [
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  "2"
+                                              ]
+                                          }
+                                      ],
+                                      "type": "date-other",
+                                      "transformResult": {
+                                          "class": "DateUtil-getAgeOnADate",
+                                          "listPathDates": [
+                                              {
+                                                  "type": "direct",
+                                                  "path" : "birthDate"
+                                              },
+                                              {
+                                                  "type": "extension",
+                                                  "pathExtension": "jsonPatientData.extension",
+                                                  "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passivate-date",
+                                                  "pathValueExtension": "valueDate"
+                                              }
+                                          ]
+                                      },
+                                      "separator": ", "
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": true,
+                                              "notValuesCondition": [
+                                                  "2"
+                                              ]
+                                          }
+                                      ],
+                                      "type": "date-age-pipe",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "birthDate"
+                                      },
+                                      "separator": ", "
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "date-age-pipe",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "birthDate"
+                                      },
+                                      "separator": ", "
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      "type": "patientSelectioned",
+                      "style": "styleAdscription",
+                      "listParams": [
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "direct",
+                                      "path": "managingOrganization[0].display"
+                                  }
+                              }
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "array",
+                                      "path": "participant[0].role.coding",
+                                      "forElement": "display"
+                                  }
+                              },
+                              "separator": " - "
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "direct",
+                                      "path": "participant[0].member.display"
+                                  }
+                              },
+                              "separator": " - "
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "extension",
+                                      "pathExtension": "extension",
+                                      "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/careteam/temporality",
+                                      "pathValueExtension": "valueCodeableConcept.coding[0].display"
+                                  }
+                              },
+                              "parentheses": true
+                          }
+                      ]
+                  }
+              ],
+              "showInfoLastPatientSearch": [
+                  {
+                      "type": "selectableInfoPatient",
+                      "style": "text_pac",
+                      "listParams": [
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path": "fullName"
+                              }                            
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path": "secondaryName"
+                              },
+                              "separator": " · "
+                          }
+                      ]
+                  },
+                  {
+                      "type": "additionalInfoPatient",
+                      "listParams": [
+                          {
+                              "type": "text-translate",
+                              "class": "patient-gender",
+                              "pathObj": {
+                                  "type": "direct",
+                                  "path" : "gender"
+                              },
+                              "separator": ", "
+                          },
+                          {
+                              "checkToShow": [
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.text"
+                                              },
+                                              "existValue": true
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "identifier",
+                                          "infoIdentifier":{
+                                              "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                              "listSystem": [],
+                                              "pathSystemIdentifier": "system",
+                                              "pathInIdentifier": "type.text"
+                                          }
+                                      }
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.text"
+                                              },
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "put-data",
+                                          "data" : "Internal ID"
+                                      }
+                                  }
+                              ],
+                              "separator": ", "
+                          },
+                          {
+                              "checkToShow":[
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "extension[0].url"
+                                              },                                            
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  "http://hn.indra.es/fhir/StructureDefinition/identifier-guardian"
+                                              ]
+                                          },
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "extension[0].valueBoolean"
+                                              },
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  true
+                                              ]
+                                          }
+                                      ],
+                                      "type": "text-translate",
+                                      "pathObj" : {
+                                          "type": "put-data",
+                                          "data" : "label.guardian"
+                                      }
+                                  }
+                              ]
+                          },
+                          {
+                              "checkToShow":[
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.coding"
+                                              },
+                                              "existValue": true
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "identifier",
+                                          "infoIdentifier":{
+                                              "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                              "listSystem": [],
+                                              "pathSystemIdentifier": "system",
+                                              "pathInIdentifier": "value"
+                                          }
+                                      }
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "identifier",
+                                              "infoIdentifier":{
+                                                  "pathListIdentifierPatient": "jsonPatientData.identifier",
+                                                  "listSystem": [],
+                                                  "pathSystemIdentifier": "system",
+                                                  "pathInIdentifier": "type.coding"
+                                              },
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "text",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "jsonPatientData.id"
+                                      }
+                                  }
+                              ]
+                          },
+                          {
+                              "checkToShow": [
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": true,
+                                              "valuesCondition": [
+                                                  "2"
+                                              ]
+                                          }
+                                      ],
+                                      "type": "date-other",
+                                      "transformResult": {
+                                          "class": "DateUtil-getAgeOnADate",
+                                          "listPathDates": [
+                                              {
+                                                  "type": "direct",
+                                                  "path" : "birthDate"
+                                              },
+                                              {
+                                                  "type": "extension",
+                                                  "pathExtension": "jsonPatientData.extension",
+                                                  "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passivate-date",
+                                                  "pathValueExtension": "valueDate"
+                                              }
+                                          ]
+                                      },
+                                      "separator": ", "
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": true,
+                                              "notValuesCondition": [
+                                                  "2"
+                                              ]
+                                          }
+                                      ],
+                                      "type": "date-age-pipe",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "birthDate"
+                                      },
+                                      "separator": ", "
+                                  },
+                                  {
+                                      "pathConditionObj": [
+                                          {
+                                              "type": "extension",
+                                              "pathExtension": "jsonPatientData.extension",
+                                              "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/passive-cause",
+                                              "pathValueExtension": "valueString",
+                                              "existValue": false
+                                          }
+                                      ],
+                                      "type": "date-age-pipe",
+                                      "pathObj" : {
+                                          "type": "direct",
+                                          "path" : "birthDate"
+                                      },
+                                      "separator": ", "
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      "type": "patientSelectioned",
+                      "style": "styleAdscription",
+                      "listParams": [
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "direct",
+                                      "path": "managingOrganization[0].display"
+                                  }
+                              }
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "array",
+                                      "path": "participant[0].role.coding",
+                                      "forElement": "display"
+                                  }
+                              },
+                              "separator": " - "
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "direct",
+                                      "path": "participant[0].member.display"
+                                  }
+                              },
+                              "separator": " - "
+                          },
+                          {
+                              "type": "text",
+                              "pathObj": {
+                                  "type": "contained",
+                                  "pathContained": "jsonPatientData.contained",
+                                  "resourceType": ["CareTeam"],
+                                  "pathContainedResType": "resourceType",
+                                  "listCriteria": [
+                                      {
+                                          "type": "direct",
+                                          "path": "status",
+                                          "value": ["active"]
+                                      },
+                                      {
+                                          "type": "array",
+                                          "pathArray": [
+                                              "category",
+                                              "coding"
+                                          ],
+                                          "pathCheck": "code",
+                                          "valueCheck": ["ADSCRMEDICA"]
+                                      }
+                                  ],
+                                  "option": "recently-date",
+                                  "pathOrder": "period.start",
+                                  "pathInResourceContained": {
+                                      "type": "extension",
+                                      "pathExtension": "extension",
+                                      "urlExtension": "http://hn.indra.es/fhir/StructureDefinition/careteam/temporality",
+                                      "pathValueExtension": "valueCodeableConcept.coding[0].display"
+                                  }
+                              },
+                              "parentheses": true
+                          }
+                      ]
+                  }
+              ],
+            "typeSearchNameFamilyName": "phonetic:contains",
+            "showFieldName": true,
+            "showFieldFamilyName": true,
+            "showFieldContactType": true,
+            "showFieldCenter": true,
+            "urlSearchCenter": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnaut/fhir/Organization/?_format=json&partof=GER12&type=crt",
+            "parameterSearchCenter": "name",
+            "attributeLabelCenter": "name",
+            "attributeValueCenter": "id",
+            "typeSearchCenter": "center",
+            "showFieldSector": true,
+            "urlSearchSector": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat/fhir/CodeSystem/Sectores",
+            "attributeLabelSector": "display",
+            "attributeValueSector": "code",
+            "typeSearchSector": "sector",
+            "showIncludePatientPasive": false,
+            "showActivePatients": false,
+            "typeSearchActivePatients": "patientBDAC",
+            "showActivePatientsCheckInactivePatients": false,
+            "idCatalogCausesPassive": "passive_causes",
+            "patientStyle": [
+                {
+                    "code": [
+                        "notCode",
+                        "1"
+                    ],
+                    "lightColor": "#FEAA0D",
+                    "darkColor": "#FEAA0D"
+                },
+                {
+                    "code": [
+                        "2"
+                    ],
+                    "lightColor": "#E5D9F1",
+                    "darkColor": "#5200A3"
+                }
+            ]
+        },
+        "externalApps": [
+            {
+                "id": "extApp1",
+                "title": "App1",
+                "shortName": "AppApp1",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://www.mscbs.gob.es",
+                "contextType": "Patient",
+                "group": "group1",
+                "openTab": false,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "2.16.724.4.40.222",
+                        "path": "identifier"
+                    }
+                ]
+            },
+            {
+                "id": "extApp2",
+                "title": "Radiologia",
+                "shortName": "AppRadiologia",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://www.google.es",
+                "group": "group1",
+                "openTab": true,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "2.16.724.4.40.222",
+                        "path": "identifier"
+                    }
+                ]
+            },
+            {
+                "id": "extApp3",
+                "title": "Laboratorio HUSE",
+                "shortName": "AppLabHUSE",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://www.google.es",
+                "group": "group1",
+                "openTab": true,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "2.16.724.4.40.222",
+                        "path": "identifier"
+                    }
+                ]
+            },
+            {
+                "id": "extApp4",
+                "title": "Sensores",
+                "shortName": "AppSensores",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://master.d3bvci0sdxtp32.amplifyapp.com/",
+                "group": "group1",
+                "openTab": false,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "SIP",
+                        "path": "identifier"
+                    }
+                ]
+            },
+            {
+                "id": "extApp5",
+                "title": "Smartband",
+                "shortName": "AppSmartband",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://pharaon.upct.es/portal/external/paciente/show/",
+                "group": "group1",
+                "openTab": false,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "SIP",
+                        "path": "identifier"
+                    }
+                ]
+            },
+            {
+                "id": "extApp6",
+                "title": "Consumo eléctrico",
+                "shortName": "AppCE",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://ugrid-pharaon.miwenergia.com",
+                "group": "group1",
+                "openTab": false,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "SIP",
+                        "path": "identifier"
+                    }
+                ]
+            },
+            {
+                "id": "extAppNexus",
+                "title": "Arcus-Nexus",
+                "shortName": "AppNexus",
+                "iconUrl": "assets/img/icons-apps/url_ext.svg",
+                "url": "https://arcus.bytek.info/",
+                "group": "group1",
+                "openTab": false,
+                "auditATNA": true,
+                "params": [
+                    {
+                        "name": "idPatient",
+                        "type": "Resource",
+                        "typeResource": "Patient",
+                        "system": "SIP",
+                        "path": "identifier"
+                    }
+                ]
+            }
+        ],
+        "numOfAlertsToShow": 5,
+        "flagPerms": {
+            "configAccessDemografic": true,
+            "permsFlagHistory": [
+                "OHDSK_PATIENTALERTS",
+                "OHDSK_PATIENTALERTS_NOCLINICAL"
+            ],
+            "permFlagNOCLINICAL": "OHDSK_PATIENTALERTS_NOCLINICAL",
+            "permFlagCLINICAL": "OHDSK_PATIENTALERTS",
+            "codeSystemPatientAlertPatient": "",
+            "codeSystemPatientAlertConcept": "patient_alert_concepts",
+            "alertClinical": "alertClinical",
+            "alertNoClinical": "alertNoClinical",
+            "extensionUrlIcon": "http://hl7.org/fhir/flag-icon",
+            "urlFolderIcon": "assets/img/icon-alert",
+            "extensionUrlColor": "http://hl7.org/fhir/flag-color",
+            "defaultColor": "#F14B43",
+            "urlExternalSystem": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/volant/Flag",
+            "urlExtensionProfesionPractitioner": "http://hn.indra.es/fhir/StructureDefinition/practitioner-profession",
+            "urlExtensionSpecialtyPractitioner": "http://hn.indra.es/fhir/StructureDefinition/practitioner-speciality",
+            "urlExtensionOrganizationPractitioner": "http://hn.indra.es/fhir/StructureDefinition/practitioner-organization",
+            "urlExtensionProfessionPractitionerRole": "http://hn.indra.es/fhir/practitioner-role/profession",
+            "urlHNAUTPractitionerRole": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnaut/fhir/PractitionerRole?practitioner=",
+            "urlExtensionDocumentVolant": "http://hl7.org/fhir/flag-document",
+            "urlSystemCategoryFlags": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat/fhir/CodeSystem/Alertas",
+            "reloadSeconds": 5,
+            "hasVolant": "0001",
+            "extensionUrlGmaPCAValue": "http://hn.indra.es/fhir/StructureDefinition/GmaPCAValue",
+            "urlCatalogAlert": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat/fhir/CodeSystem/Alertas",
+            "idVolantATNA": 1,
+            "shortNameVolantATNA": "Volant",
+            "auditATNAVolant": true,
+            "typeVolantATNA": {
+                "code": "01",
+                "display": "typeVolantPrueba",
+                "system": "typeVolantPrueba.com"
+            },
+            "subTypeVolantATNA": {
+                "code": "02",
+                "display": "subtypeVolantPrueba",
+                "system": "subtypeVolantPrueba.com"
+            },
+            "idAlertATNA": 2,
+            "shortNameAlertATNA": "Alert",
+            "auditATNAAlert": false,
+            "typeAlertATNA": {
+                "code": "01",
+                "display": "typeAlertPrueba",
+                "system": "typeAlertPrueba.com"
+            },
+            "subTypeAlertATNA": {
+                "code": "02",
+                "display": "subtypeAlertPrueba",
+                "system": "subtypeAlertPrueba.com"
+            }
+        },
+        "gui": {
+            "theme": "mymed",
+            "theme_default": "mymed_old",
+            "themes_availables": [
+                "mymed",
+                "bidafarma",
+                "mymed_old"
+            ]
+        },
+          "logoFooter": [
+              {
+                  "path": "assets/img/logosFooter/onesaitHealthCare_pie.svg",
+                  "height": "25px"
+              },
+              {
+                  "path": "assets/img/logosFooter/footer_logo1.svg",
+                  "marginLeft": "20px",
+                  "height": "25px"
+              },
+              {
+                  "path": "assets/img/logosFooter/footer_logo2.svg",
+                  "marginLeft": "20px",
+                  "height": "25px"
+              },
+              {
+                  "path": "assets/img/logosFooter/footer_logo3.svg",
+                  "marginLeft": "20px",
+                  "height": "25px"
+              },
+              {
+                  "path": "assets/img/logosFooter/footer_logo4.svg",
+                  "marginLeft": "20px",
+                  "height": "25px"
+              }
+          ],
+        "minCharactersNameSearchAdvanced": 3,
+        "modules": [
+            {
+                "name": "news",
+                "enabled": false,
+                "hasToolbar": false
+            },
+            {
+                "name": "help",
+                "enabled": true,
+                "hasToolbar": true
+            },
+            {
+                "name": "notifications",
+                "enabled": true,
+                "hasToolbar": true
+            },
+            {
+                "name": "chat",
+                "enabled": true,
+                "hasToolbar": true
+            },
+            {
+                "name": "voice",
+                "enabled": true,
+                "hasToolbar": true
+            },
+            {
+                "name": "patient",
+                "enabled": true,
+                "hasToolbar": false,
+                "params": {
+                    "maxPatientResults": 50
+                }
+            }
+        ],
+        "applications": [
+            {
+                "id": 1,
+                "shortName": "hnaut",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.users",
+                "description": "Módulo de gestión de usuarios",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/usuarios-recursos-2px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnaut",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNAUT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 2,
+                "shortName": "hncat",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.catalogs",
+                "description": "Gestión de catálogos de terminología",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/catalogos-2px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncat",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNCAT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 3,
+                "shortName": "mpi",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.population",
+                "description": "Maestro de pacientes",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/poblacional-2px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/mpi",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNPOB",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 4,
+                "shortName": "ishos",
+                "tabName": "MyMed-ADM",
+                "prefix": "",
+                "title": "label.smart.title.hosp",
+                "description": "Estación administrativa de hospitalización",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ishos",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNHOS",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 5,
+                "shortName": "isurg",
+                "tabName": "MyMed-ADM",
+                "prefix": "",
+                "title": "label.smart.title.emer",
+                "description": "Estación administrativa de urgencias",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/urgencias-2px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/isurg",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNURG",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 6,
+                "shortName": "hntri",
+                "tabName": "MyMed-ADM",
+                "prefix": "",
+                "title": "label.smart.title.triage",
+                "description": "Módulo de Triaje",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hntri",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNTRI",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 7,
+                "shortName": "isqui",
+                "tabName": "MyMed-ADM",
+                "prefix": "",
+                "title": "label.smart.title.quir",
+                "description": "Estación clínica de quirófano",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/quirofanos-2px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/isqui",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNQUI",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 8,
+                "shortName": "hd-medical-history",
+                "tabName": "HD",
+                "title": "label.smart.title.Health-Data",
+                "iconUrl": "assets/img/icons-apps/HD.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-medical-history/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHCE_HD_ACCESO",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 9,
+                "shortName": "xt-cardiac-risk",
+                "tabName": "CR",
+                "title": "label.smart.title.cardial-risk",
+                "iconUrl": "assets/img/icons-apps/cardiac-risk.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/xt-cardiac-risk/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "MMCRI",
+                "filters": [
+                    {
+                        "type": "age",
+                        "value": "60,"
+                    }
+                ],
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 10,
+                "shortName": "xt-bp-centiles",
+                "tabName": "BPC",
+                "title": "BP Centiles",
+                "iconUrl": "assets/img/icons-apps/percentiles.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/xt-bp-centiles/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "SMBPC",
+                "filters": [
+                    {
+                        "type": "age",
+                        "value": ",18"
+                    }
+                ],
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 11,
+                "shortName": "xt-growth-chart",
+                "tabName": "GrowthChart",
+                "title": "label.smart.title.growth-chart",
+                "iconUrl": "assets/img/icons-apps/growth.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/xt-growth-chart/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "SMGCH",
+                "filters": [
+                    {
+                        "type": "age",
+                        "value": ",20"
+                    }
+                ],
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 12,
+                "shortName": "hd-indicators",
+                "tabName": "HEALTH DATA",
+                "prefix": "",
+                "title": "label.smart.title.colon",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-indicators/launch.html",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 13,
+                "shortName": "hd-telea",
+                "tabName": "TELEA",
+                "prefix": "",
+                "title": "label.smart.title.telea",
+                "iconUrl": "assets/img/icons-apps/teleasistencia.svg",
+                "iconSearchUrl": "assets/img/icons-apps/2px/teleasistencia-2px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/telea/launch.html",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 14,
+                "shortName": "SearchPatient",
+                "tabName": "SearchPatient",
+                "type": "inner-view",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHDSK_ACCESS_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 15,
+                "shortName": "LastPatients",
+                "tabName": "LastPatients",
+                "type": "inner-view",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHDSK_ACCESS_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 16,
+                "shortName": "xt-bilirubin-risk-chart",
+                "tabName": "BRC",
+                "title": "label.smart.bilirubin-risk",
+                "iconUrl": "assets/img/icons-apps/billirrubina.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/xt-bilirubin-risk-chart/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "SMBRC",
+                "filters": [
+                    {
+                        "type": "age",
+                        "value": ",3"
+                    }
+                ],
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 17,
+                "shortName": "hd-indicators-epoc",
+                "tabName": "HEALTH DATA",
+                "prefix": "",
+                "title": "label.smart.title.epoc",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-indicators-epoc/launch.html",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 18,
+                "shortName": "snomed",
+                "tabName": "SNOMED",
+                "prefix": "",
+                "title": "SNOMED",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/snomed/",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 19,
+                "shortName": "System-Status-Dashboard",
+                "tabName": "STATS-SYS",
+                "prefix": "",
+                "title": "label.smart.title.systems",
+                "iconUrl": null,
+                "launchUrl": "http://{{ .Values.global.domain.host }}/app/kibana#/dashboard/System-Status-Dashboard",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 20,
+                "shortName": "Hospitalización",
+                "tabName": "STATS-HOS",
+                "prefix": "",
+                "title": "label.smart.title.hosp-act",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/hospitalizacion-2px.svg",
+                "launchUrl": "http://{{ .Values.global.domain.host }}/app/kibana#/dashboard/Hospitalización",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 21,
+                "shortName": "Urgencias",
+                "tabName": "STATS-URG",
+                "prefix": "",
+                "title": "label.smart.title.emer-act",
+                "iconUrl": null,
+                "launchUrl": "http://{{ .Values.global.domain.host }}/app/kibana#/dashboard/Urgencias",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 22,
+                "shortName": "Consultas-Externas",
+                "tabName": "STATS-CEX",
+                "prefix": "",
+                "title": "label.smart.title.cex-act",
+                "iconUrl": null,
+                "launchUrl": "http://{{ .Values.global.domain.host }}/app/kibana#/dashboard/Consultas-Externas",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 23,
+                "shortName": "Primaria",
+                "tabName": "STATS-AP",
+                "prefix": "",
+                "title": "label.smart.title.prim-act",
+                "iconUrl": null,
+                "launchUrl": "http://{{ .Values.global.domain.host }}/app/kibana#/dashboard/Primaria",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 24,
+                "shortName": "Calidad-de-la-información",
+                "tabName": "STATS-IQ",
+                "prefix": "",
+                "title": "label.smart.title.quality-inf",
+                "iconUrl": null,
+                "launchUrl": "http://{{ .Values.global.domain.host }}/app/kibana#/dashboard/Calidad-de-la-información",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "BIDAF_FAR_PROFILE",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 25,
+                "shortName": "telea",
+                "tabName": "EPOC",
+                "title": "label.smart.title.protocol-epoc",
+                "iconUrl": "assets/img/icons-apps/EPOC.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/telea/protocol/index.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "filters": [
+                    {
+                        "type": "age",
+                        "value": "77,79"
+                    }
+                ],
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 26,
+                "shortName": "hd-medical-history-cda",
+                "tabName": "HDCDA",
+                "title": "label.smart.title.cda",
+                "iconUrl": "assets/img/icons-apps/HDCDA.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-medical-history-cda/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "MMHDV",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 27,
+                "shortName": "HD-Consentimiento",
+                "tabName": "HD-Consentimiento",
+                "prefix": "",
+                "title": "Consentimiento",
+                "description": "Consentimiento",
+                "iconUrl": "assets/img/icons-apps/HD.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-consentimiento",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNPOB",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 28,
+                "shortName": "hd-formula-medica",
+                "tabName": "MF",
+                "title": "label.smart.title.mf",
+                "iconUrl": "assets/img/icons-apps/prescripciones.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-formula-medica",
+                "type": "smart",
+                "contextType": "Patient",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 29,
+                "shortName": "dsforms",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "Forms builder",
+                "description": "Diseñador de formularios",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/FORMS.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/dsforms",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNFORM_MANAG_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 30,
+                "shortName": "hncit",
+                "tabName": "HN",
+                "prefix": "",
+                "title": "label.smart.title.calendar",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/2px/calendario-2px.svg",
+                "description": "Agendamiento",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncit/#",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "CIT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 130,
+                "shortName": "ohbpm-ses",
+                "tabName": "PM",
+                "title": "SES CRONICOS",
+                "iconUrl": "assets/img/icons-apps/predeterminado.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-smart?pk=P_SES_PSRD",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHBPM_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 31,
+                "shortName": "ohbpm-smart",
+                "tabName": "PP",
+                "title": "label.smart.title.ohbpm.smart",
+                "iconUrl": "assets/img/icons-apps/patient-processes.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-smart?pk=",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHBPM_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                  "id": 311,
+                  "shortName": "ohbpm-smart-direct",
+                  "tabName": "ONESAIT HEALTHCARE",
+                  "title": "label.smart.title.ohbpm.smart",
+                  "iconUrl": "assets/img/icons-apps/patient-processes.svg",
+                  "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-smart",
+                  "type": "smart",
+                  "contextType": "Patient",
+                  "rolPrefix": "OHBPM_PATIENT",
+                  "maxInstances": 1,
+                  "auditATNA": true
+            },
+            {
+                "id": 32,
+                "shortName": "hnprefac",
+                "tabName": "TM",
+                "title": "label.smart.title.prefacturacion",
+                "iconUrl": "assets/img/icons-apps/invoicing-1px.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnprefac",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNPREFAC_MANAG_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 33,
+                "shortName": "ohbpm-web",
+                "tabName": "PM",
+                "prefix": "",
+                "title": "label.smart.title.ohbpm.web",
+                "iconUrl": "assets/img/icons-apps/process-manager.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHBPM_PROCESS_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 34,
+                "shortName": "hd-dashboard",
+                "tabName": "DASHBOARDS",
+                "prefix": "",
+                "title": "Dashboards",
+                "description": "Gestor de Dashboards",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-dashboard/launch.html",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "rolPrefix": "HNHCE_HD_ACCESO",
+                "auditATNA": true
+            },
+            {
+                "id": 35,
+                "shortName": "hncli",
+                "tabName": "EHR",
+                "title": "label.smart.title.estacion.clinica",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/EHR.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncli",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNCLI_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 36,
+                "shortName": "hnconf",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.configuration",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/SETTINGS.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNCON_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 37,
+                "shortName": "ohbpm-smart-P_CAPDI",
+                "tabName": "CAPDI",
+                "title": "Proceso CAPDI",
+                "iconUrl": "assets/img/icons-apps/CAPDI.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-smart?pk=P_CAPDI",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHBPM_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 38,
+                "shortName": "ohbpm-smart-P_CRONICOS",
+                "tabName": "CRONICIDAD",
+                "title": "Registro Cronicidad",
+                "iconUrl": "assets/img/icons-apps/cronicidad.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-smart?pk=P_CRONICOS",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHBPM_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 39,
+                "shortName": "ohhome",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "OH Homecare",
+                "description": "OH Homecare",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohhome",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHHOM_PATIENT_LIST_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 40,
+                "shortName": "ohhome-patient-program",
+                "tabName": "HOMECARE",
+                "prefix": "",
+                "title": "OH Homecare",
+                "description": "OH Homecare",
+                "iconUrl": "assets/img/icons-apps/HC.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohhome/#/patient-program",
+                "type": "smart",
+                "contextType": "Patient",
+                "parentApp": "ohhome",
+                "rolPrefix": "OHHOM_PATIENT_LIST_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "refreshParent": false
+            },
+            {
+                "id": 41,
+                "shortName": "hnqui",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "Surgical",
+                "description": "Surgical",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/SURGICAL.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnqui",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OH",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 42,
+                "shortName": "hngep",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "Requests",
+                "description": "Requests",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/REQUESTS.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hngep/#",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OH",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 44,
+                "shortName": "hd-medical-chronicity",
+                "tabName": "HD",
+                "title": "label.smart.title.chronicity",
+                "iconUrl": "assets/img/icons-apps/VC.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/smart/hd-medical-chronicity/launch.html",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHCE_HD_ACCESO_VISOR_CRO",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 45,
+                "shortName": "ohgca-activity",
+                "tabName": "TL",
+                "prefix": "",
+                "title": "To-do List",
+                "iconUrl": "assets/img/icons-apps/process-manager.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-prof",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHBPM_PROCESS_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 46,
+                "shortName": "ohbpm-smart-P_IMPRESION_TEST",
+                "tabName": "P_IMPRESION_TEST",
+                "title": "Proceso IMPRESION TEST",
+                "iconUrl": "assets/img/icons-apps/CAPDI.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-smart?pk=P_IMPRESION_TEST",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHBPM_PATIENT",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 47,
+                "shortName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.ec",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/EHR.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncli/#/favouriteLists",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 48,
+                "shortName": "CVADE",
+                "prefix": "",
+                "title": "label.smart.title.cvade",
+                "iconUrl": null,
+                "launchUrl": "http://localhost:4700/launch.html",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 49,
+                "shortName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.solicitudes",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/REQUESTS.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hngep/#",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "HNPOB",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 50,
+                "shortName": "ohhda",
+                "tabName": "HD",
+                "title": "label.smart.title.Health-Story",
+                "iconUrl": "assets/img/icons-apps/historia-de-salud.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohhda",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHCE_HD_ACCESO",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 51,
+                "shortName": "ohhda-valid",
+                "tabName": "HD",
+                "title": "Historia de salud validación",
+                "iconUrl": "assets/img/icons-apps/historia-de-salud.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohhda/#/viewer?module=valid",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHCE_HD_ACCESO",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 57,
+                "shortName": "ohale-chat",
+                "tabName": "ALECHAT",
+                "prefix": "",
+                "title": "Chat (temporal)",
+                "description": "Chat profesional",
+                "iconUrl": "assets/img/icons-apps/predeterminado.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohchat",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHPRM_PROGRAM_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "refreshParent": false
+            },
+            {    
+                "id": 58,    
+                "shortName": "ohbpm-designer",    
+                "tabName": "DA",    
+                "prefix": "",    
+                "title": "Dynamic activities",    
+                "iconUrl": "assets/img/icons-apps/process-manager.svg",    
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm-designer",    
+                "type": "smart",    
+                "contextType": "Practitioner",    
+                "rolPrefix": "OHBPM_PROCESS_",    
+                "maxInstances": 1,    
+                "auditATNA": true
+            },
+            {
+                "id": 90,
+                "shortName": "bi",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "Business Intelligence",
+                "description": "Business Intelligence",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/oh-bi",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHBI_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 91,
+                "shortName": "allergies",
+                "tabName": "HD",
+                "title": "Allergies",
+                "iconUrl": "assets/img/icons-apps/allergies.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohhdaale",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHCE_HD_ACCESO",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 93,
+                "shortName": "questionary",
+                "tabName": "HD",
+                "title": "label.smart.title.questionary",
+                "iconUrl": "assets/img/icons-apps/questionary.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/webcomponent-viewer/#/resource/questionary",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHDW_FORM",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 94,
+                "shortName": "questionary-bdac",
+                "tabName": "HD",
+                "title": "label.smart.title.questionary.bdac",
+                "iconUrl": "assets/img/icons-apps/questionary.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/webcomponent-viewer/#/bdac/questionnaires",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHDW_FORM",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 95,
+                "shortName": "questionary-ses",
+                "tabName": "HD",
+                "title": "label.smart.title.questionary.ses",
+                "iconUrl": "assets/img/icons-apps/questionary.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/webcomponent-viewer/#/ses/questionnaires",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHDW_FORM",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 96,
+                "shortName": "questionary-cribat",
+                "tabName": "HD",
+                "title": "Resumen Cribados",
+                "iconUrl": "assets/img/icons-apps/questionary.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/webcomponent-viewer/#/cribat/questionnaires",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "HNHDW_FORM",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 115,
+                "shortName": "ohprm",
+                "tabName": "PRM",
+                "title": "Program Manager",
+                "iconUrl": null,
+                "iconSearchUrl": "assets/img/icons-apps/EHR.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohprm",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHPRM_PROGRAM_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 116,
+                "shortName": "ohprm-patient",
+                "tabName": "PRM",
+                "prefix": "",
+                "title": "Program Manager",
+                "description": "Program Manager",
+                "iconUrl": "assets/img/icons-apps/historia-de-salud.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohprm/#/process",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHPRM_PROGRAM_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "refreshParent": false
+            },
+            {
+                "id": 117,
+                "shortName": "dashboard-center",
+                "tabName": "HD",
+                "title": "label.smart.title.dashboard.center",
+                "iconUrl": "assets/img/icons-apps/allergies.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/controlpanel/dashboards/view/4ffb315a-c428-4189-a258-e23ce54dff11",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "rolPrefix": "HNHCE_HD_ACCESO",
+                "params": [
+                    {
+                        "name": "Centro",
+                        "valueClass": "keycloakApiService",
+                        "value": "getCodeCenter"
+                    }
+                ] 
+            },
+            {
+                "id": 118,
+                "shortName": "dashbord-general",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.dashboard.general",
+                "description": "Dashboard general",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/controlpanel/dashboards/view/ab902289-f0c4-47d0-b8b6-31c8332c705c",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "rolPrefix": "HNHCE_HD_ACCESO"
+            },
+            {
+                "id": 119,
+                "shortName": "dashboard-indicators",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "label.smart.title.dashboard.indicators",
+                "description": "Dashboard indicators",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/controlpanel/dashboards/view/42262c3d-458c-42b2-9cb9-d138a8180043",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "rolPrefix": "HNHCE_HD_ACCESO"
+            },
+            {
+                "id": 666,
+                "shortName": "ohprm-patient-local",
+                "tabName": "PRM",
+                "prefix": "",
+                "title": "Program Manager Para pruebas en local",
+                "description": "Program Manager",
+                "iconUrl": "assets/img/icons-apps/historia-de-salud.svg",
+                "launchUrl": "http://{{ .Values.global.domain.host }}/ohprm/#/process",
+                "type": "smart",
+                "contextType": "Patient",
+                "rolPrefix": "OHPRM_PROGRAM_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true,
+                "refreshParent": false
+            },
+            {
+                "id": 120,
+                "shortName": "ohphm",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "Population Health",
+                "iconUrl": "assets/img/icons-apps/population-health.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohphm",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHPHM_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 121,
+                "shortName": "ohgca",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "Campaign Manager",
+                "iconUrl": "assets/img/icons-apps/campaign-manager.svg",
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohgca",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHGCA_ACCESS",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 122,
+                "shortName": "bi-oh-analytics",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "BI OH Analytics",
+                "description": "BI OH Analytics",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/oh-bi/#/dashboard-bi-home/LinkDesktop/Dashboard_ohanalyticsadm_04032024.efwdd/open",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHBI_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+            {
+                "id": 123,
+                "shortName": "bi-hi-admin",
+                "tabName": "ONESAIT HEALTHCARE",
+                "prefix": "",
+                "title": "BI HI Admin",
+                "description": "BI HI Admin",
+                "iconUrl": null,
+                "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/oh-bi/#/dashboard-bi-home/LinkDesktop/Dashboard_hiadmin_04032024.efwdd/open",
+                "type": "smart",
+                "contextType": "Practitioner",
+                "rolPrefix": "OHBI_",
+                "maxInstances": 1,
+                "auditATNA": true
+            },
+                {
+                    "id": 124,
+                    "shortName": "hncit-patient",
+                    "tabName": "HNCITPAT",
+                    "prefix": "",
+                    "title": "label.smart.title.calendar",
+                    "description": "HNCIT",
+                    "iconUrl": "assets/img/icons-apps/APPOINTMENTS-patient.svg",
+                    "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hncit/#/main/dsk/context-patient",
+                    "type": "smart",
+                    "contextType": "Patient",
+                    "rolPrefix": "CIT",
+                    "maxInstances": 1,
+                    "auditATNA": true,
+                    "refreshParent": false,
+                    "parentApp": "hncit"
+                },
+                {
+                    "id": 125,
+                    "shortName": "hngep-patient",
+                    "tabName": "HNGEPPATIENT",
+                    "prefix": "",
+                    "title": "Requests",
+                    "description": "Requests",
+                    "iconSearchUrl": "assets/img/icons-apps/REQUESTS-patient.svg",
+                    "iconUrl": "assets/img/icons-apps/REQUESTS-patient.svg",
+                    "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hngep/#/dsk/context-patient",
+                    "type": "smart",
+                    "contextType": "Patient",
+                    "rolPrefix": "OH",
+                    "maxInstances": 1,
+                    "auditATNA": true,
+                    "refreshParent": false,
+                    "parentApp": "hngep"
+                },
+                {
+                    "id": 126,
+                    "shortName": "ohcli-patient",
+                    "tabName": "EHR",
+                    "title": "label.smart.title.estacion.clinica",
+                    "iconUrl": "assets/img/icons-apps/EHR-patient.svg",
+                    "iconSearchUrl": "assets/img/icons-apps/EHR-patient.svg",
+                    "launchUrl": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohcli/#/history-viewer",
+                    "type": "smart",
+                    "contextType": "Patient",
+                    "rolPrefix": "HNCLI_",
+                    "maxInstances": 1,
+                    "auditATNA": true,
+                    "refreshParent": false,
+                    "parentApp": "ohcli"
+                }
+        ],
+        "workspaceCfgs": [
+            {
+                "id": 1,
+                "name": "default",
+                "title": "Welcome Workspace",
+                "type": "welcome",
+                "contextType": "Practitioner",
+                "loadOnStartup": true,
+                "appLinks": [
+                    {
+                        "refId": 36,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 12,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 6,
+                            "title": "label.populationStudies",
+                            "typeGroup": "populations",
+                            "order": 2
+                        }
+                    },
+                    {
+                        "refId": 17,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 6,
+                            "title": "label.populationStudies",
+                            "typeGroup": "populations",
+                            "order": 2
+                        }
+                    },
+                    {
+                        "refId": 2,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 1,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 3,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 90,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 33,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 120,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 121,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 45,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 13,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 3,
+                            "title": "label.moduleClinic",
+                            "typeGroup": "clinic",
+                            "order": 4
+                        }
+                    },
+                    {
+                        "refId": 18,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 3,
+                            "title": "label.moduleClinic",
+                            "typeGroup": "clinic",
+                            "order": 4
+                        }
+                    },
+                    {
+                        "refId": 14,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 4,
+                            "title": "Search Patient",
+                            "typeGroup": "search-patient",
+                            "order": 1,
+                            "advanced": true
+                        }
+                    },
+                    {
+                        "refId": 15,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 5,
+                            "title": "Last_Patients",
+                            "typeGroup": "last-results",
+                            "order": 3
+                        }
+                    },
+                    {
+                        "refId": 20,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 8,
+                            "title": "Monitorización",
+                            "typeGroup": "clinic",
+                            "order": 8
+                        }
+                    },
+                    {
+                        "refId": 21,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 8,
+                            "title": "Monitorización",
+                            "typeGroup": "clinic",
+                            "order": 8
+                        }
+                    },
+                    {
+                        "refId": 22,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 8,
+                            "title": "Monitorización",
+                            "typeGroup": "clinic",
+                            "order": 8
+                        }
+                    },
+                    {
+                        "refId": 23,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 8,
+                            "title": "Monitorización",
+                            "typeGroup": "clinic",
+                            "order": 8
+                        }
+                    },
+                    {
+                        "refId": 24,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 8,
+                            "title": "Monitorización",
+                            "typeGroup": "clinic",
+                            "order": 8
+                        }
+                    },
+                    {
+                        "refId": 19,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 8,
+                            "title": "Monitorización",
+                            "typeGroup": "clinic",
+                            "order": 8
+                        }
+                    },
+                    {
+                        "refId": 30,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 10,
+                            "title": "Profesionales",
+                            "typeGroup": "profesionales",
+                            "order": 10
+                        }
+                    },
+                    {
+                        "refId": 32,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 10,
+                            "title": "Profesionales",
+                            "typeGroup": "profesionales",
+                            "order": 10
+                        }
+                    },
+                    {
+                        "refId": 41,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 10,
+                            "title": "Profesionales",
+                            "typeGroup": "profesionales",
+                            "order": 10
+                        }
+                    },
+                    {
+                        "refId": 42,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 10,
+                            "title": "Profesionales",
+                            "typeGroup": "profesionales",
+                            "order": 10
+                        }
+                    },
+                    {
+                        "refId": 35,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 39,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 4,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 5,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 6,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 47,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 29,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 49,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 115,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "",
+                            "typeGroup": "",
+                            "order": 0
+                        }
+                    },
+                    {
+                        "refId": 117,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 6,
+                            "title": "label.populationStudies",
+                            "typeGroup": "populations",
+                            "order": 2
+                        }
+                    },
+                    {
+                        "refId": 118,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 6,
+                            "title": "label.populationStudies",
+                            "typeGroup": "populations",
+                            "order": 2
+                        }
+                    },
+                    {
+                        "refId": 119,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 6,
+                            "title": "label.populationStudies",
+                            "typeGroup": "populations",
+                            "order": 2
+                        }
+                    },
+                    {
+                        "refId": 58,
+                        "loadOnStartup": false,
+                        "group": {
+                          "id": 1,
+                          "title": "label.moduleManagement",
+                          "typeGroup": "management",
+                          "order": 6
+                        }
+                      },
+                    {
+                        "refId": 122,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    },
+                    {
+                        "refId": 123,
+                        "loadOnStartup": false,
+                        "group": {
+                            "id": 1,
+                            "title": "label.moduleManagement",
+                            "typeGroup": "management",
+                            "order": 6
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "HEALTH DATA",
+                "title": "Patient Apps",
+                "type": "multi-app",
+                "contextType": "Patient",
+                "loadOnStartup": false,
+                "appLinks": [
+                    {
+                        "refId": 9,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 10,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 11,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 16,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 25,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 26,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 27,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 28,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 31,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 37,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 130,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 38,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 44,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 50,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 51,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 91,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 93,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 94,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 95,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 96,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 116,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 124,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 125,
+                        "loadOnStartup": false
+                    },
+                    {
+                        "refId": 126,
+                        "loadOnStartup": false
+                    }
+                ]
+            }
+        ]
+      }
+    }
+  
+  env.json: |-
+    {
+      "services_host": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}",
+      "keycloak-js-dist": "{{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/hnconf/ohsso-lib.js",
+      "app_theme": "./assets/css/themes/default",
+      "name_desktop_app_patient_program": "ohhome-patient-program"
+    }
+
+  identifiers_demographic.json: |-
+    {
+      "entry": [
+        {
+            "system": [
+                "1.1.1.2"
+            ],
+            "display": "HN ID"
+        },
+        {
+            "system": [
+                "2.16.724.4.40.222",
+                "2.16.724.4.4.5.200.50.200"
+            ],
+            "display": "CIPAUT"
+        },
+        {
+            "system": [
+                "112.111.124.222"
+            ],
+            "display": "DNI"
+        }
+      ]
+    }
+
+
+
