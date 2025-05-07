@@ -50,16 +50,10 @@ spec:
             - name: webcomponent-viewer-front-cfg
               mountPath: /usr/share/nginx/html/webcomponent-viewer/assets/config
               readOnly: true
-
             - name: hnhome-ohsso-front
               readOnly: true
               mountPath: /usr/share/nginx/html/webcomponent-viewer/keycloak.json
               subPath: keycloak.json
-            - name: webcomponent-viewer-front-keycloak-cfg ---- SUSTITUIR por el genérico
-              mountPath: /usr/share/nginx/html/webcomponent-viewer/keycloak.json
-              subPath: keycloak.json
-              readOnly: true
-
             - name: nginx-front-cfg
               readOnly: true
               mountPath: /etc/nginx/nginx.conf
@@ -68,7 +62,6 @@ spec:
               readOnly: true
               mountPath: /usr/share/nginx/html/webcomponent-viewer/ohsso-lib.js
               subPath: ohsso-lib.js
-
           resources:
             limits:
               cpu: 50m
@@ -82,14 +75,10 @@ spec:
         - name: webcomponent-viewer-front-cfg
           configMap:
             name: webcomponent-viewer-front-cfg
-
         - name: hnhome-ohsso-front
           configMap:
             name: hnhome-ohsso-front
             defaultMode: 420
-        - name: webcomponent-viewer-front-keycloak-cfg -- SUSTITUIR por el generico
-          configMap:
-            name: webcomponent-viewer-front-keycloak-cfg
         - name: nginx-front-cfg
           configMap:
             name: nginx-front-cfg
