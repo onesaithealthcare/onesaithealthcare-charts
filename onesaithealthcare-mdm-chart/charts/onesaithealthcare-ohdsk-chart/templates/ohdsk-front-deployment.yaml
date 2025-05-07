@@ -1,0 +1,129 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ohdsk-front
+  labels:
+    app: ohdsk-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ohdsk-front
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ohdsk-front
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: docksdtr.indra.es
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              cpu: 50m
+              memory: 48Mi
+            requests:
+              cpu: 25m
+              memory: 16Mi
+          readinessProbe:
+            httpGet:
+              path: /desktop-hd/index.html
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: ohdsk-front
+          livenessProbe:
+            httpGet:
+              path: /desktop-hd/index.html
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: hnhome-ohsso-front
+              readOnly: true
+              mountPath: /usr/share/nginx/html/desktop-hd/keycloak.json
+              subPath: keycloak.json
+            - name: ohdsk-front-identifiers-demographic-cfg
+              readOnly: true
+              mountPath: >-
+                /usr/share/nginx/html/desktop-hd/assets/api/module/patient/identifiers_demographic.json
+              subPath: identifiers_demographic.json
+            - name: ohdsk-front-desktop-cfg
+              readOnly: true
+              mountPath: >-
+                /usr/share/nginx/html/desktop-hd/assets/api/desktop/user/desktop-config.json
+              subPath: desktop-config.json
+            - name: ohdsk-front-env-cfg
+              readOnly: true
+              mountPath: /usr/share/nginx/html/desktop-hd/assets/config/env.json
+              subPath: env.json
+            - name: nginx-front-cfg
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+          terminationMessagePolicy: File
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohdsk-front@{{ .Values.ohdsk.sha256_front }}'
+      serviceAccount: oh-module
+      volumes:
+        - name: hnhome-ohsso-front
+          configMap:
+            name: hnhome-ohsso-front
+            defaultMode: 420
+        - name: nginx-front-cfg
+          configMap:
+            name: nginx-front-cfg
+            defaultMode: 420
+        - name: ohsso-lib
+          configMap:
+            name: ohsso-lib
+            defaultMode: 420
+        - name: ohdsk-front-identifiers-demographic-cfg
+          configMap:
+            name: ohdsk-front-cfg
+            items:
+              - key: identifiers_demographic.json
+                path: identifiers_demographic.json
+            defaultMode: 420
+        - name: ohdsk-front-desktop-cfg
+          configMap:
+            name: ohdsk-front-cfg
+            items:
+              - key: desktop-config.json
+                path: desktop-config.json
+            defaultMode: 420
+        - name: ohdsk-front-env-cfg
+          configMap:
+            name: ohdsk-front-cfg
+            items:
+              - key: env.json
+                path: env.json
+            defaultMode: 420
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+

@@ -89,4 +89,9 @@ onesaithealthcare_ohwcviewer_chart:
   ohwcviewer:
     # image-version: 4.6.0
     sha256_front: sha256:bec19bde4a6afb7d63a1f015491eb6a1471689af16778a73124b01000849065e
+onesaithealthcare_ohdsk_chart:
+  ohdsk:
+    # image-version: 3.23.0
+    sha256_front: sha256:f40e35eba9af6378d9901ec471bf310978faa88d09aaf7563718fd5d3182a5b1
+
 
