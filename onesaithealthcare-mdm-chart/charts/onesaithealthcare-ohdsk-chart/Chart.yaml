@@ -1,14 +1,14 @@
 apiVersion: v2
-name: onesaithealthcare_ohwcform_chart
-description: Onesait Healthcare OHWCFORM chart for k8s
+name: onesaithealthcare_ohdsk_chart
+description: Onesait Healthcare OHDSK chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
-version: "4.9.0"
-appVersion: "4.9.0"
+version: "3.23.0"
+appVersion: "3.23.0"
 keywords:
   - Minsait
   - Onesait Healthcare
-  - OHWCFORM
+  - OHDSK
 maintainers:
   - name: Onesait Healthcare
     email: soporteosh@indra.es
