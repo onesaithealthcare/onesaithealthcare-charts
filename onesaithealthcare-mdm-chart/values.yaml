@@ -80,3 +80,13 @@ onesaithealthcare_ohatn_chart:
       schema: us_hnatna # usually the same as user
       user: us_hnatna
       pass: 
+
+onesaithealthcare_ohwcform_chart:
+  ohwcform:
+    # image-version: 4.9.0
+    sha256_front: sha256:c72f8931a6c76e959ade20d41d0dd3b04768ac043890d29d049d6dfd99964413
+onesaithealthcare_ohwcviewer_chart:
+  ohwcviewer:
+    # image-version: 4.6.0
+    sha256_front: sha256:bec19bde4a6afb7d63a1f015491eb6a1471689af16778a73124b01000849065e
+

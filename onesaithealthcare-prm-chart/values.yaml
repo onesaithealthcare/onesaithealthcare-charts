@@ -1,0 +1,23 @@
+environment:
+  type: dev # Opciones: dev, prod 
+domain:
+  protocol: # Opciones: http, https
+  host:
+  istio: false
+docker:
+  registry:
+    host: docksdtr.indra.es
+    project: multhn_cmhn20_2
+prm:
+  app:
+    namespace: oh-release
+    host: oh-release.apps.lab.openshift.com
+    backend_app: ohprm-api
+    front_app: ohprm-front
+    url_server: https://oh-release.apps.lab.openshift.com
+    url_prof_server: https://oh-release-prof.apps.lab.openshift.com
+    cipaut: 2.16.724.4.40.222
+  version:
+    back_image_tag: 4.6.0
+    front_image_tag: 4.6.0
+

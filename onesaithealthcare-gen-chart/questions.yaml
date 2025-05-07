@@ -1,0 +1,184 @@
+questions:
+  - variable: environment.type
+    default: dev
+    description: "Selecciona el tipo de entorno (dev o prod)"
+    type: enum
+    options:
+      - dev
+      - prod
+
+  - variable: domain.protocol
+    default: ""
+    description: "Protocolo del dominio (http o https)"
+    type: enum
+    options:
+      - http
+      - https
+
+  - variable: domain.host
+    default: ""
+    description: "Introduce el host del dominio"
+    type: string
+
+  - variable: domain.istio
+    default: false
+    description: "¿Istio habilitado?"
+    type: boolean
+
+  - variable: docker.registry.host
+    default: docksdtr.indra.es
+    description: "Host del registro Docker"
+    type: string
+
+  - variable: docker.registry.project
+    default: multhn_cmhn20_2
+    description: "Proyecto del registro Docker"
+    type: string
+
+  - variable: gen.app.name_back
+    default: ohgen-back
+    description: "Nombre del backend de la aplicación GEN"
+    type: string
+
+  - variable: gen.app.name_front
+    default: ohgen-front
+    description: "Nombre del frontend de la aplicación GEN"
+    type: string
+
+  - variable: gen.app.name_front_designer
+    default: ohgen-designer-front
+    description: "Nombre del diseñador del frontend de la aplicación GEN"
+    type: string
+
+  - variable: gen.app.name_front_integration
+    default: ohgen-integration-front
+    description: "Nombre del frontend de integración de la aplicación GEN"
+    type: string
+
+  - variable: gen.app.name_front_webcomponents
+    default: ohgen-webcomponents
+    description: "Nombre del frontend de componentes web de la aplicación GEN"
+    type: string
+
+  - variable: gen.app.host
+    default: oh-modules.apps.lab.openshift.com
+    description: "Host de la aplicación GEN"
+    type: string
+
+  - variable: gen.app.replicas
+    default: 1
+    description: "Número de réplicas para el backend de la aplicación GEN"
+    type: int
+
+  - variable: gen.app.replicas_front_designer
+    default: 1
+    description: "Número de réplicas para el diseñador del frontend de la aplicación GEN"
+    type: int
+
+  - variable: gen.app.replicas_front_integration
+    default: 1
+    description: "Número de réplicas para el frontend de integración de la aplicación GEN"
+    type: int
+
+  - variable: gen.app.log.level
+    default: WARN
+    description: "Nivel de log para la aplicación GEN"
+    type: string
+
+  - variable: gen.app.log.sql_level
+    default: ERROR
+    description: "Nivel de log SQL para la aplicación GEN"
+    type: string
+
+  - variable: gen.database.driver
+    default: oracle.jdbc.driver.OracleDriver
+    description: "Driver JDBC para la base de datos"
+    type: string
+
+  - variable: gen.database.url
+    default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    description: "URL de conexión a la base de datos"
+    type: string
+
+  - variable: gen.database.user
+    default: own_dsf
+    description: "Usuario de la base de datos"
+    type: string
+
+  - variable: gen.database.pass
+    default: own_dsf
+    description: "Contraseña de la base de datos"
+    type: password
+
+  - variable: gen.database.default_schema
+    default: OWN_DSF
+    description: "Esquema predeterminado de la base de datos"
+    type: string
+
+  - variable: gen.database.type
+    default: Oracle
+    description: "Tipo de base de datos"
+    type: string
+
+  - variable: gen.database.dialect
+    default: org.hibernate.dialect.Oracle10gDialect
+    description: "Dialect de Hibernate para la base de datos"
+    type: string
+
+  - variable: gen.database.initial_size
+    default: 2
+    description: "Tamaño inicial del pool de conexiones"
+    type: int
+
+  - variable: gen.database.max_size
+    default: 50
+    description: "Tamaño máximo del pool de conexiones"
+    type: int
+
+  - variable: gen.database.min_idle
+    default: 5
+    description: "Número mínimo de conexiones inactivas"
+    type: int
+
+  - variable: gen.database.max_idle
+    default: 20
+    description: "Número máximo de conexiones inactivas"
+    type: int
+
+  - variable: gen.version.back_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del backend"
+    type: string
+
+  - variable: gen.version.front_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend"
+    type: string
+
+  - variable: gen.version.front_designer_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del diseñador del frontend"
+    type: string
+
+  - variable: gen.version.front_integration_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend de integración"
+    type: string
+
+  - variable: gen.version.front_webcomponents_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend de componentes web"
+    type: string
+
+  - variable: con.protocol
+    default: https
+    description: "Protocolo de conexión (http o https)"
+    type: enum
+    options:
+      - http
+      - https
+
+  - variable: con.host
+    default: oh-modules.apps.lab.openshift.com
+    description: "Host de conexión"
+    type: string

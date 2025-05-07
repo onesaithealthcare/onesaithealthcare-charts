@@ -80,11 +80,7 @@
         },
         "module": {
           "type": "object",
-          "properties": {
-            "ohbi_app_name": {
-              "type": "string",
-			  "description": "Nombre del módulo"
-            },
+          "properties": {            
             "namespace": {
               "type": "string",
 			  "description": "Namespace"
@@ -94,7 +90,7 @@
 			  "description": "GATEWAY DEL VIRTUAL SERVICE"
             }
           },
-          "required": ["ohbi_app_name"]
+          "required": ["namespace"]
         },
         "mail": {
           "type": "object",

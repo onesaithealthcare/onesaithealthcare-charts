@@ -22,6 +22,11 @@ Este Chart instala los módulos core de la solución.
 - OHMPI
 - OHATN
 
+## WebComponent genéricos
+
+- OHWCFORM
+- OHWCVIEWER
+
 ## Instalación
 
 1. Agregar el repositorio Helm (si no se tenía ya agregado):

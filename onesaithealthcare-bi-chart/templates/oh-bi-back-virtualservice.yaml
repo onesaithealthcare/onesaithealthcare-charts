@@ -2,7 +2,7 @@
 kind: VirtualService
 apiVersion: networking.istio.io/v1beta1
 metadata:
-  name: {{ .Values.bi.module.ohbi_app_name }}
+  name: oh-bi-back
 spec:
   gateways:
     - {{ .Values.global.domain.gateway }}
@@ -20,7 +20,7 @@ spec:
             prefix: /hi-ee/
       route:
         - destination:
-            host: {{ .Values.bi.module.ohbi_app_name }}.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            host: oh-bi-back.{{ .Values.bi.module.namespace }}.svc.cluster.local
             port:
               number: 8085
       timeout: 1000s
@@ -37,7 +37,7 @@ spec:
         uri: /hi-ee/
       route:
         - destination:
-            host: {{ .Values.bi.module.ohbi_app_name }}.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            host: oh-bi-back.{{ .Values.bi.module.namespace }}.svc.cluster.local
             port:
               number: 8085
       timeout: 1000s
@@ -54,7 +54,7 @@ spec:
         uri: /hi-ee/images/
       route:
         - destination:
-            host: {{ .Values.bi.module.ohbi_app_name }}.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            host: oh-bi-back.{{ .Values.bi.module.namespace }}.svc.cluster.local
             port:
               number: 8085
       timeout: 1000s
@@ -69,7 +69,7 @@ spec:
             prefix: /oh-biservice/
       route:
         - destination:
-            host: {{ .Values.bi.module.ohbi_app_name }}.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            host: oh-bi-back.{{ .Values.bi.module.namespace }}.svc.cluster.local
             port:
               number: 8085
       timeout: 1000s
@@ -86,7 +86,7 @@ spec:
         uri: /hi-ee/js/
       route:
         - destination:
-            host: {{ .Values.bi.module.ohbi_app_name }}.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            host: oh-bi-back.{{ .Values.bi.module.namespace }}.svc.cluster.local
             port:
               number: 8085
       timeout: 1000s

@@ -45,12 +45,6 @@ questions:
     type: string
     required: true
 
-  - variable: bi.module.ohbi_app_name
-    label: "Nombre del módulo"
-    description: "Nombre del módulo"
-    type: string
-    required: true
-
   - variable: bi.module.namespace
     label: "Namespace"
     description: "Namespace"

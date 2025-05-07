@@ -1,21 +1,21 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: {{ .Values.bi.module.ohbi_app_name }}
+  name: oh-bi-back
 spec:
   selector:
     matchLabels:
-      app: oh-bi
+      app: oh-bi-back
   template:
     metadata:
       labels:
-        app: oh-bi
+        app: oh-bi-back
     spec:
       imagePullSecrets:
         - name: 'oh-docker-creds'
       serviceAccountName: oh-module
       containers:
-        - name: oh-bi
+        - name: oh-bi-back
           resources:
             limits:
               cpu: 300m
@@ -51,7 +51,7 @@ spec:
       volumes:
         - name: configmap
           configMap:
-              name: {{ .Values.bi.module.ohbi_app_name }}-cfg
+              name: oh-bi-back-cfg
               items:
                 - key: customAuthentication.properties
                   path: customAuthentication.properties

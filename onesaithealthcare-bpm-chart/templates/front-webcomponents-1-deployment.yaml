@@ -1,0 +1,55 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.bpm.app.name }}-webcomponents-front
+  labels:
+    app: {{ .Values.bpm.app.name }}-webcomponents-front
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  replicas: {{ .Values.bpm.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.bpm.app.name }}-webcomponents-front
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.bpm.app.name }}-webcomponents-front
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.docker.registry.host }}
+      serviceAccountName: oh-module
+      containers:
+        - name: ohbpm-webcomponents-front
+          image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohbpm-webcomponents-front:{{ .Values.bpm.version.webcomponents_front_image_tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /ohbpm-webcomponents/remoteEntry.js
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /ohbpm-webcomponents/remoteEntry.js
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          resources:
+            limits:
+              cpu: 50m
+              memory: 48Mi
+            requests:
+              cpu: 25m
+              memory: 16Mi
+          imagePullPolicy: Always

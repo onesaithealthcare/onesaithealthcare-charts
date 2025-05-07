@@ -1,0 +1,42 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+kind: VirtualService 
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: oh-bi-front
+spec:
+  gateways:
+    - {{ .Values.global.domain.gateway }}
+  hosts:
+    - '*'
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '443'
+            X-Forwarded-Proto: https
+      match:
+        - uri:
+            exact: /oh-bi
+      rewrite:
+        uri: /oh-bi/
+      route:
+        - destination:
+            host: oh-bi-front.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            port:
+              number: 8080
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
+            X-Forwarded-Port: '443'
+            X-Forwarded-Proto: https
+      match:
+        - uri:
+            prefix: /oh-bi/
+      route:
+        - destination:
+            host: oh-bi-front.{{ .Values.bi.module.namespace }}.svc.cluster.local
+            port:
+              number: 8080
+{{- end }}

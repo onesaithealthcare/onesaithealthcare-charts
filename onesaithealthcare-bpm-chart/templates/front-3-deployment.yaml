@@ -1,0 +1,95 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.bpm.app.name }}-front
+  labels:
+    app: {{ .Values.bpm.app.name }}-front
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  replicas: {{ .Values.bpm.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.bpm.app.name }}-front
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.bpm.app.name }}-front
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.docker.registry.host }}
+      serviceAccountName: oh-module
+      containers:
+        - name: ohbpm-front
+          image: {{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohbpm-front:{{ .Values.bpm.version.front_image_tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /ohbpm/index.html
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /ohbpm/index.html
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          volumeMounts:
+            - name: {{ .Values.bpm.app.name }}-front-cfg
+              mountPath: /usr/share/nginx/html/ohbpm/assets/config
+              readOnly: true
+            - name: {{ .Values.bpm.app.name }}-front-i18n
+              mountPath: /usr/share/nginx/html/ohbpm/res/i18n
+              readOnly: true
+            - name: hnhome-ohsso-front
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohbpm/keycloak.json
+              subPath: keycloak.json
+            - name: nginx-front-cfg
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: ohsso-lib
+              readOnly: true
+              mountPath: /usr/share/nginx/html/ohbpm/ohsso-lib.js
+              subPath: ohsso-lib.js
+
+          resources:
+            limits:
+              cpu: 50m
+              memory: 48Mi
+            requests:
+              cpu: 25m
+              memory: 16Mi
+          imagePullPolicy: Always
+
+      volumes:
+        - name: ohbpm-front-cfg
+          configMap:
+            name: {{ .Values.bpm.app.name }}-front-cfg
+        - name: ohbpm-front-i18n
+          configMap:
+            name: {{ .Values.bpm.app.name }}-front-i18n
+        - name: hnhome-ohsso-front
+          configMap:
+            name: hnhome-ohsso-front
+            defaultMode: 420
+        - name: nginx-front-cfg
+          configMap:
+            name: nginx-front-cfg
+            defaultMode: 420
+        - name: ohsso-lib
+          configMap:
+            name: ohsso-lib
+            defaultMode: 420
