@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: {{ .Values.dts.module.app_name }}-properties-cfg
-  namespace: {{ .Values.dts.module.namespace }}
+#  namespace: {{ .Values.dts.module.namespace }}
   managedFields:
     - manager: Mozilla
       operation: Update
@@ -19,7 +19,7 @@ data:
 
     longQueryConfig.split=true
     longQueryConfig.blockLimit=500
- 
+
     route.from={{env:route.from:timer://runOnce?repeatCount=1}}
     path.file={{env:path.file:C:/Datos/IEngine/}}
     threads.pool.size={{env:threads.pool.size:10}}

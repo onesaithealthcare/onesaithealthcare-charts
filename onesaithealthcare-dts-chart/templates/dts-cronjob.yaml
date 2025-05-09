@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ .Values.dts.module.app_name }}
-  namespace: {{ .Values.dts.module.namespace }}
+#  namespace: {{ .Values.dts.module.namespace }}
 spec:
   schedule: {{ .Values.dts.module.schedule }}
   concurrencyPolicy: "Forbid"
