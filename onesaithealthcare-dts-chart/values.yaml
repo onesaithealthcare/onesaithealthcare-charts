@@ -8,6 +8,14 @@ global:
 dts:
   sha256:
     back: sha256:b4a9de8e99b0c2944e92de5e548938515026c6bbc315a1099f1466955aee5abd
+  application:
+    route_from: "{{env:route.from:timer://runOnce?repeatCount=1}}"
+    path_file: "{{env:path.file:C:/Datos/IEngine/}}"
+    threads_pool_size: "{{env:threads.pool.size:10}}"
+    threads_max_pool_size: "{{env:threads.max_pool.size:20}}"
+    threads_queue_size: "{{env:threads.queue.size:1000}}"
+    retry_number: "{{env:retry.number:3}}"
+    
   module:
     app_name: ohdts
     namespace: oh-dts
