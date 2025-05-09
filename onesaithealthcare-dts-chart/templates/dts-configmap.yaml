@@ -43,7 +43,7 @@ data:
     iengine.database.password = ${database.password:{{ .Values.dts.database.iengine.password }} }
 
 
-    datastore.database.driverClassName = ${{{ dts.database.datastore.driver }} }
+    datastore.database.driverClassName = ${ {{ dts.database.datastore.driver }} }
     datastore.database.url = ${database.url:{{ dts.database.datastore.url }} }
     datastore.database.minPoolSize=${database.minPoolSize:2}
     datastore.database.maxPoolSize=${database.maxPoolSize:20}
