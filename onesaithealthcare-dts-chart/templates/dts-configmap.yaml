@@ -1,0 +1,140 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.dts.module.app_name }}-properties-cfg
+  namespace: {{ .Values.dts.module.namespace }}
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:externalResources_client_default_properties_datastore___application.properties': {}
+          'f:externalResources_client_default_properties_datastore___constants.properties': {}
+data:
+  externalResources_client_default_properties_datastore___application.properties: |-
+    # Propiedades flujo
+
+    longQueryConfig.split=true
+    longQueryConfig.blockLimit=500
+ 
+    route.from={{env:route.from:timer://runOnce?repeatCount=1}}
+    path.file={{env:path.file:C:/Datos/IEngine/}}
+    threads.pool.size={{env:threads.pool.size:10}}
+    threads.max_pool.size={{env:threads.max_pool.size:20}}
+    threads.queue.size={{env:threads.queue.size:1000}}
+    retry.number={{env:retry.number:3}}
+
+    datasource.database.driverClassName = ${ {{ .Values.dts.database.datasource.driver }} }
+    datasource.database.url = ${database.url:{{ .Values.dts.database.datasource.url }} }
+    datasource.database.minPoolSize=${database.minPoolSize:2}
+    datasource.database.maxPoolSize=${database.maxPoolSize:20}
+    datasource.database.username = ${database.username:{{ .Values.dts.database.datasource.username }} }
+    datasource.database.password = ${database.password:{{ .Values.dts.database.datasource.password }} }
+
+
+    iengine.database.driverClassName = ${ {{ .Values.dts.database.iengine.driver }} }
+    iengine.database.url = ${database.url:{{ .Values.dts.database.iengine.url }} }
+    iengine.database.minPoolSize=${database.minPoolSize:2}
+    iengine.database.maxPoolSize=${database.maxPoolSize:20}
+    iengine.database.username = ${database.username:{{ .Values.dts.database.iengine.username }} }
+    iengine.database.password = ${database.password:{{ .Values.dts.database.iengine.password }} }
+
+
+    datastore.database.driverClassName = ${{{ dts.database.datastore.driver }} }
+    datastore.database.url = ${database.url:{{ dts.database.datastore.url }} }
+    datastore.database.minPoolSize=${database.minPoolSize:2}
+    datastore.database.maxPoolSize=${database.maxPoolSize:20}
+    datastore.database.username = ${database.username:{{ .Values.dts.database.datastore.username }} }
+    datastore.database.password = ${database.password:{{ .Values.dts.database.datastore.password }} }
+
+
+    # Propiedades Camel y Spring
+
+    server.port=${actuator.port:8090}
+
+    camel.springboot.name = datastore
+    camel.springboot.tracing = false
+    camel.springboot.main-run-controller=true
+    camel.springboot.xml-routes = ${path.dir.external.client.id}/routes/routes_${id.module.iengine.routes.name}.xml
+    sql.camel.springboot.path = ${path.dir.external.client.id}/sql/${id.module.iengine}
+    #camel.springboot.duration-max-idle-seconds=60
+
+    spring.main.allow-bean-definition-overriding = true
+    spring.main.web-application-type=none
+
+    timer.period = 2000
+
+    management.endpoints.web.exposure.include=info,health,camelroutes,hawtio,jolokia
+
+    hawtio.authenticationEnabled=false
+
+    # turn on actuator health check
+    management.endpoint.health.enabled = true
+    management.endpoint.camelroutes.enabled = true
+    management.endpoint.camelroutes.read-only = true
+
+    logging.level.es.minsait.integration=${logging.level:INFO}
+    logging.level.org.apache.http=${logging.level:INFO}
+    logging.level.org.apache.camel=${logging.level:INFO}
+    logging.level.printStackTrace.byExecutionBatchOrList=true
+    logging.level.printStackTrace.byRegister=true
+
+    management.endpoint.metrics.enabled=true
+    management.endpoints.web.exposure.include=*
+    management.endpoint.prometheus.enabled=true
+    management.metrics.export.prometheus.enabled=true
+
+    camel.component.http.connections-per-route=100
+    camel.component.http.max-total-connections=1000
+    camel.component.http.connect-timeout=10000
+    camel.component.http.connection-request-timeout=30000
+  externalResources_client_default_properties_datastore___constants.properties: |-
+    ##################################
+    # CONSTANT PARAMETERS: INIT ######
+    ##################################
+    # URLs IENGINE and CATALOGS
+    # MySql
+    #path.insert.timemark = bdExtract/sql/MySql/iengine/insertTimeMark.sql
+    #path.insert.audit.detail = bdExtract/sql/MySql/iengine/insertAuditDetail.sql
+    #path.query.catalogs.path = bdExtract/sql/MySql/catalogs/getCatalogs.sql
+    #path.query.catalogs.values.path = bdExtract/sql/MySql/catalogs/queryCatalogValues.sql
+    #path.query.catalogs.online.value.path = bdExtract/sql/MySql/catalogs/queryCatalogOnlineValue.sql
+    # Oracle
+    path.insert.timemark = bdExtract/sql/Oracle/iengine/insertTimeMark.sql
+    path.insert.audit.detail = bdExtract/sql/Oracle/iengine/insertAuditDetail.sql
+    path.query.catalogs.path = bdExtract/sql/Oracle/catalogs/getCatalogs.sql
+    path.query.catalogs.values.path = bdExtract/sql/Oracle/catalogs/queryCatalogValues.sql
+    path.query.catalogs.online.value.path = bdExtract/sql/Oracle/catalogs/queryCatalogOnlineValue.sql
+    ##################################
+    # CONSTANT PARAMETERS: END #######
+    ##################################
+
+
+
+    ##################################
+    # USER PARAMETERS ################
+    ##################################
+    # routes and properties: urls base
+    # MySql
+    #route.source.urlSql = MySql
+    #properties.bdProcess.urlSql = MySql
+    #properties.bdProcess.AuditFK = MySql
+    #properties.disable.constraints =
+    # Oracle
+    route.source.urlSql = Oracle
+    properties.bdProcess.urlSql = Oracle
+    properties.bdProcess.AuditFK = Oracle
+    properties.disable.constraints = datastore/DummySelect.sql
+
+
+    ##################################
+    # PAR�METROS PARA PROCESAMIENTO DE INGESTA
+    ##################################
+    # Par�metro para establecer un m�ximo en el intervalo de la ingesta para que la fecha 'processEndDate' sea como m�ximo 'maxDays' d�as mayor que 'processStartDate'
+    timemark.max.days = {{ .Values.dts.module.max_days }}
+    folder.properties.database.delete = bdDelete/properties
+    folder.properties.database.extract = bdExtract/properties
+    folder.properties.database.process = bdProcess

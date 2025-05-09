@@ -1,0 +1,128 @@
+questions:
+
+  - variable: global.environment.type
+    default: dev
+    description: "Environment type"
+    type: enum
+    options:
+      - dev
+      - prod
+    required: true
+
+  - variable: global.docker.registry.host
+    default: "docksdtr.indra.es"
+    description: "Docker registry host"
+    type: string
+    required: true
+
+  - variable: global.docker.registry.project
+    default: "multhn_cmhn20_2"
+    description: "Docker registry project"
+    type: string
+    required: true
+
+  - variable: dts.module.app_name
+    default: ohdts
+    description: "Nombre del módulo"
+    type: string
+    required: true
+
+  - variable: dts.module.namespace
+    default: oh-dts
+    description: "Nombre del espacio"
+    type: string
+    required: true
+
+  - variable: dts.module.schedule
+    description: "Periodicidad del cronJob (Ejemplo: 10 0 * * * ) [Minuto (0 - 59) Hora (0 - 23) Día del mes Mes (1 - 12) Día de la semana (0 - 6) (Domingo = 0)]"
+    type: string
+    required: true
+
+  - variable: dts.module.cfg.insercion
+    default: insercion-cfg
+    description: "Nombre del ConfigMap de las queries y properties de inserción"
+    type: string
+    required: true
+
+  - variable: dts.module.cfg.extraccion
+    default: extraccion-cfg
+    description: "Nombre del ConfigMap de las queries y properties de extracción"
+    type: string
+    required: true
+
+  - variable: dts.module.cfg.routes
+    default: routes-cfg
+    description: "Nombre del ConfigMap del routes"
+    type: string
+    required: true
+
+  - variable: dts.database.datasource.driver
+    default: database.driverClassName:oracle.jdbc.driver.OracleDriver
+    description: "Driver de base de datos para conexión al origen (Ejemplo Oracle: database.driverClassName:oracle.jdbc.driver.OracleDriver)"
+    type: string
+    required: true
+
+  - variable: dts.database.datasource.url
+    default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    description: "Url de la base de datos origen (Ejemplo Oracle: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed)"
+    type: string
+    required: true
+
+  - variable: dts.database.datasource.username
+    description: "Usuario de la base de datos origen"
+    type: string
+    required: true
+
+  - variable: dts.database.datasource.password
+    description: "Contraseña de la base de datos de origen"
+    type: string
+    required: true
+
+  - variable: dts.database.iengine.driver
+    default: database.driverClassName:oracle.jdbc.driver.OracleDriver
+    description: "Driver de base de datos para conexión al STA (Ejemplo Oracle: database.driverClassName:oracle.jdbc.driver.OracleDriver)"
+    type: string
+    required: true
+
+  - variable: dts.database.iengine.url
+    default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    description: "Url de la base de datos STA (Ejemplo Oracle: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed)"
+    type: string
+    required: true
+
+  - variable: dts.database.iengine.username
+    description: "Usuario de la base de datos STA"
+    type: string
+    required: true
+
+  - variable: dts.database.iengine.password
+    description: "Contraseña de la base de datos de STA"
+    type: string
+    required: true
+
+  - variable: dts.database.datastore.driver
+    default: database.driverClassName:oracle.jdbc.driver.OracleDriver
+    description: "Driver de base de datos para conexión al destino DTS (Ejemplo Oracle: database.driverClassName:oracle.jdbc.driver.OracleDriver)"
+    type: string
+    required: true
+
+  - variable: dts.database.datastore.url
+    default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    description: "Url de la base de datos de destino DTS (Ejemplo Oracle: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed)"
+    type: string
+    required: true
+
+  - variable: dts.database.datastore.username
+    description: "Usuario de la base de datos de destino DTS"
+    type: string
+    required: true
+
+  - variable: dts.database.datastore.password
+    description: "Contraseña de la base de datos de destino DTS"
+    type: string
+    required: true
+
+  - variable: dts.module.max_days
+    description: "Días a ingestar a partir del último periodo ingestado - 0 si se quiere ingestar todo"
+    type: integer
+    required: true

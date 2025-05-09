@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["dev", "prod"],
+              "default": "dev",
+              "description": "Environment type"
+            }
+          }
+        },
+        "docker": {
+          "type": "object",
+          "properties": {
+            "registry": {
+              "type": "object",
+              "properties": {
+                "host": {
+                  "type": "string",
+				  "description": "docker registry host"
+                },
+                "project": {
+                  "type": "string",
+				  "description": "docker registry project"
+                }
+              },
+              "required": ["host", "project"]
+            }
+          },
+          "required": ["registry"]
+        }
+      },
+      "required": ["environment", "docker"]
+    },
+    "dts": {
+      "type": "object",
+      "properties": {
+        "sha256": {
+          "type": "object",
+          "properties": {
+            "back": {
+              "type": "string"
+            }
+          },
+          "required": ["back"]
+        },
+        "module": {
+          "type": "object",
+          "properties": {
+            "app_name": {
+              "type": "string",
+			  "description": "Nombre del módulo"
+            },
+			"namespace": {
+              "type": "string",
+			  "description": "Nombre del espacio"
+            },
+            "schedule": {
+              "type": "string",
+			  "description": "Periodicidad del cronJob (Ejemplo: 10 0 * * * ) [Minuto (0 - 59) Hora (0 - 23) Día del mes Mes (1 - 12) Día de la semana (0 - 6) (Domingo = 0)]"
+            },
+            "max_days": {
+              "type": "integer",
+			  "description": "Días a ingestar a partir del último periodo ingestado - 0 si se quiere ingestar todo"
+            },
+            "cfg": {
+              "type": "object",
+              "properties": {
+                "insercion": {
+                  "type": "string",
+				  "description": "Nombre del ConfigMap de las queries y properties de inserción"
+                },
+                "extraccion": {
+                  "type": "string",
+				  "description": "Nombre del ConfigMap de las queries y properties de extracción"
+                },
+                "routes": {
+                  "type": "string",
+				  "description": "Nombre del ConfigMap del routes"
+                }
+              },
+              "required": ["insercion", "extraccion", "routes"]
+            }
+          },
+          "required": ["app_name", "namespace", "schedule", "max_days", "cfg"]
+        },
+		"database": {
+          "type": "object",
+          "properties": {
+            "datasource": {
+              "type": "object",
+              "properties": {
+                "driver": {
+                  "type": "string",
+				  "description": "Driver de base de datos para conexión al origen (Ejemplo Oracle: database.driverClassName:oracle.jdbc.driver.OracleDriver)"
+                },
+                "url": {
+                  "type": "string",
+				  "description": "Url de la base de datos origen (Ejemplo Oracle: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed)"
+                },
+                "username": {
+                  "type": "string",
+				  "description": "Usuario de la base de datos origen"
+                },
+                "password": {
+                  "type": "string",
+				  "description": "Contraseña de la base de datos de origen"
+                }
+              },
+              "required": ["driver", "url", "username", "password"]
+            },
+            "iengine": {
+              "type": "object",
+              "properties": {
+                "driver": {
+                  "type": "string",
+				  "description": "Driver de base de datos para conexión al STA (Ejemplo Oracle: database.driverClassName:oracle.jdbc.driver.OracleDriver)"
+                },
+                "url": {
+                  "type": "string",
+				  "description": "Url de la base de datos STA (Ejemplo Oracle: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed)"
+                },
+                "username": {
+                  "type": "string",
+				  "description": "Usuario de la base de datos STA"
+                },
+                "password": {
+                  "type": "string",
+				  "description": "Contraseña de la base de datos de STA"
+                }
+              },
+              "required": ["driver", "url", "username", "password"]
+            },
+            "datastore": {
+              "type": "object",
+              "properties": {
+                "driver": {
+                  "type": "string",
+				  "description": "Driver de base de datos para conexión al destino DTS (Ejemplo Oracle: database.driverClassName:oracle.jdbc.driver.OracleDriver)"
+                },
+                "url": {
+                  "type": "string",
+				  "description": "Url de la base de datos de destino DTS (Ejemplo Oracle: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed)"
+                },
+                "username": {
+                  "type": "string",
+				  "description": "Usuario de la base de datos de destino DTS"
+                },
+                "password": {
+                  "type": "string",
+				  "description": "Contraseña de la base de datos de destino DTS"
+                }
+              },
+              "required": ["driver", "url", "username", "password"]
+            }
+          },
+          "required": ["datasource", "iengine", "datastore"]
+        }
+      },
+      "required": ["sha256", "module", "database"]
+    }
+  },
+  "required": ["global", "dts"]
+}
