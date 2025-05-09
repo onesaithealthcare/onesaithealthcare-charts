@@ -1,0 +1,20 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.ohgen.app.name_front_designer }}-cfg
+data:
+  app-config.json: |-
+    {
+      "urlBase": "{{ .Values.ohgen.con.protocol }}://{{ .Values.ohgen.con.host }}",
+      "urlPalette": "/dsforms/fhir/rest/ComponentRS",
+      "urlPreview": "/dsforms/#/preview/",
+      "urlEtiquetas": "/dsforms/fhir/rest/EtiquetaRS",
+      "idFormulario": "4100201"
+    }
+  env.json: |-
+    {
+        "hnconf_url": "{{ .Values.ohgen.con.protocol }}://{{ .Values.ohgen.con.host }}/hnconf",
+        "isolated_module": "false",        
+        "keycloak-js-dist":"{{ .Values.ohgen.con.protocol }}://{{ .Values.ohgen.con.host }}/hnconf/ohsso-lib.js",
+        "app_theme": "./assets/css/themes/default"
+    }

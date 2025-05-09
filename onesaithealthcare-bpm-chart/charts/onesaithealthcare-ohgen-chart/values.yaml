@@ -1,0 +1,46 @@
+environment:
+  type: dev # Opciones: dev, prod 
+domain:
+  protocol: # Opciones: http, https
+  host:
+  gateway_type: # Opciones: istio, k8s_gateway
+docker:
+  registry:
+    host: docksdtr.indra.es
+    project: multhn_cmhn20_2
+gen:
+  app:
+    name_back: ohgen-back
+    name_front: ohgen-front
+    name_front_designer: ohgen-designer-front
+    name_front_integration: ohgen-integration-front
+    name_front_webcomponents: ohgen-webcomponents
+    host: oh-modules.apps.lab.openshift.com
+    gateway: oh-modules-gateway
+    replicas: 1
+    replicas_front_designer: 1
+    replicas_front_integration: 1
+    log:
+      level: WARN
+      sql_level: ERROR
+  database:
+    driver: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    user: own_dsf
+    pass: own_dsf
+    default_schema: OWN_DSF
+    type: Oracle
+    dialect: org.hibernate.dialect.Oracle10gDialect
+    initial_size: 2
+    max_size: 50
+    min_idle: 5
+    max_idle: 20
+  version:
+    back_image_tag: 4.9.0
+    front_image_tag: 4.9.0
+    front_designer_image_tag: 4.9.0
+    front_integration_image_tag: 4.9.0
+    front_webcomponents_image_tag: 4.9.0
+con:
+  protocol: https # Opciones: http, https
+  host: oh-modules.apps.lab.openshift.com

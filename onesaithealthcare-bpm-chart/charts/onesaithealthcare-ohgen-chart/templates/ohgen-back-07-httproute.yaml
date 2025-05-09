@@ -1,0 +1,79 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway" }}
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: {{ .Values.ohgen.app.name_back }}-http-route
+spec:
+  parentRefs:
+    - name: {{ .Values.ohgen.app.gateway }}
+  hostnames:
+    - '{{ .Values.ohgen.app.host }}'
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /dsforms/fhir/
+        - path:
+            type: PathPrefix
+            value: /dsforms/StreamServlet/
+        - path:
+            type: PathExact
+            value: /dsforms/healthcheck
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              X-Forwarded-Host: {{ .Values.ohgen.app.host }}
+              X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+              X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      backendRefs:
+        - name: {{ .Values.ohgen.app.name_back }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /dsforms/
+      backendRefs:
+        - name: {{ .Values.ohgen.app.name_front }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathExact
+            value: /dsforms
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path: /dsforms/
+      backendRefs:
+        - name: {{ .Values.ohgen.app.name_front }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /dsforms-designer/
+      backendRefs:
+        - name: {{ .Values.ohgen.app.name_front_designer }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /dsforms-designer
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path: /dsforms-designer/
+      backendRefs:
+        - name: {{ .Values.ohgen.app.name_front_designer }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /dsforms-webcomponents
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path: /form-webcomponents/
+      backendRefs:
+        - name: ${OHGEN_WEBCOMPONENTS_APP_NAME}-webcomponents-front
+          port: 8080
+{{- end }}

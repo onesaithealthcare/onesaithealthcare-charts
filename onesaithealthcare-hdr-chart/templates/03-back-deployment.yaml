@@ -1,0 +1,181 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.hdr.app.name }}-back
+  labels:
+    app: {{ .Values.hdr.app.name }}-back
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  replicas: {{ .Values.hdr.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.hdr.app.name }}-back
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.hdr.app.name }}-back
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: {{ .Values.docker.registry.secret }}
+      schedulerName: default-scheduler
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - {{ .Values.hdr.app.name }}-back
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: {{ .Values.hdr.app.name }}-back
+          image: '{{ .Values.docker.registry.host }}/{{ .Values.docker.registry.project }}/ohhdr-back:{{ .Values.hdr.version.back_image_tag }}'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /ehrserver/healthcheck
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 20
+
+          readinessProbe:
+            httpGet:
+              path: /ehrserver/healthcheck
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          volumeMounts:
+            - name: ohhdr-back-jetty-cfg
+              mountPath: /var/lib/jetty/webapps/ROOT/WEB-INF/jetty-env.xml
+              subPath: jetty-env.xml
+              readOnly: true
+              
+            - name: ohhdr-back-core-props
+              mountPath: /hn_home/hdr/config/env.core.properties
+              subPath: env.core.properties
+              readOnly: true
+              
+            - name: ohhdr-back-ehr-props
+              mountPath: /hn_home/hdr/config/env.ehr.properties
+              subPath: env.ehr.properties
+              readOnly: true
+              
+            - name: ohhdr-back-plugin-props
+              mountPath: /hn_home/hdr/config/env.plugins.properties
+              subPath: env.plugins.properties
+              readOnly: true
+
+            - name: ohhdr-back-cfg-log
+              mountPath: /hn_home/hdr/config/logback.xml
+              subPath: logback.xml
+              readOnly: true
+
+            - name: ohhdr-back-cfg-cache
+              mountPath: /hn_home/hdr/config/cache/ehcache.xml
+              subPath: ehcache.xml
+              readOnly: true
+
+            - name: ohhdr-back-host-props
+              mountPath: /hn_home/host.properties
+              subPath: host.properties
+              readOnly: true
+              
+            - name: ohhdr-back-integration-props
+              mountPath: /hn_home/integration.properties
+              subPath: integration.properties
+              readOnly: true
+              
+            - name: ohhdr-back-iscore-sso-props
+              mountPath: /hn_home/iscore/conf/sso.properties
+              subPath: sso.properties
+              readOnly: true
+
+            - name: cert-domain
+              mountPath: /cert/cert-domain.crt
+              subPath: tls.crt
+
+          env:
+            - name: JVM_OPTS
+              value: '-Dindrasalud.home=/hn_home -Dcom.sun.net.ssl.checkRevocation=false -Xms512m -Xmx2048M'
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2048Mi
+            requests:
+              cpu: 100m
+              memory: 1024Mi
+          imagePullPolicy: Always
+      volumes:
+        - name: ohhdr-back-core-props
+          configMap:
+            name: {{ .Values.hdr.app.name }}-back-cfg
+            items:
+              - key : "env.core.properties"
+                path : "env.core.properties"
+
+        - name: ohhdr-back-ehr-props
+          configMap:
+            name: {{ .Values.hdr.app.name }}-back-cfg
+            items:
+              - key : "env.ehr.properties"
+                path : "env.ehr.properties"
+
+        - name: ohhdr-back-plugin-props
+          configMap:
+            name: {{ .Values.hdr.app.name }}-back-cfg
+            items:
+              - key : "env.plugins.properties"
+                path : "env.plugins.properties"
+
+        - name: ohhdr-back-cfg-log
+          configMap:
+            name: {{ .Values.hdr.app.name }}-back-cfg
+            items:
+              - key : "logback.xml"
+                path : "logback.xml"
+
+        - name: ohhdr-back-cfg-cache
+          configMap:
+            name: {{ .Values.hdr.app.name }}-back-cfg
+            items:
+              - key : "ehcache.xml"
+                path : "ehcache.xml"
+
+        - name: ohhdr-back-jetty-cfg
+          configMap:
+            name: {{ .Values.hdr.app.name }}-back-jetty
+
+        - name: ohhdr-back-host-props
+          configMap:
+            name: hnhome-host-props
+
+        - name: ohhdr-back-integration-props
+          configMap:
+            name: hnhome-integration-props
+
+        - name: ohhdr-back-iscore-sso-props
+          configMap:
+            name: hnhome-iscore-sso-props
+
+        - name: cert-domain
+          secret:
+            secretName: cert-domain
+            items:
+              - key: tls.crt
+                path: tls.crt
+            defaultMode: 420
+      dnsPolicy: ClusterFirst

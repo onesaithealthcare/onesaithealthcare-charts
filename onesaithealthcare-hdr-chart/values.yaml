@@ -1,0 +1,37 @@
+environment:
+  type: dev # Opciones: dev, prod 
+domain:
+  protocol: # Opciones: http, https
+  host:
+  port: 443
+  gateway_type: # Opciones: istio, k8s_gateway
+docker:
+  registry:
+    host: docksdtr.indra.es
+    project: multhn_cmhn20_2
+    secret: docksdtr.indra.es
+hdr:
+  app:
+    name: ohhdr
+    gateway: oh-modules-gateway
+    replicas: 1
+    flag:
+      enable_fhir_subscription: false
+      enable_fhir_entity_replication: false
+      enable_bulk_api: false
+    bulk_api_file_size: 10
+    ohas3_url: https://ohas3-api-oh-minio.apps.lab.openshift.com/ohas3
+  database:
+    type: ORACLE # Opciones: ORACLE, MYSQL 
+    driver: oracle.jdbc.driver.OracleDriver # Opciones: oracle.jdbc.driver.OracleDriver, com.mysql.cj.jdbc.Driver 
+    jdbc_dialect: org.hibernate.dialect.Oracle10gDialect # Opciones: org.hibernate.dialect.Oracle10gDialect, org.hibernate.dialect.MySQLDialect 
+    url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    user: us_hdr
+    pass: us_hdr
+    initial_size: 5
+    max_total: 50
+    connection_properties: oracle.jdbc.defaultLobPrefetchSize=-1
+  version:
+    app: 3.14.0
+    back_image_tag: 3.14.0
+

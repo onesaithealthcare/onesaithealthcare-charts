@@ -1,0 +1,123 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway" }}
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: ohprm-http-route
+spec:
+  parentRefs:
+    - name: {{ .Values.ohprm.app.gateway }}
+  hostnames:
+    - '*'
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohprm/api/fhir/
+        - path:
+            type: PathExact
+            value: /ohprm/healthcheck
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              x-forwarded-host: {{ .Values.ohprm.app.host }}
+              x-forwarded-port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+              x-forwarded-proto: {{ .Values.global.domain.protocol }}
+        - type: CORS
+          corsPolicy:
+            allowHeaders:
+              - x-requested-with
+              - Content-Type
+              - jwtheader
+              - origin
+              - authorization
+              - accept
+              - client-security-token
+              - x-preserve-id
+              - if-none-exist
+              - prefer
+              - referer
+              - host
+              - origin
+            allowMethods:
+              - GET
+              - POST
+              - OPTIONS
+              - PUT
+              - DELETE
+            allowOrigins:
+              - {{ .Values.ohprm.app.url_prof_server }}
+              - {{ .Values.ohprm.app.url_server }}
+      backendRefs:
+        - name: {{ .Values.ohprm.app.backend_app }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohprm/
+      filters:
+        - type: CORS
+          corsPolicy:
+            allowHeaders:
+              - x-requested-with
+              - Content-Type
+              - jwtheader
+              - origin
+              - authorization
+              - accept
+              - client-security-token
+              - x-preserve-id
+              - if-none-exist
+              - prefer
+              - referer
+              - host
+              - origin
+            allowMethods:
+              - GET
+              - POST
+              - OPTIONS
+              - PUT
+              - DELETE
+            allowOrigins:
+              - {{ .Values.ohprm.app.url_prof_server }}
+              - {{ .Values.ohprm.app.url_server }}
+      backendRefs:
+        - name: {{ .Values.ohprm.app.front_app }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohprm
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path: /ohprm/
+        - type: CORS
+          corsPolicy:
+            allowHeaders:
+              - x-requested-with
+              - Content-Type
+              - jwtheader
+              - origin
+              - authorization
+              - accept
+              - client-security-token
+              - x-preserve-id
+              - if-none-exist
+              - prefer
+              - referer
+              - host
+              - origin
+            allowMethods:
+              - GET
+              - POST
+              - OPTIONS
+              - PUT
+              - DELETE
+            allowOrigins:
+              - {{ .Values.ohprm.app.url_prof_server }}
+              - {{ .Values.ohprm.app.url_server }}
+      backendRefs:
+        - name: {{ .Values.ohprm.app.front_app }}
+          port: 8080
+{{- end }}

@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["dev", "prod"]
+            }
+          },
+          "required": ["type"]
+        },
+        "domain": {
+          "type": "object",
+          "properties": {
+            "protocol": {
+              "type": "string",
+              "enum": ["http", "https"]
+            },
+            "host": { "type": "string" },
+            "gateway_type": {
+              "type": "string",
+              "enum": ["istio", "k8s_gateway"]
+            }
+          },
+          "required": ["protocol", "host", "gateway_type"]
+        },
+        "docker": {
+          "type": "object",
+          "properties": {
+            "registry": {
+              "type": "object",
+              "properties": {
+                "host": { "type": "string" },
+                "project": { "type": "string" }
+              },
+              "required": ["host", "project"]
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "ohbpm": { "type": "boolean" },
+        "ohprm": { "type": "boolean" },
+        "ohgen": { "type": "boolean" }
+      },
+      "required": ["ohbpm", "ohprm", "ohgen"]
+    },
+    "onesaithealthcare-ohbpm-chart": {
+      "type": "object",
+      "properties": {
+        "ohbpm": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "gateway": { "type": "string" },
+                "locale_default": { "type": "string" },
+                "host": { "type": "string" },
+                "replicas": { "type": "integer" },
+                "cod_passive_cause_death": { "type": "integer" },
+                "flag": {
+                  "type": "object",
+                  "properties": {
+                    "patient_merge": { "type": "boolean" },
+                    "audit_enable": { "type": "boolean" },
+                    "disable_process_pasive_patient": { "type": "boolean" },
+                    "enable_profile_search": { "type": "boolean" },
+                    "enable_obs_generation": { "type": "boolean" },
+                    "enable_kafka_replication": { "type": "boolean" },
+                    "enable_kpi_generation": { "type": "boolean" }
+                  }
+                },
+                "log": {
+                  "type": "object",
+                  "properties": {
+                    "level": { "type": "string" },
+                    "sql_level": { "type": "string" }
+                  }
+                }
+              }
+            },
+            "database": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["ORACLE", "MYSQL"]
+                },
+                "max_pool_size": { "type": "integer" },
+                "driver": { "type": "string" },
+                "url": { "type": "string" },
+                "user": { "type": "string" },
+                "pass": { "type": "string" },
+                "min_idle": { "type": "integer" },
+                "con_timeout": { "type": "integer" },
+                "idle_timeout": { "type": "integer" },
+                "max_lifetime": { "type": "integer" },
+                "val_timeout": { "type": "integer" },
+                "leak_detection": { "type": "integer" }
+              }
+            },
+            "prm": {
+              "type": "object",
+              "properties": {
+                "enable_notifications": { "type": "boolean" },
+                "organization_notifications": { "type": "string" }
+              }
+            },
+            "version": {
+              "type": "object",
+              "properties": {
+                "app": { "type": "string" },
+                "back_image_tag": { "type": "string" },
+                "front_image_tag": { "type": "string" },
+                "smart_front_image_tag": { "type": "string" },
+                "webcomponents_front_image_tag": { "type": "string" },
+                "designer_front_image_tag": { "type": "string" },
+                "prof_image_tag": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "onesaithealthcare-ohgen-chart": {
+      "type": "object",
+      "properties": {
+        "ohgen": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "object",
+              "properties": {
+                "name_back": { "type": "string" },
+                "name_front": { "type": "string" },
+                "name_front_designer": { "type": "string" },
+                "name_front_integration": { "type": "string" },
+                "name_front_webcomponents": { "type": "string" },
+                "host": { "type": "string" },
+                "gateway": { "type": "string" },
+                "replicas": { "type": "integer" },
+                "replicas_front_designer": { "type": "integer" },
+                "replicas_front_integration": { "type": "integer" },
+                "log": {
+                  "type": "object",
+                  "properties": {
+                    "level": { "type": "string" },
+                    "sql_level": { "type": "string" }
+                  }
+                }
+              }
+            },
+            "database": {
+              "type": "object",
+              "properties": {
+                "driver": { "type": "string" },
+                "url": { "type": "string" },
+                "user": { "type": "string" },
+                "pass": { "type": "string" },
+                "default_schema": { "type": "string" },
+                "type": { "type": "string" },
+                "dialect": { "type": "string" },
+                "initial_size": { "type": "integer" },
+                "max_size": { "type": "integer" },
+                "min_idle": { "type": "integer" },
+                "max_idle": { "type": "integer" }
+              }
+            },
+            "version": {
+              "type": "object",
+              "properties": {
+                "back_image_tag": { "type": "string" },
+                "front_image_tag": { "type": "string" },
+                "front_designer_image_tag": { "type": "string" },
+                "front_integration_image_tag": { "type": "string" },
+                "front_webcomponents_image_tag": { "type": "string" }
+              }
+            },
+            "con": {
+              "type": "object",
+              "properties": {
+                "protocol": {
+                  "type": "string",
+                  "enum": ["http", "https"]
+                },
+                "host": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "onesaithealthcare-ohprm-chart": {
+      "type": "object",
+      "properties": {
+        "ohprm": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "object",
+              "properties": {
+                "host": { "type": "string" },
+                "gateway": { "type": "string" },
+                "backend_app": { "type": "string" },
+                "front_app": { "type": "string" },
+                "url_server": { "type": "string" },
+                "url_prof_server": { "type": "string" },
+                "cipaut": { "type": "string" }
+              }
+            },
+            "version": {
+              "type": "object",
+              "properties": {
+                "back_image_tag": { "type": "string" },
+                "front_image_tag": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

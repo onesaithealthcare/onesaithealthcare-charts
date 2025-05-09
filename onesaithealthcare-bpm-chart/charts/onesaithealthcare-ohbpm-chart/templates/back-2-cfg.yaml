@@ -1,0 +1,650 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.ohbpm.app.name }}-back-cfg
+data:
+  env.ohbpm.properties: |
+    ##########################################################################################
+    # This file contains the following settings
+    #
+    # * General properties
+    # * Camunda properties
+    # * Application properties
+    # * Fhir configuration properties
+    # * HDRCOMMONS configuration
+    ##########################################################################################
+
+
+    ##########################################################################################
+    ##########################################################################################
+    #General properties
+    ##########################################################################################
+    ##########################################################################################
+
+    #Datasource
+    datasource.jndi=jdbc/ohbpm
+
+    #Default user for offline authentication, desde la version 4.2.0 queremos evitar el uso de user para offline
+    # si no definimos nada cogera la configuracion que hay definida el sso.properties
+
+    #por usuario keycloack
+    #offline.authenticator.user=
+    #offline.authenticator.pass=
+
+    #Por client keycloack: si las propiedades offline.authenticator.clientIdLogin y offline.authenticator.clientIdSecret están definidas, cogera esos valores
+    #offline.authenticator.clientIdLogin=ohbpm
+    #offline.authenticator.clientIdSecret=T3pESnBhNTJyNmh6b216ZWZldmFjaGpNS0hSTmVUREI
+
+    ##########################################################################################
+    ##########################################################################################
+    #END General properties
+    ##########################################################################################
+    ##########################################################################################
+
+    # ----------------------------------------------------------------------------------------
+
+    ##########################################################################################
+    ##########################################################################################
+    #Camunda properties
+    ##########################################################################################
+    ##########################################################################################
+    #https://docs.camunda.org/manual/7.17/reference/deployment-descriptors/tags/process-engine/
+
+    #nombre del motor de procesos
+    camunda.engine.name=v1
+
+    #https://docs.camunda.org/manual/7.14/user-guide/testing/#disabling-telemetry
+    #telemetria desactivada (estadisticas para camunda)
+    camunda.telemetry.reporter=false
+
+    #https://github.com/camunda/camunda-docs-manual/blob/master/content/user-guide/process-engine/metrics.md
+    camunda.metric.reporter=false
+
+    #Metricas de control camunda
+    #https://github.com/camunda/camunda-docs-manual/blob/master/content/user-guide/process-engine/metrics.md
+    camunda.metrics=false
+
+    camunda.task.metrics=false
+
+    #https://docs.camunda.org/manual/7.14/user-guide/process-engine/database/database-configuration/#jdbc-batch-processing
+    # statements are executed one by one. En los test siempre lo pondremos a FALSE para que no pete la BBDD
+    camunda.jdbcBatchProcessing=true
+
+    #Auto inicializador de tareas (cuando hacemos save/ save complete)
+    camunda.auto.start.task=true
+
+    # HISTORY CONFIGURATION
+    #********************
+    #https://docs.camunda.org/manual/latest/user-guide/process-engine/history/
+    #show table ACT_GE_PROPERTY.historyLevel
+    #lvl 1
+    camunda.history.level=activity
+    #lvl 2
+    #camunda.history.level=audit
+    #lvl 3
+    #camunda.history.level=full
+
+    #Controls if and when the removal time of an historic instance is set. The default value is end. (see the historyCleanupStrategy)
+    camunda.history.RemovalTimeStrategy=end
+
+    #Valid values are removalTimeBased and endTimeBased. removalTimeBased is the default.
+    camunda.history.cleanUpStrategy=removalTimeBased
+
+    #The history time to live defines the number of days using a time specified by the ISO-8601 date format. The function only accepts the notation to define a number of days.
+    camunda.history.timeToLive=P10D
+
+    # PERFORMANCE
+    #********************
+    # https://docs.camunda.org/manual/latest/user-guide/process-engine/database/performance/#disabling-cmmn-and-standalone-tasks
+    # When set to false, the following behavior changes:
+    #     Standalone tasks can no longer be created via API.
+    #     Standalone tasks are not returned by the TaskQuery.
+    # Default value is true.
+    camunda.standaloneTasksEnabled=false
+
+    #Controls whether the process engine performs tenant checks to ensure that an authenticated user can only access data that belongs to one of his tenants. 
+    #Default value is true. 
+    camunda.tenantCheckEnabled=false
+
+    ##########################################################################################
+    ##########################################################################################
+    #END Camunda properties
+    ##########################################################################################
+    ##########################################################################################
+
+    # ----------------------------------------------------------------------------------------
+
+    ##########################################################################################
+    ##########################################################################################
+    #Application properties
+    ##########################################################################################
+    ##########################################################################################
+    Locale.default={{ .Values.ohbpm.app.locale_default }}
+    #permiso de acceso a procesos
+    #careplan
+    privilege.process_access=PROCESS_ACCESS
+    #plandefinition
+    privilege.process_instantiate=PROCESS_INSTANTIATE
+    #stage
+    privilege.stage_activate=STAGE_ACTIVATE
+    #task
+    privilege.task_activate=TASK_ACTIVATE
+    privilege.task_execute=TASK_EXECUTE
+    privilege.task_consult=TASK_CONSULT
+
+    worklist.pagination.default=30
+
+    # Deshabilitar procesos disponibles en pacientes pasivos  (por defecto FALSE) dejamos instanciar a todos los pacientes
+    filter.plandefinition.passive.patient={{ .Values.ohbpm.app.flag.disable_process_pasive_patient }}
+
+    # Extensionn asignada en MPI para indicar motivo de pasivacion de un paciente
+    mpi.url.passive.cause.death=http://hn.indra.es/fhir/StructureDefinition/passive-cause
+
+    # Codigo asignado en MPI a la pasivacion por fallecimiento.
+    mpi.cod.passive.cause.death={{ .Values.ohbpm.app.cod_passive_cause_death }}
+
+    #Catalogos Ontology
+    # Estados de los procesos (traducciones)
+    ont.bpm.process.status=BPM_Status
+
+    # Catalogo de los procesos / debe coincidir para que funcione correctamente el To Do List
+    ont.bpm.process.codes=BPM_Process
+
+    #Modelador fecha seguimiento / vencimiento ::  IMPORTANTE ESCAPE $ >> #{'$'}
+    #fecha de seguimiento. Se incorpora el codigo a la hora de crear o actualizar el modelo (siempre que no tenga nada ya definido) RESULTADO: ${execution.getVariable(execution.getActivityId().concat('.followup'))}
+    model.process.task.followup=#{'$'}\{execution.getVariable(execution.getActivityId().concat('.followup'))}
+    #fecha de vencimiento. Se incorpora el codigo a la hora de crear o actualizar el modelo (siempre que no tenga nada ya definido) RESULTADO: ${execution.getVariable(execution.getActivityId().concat('.duedate'))}
+    model.process.task.duedate=#{'$'}\{execution.getVariable(execution.getActivityId().concat('.duedate'))}
+
+    #Modulo de alertas
+    ohale.fhir.url=${general.url}/ohale/api/fhir
+
+    #Habilitar control de seguidad con token de paciente
+    patient.token.security.enabled=true
+
+
+    #Bulk Operations
+    ################################
+
+    # numero de hilos concurrentes para ejecucion
+    bulk.number.thread.execution = 5
+       
+    # url impresion jasper
+    hnrep.report.url=${general.protocol}://${general.hostname}/hnrep/rest_v2/reportExecutions
+
+    # controla el numero de acciones que se pueden ejecutar masivamente, por defecto 50
+    bulk.action.execution.limit=50
+
+    # controla el numero de acciones que se pueden imprimir masivamente, por defecto 50
+    bulk.action.print.limit=50
+
+
+    #Patient adscriptions
+    ################################
+
+    patient.adscription.type.org=ADSORG
+    patient.adscription.type.med=ADSCRMEDICA
+    patient.adscription.type.enf=ADSCRENFER
+    
+    #METRICAS DE CONTROL
+    ################################
+    ohbpm.timer.execution.aspect=false
+    ohbpm.timer.execution.aspect.pattern=
+    ohbpm.timer.execution.aspect.pattern.exclude=
+
+    ##########################################################################################
+    ##########################################################################################
+    #END Application properties
+    ##########################################################################################
+    ##########################################################################################
+
+    # ----------------------------------------------------------------------------------------
+
+    ##########################################################################################
+    ##########################################################################################
+    #Fhir configuration properties
+    ##########################################################################################
+    ##########################################################################################
+
+    #FHIR Server backend
+    fhir.serverUrl=${general.url}/ehrserver/fhir
+
+    #FHIR package Usado en BaseMapper.java
+    fhir.package=org.hl7.fhir
+
+    #Si lo dejamos vacio no seteara el profile en fhir Usado en BaseMapper y BaseResourceProvider
+    fhir.meta.tag.profile=module|ohbpm
+
+    #comprueba si queremos hacer busqueda por profile [fhir.meta.tag.profile] Usado BaseResourceProvider [true|false]
+    fhir.search.by.profile={{ .Values.ohbpm.app.flag.enable_profile_search }}
+
+    #indica los tipo de procesos que puede ser instanciable (ver Catalogo tipo proceso) / pasan a PlanDefinition
+    # 1 > CAT.REGISTRY 
+    # 2 > CAT.PROCESS
+    fhir.process.type.to.plan.definition=1|CAT.REGISTRY,2|CAT.PROCESS
+
+    #FHIR plantilla para la generacion de observation a partir de escalas
+    fhir.scale.to.observation.enabled={{ .Values.ohbpm.app.flag.enable_obs_generation }}
+
+    ##########################################################################################
+    ##########################################################################################
+    #END Fhir configuration properties
+    ##########################################################################################
+    ##########################################################################################
+
+    # ----------------------------------------------------------------------------------------
+
+    ##########################################################################################
+    ##########################################################################################
+    #HDRCOMMONS configuration
+    ##########################################################################################
+    ##########################################################################################
+
+
+    hdrcommon.applicationInfo.name=ohbpm
+    hdrcommon.applicationInfo.version={{ .Values.ohbpm.version.app }}
+    hdrcommon.core.enable=true
+    hdrcommon.core-security.enable=true
+
+    hdrcommon.fhir.enable=true
+    hdrcommon.fhir.resourceIdPrefix=bpm
+    hdrcommon.fhir.resources=${base.conf.url}/hdrcmp/fhir-resources.properties
+    hdrcommon.fhir.repositoryDS.vendor={{ .Values.ohbpm.database.type }}
+    #First level data caching 
+    #hdrcommon.fhir.data.caching=true
+    #Caching scope: SESSION or STATEMENT
+    #hdrcommon.fhir.data.caching.scope=SESSION
+
+
+    # Configuracion replicacion KAFKA
+    # ------------------------------------------
+    #IMPORTANTE en Local siempre poner a hdrcommon.fhir.replication.enable=false
+    hdrcommon.fhir.replication.enable={{ .Values.ohbpm.app.flag.enable_kafka_replication }}
+    hdrcommon.fhir.replication.resourceTypes=PlanDefinition,CarePlan,Task,QuestionnaireResponse,Observation
+    hdrcommon.fhir.replication.topic=ohbpm-entity-events
+
+    # Por defecto FALSE (si es TRUE no afecta al tiempo de las operaciones, el envio se hace en un hilo distinto)
+    #hdrcommon.fhir.replication.async=false
+    #por defecto 5000 (5seg)
+    #hdrcommon.fhir.replication.request.timeout.ms=30000
+    #por defecto 5000 (5seg)
+    #hdrcommon.fhir.replication.delivery.timeout.ms=120000
+    #por defecto 5000 (5seg)
+    #hdrcommon.fhir.replication.max.block.ms=60000
+
+
+    #Enable processing of patient updates from MPI.
+    #IMPORTANTE en Local siempre poner a hdrcommon.fhir.patient.merge.enabled=false
+    hdrcommon.fhir.patient.merge.enabled={{ .Values.ohbpm.app.flag.patient_merge }}
+    hdrcommon.fhir.patient.merge.groupId=ohbpm-patient-update-consumer
+    hdrcommon.fhir.patient.merge.deadletter.topic=ohbpm-patient-update-errors
+
+    #Enable web module
+    hdrcommon.web.enable=true
+
+    #Configura los recursos FHIR que no queremos que sean Versionables Ejmplo: Variable,CarePlan,Task
+    hdrcommon.fhir.nonVersionedResources=Variable
+
+    #Default Audit Service Configuration
+    #############################################
+    #IMPORTANTE en Local siempre poner a hdrcommon.fhir.audit.enable=false
+    hdrcommon.fhir.audit.enabled={{ .Values.ohbpm.app.flag.audit_enable }}
+    hdrcommon.fhir.audit.syslog.host=192.168.146.143
+    hdrcommon.fhir.audit.syslog.port=31247
+    hdrcommon.fhir.audit.syslog.protocol=TCP
+    hdrcommon.fhir.audit.syslog.format=RFC5424
+    hdrcommon.fhir.audit.syslog.facility=AUDIT
+    hdrcommon.fhir.audit.syslog.severity=INFORMATIONAL
+    hdrcommon.fhir.audit.syslog.ssl=false
+
+    # Configuration of auditable operations: 
+    # List of properties "hdrcommon.fhir.audit.operations.[1-n]", with a comma delimited list of operations.
+    # The format of one operation is [RESOURCE_NAME] [OPERATION].
+    # - [RESOURCE_NAME]: Fhir resource name. Value _ALL_ applies to all resources.
+    # - [OPERATION]: Admits regular expression. 
+    #                Supported values: CREATE, UPDATE, DELETE, PATCH, READ, VREAD, HISTORY_INSTANCE, SEARCH_TYPE, EXTENDED_OPERATION_INSTANCE 
+    # Examples:
+    #  hdrcommon.fhir.audit.operations.1=CarePlan CREATE,CarePlan UPDATE,CarePlan SEARCH_TYPE --> Audit create, update and search over CarePlan resources.
+    #  hdrcommon.fhir.audit.operations.2=PlanDefinition .* --> Audit all operations over DocumentReference resources.
+    #  hdrcommon.fhir.audit.operations.3=_ALL_ CREATE --> Audit All CREATE operations for any resource.
+
+    # Auditoria de operaciones sobre instancias de proceso (CarePlan): Creacion, actualizacion, lectura, busqueda, y operaciones de obtener estado de ejecucion ($status-execution), obtener actividades realizadas ($binnacle) y cancelacion ($cancel)   
+    hdrcommon.fhir.audit.operations.1=CarePlan CREATE, CarePlan UPDATE, CarePlan READ, CarePlan SEARCH, CarePlan EXTENDED_OPERATION_INSTANCE status-execution, CarePlan EXTENDED_OPERATION_INSTANCE binnacle, CarePlan EXTENDED_OPERATION_INSTANCE cancel
+    # Auditoria de operaciones sobre actividades (Task): Guardar ($save), guardar y completar ($save-complete), modificar actividad ($modify) 
+    hdrcommon.fhir.audit.operations.2=Task EXTENDED_OPERATION_INSTANCE save, Task EXTENDED_OPERATION_INSTANCE save-complete, Task EXTENDED_OPERATION_INSTANCE modify
+    # Auditoria sobre procesos desplegados (PlanDefinition): Creacion, Actualizacion, Lectura, Busqueda, Instanciacion de proceso a paciente ($apply)
+    hdrcommon.fhir.audit.operations.3=PlanDefinition CREATE, PlanDefinition UPDATE, PlanDefinition READ, PlanDefinition SEARCH, PlanDefinition EXTENDED_OPERATION_INSTANCE apply
+
+    # Habilitar el uso de parametros de busqueda personalizados
+    hdrcommon.fhir.customSearchParams.enabled=true
+    ##########################################################################################
+    ##########################################################################################
+    #END HDRCOMMONS configuration
+    ##########################################################################################
+    ##########################################################################################
+
+    ##########################################################################################
+    ##########################################################################################
+    #Obfuscation configuration
+    ##########################################################################################
+    ##########################################################################################
+
+    #Enable Ofuscation
+    obfuscation.enable=false
+
+    #HNConf properties
+    obfuscation.hnconf.module=ISCORE
+    obfuscation.hnconf.property=iscore.obfuscation.configuration
+    #Refresh configuration (minutes)
+    obfuscation.hnconf.refresh=30
+
+    ##########################################################################################
+    ##########################################################################################
+    #END Obfuscation configuration
+    ##########################################################################################
+    ##########################################################################################
+
+  env.ohbpm.kpi.properties: |
+    #######################################################################
+    #Propiedades de configuracion de indicadores de actividad (KPI)
+    #######################################################################
+    #Habilitar generacion de indicadores
+    kpi.enabled={{ .Values.ohbpm.app.flag.enable_kpi_generation }}
+    #Catalogo de procesos
+    kpi.ont.bpm.process.list=BPM_Process
+    #Catalogo de indicadores
+    kpi.ont.bpm.process.board=BPM_KPIs
+    #Intervalo para actualizacion de KPIs en BD (segundos)
+    #kpi.update.interval=30
+    
+    # INCLUSION / EXCLUSION de PROCESOS [Java Regex >> see Java Regex Metacharacters]
+    # key code de procesos que queremos traza con KPI. Si vacio aplica a todos [example multiple SP_.*|P_.* ]
+    kpi.process.include=
+    # key code de procesos que no queremos traza con KPI. Si vacio aplica a todos [example single SP_.*]
+    kpi.process.exclude=
+    
+    ###########################################################################
+    ###########################################################################
+    ## BPMN 
+    ###########################################################################
+    ###########################################################################
+    
+    #Process
+    ##############################################
+    # KPI sobre instanciacion de procesos
+    kpi.process.enabled=true
+    # KPI sobre etapas (subprocesos en los procesos) :STAGE:
+    kpi.subProcess.enabled=false
+    # KPI sobre etapas (subprocesos transaccionales en los procesos)
+    kpi.transaction.enabled=false
+    
+    # KPI Flujo secuencias (flechitas) :FLOW:
+    kpi.sequenceFlow.enabled=false
+    
+    #Activities :TASK:
+    ##############################################
+    kpi.task.enabled=true
+    kpi.task.userTask.enabled=true
+    kpi.task.scriptTask.enabled=true
+    kpi.task.serviceTask.enabled=true
+    kpi.task.businessRuleTask.enabled=true
+    kpi.task.manualTask.enabled=true
+    kpi.task.callActivity.enabled=true
+    kpi.task.sendTask.enabled=true
+    kpi.task.receiveTask.enabled=true
+    
+    #Events
+    ##############################################
+    # evento inicio / fin :EVENT:
+    kpi.conditionalStartEventForEventSubprocess.enabled=false
+    kpi.startEvent.enabled=false
+    kpi.endEvent.enabled=false
+    
+    # eventos vinculados a las tareas :BEVENT:
+    kpi.boundaryEvent.enabled=false
+    kpi.boundaryTimerEventDefinition.enabled=false
+    kpi.boundaryErrorEventDefinition.enabled=false
+    kpi.boundarySignalEventDefinition.enabled=false
+    kpi.boundaryMessageEventDefinition.enabled=false
+    kpi.boundaryEscalationEventDefinition.enabled=false
+    kpi.boundaryConditionalEventDefinition.enabled=false
+    kpi.compensateEventDefinition.enabled=false
+    
+    # eventos vinculados a los flujos :IEVENT:
+    kpi.intermediateTimerEventDefinition.enabled=false
+    kpi.intermediateSignalCatchEventDefinition.enabled=false
+    kpi.intermediateThrowEvent.enabled=false
+    kpi.intermediateCatchEvent.enabled=false
+    kpi.intermediateMessageCatchEventDefinition.enabled=false
+    kpi.intermediateConditionalEventDefinition.enabled=false
+    
+    #GateWays :GATEWAY:
+    kpi.exclusiveGateway.enabled=false
+    kpi.inclusiveGateway.enabled=false
+    kpi.parallelGateway.enabled=false
+    kpi.eventBasedGateway.enabled=false
+    
+    
+    ###########################################################################
+    ###########################################################################
+    ## CMMN 
+    ###########################################################################
+    ###########################################################################
+    
+    #Process
+    ##############################################
+    # KPI sobre instanciacion de caso (proceso)
+    kpi.case.enabled=true
+    # KPI sobre etapas :STAGE:
+    kpi.case.stage.enabled=true
+    # KPI sobre Milestones definidos en el Caso :MILES:
+    kpi.case.milestone.enabled=true
+    
+    
+    #Activities :TASK:
+    ##############################################
+    kpi.case.task.enabled = true
+    kpi.case.humanTask.enabled = true
+    kpi.case.processTask.enabled = true
+    kpi.case.caseTask.enabled = true
+    kpi.case.DecisionTask.enabled = true
+    
+    
+    #######################################################################
+    #END Propiedades de configuracion de indicadores de actividad (KPI)
+    #######################################################################  
+
+  env.ohbpm.prm.properties: |
+    # Propiedades especificas de procesos con PROGRAM MANAGER
+    ##################################################################
+    
+    # DynamicActiviy configuration
+    # -----------------------------------------
+    # Indica a la hora de inicio de la actividad (si no se define [vacio] se recuperara lo indicado en el activityDefinition timingTiming.repeat.boundsPeriod.start)
+    prm.dinamyc.actvity.generate.start.activity.hour= 00:00:01
+    # Indica a la hora de inicio de la actividad (si no se define [vacio] se recuperara lo indicado en el activityDefinition timingTiming.repeat.boundsPeriod.end)
+    prm.dinamyc.actvity.generate.end.activity.hour= 23:59:00
+    
+    # Indica a la hora que genera la siguiente actividad [por defecto 00:01:00]
+    prm.dinamyc.actvity.generate.custom.start.activity.hour= 00:00:01
+    
+    # Indica el tiempo en minutos para cancelar la actividad (Calculo sera fehca de inico - X Minutos). Ejemplo 00:00:00 - 5 minutos (se cancela a las 23:55:00)
+    prm.dinamyc.actvity.generate.custom.end.activity.minutes= 5
+    
+    
+    # Indica el patron de tiempo que usara el modelo para activar la notificacion ISO 8601 (Ejemplo PT1H > 1 hora) [solo si unit es h]
+    prm.dinamyc.activity.notification.time.hour.pattner = PTXH
+    # Indica el patron de tiempo que usara el modelo para activar la notificacion ISO 8601 (Ejemplo P5D > 5 dias)  [solo si unit es d]
+    prm.dinamyc.activity.notification.time.day.pattner = PXD
+    
+    # MultiInstance
+    # -----------------------------------------
+    # Indicar el codigo del tipo de la actividad a gestionar [ indicador | pap ]
+    prm.activity.type = activity_type
+    
+    # Codigo tipo de actividad (debe estar reflejado en el modelo igual)
+    prm.activity.type.code.pap = pap
+    prm.activity.type.code.ind = indicador
+    
+    # Notificaciones
+    # -----------------------------------------
+    prm.ohhdrEvents.enabled={{ .Values.ohbpm.prm.enable_notifications }}
+    prm.ohhdrEvents.kafka.topic=ohhdr-events-for-ohprm
+    prm.ohhdrEvents.kafka.groupId=ohbpm-prm-events-listener
+    prm.ohhdrEvents.deadletter.topic=ohbpm-prm-event-errors
+    #Codigo de organización para el envio de notificaciones
+    prm.notifications.organization={{ .Values.ohbpm.prm.organization_notifications }}
+    # FIN NOTIFICACIONES
+  
+  logback.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true" scanPeriod="30 seconds">
+      <!-- PROPIEDADES DE CONFIGURACIÓN -->
+      <property name="TRACE_LOG_DIR" value="${indrasalud.home:-/tmp}/ohbpm/log" />
+      <!-- Nombre de sistema -->
+      <property name="APPLICATION" value="ohbpm" />
+      <!-- Patrón de fecha para log de diagnóstico -->
+      <property name="TRACE_TIME_PATTERN" value="yyyyMMdd.HHmmss.SSS" />
+      <!-- Sacar información de logger en log de diagnóstico -->
+      <property name="TRACE_SHOW_LOGGER" value="false" />
+      <!-- Longitud máxima en bytes del texto de una traza. Un valor menor o igual que cero implica que no hay truncado -->
+      <property name="TRACE_ARGUMENT_LENGTH" value="-1" />
+      <!-- Generar traza completa de error en las excepciones -->
+      <property name="GENERATE_FULL_STACK" value="false" />
+      <!-- MARCADORES A ELIMINAR DE LA TRAZA DE ERROR, SEPARADOS POR COMAS -->
+      <property name="REMOVE_STACK_MARKERS" value=" " />
+      <!-- MARCADORES QUE TERMINAN LA TRAZA DE ERROR -->
+      <property name="STOP_STACK_MARKERS" value=" " />
+      
+      <timestamp key="MONTH_PATTERN" datePattern="yyMM" />
+      <timestamp key="DAY_PATTERN" datePattern="yyMMdd" />
+      
+      <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+          <charset>UTF-8</charset>
+          <layout class="com.indra.oshc.hd.core.services.log.DiagnosticLayout">
+            <timestampPattern>${TRACE_TIME_PATTERN}</timestampPattern>
+            <printLogger>${TRACE_SHOW_LOGGER}</printLogger>
+            <argumentLength>${TRACE_ARGUMENT_LENGTH}</argumentLength>
+            <generateFullStack>${GENERATE_FULL_STACK}</generateFullStack>
+            <stopStackMarkers>${STOP_STACK_MARKERS}</stopStackMarkers>        
+            <removeStackMarkers>${REMOVE_STACK_MARKERS}</removeStackMarkers>
+          </layout>
+        </encoder>
+        <immediateFlush>true</immediateFlush>
+      </appender>
+      
+      <!-- LOG DE DIAGNOSTICO -->
+      <!-- LOGS LIBRERÍAS  -->
+      <logger name="com" level="WARN" />
+      <logger name="com.netflix.config.sources.URLConfigurationSource" level="ERROR" />
+      <logger name="com.hazelcast" level="INFO" />
+      <logger name="freemarker.cache" level="OFF" />
+      <logger name="org" level="WARN" />
+      <!-- Apache Camel -->
+      <logger name="org.apache.camel" level="WARN" />
+      <logger name="org.apache.camel.impl.converter.DefaultTypeConverter" level="ERROR" />
+      <!-- RestEasy -->
+      <logger name="org.jboss.resteasy" level="INFO" />
+      <!-- Poner a DEBUG para ver peticiones HTTP -->
+      <logger name="org.apache.http" level="INFO" />
+      <!-- Spring -->
+      <logger name="org.springframework" level="INFO" />
+      <!-- 
+      <logger name="org.springframework.boot" level="INFO" />
+      <logger name="org.springframework.jdbc" level="INFO" />
+      <logger name="org.springframework.transaction" level="INFO" />
+      <logger name="org.springframework.web" level="INFO" />
+      <logger name="org.springframework.core.web" level="INFO" />
+       -->
+      <logger name="org.springframework.security" level="INFO" />
+      <logger name="org.keycloak" level="INFO" />
+      <!-- Dozer -->
+      <logger name="org.dozer" level="ERROR" />
+      
+      <!-- MyBatis -->
+      <logger name="org.mybatis" level="{{ .Values.ohbpm.app.log.sql_level }}" />
+      
+      <!-- Camunda -->
+      <logger name="org.camunda" level="INFO" />
+      <logger name="org.camunda.bpm.engine.impl.persistence" level="INFO" />
+      
+      <!--Apache CXF-->
+      <logger name="org.apache.cxf" level="WARN" />
+      <logger name="org.apache.cxf.services" level="INFO" />
+      
+      <!-- Libs net.* -->
+      <logger name="net" level="WARN" />
+      <logger name="com.indra.oshc.hd.common.template.freemarker" level="WARN" />
+      <logger name="com.indra.oshc.hd.core" level="INFO" /> 
+      <logger name="com.minsait.onesait.healthcare.ohbpm" level="INFO" />
+      <!--  Delegate y Listener -->
+      <logger name="com.minsait.onesait.healthcare.ohbpm.back.cmp.camunda.delegate" level="ERROR" />
+      <!-- ROOT LOGGER -->
+      <root level="{{ .Values.ohbpm.app.log.level }}">
+        <appender-ref ref="stdout"/>
+      </root>
+    </configuration>
+
+  ehcache.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" 
+      updateCheck="false" monitoring="off"
+      dynamicConfig="true" name="CORE_SERVICES_CACHE">
+      
+      <cache name="ohbpm-roles" 
+        maxEntriesLocalHeap="50" 
+        eternal="false" timeToIdleSeconds="300" 
+        timeToLiveSeconds="300" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+    
+      <cache name="ohbpm-privileges"
+        maxEntriesLocalHeap="200" 
+        eternal="false" timeToIdleSeconds="300" 
+        timeToLiveSeconds="300" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+    
+      <cache name="ohbpm-catalogs"
+        maxEntriesLocalHeap="20" 
+        eternal="false" timeToIdleSeconds="3600" 
+        timeToLiveSeconds="3600" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+    
+      <cache name="ohbpm-catalog-items"
+        maxEntriesLocalHeap="200" 
+        eternal="false" timeToIdleSeconds="3600" 
+        timeToLiveSeconds="3600" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+    
+      <cache name="ohbpm-catalog-types"
+        maxEntriesLocalHeap="10" 
+        eternal="false" timeToIdleSeconds="3600" 
+        timeToLiveSeconds="3600" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+    
+      <cache name="plan-definition-query-cache"
+        maxEntriesLocalHeap="50" 
+        eternal="false" timeToIdleSeconds="300" 
+        timeToLiveSeconds="300" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+      
+      <cache name="ontology-codesystem"
+        maxEntriesLocalHeap="10" 
+        eternal="false" timeToIdleSeconds="60" 
+        timeToLiveSeconds="60" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>  
+    
+      <cache name="ontology-valueset"
+        maxEntriesLocalHeap="10" 
+        eternal="false" timeToIdleSeconds="60" 
+        timeToLiveSeconds="60" 
+        memoryStoreEvictionPolicy="LRU">
+      </cache>
+    </ehcache>

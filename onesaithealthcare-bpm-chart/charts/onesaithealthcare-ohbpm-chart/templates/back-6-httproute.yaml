@@ -1,0 +1,131 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: {{ .Values.ohbpm.app.name }}-http-route
+spec:
+  hostnames:
+    - {{ .Values.ohbpm.app.host }}
+  parentRefs:
+    - name: {{ .Values.ohbpm.app.gateway }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm/assets/config
+        - path:
+            type: PathPrefix
+            value: /ohbpm/assets/css
+      forwardTo:
+        - serviceName: ohbpm-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm/api
+        - path:
+            type: PathPrefix
+            value: /ohbpm/app
+        - path:
+            type: PathPrefix
+            value: /ohbpm/assets
+        - path:
+            type: PathPrefix
+            value: /ohbpm/lib
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Host
+                value: {{ .Values.ohbpm.app.host }}
+              - name: X-Forwarded-Port
+                value: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+              - name: X-Forwarded-Proto
+                value: {{ .Values.global.domain.protocol }}
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-back
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-smart/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-smart
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              replacePrefixMatch: /ohbpm-smart/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-designer/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-designer
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              replacePrefixMatch: /ohbpm-designer/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-prof/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-prof
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              replacePrefixMatch: /ohbpm-prof/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm-webcomponents
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-webcomponents-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-front
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohbpm
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              replacePrefixMatch: /ohbpm/
+      forwardTo:
+        - serviceName: {{ .Values.ohbpm.app.name }}-front
+          port: 8080
+{{- end }}
