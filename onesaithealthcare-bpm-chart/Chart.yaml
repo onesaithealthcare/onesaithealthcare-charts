@@ -1,5 +1,5 @@
 apiVersion: v2
-name: onesaithealthcare-bpm-general-chart
+name: onesaithealthcare-bpm-chart
 description: Onesait Healthcare BPM chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
