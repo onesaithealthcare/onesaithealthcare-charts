@@ -1,13 +1,15 @@
 global:
   environment:
     type: dev # Opciones: dev, prod
+  domain:
+    gateway_type: # Opciones: istio, k8s_gateway
   docker:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
 dts:
   sha256:
-    back: sha256:b4a9de8e99b0c2944e92de5e548938515026c6bbc315a1099f1466955aee5abd  
+    back: sha256:b4a9de8e99b0c2944e92de5e548938515026c6bbc315a1099f1466955aee5abd
   module:
     app_name: ohdts
     namespace: oh-dts

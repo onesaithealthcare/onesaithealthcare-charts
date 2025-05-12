@@ -2316,7 +2316,12 @@ spec:
                 - "-jar"
                 - "/datastore-4.3.0.jar"
           imagePullSecrets:
-            - name: docksdtr.indra.es
+          {{- if eq .Values.global.domain.gateway_type "istio"  }}
+            - name: docksdtr.indra.es         
+          {{- end }}
+          {{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
+            - name: 'oh-docker-creds'
+          {{- end }}  
           restartPolicy: Never
           volumes:
             - name: insercion-cfg
