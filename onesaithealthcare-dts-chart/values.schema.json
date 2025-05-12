@@ -26,7 +26,7 @@
               "description": "Gateway type"
             }
           },
-          "required": ["host"]
+          "required": ["gateway_type"]
         },
         "docker": {
           "type": "object",

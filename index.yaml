@@ -3,7 +3,7 @@ entries:
   onesaithealthcare-bi-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-12T09:25:44.161159+02:00"
+    created: "2025-05-12T09:32:06.1582672+02:00"
     description: Onesait Healthcare BI chart for k8s
     digest: 788de4ca2e7f27dbc1b99093b1f6e651e4a42ab616e82ab650a65d1021829dd8
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -23,7 +23,7 @@ entries:
   onesaithealthcare-cmc-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-12T09:25:44.2412943+02:00"
+    created: "2025-05-12T09:32:06.1685804+02:00"
     description: Onesait Healthcare CMC chart for k8s
     digest: 61816039091cb39740a64bb37ffb47da83ad26eabe73003196da0aeedde3be6d
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -42,7 +42,7 @@ entries:
     version: 4.0.1
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-12T09:25:44.2097353+02:00"
+    created: "2025-05-12T09:32:06.1633958+02:00"
     description: Onesait Healthcare CMC chart for k8s
     digest: 564180e647cb63c3ab61c639695d5f655eef8ab63cc2f0f592bf1abfad4867f0
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -62,9 +62,9 @@ entries:
   onesaithealthcare-dts-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-12T09:25:44.2464299+02:00"
+    created: "2025-05-12T09:32:06.1732518+02:00"
     description: Onesait Healthcare DTS chart for k8s
-    digest: 86ad43d87149e81797ee74ee6d2573f58776ad901178df30550a86d8e2771125
+    digest: c08e64099b3bdfb234fde84bd9360fd1b23083886eed6bcb4b3ffdea5e551cf8
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -82,7 +82,7 @@ entries:
   onesaithealthcare-hdr-chart:
   - apiVersion: v2
     appVersion: 3.14.0
-    created: "2025-05-12T09:25:44.2852501+02:00"
+    created: "2025-05-12T09:32:06.1791669+02:00"
     description: Onesait Healthcare HDR chart for k8s
     digest: 6e7bb32afaad519741b7e36c3daa6467918aca136088554031807a8cb82581c9
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -102,7 +102,7 @@ entries:
   onesaithealthcare-mdm-chart:
   - apiVersion: v2
     appVersion: 4.10.0
-    created: "2025-05-12T09:25:44.3430165+02:00"
+    created: "2025-05-12T09:32:06.1958204+02:00"
     dependencies:
     - name: onesaithealthcare-ohccommons-chart
       repository: file://charts/onesaithealthcare-ohccommons-chart
@@ -153,7 +153,7 @@ entries:
   onesaithealthcare-monitoring-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-12T09:25:44.4017327+02:00"
+    created: "2025-05-12T09:32:06.2040802+02:00"
     description: Onesait Healthcare Monitoring chart for k8s
     digest: 8f3486b3ce2e9765758a3b01af783c7c0229bfedc89e91cf7065e8903246a8ec
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -170,4 +170,4 @@ entries:
     urls:
     - onesaithealthcare-monitoring-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-05-12T09:25:44.1244788+02:00"
+generated: "2025-05-12T09:32:06.144581+02:00"
