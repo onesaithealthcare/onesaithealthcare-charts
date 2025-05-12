@@ -27,28 +27,28 @@ data:
     threads.queue.size={{ "{{" }}env:threads.queue.size:1000}}
     retry.number={{ "{{" }}env:retry.number:3}}
 
-    datasource.database.driverClassName = ${ {{ .Values.dts.database.datasource.driver }} }
-    datasource.database.url = ${database.url:{{ .Values.dts.database.datasource.url }} }
+    datasource.database.driverClassName = ${ {{ .Values.dts.database.datasource.driver }}}
+    datasource.database.url = ${database.url:{{ .Values.dts.database.datasource.url }}}
     datasource.database.minPoolSize=${database.minPoolSize:2}
     datasource.database.maxPoolSize=${database.maxPoolSize:20}
-    datasource.database.username = ${database.username:{{ .Values.dts.database.datasource.username }} }
-    datasource.database.password = ${database.password:{{ .Values.dts.database.datasource.password }} }
+    datasource.database.username = ${database.username:{{ .Values.dts.database.datasource.username }}}
+    datasource.database.password = ${database.password:{{ .Values.dts.database.datasource.password }}}
 
 
-    iengine.database.driverClassName = ${ {{ .Values.dts.database.iengine.driver }} }
-    iengine.database.url = ${database.url:{{ .Values.dts.database.iengine.url }} }
+    iengine.database.driverClassName = ${ {{ .Values.dts.database.iengine.driver }}}
+    iengine.database.url = ${database.url:{{ .Values.dts.database.iengine.url }}}
     iengine.database.minPoolSize=${database.minPoolSize:2}
     iengine.database.maxPoolSize=${database.maxPoolSize:20}
-    iengine.database.username = ${database.username:{{ .Values.dts.database.iengine.username }} }
-    iengine.database.password = ${database.password:{{ .Values.dts.database.iengine.password }} }
+    iengine.database.username = ${database.username:{{ .Values.dts.database.iengine.username }}}
+    iengine.database.password = ${database.password:{{ .Values.dts.database.iengine.password }}}
 
 
-    datastore.database.driverClassName = ${ {{ .Values.dts.database.datastore.driver }} }
-    datastore.database.url = ${database.url:{{ .Values.dts.database.datastore.url }} }
+    datastore.database.driverClassName = ${ {{ .Values.dts.database.datastore.driver }}}
+    datastore.database.url = ${database.url:{{ .Values.dts.database.datastore.url }}}
     datastore.database.minPoolSize=${database.minPoolSize:2}
     datastore.database.maxPoolSize=${database.maxPoolSize:20}
-    datastore.database.username = ${database.username:{{ .Values.dts.database.datastore.username }} }
-    datastore.database.password = ${database.password:{{ .Values.dts.database.datastore.password }} }
+    datastore.database.username = ${database.username:{{ .Values.dts.database.datastore.username }}}
+    datastore.database.password = ${database.password:{{ .Values.dts.database.datastore.password }}}
 
 
     # Propiedades Camel y Spring
