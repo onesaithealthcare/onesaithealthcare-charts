@@ -20,12 +20,12 @@ data:
     longQueryConfig.split=true
     longQueryConfig.blockLimit=500
 
-    route.from={{env:route.from:timer://runOnce?repeatCount=1 | quote }}
-    path.file={{env:path.file:C:/Datos/IEngine/ | quote }}
-    threads.pool.size={{env:threads.pool.size:10 | quote }}
-    threads.max_pool.size={{env:threads.max_pool.size:20 | quote }}
-    threads.queue.size={{env:threads.queue.size:1000 | quote }}
-    retry.number={{env:retry.number:3 | quote }}
+    route.from={{ "{{" }}env:route.from:timer://runOnce?repeatCount=1}}
+    path.file={{ "{{" }}env:path.file:C:/Datos/IEngine/}}
+    threads.pool.size={{ "{{" }}env:threads.pool.size:10}}
+    threads.max_pool.size={{ "{{" }}env:threads.max_pool.size:20}}
+    threads.queue.size={{ "{{" }}env:threads.queue.size:1000}}
+    retry.number={{ "{{" }}env:retry.number:3}}
 
     datasource.database.driverClassName = ${ {{ .Values.dts.database.datasource.driver }} }
     datasource.database.url = ${database.url:{{ .Values.dts.database.datasource.url }} }
