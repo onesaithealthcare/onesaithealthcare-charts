@@ -8,6 +8,15 @@ questions:
       - dev
       - prod
     required: true
+    
+  - variable: global.domain.gateway_type
+    default: k8s_gateway
+    description: "Gateway type"
+    type: enum
+    options:
+      - istio
+      - k8s_gateway
+    required: true
 
   - variable: global.docker.registry.host
     default: "docksdtr.indra.es"

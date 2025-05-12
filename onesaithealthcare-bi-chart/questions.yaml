@@ -1,14 +1,5 @@
 questions:
 
-  - variable: global.domain.gateway_type
-    default: k8s_gateway
-    description: "Gateway type"
-    type: enum
-    options:
-      - istio
-      - k8s_gateway
-    required: true
-
   - variable: global.environment.type
     default: dev
     description: "Environment type"
