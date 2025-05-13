@@ -1,0 +1,37 @@
+global:
+  environment:
+    type: dev # Opciones: dev, prod
+  domain:
+    gateway_type: # Opciones: istio, k8s_gateway
+  docker:
+    registry:
+      host: docksdtr.indra.es
+      project: multhn_cmhn20_2
+dts:
+  tag:
+    back: 4.3.0
+  module:
+    app_name: ohdts
+    namespace: oh-dts
+    schedule: 10 0 * * *
+    max_days: 0
+    cfg:
+      insercion: insercion-cfg
+      extraccion: extraccion-cfg
+      routes: routes-cfg
+  database:
+    datasource:
+      driver: database.driverClassName:oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+      username: adm_ihs
+      password: hn2020
+    iengine:
+      driver: database.driverClassName:oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+      username: us_dts_sta
+      password: us_dts_sta
+    datastore:
+      driver: database.driverClassName:oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+      username: us_dts_own
+      password: us_dts_own

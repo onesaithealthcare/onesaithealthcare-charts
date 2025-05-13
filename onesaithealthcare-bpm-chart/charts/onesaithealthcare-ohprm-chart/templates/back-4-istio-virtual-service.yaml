@@ -1,0 +1,118 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: ohprm-virtual-service
+spec:
+  gateways:
+    - {{ .Values.ohprm.app.gateway }}
+  hosts:
+    - '*'
+  http:
+    - corsPolicy:
+        allowHeaders:
+          - x-requested-with
+          - Content-Type
+          - jwtheader
+          - origin
+          - authorization
+          - accept
+          - client-security-token
+          - x-preserve-id
+          - if-none-exist
+          - prefer
+          - referer
+          - host
+          - origin
+        allowMethods:
+          - GET
+          - POST
+          - OPTIONS
+          - PUT
+          - DELETE
+        allowOrigin:
+          - {{ .Values.ohprm.app.url_prof_server }}
+          - {{ .Values.ohprm.app.url_server }}
+      headers:
+        request:
+          set:
+            x-forwarded-host: {{ .Values.ohprm.app.host }}
+            x-forwarded-port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+            x-forwarded-proto: {{ .Values.global.domain.protocol }}
+      match:
+        - uri:
+            prefix: /ohprm/api/fhir/
+        - uri:
+            exact: /ohprm/healthcheck
+      route:
+        - destination:
+            host: {{ .Values.ohprm.app.backend_app }}
+            port:
+              number: 8080
+    - corsPolicy:
+        allowHeaders:
+          - x-requested-with
+          - Content-Type
+          - jwtheader
+          - origin
+          - authorization
+          - accept
+          - client-security-token
+          - x-preserve-id
+          - if-none-exist
+          - prefer
+          - referer
+          - host
+          - origin
+        allowMethods:
+          - GET
+          - POST
+          - OPTIONS
+          - PUT
+          - DELETE
+        allowOrigin:
+          - {{ .Values.ohprm.app.url_prof_server }}
+          - {{ .Values.ohprm.app.url_server }}
+      match:
+        - uri:
+            prefix: /ohprm/
+      route:
+        - destination:
+            host: {{ .Values.ohprm.app.front_app }}
+            port:
+              number: 8080
+    - corsPolicy:
+        allowHeaders:
+          - x-requested-with
+          - Content-Type
+          - jwtheader
+          - origin
+          - authorization
+          - accept
+          - client-security-token
+          - x-preserve-id
+          - if-none-exist
+          - prefer
+          - referer
+          - host
+          - origin
+        allowMethods:
+          - GET
+          - POST
+          - OPTIONS
+          - PUT
+          - DELETE
+        allowOrigin:
+          - {{ .Values.ohprm.app.url_prof_server }}
+          - {{ .Values.ohprm.app.url_server }}
+      match:
+        - uri:
+            prefix: /ohprm
+      rewrite:
+        uri: /ohprm/
+      route:
+        - destination:
+            host: {{ .Values.ohprm.app.front_app }}
+            port:
+              number: 8080
+{{- end }}

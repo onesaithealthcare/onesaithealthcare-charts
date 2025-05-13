@@ -1,0 +1,178 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.ohbpm.app.name }}-back
+  labels:
+    app: {{ .Values.ohbpm.app.name }}-back
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  replicas: {{ .Values.ohbpm.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.ohbpm.app.name }}-back
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.ohbpm.app.name }}-back
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: {{ .Values.global.docker.registry.host }}
+      containers:
+        - name: {{ .Values.ohbpm.app.name }}-back
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohbpm-back:{{ .Values.ohbpm.version.back_image_tag }}'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /ohbpm/api/healthcheck
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 20
+
+          readinessProbe:
+            httpGet:
+              path: /ohbpm/api/healthcheck
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          volumeMounts:
+            - name: ohbpm-back-jetty-cfg
+              mountPath: /var/lib/jetty/webapps/ROOT/WEB-INF/jetty-env.xml
+              subPath: jetty-env.xml
+              readOnly: true
+              
+            - name: ohbpm-back-props
+              mountPath: /hn_home/ohbpm/conf/env.ohbpm.properties
+              subPath: env.ohbpm.properties
+              readOnly: true
+              
+            - name: ohbpm-back-kpi-props
+              mountPath: /hn_home/ohbpm/conf/env.ohbpm.kpi.properties
+              subPath: env.ohbpm.kpi.properties
+              readOnly: true
+
+            - name: ohbpm-back-prm-props
+              mountPath: /hn_home/ohbpm/conf/env.ohbpm.prm.properties
+              subPath: env.ohbpm.prm.properties
+              readOnly: true
+
+            - name: ohbpm-back-cfg-log
+              mountPath: /hn_home/ohbpm/conf/logback.xml
+              subPath: logback.xml
+              readOnly: true
+
+            - name: ohbpm-back-cfg-cache
+              mountPath: /hn_home/ohbpm/conf/ehcache.xml
+              subPath: ehcache.xml
+              readOnly: true
+
+            - name: ohbpm-back-host-props
+              mountPath: /hn_home/host.properties
+              subPath: host.properties
+              readOnly: true
+              
+            - name: ohbpm-back-integration-props
+              mountPath: /hn_home/integration.properties
+              subPath: integration.properties
+              readOnly: true
+              
+            - name: ohbpm-back-iscore-sso-props
+              mountPath: /hn_home/iscore/conf/sso.properties
+              subPath: sso.properties
+              readOnly: true 
+
+            - name: cert-domain
+              mountPath: /cert/cert-domain.crt
+              subPath: tls.crt                
+
+          env:
+            - name: JVM_OPTS
+              value: '-Dindrasalud.home=/hn_home -Xms512m -Xmx2048M'
+
+          resources:
+            limits:
+              cpu: '600m'
+              memory: 2Gi
+            requests:
+              cpu: '200m'
+              memory: 768Mi
+          imagePullPolicy: Always
+      #Temporal en entorno openshift desarrollo (no resuelve ip del gateway)
+      hostAliases:
+        - ip: 192.168.1.146
+          hostnames:
+            - oh-modules.apps.lab.openshift.com
+      volumes:
+        - name: ohbpm-back-props
+          configMap:
+            name: {{ .Values.ohbpm.app.name }}-back-cfg
+            items:
+              - key : "env.ohbpm.properties"
+                path : "env.ohbpm.properties"
+
+        - name: ohbpm-back-kpi-props
+          configMap:
+            name: {{ .Values.ohbpm.app.name }}-back-cfg
+            items:
+              - key : "env.ohbpm.kpi.properties"
+                path : "env.ohbpm.kpi.properties"
+
+        - name: ohbpm-back-prm-props
+          configMap:
+            name: {{ .Values.ohbpm.app.name }}-back-cfg
+            items:
+              - key : "env.ohbpm.prm.properties"
+                path : "env.ohbpm.prm.properties"
+
+        - name: ohbpm-back-cfg-log
+          configMap:
+            name: {{ .Values.ohbpm.app.name }}-back-cfg
+            items:
+              - key : "logback.xml"
+                path : "logback.xml"
+
+        - name: ohbpm-back-cfg-cache
+          configMap:
+            name: {{ .Values.ohbpm.app.name }}-back-cfg
+            items:
+              - key : "ehcache.xml"
+                path : "ehcache.xml"
+
+        - name: ohbpm-back-jetty-cfg
+          configMap:
+            name: {{ .Values.ohbpm.app.name }}-back-jetty
+
+        - name: ohbpm-back-host-props
+          configMap:
+            name: hnhome-host-props
+
+        - name: ohbpm-back-integration-props
+          configMap:
+            name: hnhome-integration-props
+
+        - name: ohbpm-back-jms-props
+          configMap:
+            name: hnhome-jms-props
+
+        - name: ohbpm-back-iscore-sso-props
+          configMap:
+            name: hnhome-iscore-sso-props  
+            
+        - name: cert-domain
+          secret:
+           secretName: cert-domain
+           items:
+             - key: tls.crt
+               path: tls.crt
+           defaultMode: 420              

@@ -3,9 +3,9 @@ entries:
   onesaithealthcare-bi-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-07T14:23:20.8507458+02:00"
+    created: "2025-05-13T14:45:26.767877+02:00"
     description: Onesait Healthcare BI chart for k8s
-    digest: 788de4ca2e7f27dbc1b99093b1f6e651e4a42ab616e82ab650a65d1021829dd8
+    digest: ac4ff85e732dc180f7d5a7e9d02671b6f659b528db608aa19baca2d53053e75e
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -23,9 +23,22 @@ entries:
   onesaithealthcare-bpm-chart:
   - apiVersion: v2
     appVersion: 4.9.0
-    created: "2025-05-07T14:23:20.8552084+02:00"
+    created: "2025-05-13T14:45:26.7873409+02:00"
+    dependencies:
+    - condition: dependencies.ohbpm.enabled
+      name: onesaithealthcare-ohbpm-chart
+      repository: file://charts/onesaithealthcare-ohbpm-chart
+      version: 4.9.0
+    - condition: dependencies.ohprm.enabled
+      name: onesaithealthcare-ohprm-chart
+      repository: file://charts/onesaithealthcare-ohprm-chart
+      version: 4.7.0
+    - condition: dependencies.ohgen.enabled
+      name: onesaithealthcare-ohgen-chart
+      repository: file://charts/onesaithealthcare-ohgen-chart
+      version: 4.9.0
     description: Onesait Healthcare BPM chart for k8s
-    digest: ee4454f0742103654256742b18d9f33954530ca8e37cd9d1ecce6bbaa10ce00f
+    digest: ba60a57773f9e42f1d1459667f89522e33d88ab364e57e22a0e12a70093d4101
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -43,7 +56,7 @@ entries:
   onesaithealthcare-cmc-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-07T14:23:20.8624881+02:00"
+    created: "2025-05-13T14:45:26.7998084+02:00"
     description: Onesait Healthcare CMC chart for k8s
     digest: 61816039091cb39740a64bb37ffb47da83ad26eabe73003196da0aeedde3be6d
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -62,7 +75,7 @@ entries:
     version: 4.0.1
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-07T14:23:20.8597354+02:00"
+    created: "2025-05-13T14:45:26.79309+02:00"
     description: Onesait Healthcare CMC chart for k8s
     digest: 564180e647cb63c3ab61c639695d5f655eef8ab63cc2f0f592bf1abfad4867f0
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -79,30 +92,30 @@ entries:
     urls:
     - onesaithealthcare-cmc-chart-4.0.0.tgz
     version: 4.0.0
-  onesaithealthcare-gen-chart:
+  onesaithealthcare-dts-chart:
   - apiVersion: v2
-    appVersion: 4.9.0
-    created: "2025-05-07T14:23:20.8668434+02:00"
-    description: Onesait Healthcare GEN chart for k8s
-    digest: a9bf0b679615fe0c6e310a0786dc6d044cfe567c5647f6c92127d91e7922ab2a
+    appVersion: 4.0.0
+    created: "2025-05-13T14:45:26.807242+02:00"
+    description: Onesait Healthcare DTS chart for k8s
+    digest: 98a921af4214393228761e2a4628105eb86e024e75d931088631cfd8c75dc229
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
     - Minsait
     - Onesait Healthcare
-    - GEN
+    - DTS
     maintainers:
     - email: soporteosh@indra.es
       name: Onesait Healthcare
-    name: onesaithealthcare-gen-chart
+    name: onesaithealthcare-dts-chart
     type: application
     urls:
-    - onesaithealthcare-gen-chart-4.0.0.tgz
+    - onesaithealthcare-dts-chart-4.0.0.tgz
     version: 4.0.0
   onesaithealthcare-mdm-chart:
   - apiVersion: v2
     appVersion: 4.10.0
-    created: "2025-05-07T14:23:20.8726237+02:00"
+    created: "2025-05-13T14:45:26.8256361+02:00"
     dependencies:
     - name: onesaithealthcare-ohccommons-chart
       repository: file://charts/onesaithealthcare-ohccommons-chart
@@ -131,8 +144,11 @@ entries:
     - name: onesaithealthcare_ohwcviewer_chart
       repository: file://charts/onesaithealthcare_ohwcviewer_chart
       version: 4.6.0
+    - name: onesaithealthcare_ohdsk_chart
+      repository: file://charts/onesaithealthcare_ohdsk_chart
+      version: 3.23.0
     description: Onesait Healthcare MDM chart for k8s
-    digest: 45a2fb8ee2c8223bf59dcde6b51b2b5cb8688e1ec9cd96f16706fe7861a8543f
+    digest: d939c86ced10bbe2dbec1e3f36ab9130d410e43dbfe31fbb711973af316b13fa
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -150,7 +166,7 @@ entries:
   onesaithealthcare-monitoring-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-05-07T14:23:20.8849882+02:00"
+    created: "2025-05-13T14:45:26.8316375+02:00"
     description: Onesait Healthcare Monitoring chart for k8s
     digest: 8f3486b3ce2e9765758a3b01af783c7c0229bfedc89e91cf7065e8903246a8ec
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -167,24 +183,4 @@ entries:
     urls:
     - onesaithealthcare-monitoring-chart-4.0.0.tgz
     version: 4.0.0
-  onesaithealthcare-prm-chart:
-  - apiVersion: v2
-    appVersion: 4.6.0
-    created: "2025-05-07T14:23:20.8849882+02:00"
-    description: Onesait Healthcare PRM chart for k8s
-    digest: f3f5e0571285a1c5aed236a6ec1ee2c05567b44d47a2f44cb77cf00e6cb0e594
-    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
-    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
-    keywords:
-    - Minsait
-    - Onesait Healthcare
-    - PRM
-    maintainers:
-    - email: soporteosh@indra.es
-      name: Onesait Healthcare
-    name: onesaithealthcare-prm-chart
-    type: application
-    urls:
-    - onesaithealthcare-prm-chart-4.0.0.tgz
-    version: 4.0.0
-generated: "2025-05-07T14:23:20.8462065+02:00"
+generated: "2025-05-13T14:45:26.7625806+02:00"

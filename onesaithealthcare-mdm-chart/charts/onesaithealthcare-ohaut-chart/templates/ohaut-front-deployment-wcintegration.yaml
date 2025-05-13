@@ -11,7 +11,6 @@ spec:
       app: ohcore-webcomponents-integration-front
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: ohcore-webcomponents-integration-front
       annotations:
@@ -82,8 +81,7 @@ spec:
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
           terminationMessagePolicy: File
-          image: >-
-            '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcore-webcomponents-integration@{{ .Values.ohaut.sha256_front_wcint }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcore-webcomponents-integration@{{ .Values.ohaut.sha256_front_wcint }}'
       serviceAccount: oh-module
       volumes:
         - name: ohcore-webcomponents-integration-front-cfg

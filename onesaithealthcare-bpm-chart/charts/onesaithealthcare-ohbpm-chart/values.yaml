@@ -1,0 +1,54 @@
+environment:
+  type: dev # Opciones: dev, prod 
+domain:
+  protocol: # Opciones: http, https
+  host:
+  gateway_type: # Opciones: istio, k8s_gateway
+docker:
+  registry:
+    host: docksdtr.indra.es
+    project: multhn_cmhn20_2
+bpm:
+  app:
+    name: ohbpm
+    gateway: oh-modules-gateway
+    locale_default: ES
+    host: oh-modules.apps.lab.openshift.com
+    replicas: 1
+    cod_passive_cause_death: 2
+    flag:
+      patient_merge: true
+      audit_enable: false
+      disable_process_pasive_patient: false
+      enable_profile_search: true
+      enable_obs_generation: true
+      enable_kafka_replication: true
+      enable_kpi_generation: true
+    log:
+      level: WARN
+      sql_level: ERROR
+  database:
+    type: ORACLE # Opciones: ORACLE, MYSQL 
+    max_pool_size: 20
+    driver: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    user: us_ohbpm
+    pass: us_ohbpm
+    min_idle: 10
+    con_timeout: 30000
+    idle_timeout: 600000
+    max_lifetime: 1800000
+    val_timeout: 5000
+    leak_detection: 15000
+  prm:
+    enable_notifications: true
+    organization_notifications: SES
+  version:
+    app: 4.9.0
+    back_image_tag: 4.9.0
+    front_image_tag: 4.9.0
+    smart_front_image_tag: 4.9.0
+    webcomponents_front_image_tag: 4.9.0
+    designer_front_image_tag: 4.9.0
+    prof_image_tag: 4.9.0
+

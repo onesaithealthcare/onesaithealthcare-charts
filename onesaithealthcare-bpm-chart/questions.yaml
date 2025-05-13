@@ -1,219 +1,543 @@
 questions:
-  - variable: environment.type
+  - variable: global.environment.type
     default: dev
-    description: "Selecciona el tipo de entorno (dev o prod)"
+    description: "Selecciona el tipo de entorno"
     type: enum
     options:
       - dev
       - prod
 
-  - variable: domain.protocol
-    default: ""
+  - variable: global.domain.protocol
+    default: http
     description: "Protocolo del dominio (http o https)"
     type: enum
     options:
       - http
       - https
 
-  - variable: domain.host
+  - variable: global.domain.host
     default: ""
-    description: "Introduce el host del dominio"
+    description: "Host del dominio"
     type: string
 
-  - variable: domain.istio
-    default: false
-    description: "¿Istio habilitado?"
-    type: boolean
+  - variable: global.domain.gateway_type
+    default: istio
+    description: "Tipo de gateway (istio o k8s_gateway)"
+    type: enum
+    options:
+      - istio
+      - k8s_gateway
 
-  - variable: docker.registry.host
+  - variable: global.docker.registry.host
     default: docksdtr.indra.es
     description: "Host del registro Docker"
     type: string
 
-  - variable: docker.registry.project
+  - variable: global.docker.registry.project
     default: multhn_cmhn20_2
     description: "Proyecto del registro Docker"
     type: string
 
-  - variable: bpm.app.name
+  - variable: dependencies.ohbpm.enabled
+    default: true
+    description: "Habilitar el módulo OHBPM"
+    type: boolean
+
+  - variable: dependencies.ohprm.enabled
+    default: true
+    description: "Habilitar el módulo OHPRM"
+    type: boolean
+
+  - variable: dependencies.ohgen.enabled
+    default: true
+    description: "Habilitar el módulo OHGEN"
+    type: boolean
+
+  # OHBPM Variables
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.name
     default: ohbpm
-    description: "Nombre de la aplicación BPM"
+    description: "Nombre de la aplicación OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.gateway
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.gateway
     default: oh-modules-gateway
-    description: "Gateway de la aplicación BPM"
+    description: "Gateway de la aplicación OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.locale_default
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.locale_default
     default: ES
     description: "Configuración regional predeterminada"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.host
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.host
     default: oh-modules.apps.lab.openshift.com
-    description: "Host de la aplicación BPM"
+    description: "Host de la aplicación OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.replicas
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.replicas
     default: 1
-    description: "Número de réplicas para la aplicación BPM"
+    description: "Número de réplicas de la aplicación OHBPM"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.cod_passive_cause_death
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.cod_passive_cause_death
     default: 2
     description: "Código de causa pasiva de muerte"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.patient_merge
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.patient_merge
     default: true
-    description: "¿Habilitar la fusión de pacientes?"
+    description: "Habilitar la fusión de pacientes"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.audit_enable
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.audit_enable
     default: false
-    description: "¿Habilitar auditoría?"
+    description: "Habilitar auditoría"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.disable_process_pasive_patient
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.disable_process_pasive_patient
     default: false
-    description: "¿Deshabilitar el procesamiento de pacientes pasivos?"
+    description: "Deshabilitar el procesamiento de pacientes pasivos"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.enable_profile_search
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.enable_profile_search
     default: true
-    description: "¿Habilitar la búsqueda de perfiles?"
+    description: "Habilitar búsqueda de perfiles"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.enable_obs_generation
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.enable_obs_generation
     default: true
-    description: "¿Habilitar la generación de observaciones?"
+    description: "Habilitar generación de observaciones"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.enable_kafka_replication
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.enable_kafka_replication
     default: true
-    description: "¿Habilitar la replicación de Kafka?"
+    description: "Habilitar replicación con Kafka"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.flag.enable_kpi_generation
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.flag.enable_kpi_generation
     default: true
-    description: "¿Habilitar la generación de KPIs?"
+    description: "Habilitar generación de KPIs"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.log.level
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.log.level
     default: WARN
-    description: "Nivel de log para la aplicación BPM"
+    description: "Nivel de log de la aplicación OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.app.log.sql_level
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.log.sql_level
     default: ERROR
-    description: "Nivel de log SQL para la aplicación BPM"
+    description: "Nivel de log SQL de la aplicación OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.type
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.type
     default: ORACLE
     description: "Tipo de base de datos (ORACLE o MYSQL)"
     type: enum
     options:
       - ORACLE
       - MYSQL
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.max_pool_size
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.max_pool_size
     default: 20
-    description: "Tamaño máximo del pool de conexiones a la base de datos"
+    description: "Tamaño máximo del pool de conexiones"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.driver
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.driver
     default: oracle.jdbc.driver.OracleDriver
-    description: "Driver JDBC para la base de datos"
+    description: "Driver JDBC de la base de datos"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.url
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.url
     default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
     description: "URL de conexión a la base de datos"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.user
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.user
     default: us_ohbpm
     description: "Usuario de la base de datos"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.pass
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.pass
     default: us_ohbpm
     description: "Contraseña de la base de datos"
-    type: password
+    type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.min_idle
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.min_idle
     default: 10
-    description: "Número mínimo de conexiones activas en alta demanda"
+    description: "Número mínimo de conexiones inactivas"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.con_timeout
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.con_timeout
     default: 30000
-    description: "Tiempo de espera para lanzar una excepción si no hay conexión (s)"
+    description: "Tiempo de espera para obtener una conexión (ms)"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.idle_timeout
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.idle_timeout
     default: 600000
-    description: "Tiempo de espera de inactividad para cerrar una conexión (min)"
+    description: "Tiempo de espera para conexiones inactivas (ms)"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.max_lifetime
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.max_lifetime
     default: 1800000
-    description: "Tiempo máximo de vida de una conexión (ms)"
+    description: "Tiempo de vida máximo para conexiones (ms)"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.val_timeout
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.val_timeout
     default: 5000
-    description: "Tiempo de espera para validación de conexiones (ms)"
+    description: "Tiempo de validación (ms)"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.database.leak_detection
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.database.leak_detection
     default: 15000
-    description: "Tiempo para detección de fugas de conexiones (ms)"
+    description: "Tiempo para detección de fugas de conexión (ms)"
     type: int
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.prm.enable_notifications
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.prm.enable_notifications
     default: true
-    description: "¿Habilitar notificaciones?"
+    description: "Habilitar notificaciones en PRM"
     type: boolean
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.prm.organization_notifications
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.prm.organization_notifications
     default: SES
-    description: "Organización para notificaciones"
+    description: "Organización para notificaciones en PRM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.app
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.app
     default: 4.9.0
-    description: "Versión de la aplicación BPM"
+    description: "Versión de la aplicación OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.back_image_tag
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.back_image_tag
     default: 4.9.0
-    description: "Etiqueta de la imagen del backend"
+    description: "Etiqueta de la imagen del backend OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.front_image_tag
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.front_image_tag
     default: 4.9.0
-    description: "Etiqueta de la imagen del frontend"
+    description: "Etiqueta de la imagen del frontend OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.smart_front_image_tag
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.smart_front_image_tag
     default: 4.9.0
-    description: "Etiqueta de la imagen del frontend inteligente"
+    description: "Etiqueta de la imagen del frontend inteligente OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.webcomponents_front_image_tag
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.webcomponents_front_image_tag
     default: 4.9.0
-    description: "Etiqueta de la imagen de los webcomponents del frontend"
+    description: "Etiqueta de la imagen del frontend de webcomponents OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.designer_front_image_tag
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.designer_front_image_tag
     default: 4.9.0
-    description: "Etiqueta de la imagen del diseñador del frontend"
+    description: "Etiqueta de la imagen del frontend del diseñador OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
 
-  - variable: bpm.version.prof_image_tag
+  - variable: onesaithealthcare-ohbpm-chart.ohbpm.version.prof_image_tag
     default: 4.9.0
-    description: "Etiqueta de la imagen del perfil"
+    description: "Etiqueta de la imagen del perfil profesional OHBPM"
     type: string
+    show_if: dependencies.ohbpm.enabled=true
+
+  # OHGEN Variables
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.name_back
+    default: ohgen-back
+    description: "Nombre del backend de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.name_front
+    default: ohgen-front
+    description: "Nombre del frontend de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.name_front_designer
+    default: ohgen-designer-front
+    description: "Nombre del frontend del diseñador de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.name_front_integration
+    default: ohgen-integration-front
+    description: "Nombre del frontend de integración de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.name_front_webcomponents
+    default: ohgen-webcomponents
+    description: "Nombre del frontend de webcomponents de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.host
+    default: oh-modules.apps.lab.openshift.com
+    description: "Host de la aplicación OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.gateway
+    default: oh-modules-gateway
+    description: "Gateway de la aplicación OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.replicas
+    default: 1
+    description: "Número de réplicas del backend de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.replicas_front_designer
+    default: 1
+    description: "Número de réplicas del frontend del diseñador de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.replicas_front_integration
+    default: 1
+    description: "Número de réplicas del frontend de integración de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.log.level
+    default: WARN
+    description: "Nivel de log de la aplicación OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.app.log.sql_level
+    default: ERROR
+    description: "Nivel de log SQL de la aplicación OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.driver
+    default: oracle.jdbc.driver.OracleDriver
+    description: "Driver JDBC de la base de datos OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.url
+    default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
+    description: "URL de conexión a la base de datos OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.user
+    default: own_dsf
+    description: "Usuario de la base de datos OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.pass
+    default: own_dsf
+    description: "Contraseña de la base de datos OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.default_schema
+    default: OWN_DSF
+    description: "Esquema predeterminado de la base de datos OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.type
+    default: Oracle
+    description: "Tipo de base de datos de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.dialect
+    default: org.hibernate.dialect.Oracle10gDialect
+    description: "Dialect JDBC de la base de datos OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.initial_size
+    default: 2
+    description: "Tamaño inicial del pool de conexiones de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.max_size
+    default: 50
+    description: "Tamaño máximo del pool de conexiones de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.min_idle
+    default: 5
+    description: "Número mínimo de conexiones inactivas de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.database.max_idle
+    default: 20
+    description: "Número máximo de conexiones inactivas de OHGEN"
+    type: int
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.version.back_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del backend OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.version.front_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.version.front_designer_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend del diseñador de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.version.front_integration_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend de integración de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.version.front_webcomponents_image_tag
+    default: 4.9.0
+    description: "Etiqueta de la imagen del frontend de webcomponents de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.con.protocol
+    default: https
+    description: "Protocolo de conexión de OHGEN (http o https)"
+    type: enum
+    options:
+      - http
+      - https
+    show_if: dependencies.ohgen.enabled=true
+
+  - variable: onesaithealthcare-ohgen-chart.ohgen.con.host
+    default: oh-modules.apps.lab.openshift.com
+    description: "Host de conexión de OHGEN"
+    type: string
+    show_if: dependencies.ohgen.enabled=true
+
+  # OHPRM Variables
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.host
+    default: oh-release.apps.lab.openshift.com
+    description: "Host de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.gateway
+    default: oh-modules-gateway
+    description: "Gateway de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.backend_app
+    default: ohprm-api
+    description: "Nombre del backend de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.front_app
+    default: ohprm-front
+    description: "Nombre del frontend de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.url_server
+    default: https://oh-release.apps.lab.openshift.com
+    description: "URL del servidor de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.url_prof_server
+    default: https://oh-release-prof.apps.lab.openshift.com
+    description: "URL del servidor profesional de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.cipaut
+    default: 2.16.724.4.40.222
+    description: "CIPAut de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.backend_app
+    default: ohprm-api
+    description: "Nombre del backend de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.front_app
+    default: ohprm-front
+    description: "Nombre del frontend de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.url_server
+    default: https://oh-release.apps.lab.openshift.com
+    description: "URL del servidor de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.url_prof_server
+    default: https://oh-release-prof.apps.lab.openshift.com
+    description: "URL del servidor profesional de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.app.cipaut
+    default: 2.16.724.4.40.222
+    description: "CIPAut de la aplicación OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.version.back_image_tag
+    default: 4.7.0
+    description: "Etiqueta de la imagen del backend OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true
+
+  - variable: onesaithealthcare-ohprm-chart.ohprm.version.front_image_tag
+    default: 4.7.0
+    description: "Etiqueta de la imagen del frontend OHPRM"
+    type: string
+    show_if: dependencies.ohprm.enabled=true

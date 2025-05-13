@@ -1,0 +1,109 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.ohgen.app.name_front_designer }}
+  labels:
+    app: {{ .Values.ohgen.app.name_front_designer }}
+spec:
+  replicas: {{ .Values.ohgen.app.replicas_front_designer }}
+  selector:
+    matchLabels:
+      app: {{ .Values.ohgen.app.name_front_designer }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.ohgen.app.name_front_designer }}
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: {{ .Values.global.docker.registry.host }}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              cpu: 50m
+              memory: 48Mi
+            requests:
+              cpu: 25m
+              memory: 16Mi
+          readinessProbe:
+            httpGet:
+              path: /dsforms-designer/index.html
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: {{ .Values.ohgen.app.name_front_designer }}
+          livenessProbe:
+            httpGet:
+              path: /dsforms-designer/index.html
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: ohgen-designer-front-cfg
+              readOnly: true
+              mountPath: /usr/share/nginx/html/dsforms-designer/assets/config/env.json
+              subPath: env.json
+            - name: ohgen-designer-front-cfg
+              readOnly: true
+              mountPath: >-
+                /usr/share/nginx/html/dsforms-designer/assets/api/config/app-config.json
+              subPath: app-config.json
+            - name: ohgen-designer-front-i18n
+              readOnly: true
+              mountPath: /usr/share/nginx/html/dsforms-designer/assets/api/langs
+            - name: hnhome-ohsso-front
+              readOnly: true
+              mountPath: /usr/share/nginx/html/dsforms-designer/keycloak.json
+              subPath: keycloak.json
+            - name: nginx-front-cfg
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+          terminationMessagePolicy: File
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohgen-designer-front:{{ .Values.ohgen.version.front_designer_image_tag }}'
+      serviceAccount: oh-module
+      volumes:
+        - name: ohgen-designer-front-cfg
+          configMap:
+            name: ohgen-designer-front-cfg
+            defaultMode: 420
+        - name: ohgen-designer-front-i18n
+          configMap:
+            name: ohgen-designer-front-i18n
+            defaultMode: 420
+        - name: hnhome-ohsso-front
+          configMap:
+            name: hnhome-ohsso-front
+            defaultMode: 420
+        - name: nginx-front-cfg
+          configMap:
+            name: nginx-front-cfg
+            defaultMode: 420
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

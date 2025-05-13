@@ -1,0 +1,12 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.ohgen.app.name_front }}-cfg
+data:
+  env.json: |-
+    {
+      "services_host": "{{ .Values.ohgen.con.protocol }}://{{ .Values.ohgen.con.host }}",
+      "isolated_module": "false",
+      "keycloak-js-dist":"{{ .Values.ohgen.con.protocol }}://{{ .Values.ohgen.con.host }}/hnconf/ohsso-lib.js",
+      "app_theme": "./assets/css/themes/default"
+    }
