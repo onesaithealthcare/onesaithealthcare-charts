@@ -118,7 +118,7 @@ spec:
               mountPath: /etc/grafana/provisioning/dashboards/dashboards.yaml
               subPath: dashboards.yaml
           terminationMessagePolicy: File
-          image: 'docker.io/grafana/grafana@{{ .Values.grafana.grafana_sha256 }}'
+          image: 'docker.io/grafana/grafana:{{ .Values.grafana.grafana_version }}'
       automountServiceAccountToken: true
       serviceAccount: oh-grafana
       volumes:
