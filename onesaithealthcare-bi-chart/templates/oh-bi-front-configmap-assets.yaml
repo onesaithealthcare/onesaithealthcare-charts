@@ -11,7 +11,7 @@ data:
             "pie.svg"
         ],
         "modePatient": false,
-        "externalJwtUrl": "https://${FHOST}/auth/realms/hnrole/protocol/openid-connect/token-from-external-jwt",
+        "externalJwtUrl": "https://{{ .Values.global.domain.host }}/auth/realms/hnrole/protocol/openid-connect/token-from-external-jwt",
         "urlHnaut": "https://{{ .Values.global.domain.host }}/hnaut/fhir",
         "urlBaseHelicalInsight": "https://{{ .Values.global.domain.host }}/hi-ee",
         "urlBakendHelicalInsight": "https://{{ .Values.global.domain.host }}/oh-biservice",
