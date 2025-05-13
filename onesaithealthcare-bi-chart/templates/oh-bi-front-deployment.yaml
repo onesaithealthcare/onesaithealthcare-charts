@@ -23,7 +23,12 @@ spec:
         sidecar.istio.io/inject: 'false'
     spec:
       imagePullSecrets:
+       {{- if eq .Values.global.domain.gateway_type "istio"  }}
+        - name: docksdtr.indra.es
+       {{- end }}
+       {{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
         - name: 'oh-docker-creds'
+       {{- end }}
       serviceAccountName: oh-module
       containers:
         - resources:
@@ -35,7 +40,7 @@ spec:
               memory: 16Mi
 
           name: oh-bi-front
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh-bi-front@{{ .Values.bi.sha256.front }}' 
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh-bi-front@{{ .Values.bi.sha256.front }}'
           ports:
             - containerPort: 8080
               protocol: TCP

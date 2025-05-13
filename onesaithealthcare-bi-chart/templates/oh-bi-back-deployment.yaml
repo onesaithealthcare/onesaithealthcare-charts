@@ -12,7 +12,12 @@ spec:
         app: oh-bi-back
     spec:
       imagePullSecrets:
+       {{- if eq .Values.global.domain.gateway_type "istio"  }}
+        - name: docksdtr.indra.es
+       {{- end }}
+       {{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
         - name: 'oh-docker-creds'
+       {{- end }}
       serviceAccountName: oh-module
       containers:
         - name: oh-bi-back
@@ -23,7 +28,7 @@ spec:
             requests:
               cpu: 100m
               memory: 1Gi
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_bi@{{ .Values.bi.sha256.back }}'        
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_bi@{{ .Values.bi.sha256.back }}'
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /usr/local/tomcat/webapps/oh-biservice/WEB-INF/classes/customAuthentication.properties
