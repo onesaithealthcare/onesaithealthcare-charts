@@ -74,7 +74,7 @@ spec:
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-webcomponents@{{ .Values.ohcon.sha256_front_webc }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-webcomponents:{{ .Values.ohcon.image_tag_front_webc }}'
       serviceAccount: oh-module
       volumes:
         - name: nginx-front-cfg

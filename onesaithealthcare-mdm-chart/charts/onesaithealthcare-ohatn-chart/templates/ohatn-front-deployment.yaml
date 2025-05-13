@@ -87,7 +87,7 @@ spec:
               mountPath: /usr/share/nginx/html/ARRLocalRepo/ohsso-lib.js
               subPath: ohsso-lib.js
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohatn-front@{{ .Values.ohatn.sha256_front }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohatn-front:{{ .Values.ohatn.image_tag_front }}'
       serviceAccount: oh-module
       volumes:
         - name: ohatn-front-cfg

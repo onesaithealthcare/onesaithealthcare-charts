@@ -22,7 +22,7 @@ spec:
         - name: 'oh-docker-creds'
       containers:
         - name: ohgeneric-form-webcomponents-front
-          image: {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohgeneric-form-webcomponents@{{ .Values.ohwcform.sha256_front }}
+          image: {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohgeneric-form-webcomponents:{{ .Values.ohwcform.image_tag_front }}
           ports:
             - containerPort: 8080
               protocol: TCP

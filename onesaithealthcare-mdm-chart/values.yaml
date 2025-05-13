@@ -21,9 +21,8 @@ global:
     ip: 
 onesaithealthcare_ohsso_chart:
   ohsso:
-    # image-version: 4.10.0.oracle, 4.10.0.mysql
-    sha256_oracle: sha256:c3dfdf3303fa75df3fcc3b605d380b07efa21c0be5be576036b6cad8ff31b059v
-    sha256_mysql: sha256:c00d633e6ead0e9b73d3325714e968bbe75402b32f943c8265bcdc728a9ee512
+    image_tag_oracle: 4.10.0.oracle
+    image_tag_mysql: 4.10.0.mysql
     db:
       adminpassword:
       schema: us_ohsso # usually the same as user
@@ -31,40 +30,35 @@ onesaithealthcare_ohsso_chart:
       pass: 
 onesaithealthcare_ohcon_chart:
   ohcon:
-    # image-version: 4.7.0
-    sha256_front: sha256:b5a4c74477e085f165d3df970aaa240f1c795c6ba3ff4c2fe50d3521dad0857a
-    sha256_front_ng15: sha256:197b7d19daf5710cdb6a2be628d8968ad13dacd3b84e7ba5642a2f660bbdbf86
-    sha256_front_webc: sha256:f83c05c8fb34fec3e3ca75439afb816cbf5a89261c0e10576bd95514a5afd054
-    sha256_back: sha256:16ff665be6424f41e4f265ec56a235f040e592d8ec5451d5e1262d447248d813
+    image_tag_front: 4.7.0
+    image_tag_front_ng15: 4.7.0
+    image_tag_front_webc: 4.7.0
+    image_tag_back: 4.7.0
     db:
       schema: us_hnconf # usually the same as user
       user: us_hnconf
       pass: 
 onesaithealthcare_ohaut_chart:
   ohaut:
-    # image-version: 4.8.0
-    sha256_front: sha256:93f0e09aa47ca2bb4ab36c687565688cde8f6310d006951e122611eeb6f85897
-    sha256_back: sha256:ec2c915c8d11a6088e95646115123d5da4cf6f8efd5a9e5ae6a645f625f0172f
-    # image-version: 4.7.0    
-    sha256_front_wcint: sha256:11b0cff5232d7b18e201329bcad06a6f29d999bb571d4137cedc5e65f09ac7e5
+    image_tag_front: 4.8.0
+    image_tag_back: 4.8.0
+    image_tag_front_wcint: 4.7.0
     db:
       schema: us_hnaut # usually the same as user
       user: us_hnaut
       pass: 
 onesaithealthcare_ohont_chart:
   ohont:
-    # image-version: 4.6.0
-    sha256_front: sha256:e779cb92f8cacbb0b16872ba559e0fe2eadff8d4b658fe89bd3d6d642a4b2252
-    sha256_back: sha256:c56d7656edf04dd6ff6e4178ded98d5d830c7d746a41a0b9e0ab1f991d537b4a
+    image_tag_front: 4.6.0
+    image_tag_back: 4.6.0
     db:
       schema: us_hncat # usually the same as user
       user: us_hncat
       pass: 
 onesaithealthcare_ohmpi_chart:
   ohmpi:
-    # image-version: 4.10.0
-    sha256_front: sha256:28e1d41290aafe8f3d1f698ff04ec7d264e5b14a2c8448e6820452df1208a6f1
-    sha256_back: sha256:57d0025179c491489fbfb71664652e584334fe4e61e8d3f8c1d4dba26b799f6c
+    image_tag_front: 4.10.0
+    image_tag_back: 4.10.0
     db:
       schema: us_hnpob # usually the same as user
       user: us_hnpob
@@ -73,9 +67,8 @@ onesaithealthcare_ohmpi_chart:
 onesaithealthcare_ohatn_chart:
   enabled: true
   ohatn:
-    # image-version: 4.3.0
-    sha256_front: sha256:b157b38c6ed98681e5040afe005ffad76035f16fb3b7dc24e55024074dc9b2ca
-    sha256_back: sha256:f413c1e2626a4f29e4bfcb54f7fbe12fee91266472029d24d07e4161eadaae94
+    image_tag_front: 4.3.0
+    image_tag_back: 4.3.0
     db:
       schema: us_hnatna # usually the same as user
       user: us_hnatna
@@ -83,15 +76,12 @@ onesaithealthcare_ohatn_chart:
 
 onesaithealthcare_ohwcform_chart:
   ohwcform:
-    # image-version: 4.9.0
-    sha256_front: sha256:c72f8931a6c76e959ade20d41d0dd3b04768ac043890d29d049d6dfd99964413
+    image_tag_front: 4.9.0
 onesaithealthcare_ohwcviewer_chart:
   ohwcviewer:
-    # image-version: 4.6.0
-    sha256_front: sha256:bec19bde4a6afb7d63a1f015491eb6a1471689af16778a73124b01000849065e
+    image_tag_front: 4.6.0
 onesaithealthcare_ohdsk_chart:
   ohdsk:
-    # image-version: 3.23.0
-    sha256_front: sha256:f40e35eba9af6378d9901ec471bf310978faa88d09aaf7563718fd5d3182a5b1
+    image_tag_front: 3.23.0
 
 

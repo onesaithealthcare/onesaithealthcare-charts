@@ -85,7 +85,7 @@ spec:
               readOnly: true
               mountPath: /usr/share/nginx/html/ohconf/assets/config
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-ng15-front@{{ .Values.ohcon.sha256_front_ng15 }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohcon-ng15-front:{{ .Values.ohcon.image_tag_front_ng15 }}'
       serviceAccount: oh-module
       volumes:
         - name: nginx-front-cfg

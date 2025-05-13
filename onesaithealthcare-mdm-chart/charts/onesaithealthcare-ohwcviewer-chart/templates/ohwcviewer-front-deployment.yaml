@@ -27,7 +27,7 @@ spec:
       serviceAccountName: oh-module
       containers:
         - name: webcomponent-viewer-front
-          image: {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/webcomponent-viewer@{{ .Values.ohwcviewer.sha256_front }}
+          image: {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/webcomponent-viewer:{{ .Values.ohwcviewer.image_tag_front }}
           ports:
             - containerPort: 8080
               protocol: TCP

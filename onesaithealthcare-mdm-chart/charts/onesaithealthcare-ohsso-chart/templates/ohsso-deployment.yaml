@@ -106,7 +106,7 @@ spec:
               subPath: tls.crt
           terminationMessagePolicy: File
           image: >-
-            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x@{{ if eq .Values.global.database.type "mysql" }}{{ .Values.ohsso.sha256_mysql }}{{ else }}{{ .Values.ohsso.sha256_oracle }}{{ end }}
+            {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohsso-x:{{ if eq .Values.global.database.type "mysql" }}{{ .Values.ohsso.image_tag_mysql }}{{ else }}{{ .Values.ohsso.image_tag_oracle }}{{ end }}
       serviceAccount: oh-module
 {{- if .Values.global.host_alias.enabled }}
       hostAliases:

@@ -101,7 +101,7 @@ spec:
                 mountPath: /cert/cert-domain.crt
                 subPath: tls.crt
           terminationMessagePolicy: File
-          image:  '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohmpi-back@{{ .Values.ohmpi.sha256_back }}'
+          image:  '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohmpi-back:{{ .Values.ohmpi.image_tag_back }}'
       serviceAccount: oh-module
 {{- if .Values.global.host_alias.enabled }}
       hostAliases:

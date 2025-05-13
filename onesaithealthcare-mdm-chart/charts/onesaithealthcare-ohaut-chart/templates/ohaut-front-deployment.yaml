@@ -84,7 +84,7 @@ spec:
               mountPath: /usr/share/nginx/html/hnaut/ohsso-lib.js
               subPath: ohsso-lib.js
           terminationMessagePolicy: File
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohaut-front@{{ .Values.ohaut.sha256_front }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohaut-front:{{ .Values.ohaut.image_tag_front }}'
       serviceAccount: oh-module
       volumes:
         - name: ohaut-front-cfg
