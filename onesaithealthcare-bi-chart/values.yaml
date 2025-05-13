@@ -12,7 +12,7 @@ global:
       project: multhn_cmhn20_2
 bi:
   sha256:
-    back: sha256:22d584cef1097c1c0ae2c9844aae046f8fd3dfcb92091060e89ac3e4c79ce90c
+    back: sha256:e9ae22839fa1ec5535671e827601d9cc8ddafaceb7af1abe0f284db1f7238c86
     front: sha256:50cf5234414a53b767da433b5d1d25c6f042a1063dc9d28cd2403a7f052ff63f
   module:
     namespace: oh-modules
