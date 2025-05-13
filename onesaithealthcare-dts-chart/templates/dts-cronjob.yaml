@@ -2306,7 +2306,7 @@ spec:
                   requests:
                       cpu: 300m
                       memory: 400Mi
-              image: {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_dts@{{ .Values.dts.sha256.back }}
+              image: {{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_dts:{{ .Values.dts.tag.back }}
               command:
                 - java
               args:

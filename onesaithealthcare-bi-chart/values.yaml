@@ -11,9 +11,9 @@ global:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
 bi:
-  sha256:
-    back: sha256:e9ae22839fa1ec5535671e827601d9cc8ddafaceb7af1abe0f284db1f7238c86
-    front: sha256:50cf5234414a53b767da433b5d1d25c6f042a1063dc9d28cd2403a7f052ff63f
+  tag:
+    back: 4.3.0
+    front: 4.1.0
   module:
     namespace: oh-modules
     storageclassname: ohbi-sc

@@ -28,7 +28,7 @@ spec:
             requests:
               cpu: 100m
               memory: 1Gi
-          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_bi@{{ .Values.bi.sha256.back }}'
+          image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/oh_bi:{{ .Values.bi.tag.back }}'
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /usr/local/tomcat/webapps/oh-biservice/WEB-INF/classes/customAuthentication.properties

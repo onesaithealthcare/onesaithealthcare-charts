@@ -8,8 +8,8 @@ global:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
 dts:
-  sha256:
-    back: sha256:b4a9de8e99b0c2944e92de5e548938515026c6bbc315a1099f1466955aee5abd
+  tag:
+    back: 4.3.0
   module:
     app_name: ohdts
     namespace: oh-dts

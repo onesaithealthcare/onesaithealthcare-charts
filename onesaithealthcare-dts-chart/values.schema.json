@@ -54,7 +54,7 @@
     "dts": {
       "type": "object",
       "properties": {
-        "sha256": {
+        "tag": {
           "type": "object",
           "properties": {
             "back": {
