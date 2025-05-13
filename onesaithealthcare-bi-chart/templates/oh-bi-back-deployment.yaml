@@ -74,5 +74,5 @@ spec:
         {{- if eq .Values.global.domain.gateway_type "istio" }}
         - name: volume-drivers
           persistentVolumeClaim:
-            claimName: {{ .Values.bi.module.ohbi_app_name }}
+            claimName: oh-bi-back
         {{- end }}
