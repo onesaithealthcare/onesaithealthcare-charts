@@ -12,10 +12,10 @@ spec:
         app: oh-bi-back
     spec:
       imagePullSecrets:
-       {{- if eq .Values.global.domain.gateway_type "istio"  }}
+       {{- if eq .Values.global.domain.gateway_type "istio" }}
         - name: docksdtr.indra.es
        {{- end }}
-       {{- if eq .Values.global.domain.gateway_type "k8s_gateway"  }}
+       {{- if eq .Values.global.domain.gateway_type "k8s_gateway" }}
         - name: 'oh-docker-creds'
        {{- end }}
       serviceAccountName: oh-module
@@ -46,8 +46,10 @@ spec:
             - mountPath: /usr/local/helical-insight/hi-repository/System/Mail/mailConfiguration.properties
               subPath: mailConfiguration.properties
               name: configmap
-#            - mountPath: /usr/local/helical-insight/hi-repository/System/Drivers
-#              name: volume-drivers
+            {{- if eq .Values.global.domain.gateway_type "istio" }}
+            - mountPath: /usr/local/helical-insight/hi-repository/System/Drivers
+              name: volume-drivers
+            {{- end }}
           ports:
             - containerPort: 8443
             - containerPort: 8085
@@ -69,6 +71,8 @@ spec:
                 - key: mailConfiguration.properties
                   path: mailConfiguration.properties
               defaultMode: 420
-#        - name: volume-drivers
-#          persistentVolumeClaim:
-#            claimName: {{ .Values.bi.module.ohbi_app_name }}
+        {{- if eq .Values.global.domain.gateway_type "istio" }}
+        - name: volume-drivers
+          persistentVolumeClaim:
+            claimName: {{ .Values.bi.module.ohbi_app_name }}
+        {{- end }}
