@@ -6,28 +6,28 @@ data:
   app-config.json: |-
     {
         "msgCrucePacientes": "Se produjo un error al mostrar el paciente. Por favor, cierre la pestaña y vuelva a acceder al paciente.",
-        "urlParent": "https://${FHOST}/desktop-hd/launch.html",
+        "urlParent": "https://{{ .Values.global.domain.host }}/desktop-hd/launch.html",
         "logoFooter": [
             "pie.svg"
         ],
         "modePatient": false,
         "externalJwtUrl": "https://${FHOST}/auth/realms/hnrole/protocol/openid-connect/token-from-external-jwt",
-        "urlHnaut": "https://${FHOST}/hnaut/fhir",
-        "urlBaseHelicalInsight": "https://${FHOST}/hi-ee",
-        "urlBakendHelicalInsight": "https://${FHOST}/oh-biservice",
+        "urlHnaut": "https://{{ .Values.global.domain.host }}/hnaut/fhir",
+        "urlBaseHelicalInsight": "https://{{ .Values.global.domain.host }}/hi-ee",
+        "urlBakendHelicalInsight": "https://{{ .Values.global.domain.host }}/oh-biservice",
         "keepSessionOpenTime": 99999
     }
   env.json: |-
     {
-        "services_host": "https://${FHOST}",
-        "keycloak-js-dist": "https://${FHOST}/hnconf/ohsso-lib.js",
+        "services_host": "https://{{ .Values.global.domain.host }}",
+        "keycloak-js-dist": "https://{{ .Values.global.domain.host }}/hnconf/ohsso-lib.js",
         "app_theme": "./assets/css/themes/default"
     }
   keycloak.json: |-
     {
-      "realm" : "${REALMNAME}",
-      "resource" : "${RESOURCE}",
+      "realm" : "{{ .Values.bi.keycloak.realmname }}",
+      "resource" : "{{ .Values.bi.keycloak.resource }}",
       "public-client": true,
-      "auth-server-url": "https://${FHOST}/auth",
+      "auth-server-url": "https://{{ .Values.global.domain.host }}/auth",
       "enable-cors": true
     }

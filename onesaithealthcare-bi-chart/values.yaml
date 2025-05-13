@@ -3,7 +3,7 @@ global:
     type: dev # Opciones: dev, prod
   domain:
     protocol: # Opciones: http, https
-    host: oh-modules.ohrancherha1-1.indra.es
+    host: oh-modules.apps.lab.openshift.com
     gateway: oh-modules-gateway
     gateway_type: # Opciones: istio, k8s_gateway
   docker:
@@ -17,6 +17,9 @@ bi:
   module:
     namespace: oh-modules
     storageclassname: ohbi-sc
+  keycloak:
+    realmname: oh-base
+    resource: hnrole
   mail:
     ohbi_mail_configuration_host_name: support@indra.es
     ohbi_mail_configuration_port: 54

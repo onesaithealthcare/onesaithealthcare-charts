@@ -57,6 +57,20 @@ questions:
     type: string
     required: true
 
+  - variable: bi.keycloak.realmname
+    default: "oh-base"
+    label: "Nombre del realm"
+    description: "Nombre del realm de keycloak"
+    type: string
+    required: true
+
+  - variable: bi.keycloak.resource
+    default: "hnrole"
+    label: "Resource del keycloak"
+    description: "Resource del keycloak"
+    type: string
+    required: true
+
   - variable: global.domain.gateway
     label: "GATEWAY"
     description: "GATEWAY DEL VIRTUAL SERVICE"
