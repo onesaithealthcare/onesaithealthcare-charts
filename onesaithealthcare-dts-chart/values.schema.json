@@ -176,7 +176,7 @@
           "required": ["datasource", "iengine", "datastore"]
         }
       },
-      "required": ["sha256", "module", "database"]
+      "required": ["tag", "module", "database"]
     }
   },
   "required": ["global", "dts"]
