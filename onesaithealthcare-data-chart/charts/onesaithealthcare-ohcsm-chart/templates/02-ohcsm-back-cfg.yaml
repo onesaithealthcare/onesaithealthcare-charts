@@ -1,0 +1,512 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.ohcsm.app.back_name }}-cfg
+data:
+  dozer-bean-mappings.xml: >
+    <?xml version="1.0" encoding="UTF-8"?> <mappings
+    xmlns="http://dozer.sourceforge.net"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://dozer.sourceforge.net
+              http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    </mappings>
+  env.ohcsm.properties: >
+    #General properties
+    #############################################
+
+    #Datasource
+    
+    datasource.jndi=jdbc/ohcsm
+
+    # MPI patient event change 
+    
+    kafka.ohcsm.in.mpi.patient.enabled={{ .Values.ohcsm.kafka.mpi_patient.enabled }}
+    
+    kafka.ohcsm.in.mpi.patient.groupId={{ .Values.ohcsm.kafka.mpi_patient.group_id }}
+    
+    kafka.ohcsm.in.mpi.patient.topic={{ .Values.ohcsm.kafka.mpi_patient.topic }}
+    
+    kafka.ohcsm.in.mpi.patient.errors.topic={{ .Values.ohcsm.kafka.mpi_patient.error_topic }}
+    
+    ohcsm.notifications.format=JSON
+    
+    ohcsm.notifications.format.prettyPrint=true
+    
+
+    ##########################
+    #HDRCOMMONS configuration
+    ##########################
+
+
+    hdrcommon.applicationInfo.name=OH_CSM
+    
+    hdrcommon.applicationInfo.version={{ .Values.ohcsm.version.back_version }}
+    
+    hdrcommon.core.enable=true
+    
+    hdrcommon.core-security.enable=true
+    
+    hdrcommon.fhir.enable=true
+    
+    hdrcommon.fhir.resourceIdPrefix=COM
+    
+    #IMPORTANTE en Local siempre poner a hdrcommon.fhir.replication.enable=false
+    
+    hdrcommon.fhir.replication.enable=true
+    
+    hdrcommon.fhir.replication.resourceTypes=Consent
+    
+    hdrcommon.fhir.replication.topic=ohcsm-entity-events
+    
+    #Enable processing of patient updates from MPI.
+    
+    hdrcommon.fhir.patient.merge.enabled=false
+    
+    hdrcommon.fhir.patient.merge.groupId=ohcsm-patient-update-consumer
+    
+    hdrcommon.fhir.patient.merge.deadletter.topic=ohcsm-patient-update-errors
+    
+    #Enable web module
+    
+    hdrcommon.web.enable=true
+    
+    #Default Audit Service Configuration
+    #IMPORTANTE en Local siempre poner a hdrcommon.fhir.audit.enable=false
+    
+    hdrcommon.fhir.audit.enabled={{ .Values.ohcsm.app.flag.enable_audit }}
+    
+    hdrcommon.fhir.audit.syslog.host=jbosscore
+    
+    hdrcommon.fhir.audit.syslog.port=2861
+    
+    hdrcommon.fhir.audit.syslog.protocol=UDP
+    
+    hdrcommon.fhir.audit.syslog.format=RFC5424
+    
+    hdrcommon.fhir.audit.syslog.facility=AUDIT
+    
+    hdrcommon.fhir.audit.syslog.severity=INFORMATIONAL
+    
+    hdrcommon.fhir.audit.syslog.ssl=false
+    
+    hdrcommon.fhir.audit.operations.1=Consent CREATE,UPDATE
+    
+    # BBDD ORACLE o MYSQL
+    
+    hdrcommon.fhir.repositoryDS.vendor={{ .Values.ohcsm.database.type }}
+
+    # Configuration of auditable operations: 
+    # List of properties "hdrcommon.fhir.audit.operations.[1-n]", with a comma
+    
+    delimited list of operations.
+
+    # The format of one operation is [RESOURCE_NAME] [OPERATION].
+    # - [RESOURCE_NAME]: Fhir resource name. Value _ALL_ applies to all resources.
+    # - [OPERATION]: Admits regular expression. 
+    #                Supported values: CREATE, UPDATE, DELETE, PATCH, READ,VREAD, HISTORY_INSTANCE, SEARCH_TYPE 
+    # Examples:
+    #  hdrcommon.fhir.audit.operations.1=Flag CREATE,Flag UPDATE,Flag
+    
+    SEARCH_TYPE --> Audit create, update and search over Flag resources.
+
+    #  hdrcommon.fhir.audit.operations.2=DocumentReference .* --> Audit all
+    
+    operations over DocumentReference resources.
+
+    #  hdrcommon.fhir.audit.operations.3=_ALL_ CREATE --> Audit All CREATE operations for any resource.
+
+    #############################
+    #END HDRCOMMONS configuration
+    #############################
+    
+    fhir.version=R4
+    
+    fhir.versionSTU3=DSTU3
+    
+    max-http-header-size=524288
+
+    #########################
+    # Notification messages #
+    #########################
+
+    # "Nombre del paciente"
+    
+    ohcsm.notification.msg.1=Tiene una solicitud pendiente de autorizar para el paciente: {0}.
+
+    # "Nombre del paciente"
+    
+    ohcsm.notification.msg.2=Se ha cancelado la solicitud para incluirlo como cuidador del {0}.
+
+    # "Nombre del cuidador"
+    
+    ohcsm.notification.msg.3=El cuidador {0} ha autorizado la solicitud para incluirlo como cuidador.
+
+    # "Nº de CIP"
+    
+    ohcsm.notification.msg.4=El cuidador  con CIP {0} ha rechazado la solicitud para incluirlo como cuidador.
+
+    # "Nombre del paciente"
+    
+    ohcsm.notification.msg.5=Se ha cancelado su autorización como cuidador del paciente {0}.
+
+    # "Nombre del cuidador"
+    
+    ohcsm.notification.msg.6=El cuidador {0} ha cancelado su autorización como cuidador.
+    
+  logback.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true">
+      <!-- Niveles de Log
+        OFF: este es el nivel de mínimo detalle, deshabilita todos los logs.
+        FATAL: se utiliza para mensajes críticos del sistema, generalmente después de guardar el mensaje el programa abortará.
+        ERROR: se utiliza en mensajes de error de la aplicación que se desea guardar, estos eventos afectan al programa pero lo 
+            dejan seguir funcionando, como por ejemplo que algún parámetro de configuración no es correcto y se carga el parámetro por defecto.
+        WARN: se utiliza para mensajes de alerta sobre eventos que se desea mantener constancia, pero que no afectan al correcto 
+            funcionamiento del programa.
+        INFO: se utiliza para mensajes similares al modo "verbose" en otras aplicaciones.
+        DEBUG: se utiliza para escribir mensajes de depuración. Este nivel no debe estar activado cuando la aplicación se encuentre en producción.
+        TRACE: se utiliza para mostrar mensajes con un mayor nivel de detalle que debug.
+        ALL: este es el nivel de máximo detalle, habilita todos los logs (en general equivale a TRACE).
+      -->
+
+      <!-- PROPIEDADES DE CONFIGURACIÓN -->
+      <property name="TRACE_LOG_DIR" value="/opt/jboss/hn_home/ohcsm/log" />
+      
+      <!-- Nombre de sistema -->
+      <property name="APPLICATION" value="ohbpm" />
+      
+      <!-- Patrón de fecha para log de diagnóstico -->
+      <property name="TRACE_TIME_PATTERN" value="yyyyMMdd.HHmmss.SSS" />
+      <!-- Sacar información de logger en log de diagnóstico -->
+      <property name="TRACE_SHOW_LOGGER" value="false" />
+      <!-- Longitud máxima en bytes del texto de una traza. Un valor menor o igual que cero implica que no hay truncado -->
+      <property name="TRACE_ARGUMENT_LENGTH" value="-1" />
+      <!-- Generar traza completa de error en las excepciones -->
+      <property name="GENERATE_FULL_STACK" value="false" />
+      <!-- MARCADORES A ELIMINAR DE LA TRAZA DE ERROR, SEPARADOS POR COMAS -->
+      <property name="REMOVE_STACK_MARKERS" value=" " />
+      <!-- MARCADORES QUE TERMINAN LA TRAZA DE ERROR -->
+      <property name="STOP_STACK_MARKERS" value=" " />
+      
+      <timestamp key="MONTH_PATTERN" datePattern="yyMM" />
+      <timestamp key="DAY_PATTERN" datePattern="yyMMdd" />
+      
+      <!-- APPENDERS -->
+      <!-- Fichero de log de diagnóstico -->
+      <appender name="trace_log_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${TRACE_LOG_DIR}/trace_${APPLICATION}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+          <fileNamePattern>${TRACE_LOG_DIR}/trace_${APPLICATION}_%d{yyMMdd}_%i.log.gz</fileNamePattern>
+          <maxFileSize>10MB</maxFileSize>
+          <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+          <charset>UTF-8</charset>
+          <layout class="com.indra.oshc.hd.core.services.log.DiagnosticLayout">
+            <timestampPattern>${TRACE_TIME_PATTERN}</timestampPattern>
+            <printLogger>${TRACE_SHOW_LOGGER}</printLogger>
+            <argumentLength>${TRACE_ARGUMENT_LENGTH}</argumentLength>
+            <generateFullStack>${GENERATE_FULL_STACK}</generateFullStack>
+            <stopStackMarkers>${STOP_STACK_MARKERS}</stopStackMarkers>
+            <removeStackMarkers>${REMOVE_STACK_MARKERS}</removeStackMarkers>
+          </layout>
+        </encoder>
+        <immediateFlush>true</immediateFlush>
+      </appender>
+      
+      <!-- Log de métricas de ejecución -->
+      <appender name="metrics_log_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${TRACE_LOG_DIR}/metrics_${APPLICATION}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+          <fileNamePattern>${TRACE_LOG_DIR}/METRICS_${APPLICATION}_%d{yyMMdd}_%i.log.gz</fileNamePattern>
+          <maxFileSize>5MB</maxFileSize>
+          <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+          <pattern>%d{yyyyMMddHHmm},%m%n</pattern>
+        </encoder>
+        <immediateFlush>false</immediateFlush>
+      </appender>
+
+      <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+          <charset>UTF-8</charset>
+          <layout class="com.indra.oshc.hd.core.services.log.DiagnosticLayout">
+            <timestampPattern>${TRACE_TIME_PATTERN}</timestampPattern>
+            <printLogger>${TRACE_SHOW_LOGGER}</printLogger>
+            <argumentLength>${TRACE_ARGUMENT_LENGTH}</argumentLength>
+            <generateFullStack>${GENERATE_FULL_STACK}</generateFullStack>
+            <stopStackMarkers>${STOP_STACK_MARKERS}</stopStackMarkers>        
+            <removeStackMarkers>${REMOVE_STACK_MARKERS}</removeStackMarkers>
+          </layout>
+        </encoder>
+        <immediateFlush>true</immediateFlush>
+      </appender>
+      
+      <!-- LOG DE METRICAS -->
+      <logger name="metrics" level="INFO" additivity="false">
+        <appender-ref ref="stdout" />
+      </logger>
+
+      <!-- LOG DE DIAGNOSTICO -->
+      <!-- LOGS LIBRERÍAS  -->
+      <logger name="com" level="WARN" />
+      <logger name="com.netflix.config.sources.URLConfigurationSource" level="ERROR" />
+      <logger name="com.hazelcast" level="INFO" />
+      
+      <logger name="freemarker.cache" level="OFF" />
+      <logger name="org" level="WARN" />
+      
+      <!-- Apache Camel -->
+      <logger name="org.apache.camel" level="WARN" />
+      <logger name="org.apache.camel.impl.converter.DefaultTypeConverter" level="ERROR" />
+      
+      <!-- RestEasy -->
+      <logger name="org.jboss.resteasy" level="INFO" />
+
+      <!-- Poner a DEBUG para ver peticiones HTTP -->
+      <logger name="org.apache.http" level="DEBUG" />
+
+      <!-- Spring -->
+      <logger name="org.springframework" level="INFO" />
+      <!-- 
+      <logger name="org.springframework.boot" level="INFO" />
+      <logger name="org.springframework.jdbc" level="INFO" />
+      <logger name="org.springframework.transaction" level="INFO" />
+      <logger name="org.springframework.web" level="INFO" />
+      <logger name="org.springframework.core.web" level="INFO" />
+       -->
+      
+      <logger name="org.springframework.security" level="INFO" />
+      <logger name="org.keycloak" level="INFO" />
+        
+      <!-- MyBatis -->
+      <logger name="org.mybatis" level="{{ .Values.ohcsm.app.log.sql_level }}" />
+      
+      <!-- Libs net.* -->
+      <logger name="net" level="WARN" />
+
+      <logger name="com.indra.oshc.hd.common.template.freemarker" level="WARN" />
+      
+        <logger name="com.indra.oshc.hd.core" level="DEBUG" />  
+      <logger name="com.minsait.onesait.healthcare.ohcsm.back" level="DEBUG" />
+
+      <!-- ROOT LOGGER -->
+      <root level="{{ .Values.ohcsm.app.log.level }}">
+        <appender-ref ref="stdout"/>
+      </root>
+    </configuration>
+  ohcsm-back-ctx.xml: >
+    <?xml version="1.0" encoding="UTF-8"?> <beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+      xmlns:c="http://www.springframework.org/schema/c" xmlns:jee="http://www.springframework.org/schema/jee"
+      xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+      xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+      xmlns:lang="http://www.springframework.org/schema/lang"
+      xsi:schemaLocation="http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+      <import resource="ohcsm-back-services-ctx.xml"/>
+      <import resource="ohcsm-back-data-source-ctx.xml"/>
+    </beans>
+  ohcsm-back-data-source-ctx.xml: >
+    <?xml version="1.0" encoding="UTF-8"?> <beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+      xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+      <!-- Datasource-->
+      <jee:jndi-lookup id="datasource" jndi-name="${datasource.jndi}" />
+      <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="datasource" />
+      <alias name="transactionManager" alias="hdrcommon.fhir.transactionManager" />
+      <alias name="datasource" alias="hdrcommon.fhir.dataSource" />
+    </beans>
+  ohcsm-back-services-ctx.xml: >
+    <?xml version="1.0" encoding="UTF-8"?> <beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+      xmlns:c="http://www.springframework.org/schema/c" xmlns:jee="http://www.springframework.org/schema/jee"
+      xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+      xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+      xmlns:lang="http://www.springframework.org/schema/lang"
+      xmlns:aop="http://www.springframework.org/schema/aop"
+      xsi:schemaLocation="http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+      <context:component-scan base-package="com.minsait.onesait.healthcare.ohcsm.back.services,com.minsait.onesait.healthcare.ohcsm.back.data,com.minsait.onesait.healthcare.ohcsm.back.util,com.minsait.onesait.healthcare.ohcsm.back.api.fhir,com.minsait.onesait.healthcare.ohcsm.back.integration,com.minsait.onesait.healthcare.ohcsm.back.plugin,com.minsait.onesait.healthcare.ohcsm.back.util.factory" />
+      <!-- Dozer Mappings -->
+      <bean id="mapper" class="org.dozer.DozerBeanMapper">
+          <property name="mappingFiles">
+            <list>
+            <value>${base.conf.url}/back/mappings/dozer-bean-mappings.xml</value>
+            </list>
+          </property>
+      </bean>  
+      <!-- END Dozer Mappings -->
+      <!-- Configuración MessageSource -->
+      <bean id="messageSource" class="com.minsait.onesait.healthcare.ohcsm.back.util.MessagesUtil"
+        p:basename="${base.conf.url}/i18n/messages" 
+        p:cache-seconds="3600" 
+        p:fallback-to-system-locale="false"/>
+      <bean id="hnCatalogUtil" class="com.minsait.onesait.healthcare.ohcsm.back.util.HnCatalogUtil"/>
+      <bean id="connectionMirth" class="com.minsait.onesait.healthcare.ohcsm.back.mirth.ConnectionMirth"/>
+    </beans> 
+  ohcsm-front-ctx.xml: >
+    <?xml version="1.0" encoding="UTF-8"?> <beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+      xmlns:aop="http://www.springframework.org/schema/aop"
+      xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+      <context:component-scan base-package="com.minsait.onesait.healthcare.ohcsm.back.api.controller"/>
+      <!-- API for metrics access -->
+      <bean class="com.indra.oshc.hd.core.controllers.monitor.MonitorController" />
+      <!-- API for healthcheck -->
+      <bean class="com.indra.oshc.hd.core.controllers.HealthCheckController" />
+    </beans>
+  ohhdr-common-core-security-ctx.xml: >
+    <?xml version="1.0" encoding="UTF-8"?> <beans
+    xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:security="http://www.springframework.org/schema/security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <context:property-placeholder ignore-unresolvable="true" />
+
+        <!-- Descomentar para desactivar seguridad en servicios REST / SOAP -->
+        <!-- 
+        <security:http pattern="/api/**" security="none" />
+         -->
+
+      <!-- 
+      <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+          <list>
+            <bean class="org.springframework.security.access.vote.RoleVoter" p:rolePrefix="" />
+          </list>
+        </constructor-arg>
+        <property name="allowIfAllAbstainDecisions" value="false" />
+      </bean>
+      <security:global-method-security secured-annotations="enabled" access-decision-manager-ref="accessDecisionManager" />
+      -->
+
+        <context:component-scan base-package="org.keycloak.adapters.springsecurity" />
+
+        <security:authentication-manager alias="authenticationManager">
+            <security:authentication-provider ref="keycloakAuthenticationProvider" />
+        </security:authentication-manager>
+
+        <bean id="adapterDeploymentContext"
+            class="com.indra.oshc.hd.core.security.oauth.AdapterKeycloakDeploymentContextFactoryBean">
+            <constructor-arg value="classpath:ohhdr-common-core/spring/keycloak.json" />
+            <property name="authServerURL" value="${keycloak.url}" />
+            <property name="realm" value="${keycloak.realm}" />
+            <property name="resource" value="${keycloak.client}" />
+            <property name="sslRequired" value="${keycloak.ssl_required}" />
+            <property name="disableTrustManager" value="${keycloak.disable_trust_manager}" />
+        </bean>
+
+        <bean id="keycloakToken" class="com.indra.oshc.hd.core.security.oauth.TokenAuthenticationKeycloak" />
+
+        <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+            <property name="targetClass" value="com.indra.oshc.hd.core.security.SecurityContext" />
+            <property name="targetMethod" value="setTokenAuthentication" />
+            <property name="arguments">
+                <list>
+                    <ref bean="keycloakToken" />
+                </list>
+            </property>
+        </bean>
+
+        <bean id="keycloakAuthenticationProvider"
+            class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider" />
+
+        <bean id="keycloakPreAuthActionsFilter"
+            class="org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter" />
+
+        <bean id="keycloakAuthenticationProcessingFilter"
+            class="org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticationProcessingFilter">
+            <constructor-arg name="authenticationManager" ref="authenticationManager" />
+        </bean>
+
+        <bean id="keycloakLogoutHandler"
+            class="org.keycloak.adapters.springsecurity.authentication.KeycloakLogoutHandler">
+            <constructor-arg ref="adapterDeploymentContext" />
+        </bean>
+
+        <bean id="keycloakAuthenticationEntryPoint"
+            class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationEntryPoint">
+            <constructor-arg ref="adapterDeploymentContext" />
+            <!-- <property name="loginUri" value="/index.html" />-->
+        </bean>
+
+        <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+            <constructor-arg name="logoutSuccessUrl" value="/" />
+            <constructor-arg name="handlers">
+                <list>
+                    <ref bean="keycloakLogoutHandler" />
+                    <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+                </list>
+            </constructor-arg>
+            <property name="logoutRequestMatcher">
+                <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/sso/logout**" />
+                    <constructor-arg name="httpMethod" value="GET" />
+                </bean>
+            </property>
+        </bean>
+
+        <security:http auto-config="false" use-expressions="true"
+            entry-point-ref="keycloakAuthenticationEntryPoint" create-session="stateless" request-matcher="regex">
+            <security:csrf disabled="true" />
+            <security:headers disabled="true">
+            </security:headers>
+            <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
+            <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
+            <security:intercept-url pattern="/" access="permitAll" />
+            <security:intercept-url pattern="/keycloak\.json" access="permitAll" />
+            <security:intercept-url pattern="/webjars/.*" access="permitAll" />
+            <security:intercept-url pattern="/api/healthcheck" access="permitAll" />
+            <security:intercept-url pattern="/api/fhir" access="permitAll" />
+            <security:intercept-url pattern="/api/fhir/metadata" access="permitAll" />
+            <security:intercept-url pattern="/api/fhir/swagger.*" access="permitAll" />
+            <security:intercept-url pattern="/api/fhir/api-docs.*" access="permitAll" />
+            <security:intercept-url pattern="/.*" access="permitAll" method="OPTIONS" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="GET" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="POST" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="PUT" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="DELETE" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="HEAD" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="PATCH" />
+            <security:intercept-url pattern="/.*" access="isFullyAuthenticated()" method="TRACE" />
+            <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
+        </security:http>
+    </beans>

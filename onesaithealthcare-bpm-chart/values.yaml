@@ -3,8 +3,9 @@ global:
     type: dev # Opciones: dev, prod 
   domain:
     protocol: # Opciones: http, https
-    host:
+    host: oh-modules.apps.lab.openshift.com
     gateway_type: # Opciones: istio, k8s_gateway
+    gateway: oh-modules-gateway
   docker:
     registry:
       host: docksdtr.indra.es
@@ -20,9 +21,7 @@ onesaithealthcare-ohbpm-chart:
   ohbpm:
     app:
       name: ohbpm
-      gateway: oh-modules-gateway
       locale_default: ES
-      host: oh-modules.apps.lab.openshift.com
       replicas: 1
       cod_passive_cause_death: 2
       flag:
@@ -68,8 +67,6 @@ onesaithealthcare-ohgen-chart:
       name_front_designer: ohgen-designer-front
       name_front_integration: ohgen-integration-front
       name_front_webcomponents: ohgen-webcomponents
-      host: oh-modules.apps.lab.openshift.com
-      gateway: oh-modules-gateway
       replicas: 1
       replicas_front_designer: 1
       replicas_front_integration: 1
@@ -94,14 +91,9 @@ onesaithealthcare-ohgen-chart:
       front_designer_image_tag: 4.9.0
       front_integration_image_tag: 4.9.0
       front_webcomponents_image_tag: 4.9.0
-    con:
-      protocol: https # Opciones: http, https
-      host: oh-modules.apps.lab.openshift.com
 onesaithealthcare-ohprm-chart:
   ohprm:
     app:
-      host: oh-release.apps.lab.openshift.com
-      gateway: oh-modules-gateway
       backend_app: ohprm-api
       front_app: ohprm-front
       url_server: https://oh-release.apps.lab.openshift.com

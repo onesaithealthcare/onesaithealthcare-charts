@@ -5,9 +5,9 @@ metadata:
   name: {{ .Values.ohbpm.app.name }}-virtual-service
 spec:
   gateways:
-    - {{ .Values.ohbpm.app.gateway }}
+    - {{ .Values.global.domain.gateway }}
   hosts:
-    - '{{ .Values.ohbpm.app.host }}'
+    - '{{ .Values.global.domain.host }}'
   http:
     - match:
         - uri:
@@ -31,7 +31,7 @@ spec:
       headers:
         request:
           set:
-            X-Forwarded-Host: {{ .Values.ohbpm.app.host }}
+            X-Forwarded-Host: {{ .Values.global.domain.host }}
             X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
             X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
       route:

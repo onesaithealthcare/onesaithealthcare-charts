@@ -5,7 +5,7 @@ metadata:
   name: ohprm-http-route
 spec:
   parentRefs:
-    - name: {{ .Values.ohprm.app.gateway }}
+    - name: {{ .Values.global.domain.gateway }}
   hostnames:
     - '*'
   rules:
@@ -20,7 +20,7 @@ spec:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             set:
-              x-forwarded-host: {{ .Values.ohprm.app.host }}
+              x-forwarded-host: {{ .Values.global.domain.host }}
               x-forwarded-port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
               x-forwarded-proto: {{ .Values.global.domain.protocol }}
         - type: CORS

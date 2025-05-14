@@ -5,6 +5,6 @@ metadata:
 data:
   env.json: |-
     {
-        "hnconf_url": "https://{{ .Values.ohprm.app.host }}/hnconf",
-        "keycloak-js-dist":"https://{{ .Values.ohprm.app.host }}/ohprm/ohsso-lib.js"
+        "hnconf_url": "https://{{ .Values.global.domain.host }}/hnconf",
+        "keycloak-js-dist":"https://{{ .Values.global.domain.host }}/ohprm/ohsso-lib.js"
     }

@@ -1,0 +1,51 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway" }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ .Values.ohcsm.app.back_name }}-http-route-prof
+spec:
+  parentRefs:
+    - name: {{ .Values.global.domain.gateway_prof }}
+  hostnames:
+    - '{{ .Values.global.domain.host }}'
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ohcsm/api
+      backendRefs:
+        - name: {{ .Values.ohcsm.app.back_name }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathExact
+            value: /hd-consentimiento/keycloak.json
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path: /hd-consentimiento/keycloak-prof.json
+      backendRefs:
+        - name: {{ .Values.ohcsm.app.front_name }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /hd-consentimiento/
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path: /hd-consentimiento/
+      backendRefs:
+        - name: {{ .Values.ohcsm.app.front_name }}
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /hd-consentimiento
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            hostname: {{ .Values.global.domain.host_prof }}
+            statusCode: 301
+            path: /hd-consentimiento/
+{{- end }}

@@ -1,0 +1,47 @@
+{{- if eq .Values.global.domain.gateway_type "istio"  }}
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: {{ .Values.ohcsm.app.back_name }}-virtual-service-prof
+spec:
+  gateways:
+    - {{ .Values.global.domain.gateway_prof }}
+  hosts:
+    - '{{ .Values.global.domain.host }}'
+  http:
+    - match:
+        - uri:
+            prefix: /ohcsm/api
+      route:
+        - destination:
+            host: {{ .Values.ohcsm.app.back_name }}
+            port:
+              number: 8080
+    - match:
+        - uri:
+            exact: /hd-consentimiento/keycloak.json
+      rewrite:
+        uri: /hd-consentimiento/keycloak-prof.json
+      route:
+        - destination:
+            host: {{ .Values.ohcsm.app.front_name }}
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /hd-consentimiento/
+      rewrite:
+        uri: /hd-consentimiento/
+      route:
+        - destination:
+            host: {{ .Values.ohcsm.app.front_name }}
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /hd-consentimiento
+      redirect:
+        authority: {{ .Values.global.domain.host_prof }}
+        redirectCode: 301
+        uri: /hd-consentimiento/
+{{- end }}

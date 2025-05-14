@@ -5,6 +5,6 @@ metadata:
 data:
   env.json: |-
     {
-        "services_host": "https://{{ .Values.ohbpm.app.host }}",
-        "keycloak-js-dist":"https://{{ .Values.ohbpm.app.host }}/ohbpm-smart/ohsso-lib.js"
+        "services_host": "https://{{ .Values.global.domain.host }}",
+        "keycloak-js-dist":"https://{{ .Values.global.domain.host }}/ohbpm-smart/ohsso-lib.js"
     }

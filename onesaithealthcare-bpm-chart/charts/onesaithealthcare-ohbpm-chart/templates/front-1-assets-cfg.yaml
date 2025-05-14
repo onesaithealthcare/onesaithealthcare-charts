@@ -5,9 +5,9 @@ metadata:
 data:
   app-config.json: |-
     {
-        "urlParent": "https://{{ .Values.ohbpm.app.host }}/desktop-hd/launch.html",    
-        "urlGetHNSysDate": "https://{{ .Values.ohbpm.app.host }}/hnconf/fhir/Parameters/$getHNSysDate?_format=json",
-        "urlOhbpm": "https://{{ .Values.ohbpm.app.host }}/ohbpm",
+        "urlParent": "https://{{ .Values.global.domain.host }}/desktop-hd/launch.html",    
+        "urlGetHNSysDate": "https://{{ .Values.global.domain.host }}/hnconf/fhir/Parameters/$getHNSysDate?_format=json",
+        "urlOhbpm": "https://{{ .Values.global.domain.host }}/ohbpm",
         "logoFooter": ["MYMED.png"],
         "paginateDocuments" : 8,
         "defaultLanguage": "es",
@@ -21,7 +21,7 @@ data:
     
   env.json: |-
     {
-        "services_host": "https://{{ .Values.ohbpm.app.host }}",
-        "keycloak-js-dist":"https://{{ .Values.ohbpm.app.host }}/ohbpm/ohsso-lib.js",
+        "services_host": "https://{{ .Values.global.domain.host }}",
+        "keycloak-js-dist":"https://{{ .Values.global.domain.host }}/ohbpm/ohsso-lib.js",
         "app_theme": "./assets/css/themes/default"
     }

@@ -1,0 +1,465 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.ohhdr.app.name }}-back-cfg
+data:
+  env.core.properties: |
+    #Informacion de la aplicacion 
+    core.applicationInfo.name=OH_HDR
+    core.applicationInfo.version={{ .Values.ohhdr.version.back_image_tag }}
+    core.applicationInfo.host=${general.url}/ehrserver
+    core.applicationInfo.area=CL
+    
+    #Clase de configuracion de log
+    #log.initializer.class=com.indra.mymed.healthdata.core.services.log.LogbackComponentInitializer
+    
+    #Configuracion de pool de hilos principal#
+    #core.threadPool.coreSize=10
+    #core.threadPool.maxSize=150
+    #core.threadPool.queue=100
+    #core.threadPool.keepAliveSeconds=60
+    
+    #Habilitar seguridad en API (por defecto habilitada)
+    #core.security.enabled=true
+    
+    #Pool para tareas programadas
+    #core.scheduledThreadPool.size=5
+    #Fin de configuracion de pool de hilos#
+    
+    #Activacion de monitorizacion global.
+    core.monitor.enabled=false
+    #Activar funcionalidad de calculo de metricas
+    core.monitor.metricsEnabled=false
+    #Activar funcionalidad de calculo de metricas de peticiones http recibidas.
+    core.monitor.webMetricsEnabled=false
+    #Intervalo de tiempo entre cada volcado de metricas al log. 
+    #core.monitor.metrics.log.period=10m
+    #Activar funcionalidad de control de estabilidad
+    #core.monitor.stabilityEnabled=false
+    #Activar publicacion JMX de metricas
+    #core.monitor.jmxMetricsEnabled=false
+    
+    #Default Audit Service Configuration
+    core.syslogAudit.enabled=false
+    core.syslogAudit.host=ohatn-back
+    core.syslogAudit.port=2861
+    core.syslogAudit.protocol=UDP
+    core.syslogAudit.format=RFC5424
+    core.syslogAudit.facility=AUDIT
+    core.syslogAudit.severity=INFORMATIONAL
+    core.syslogAudit.ssl=false
+    core.slf4jAudit.enabled=false
+  
+  env.ehr.properties: |
+    #######################
+    #FHIR server properties
+    #######################
+    ehr.localFHIRServer.url=${core.applicationInfo.host}/fhir
+    ehr.localFHIRServer.name=Onesait Healthcare Health Data Repository
+    
+    #FHIR Version configuration.
+    #Supported versions
+    ehr.fhir.versions=DSTU3,R4
+    #Default specification version
+    ehr.fhir.defaultVersion=R4
+    
+    #Jndi Datasource
+    ehr.repositoryDS.jndi=jdbc/myMedCdrDS
+    ehr.repositoryDS.vendor={{ .Values.ohhdr.database.type }}
+    ehr.repositoryDS.oracle.compress=false
+    
+    #Default pagination config
+    #ehr.search.pagination.size.default=10
+    #ehr.search.pagination.size.max=100
+    
+    #Enable linked patient treatment in searches (return references to active patients instead of passive in resources)
+    #ehr.search.patient.activeLinks=true
+    
+    #Check intervals for server conformance updates (in seconds)
+    #ehr.capability.database.enabled=false
+    #ehr.fhir.conformance.checkUpdates=30
+    #ehr.fhir.conformance.retryOnError=30
+    #ehr.fhir.conformance.baseDirConfig=file://${indrasalud.home}/hdr/conformance
+    
+    #Authorization filter
+    #ehr.filter.authorization.enabled=false
+    #ehr.filter.authorization.rolesRegistryLocation=
+    
+    #Validation filter
+    ehr.validation.enabled=false
+    ehr.validation.structure=false
+    #ehr.validation.include=
+    #ehr.validation.exclude=
+    #ehr.validation.terminology=false
+    #ehr.validation.terminology.server=${hncat.fhir.url}
+    #ehr.validation.parserErrorOnInvalidValue=true
+    #ehr.validation.errorForUnknownProfiles=true
+    #ehr.validation.ignorePatterns=.*semantikos.*,.*https://api.minsal.cl/v1/.*,.*http://loinc.*,.*http://snomed.*,.*urn:ietf:bcp:13.*
+    
+    ##############################
+    #FHIR ATNA Audit configuration
+    ##############################
+    ehr.service.audit.enabled=false
+    #ehr.audit.threadPool.coreSize=2
+    #ehr.audit.threadPool.maxSize=10
+    #ehr.audit.threadPool.queue=5000
+    #ehr.audit.threadPool.keepAliveSeconds=60
+    
+    # Configuration of auditable operations: 
+    # List of properties "ehr.service.audit.operations.[1-n]", with a comma delimited list of operations.
+    # The format of one operation is [RESOURCE_NAME] [OPERATION].
+    # - [RESOURCE_NAME]: Fhir resource name. Value _ALL_ applies to all resources.
+    # - [OPERATION]: Admits regular expression. 
+    #                Supported values: CREATE, UPDATE, DELETE, PATCH, READ, VREAD, HISTORY_INSTANCE, SEARCH_TYPE 
+    # Examples:
+    #  ehr.service.audit.operations.1=Flag CREATE,Flag UPDATE,Flag SEARCH_TYPE --> Audit create, update and search over Flag resources.
+    #  ehr.service.audit.operations.2=DocumentReference .* --> Audit all operations over DocumentReference resources.
+    #  ehr.service.audit.operations.3=_ALL_ CREATE --> Audit All CREATE operations for any resource.
+    ehr.service.audit.operations.2=_ALL_ CREATE,_ALL_ UPDATE,_ALL_ PATCH
+    ##################################
+    #END FHIR ATNA Audit configuration
+    ##################################
+    
+    #Binary compression
+    #ehr.binary.compression.enabled=true
+    
+    #Consent filter search
+    ehr.consent.filter.request.enabled=false
+    ehr.consent.filter.enabled=false
+    ehr.consent.filter.multipatient=false
+    
+    #Custom name & address data extraction
+    #ehr.searchparams.extraction.name=text,given,family,prefix,suffix
+    #ehr.searchparams.extraction.address=text,line,city,state,country,postalCode
+    #Filter dates for Period data types as FHIR specification
+    #ehr.searchparams.date.filterPeriodsAsSpecification=false
+    
+    #Content-Types compression (example: text/plain,text/xml..)
+    #ehr.binary.compression.contenttypes=
+    ###########################
+    #END FHIR server properties
+    ###########################
+    
+    ###########################################################################
+    #KAFKA Configuration (Required for Fhir Subscriptions & Entity Replication)
+    ###########################################################################
+    #Defaults to values configured in hn_home/integration.properties
+    ehr.kafka.bootstrapservers=${kafka.bootstrapservers}
+    ehr.kafka.truststore.location=${kafka.truststore.location}
+    ehr.kafka.truststore.password=${kafka.truststore.password}
+    ehr.kafka.truststore.type=${kafka.truststore.type}
+    ehr.kafka.scram.sasl.user=${kafka.scram.sasl.user}
+    ehr.kafka.scram.sasl.password=${kafka.scram.sasl.password}
+    ehr.kafka.scram.sasl.mechanism=${kafka.scram.sasl.mechanism}
+    
+    ####################################
+    #Configuration of FHIR Subscriptions
+    ####################################
+    ehr.subscriptions.enabled={{ .Values.ohhdr.app.flag.enable_fhir_subscription }}
+    ehr.subscriptions.kafka.enabled={{ .Values.ohhdr.app.flag.enable_fhir_subscription }}
+    ehr.subscriptions.kafka.topic=ohhdr-subscriptions-delivery
+    ehr.subscriptions.kafka.groupId=ohhdr-subscriptions
+    
+    #Ack Mode for commiting offset. Values: RECORD, BATCH, TIME, COUNT, COUNT_TIME
+    #ehr.subscriptions.kafka.consumer.ackMode=COUNT_TIME
+    #ehr.subscriptions.kafka.consumer.ackCount=10
+    #ehr.subscriptions.kafka.consumer.ackTime=5000
+    #ehr.subscriptions.kafka.consumer.max.poll=10
+    #ehr.subscriptions.kafka.consumer.offset=latest
+    ehr.subscriptions.kafka.producer.requestTimeoutMs=10000
+    ehr.subscriptions.kafka.producer.deliveryTimeoutMs=10000
+    ehr.subscriptions.kafka.producer.maxBlockMs=10000
+
+    #Thread Pool for matching subscriptions
+    ehr.subscriptions.threadPool.enabled=true
+    ehr.subscriptions.threadPool.coreSize=5
+    ehr.subscriptions.threadPool.queue=50000
+    ehr.subscriptions.threadPool.keepAliveSeconds=300
+    
+    #Mail Sender configuration
+    #ehr.subscriptions.mail.host=smtp.host
+    #ehr.subscriptions.mail.port=587
+    #ehr.subscriptions.mail.user=user@host.com
+    #ehr.subscriptions.mail.password=password
+    ########################################
+    #END Configuration of FHIR Subscriptions
+    ########################################
+
+    #########################################
+    #Configuration of FHIR Entity Replication
+    #########################################
+    #DEFAULT VALUES
+    ehr.replication.enabled={{ .Values.ohhdr.app.flag.enable_fhir_entity_replication }}
+    ehr.replication.defaultGroupId=ohhdr-replication
+    ehr.replication.defaultConsumerOffset=earliest
+    ehr.replication.history=true
+    ehr.replication.deadletter.topic=ohhdr-replication-errors
+    ehr.replication.max.poll=10
+
+    #OHAUT REPLICATION (Practitioner / Organization / Location)
+    ehr.replication.ohaut.enabled=${ehr.replication.enabled}
+    ehr.replication.ohaut.topic=ohaut-entity-events
+    ehr.replication.ohaut.groupId=${ehr.replication.defaultGroupId}-ohaut
+    ehr.replication.ohaut.consumerOffset=${ehr.replication.defaultConsumerOffset}
+    ehr.replication.ohaut.history=${ehr.replication.history}
+
+    #OHMPI REPLICATION (Patient)
+    ehr.replication.ohmpi.enabled=${ehr.replication.enabled}
+    ehr.replication.ohmpi.topic=ohmpi-entity-events
+    ehr.replication.ohmpi.consumerOffset=${ehr.replication.defaultConsumerOffset}
+    ehr.replication.ohmpi.groupId=${ehr.replication.defaultGroupId}-ohmpi
+    ehr.replication.ohmpi.history=${ehr.replication.history}
+    
+    #OHONT REPLICATION (CodeSystem)
+    ehr.replication.ohont.enabled=${ehr.replication.enabled}
+    ehr.replication.ohont.topic=ohont-entity-events
+    ehr.replication.ohont.consumerOffset=${ehr.replication.defaultConsumerOffset}
+    ehr.replication.ohont.groupId=${ehr.replication.defaultGroupId}-ohont
+    ehr.replication.ohont.history=false
+    #Replicated CodeSystems (Comma delimited list. '_ALL_' for all CodeSystems)
+    ehr.replication.ohont.codeSystems=_ALL_
+    
+    #OHBPM REPLICATION (PlanDefinition,CarePlan,Task,QuestionnaireResponse)
+    ehr.replication.ohbpm.enabled=${ehr.replication.enabled}
+    ehr.replication.ohbpm.topic=ohbpm-entity-events
+    ehr.replication.ohbpm.consumerOffset=${ehr.replication.defaultConsumerOffset}
+    ehr.replication.ohbpm.groupId=${ehr.replication.defaultGroupId}-ohbpm
+    ehr.replication.ohbpm.history=${ehr.replication.history}
+    
+    #OHCSM REPLICATION (Consent, Binary)
+    ehr.replication.ohcsm.enabled=${ehr.replication.enabled}
+    ehr.replication.ohcsm.topic=ohcsm-entity-events
+    ehr.replication.ohcsm.consumerOffset=${ehr.replication.defaultConsumerOffset}
+    ehr.replication.ohcsm.groupId=${ehr.replication.defaultGroupId}-ohcsm
+    ehr.replication.ohcsm.history=false
+
+    #OHALE REPLICATION (Communication, CommunicationRequest)
+    ehr.replication.ohale.enabled=${ehr.replication.enabled}
+    ehr.replication.ohale.topic=ohale-entity-events
+    ehr.replication.ohale.consumerOffset=${ehr.replication.defaultConsumerOffset}
+    ehr.replication.ohale.groupId=${ehr.replication.defaultGroupId}-ohale
+    ehr.replication.ohale.history=false
+    
+    ##########################################
+    #END Configuration FHIR Entity Replication
+    ##########################################
+    
+    ###################################################
+    #XDS Registry / Repository configuration properties
+    ###################################################
+    #OID System (OID of MPI master identifier)
+    xds.oid.patient=1.1.1.1.1.1.11111.0
+    
+    #Url register (Only when OHHDR acting as XDS Repository)
+    #xds.register.server=${general.url}/ehrserver/services/xds-iti42
+    #Url MHD
+    #mhd.register.server=${general.url}/ehrserver
+    xds.repository.uniqueId=1.3.6.1.4.1.19376
+    #HOT CHANGE PROPERTIES
+    #ITI's SOAP Validation
+    xds.validation.ipf=true
+    #ITI's codes validation
+    xds.validation.codes=false
+    #Limit of XDS Registry ITI-18 results
+    xds.search.maxcount=80
+    #Number of days for update conditional (HEADER if-modified-since)
+    xds.update.modified.days=1
+    #END HOT CHANGE PROPERTIES
+    
+    #XDS ATNA Audit configuration
+    xds.service.audit.enabled=false
+    
+    #Defaults
+    #xds.contentType.base=application/xml
+    #xds.nonVersionedResources=Practitioner,Organization
+    #XDS Repository - > Registry connection configuration
+    #xds.iti42.connectionsPerRoute=50
+    #xds.iti42.maxTotalConnections=50
+    #xds.iti42.connectionTimeToLive=60
+    #xds.iti42.connectionTimeout=10000
+    #xds.iti42.socketTimeout=20000
+    
+    #Mode connectathon
+    #xds.mode.connectathon=true
+    #######################################################
+    #END XDS Registry / Repository configuration properties
+    #######################################################
+    ##########################
+    #Bulk API Configuration
+    ##########################
+    ehr.bulk.enabled={{ .Values.ohhdr.app.flag.enable_bulk_api }}
+    #Bulk file size (MB)
+    ehr.bulk.fileSize={{ .Values.ohhdr.app.bulk_api_file_size }}
+    #BULK STORE CONFIGURATION
+    #Valid configurations (MINIO, FILESYSTEM)
+    ehr.bulk.store.type=MINIO
+    
+    #FileSystem configuration
+    ehr.bulk.store.filesystem.bulkDirectory=/tmp
+    #END FileSystem configuration
+    #S3-MINIO configuration
+    ehr.bulk.store.s3.endpoint=
+    ehr.bulk.store.s3.user=
+    ehr.bulk.store.s3.pwd=
+    ehr.bulk.store.s3.disableCertCheck=false
+    ehr.bulk.store.s3.tmpDirectory=/tmp
+    ehr.bulk.store.s3.trino.sslVerify=false
+    ehr.bulk.store.s3.trino.url={{ .Values.ohhdr.app.ohas3_url }}
+    ehr.bulk.store.s3.trino.conn.poolSize=2
+    ehr.bulk.store.s3.trino.conn.timeout=10000
+    ehr.bulk.store.s3.trino.conn.socketTimeout=10000
+    ehr.bulk.store.s3.trino.conn.requestTimeout=10000
+    ehr.bulk.store.s3.trino.schema.inference=false
+    #END S3-MINIO configuration
+    ############################
+    #END Bulk API Configuration
+    ############################
+    #########################################
+    #Custom Resource Definition Configuration
+    #########################################
+    ehr.crd.resource.name.minlength=2
+    ehr.crd.resource.name.maxlength=15
+    ehr.crd.domain.name.minlength=2
+    ehr.crd.domain.name.maxlength=4
+    #############################################
+    #END Custom Resource Definition Configuration
+    #############################################        
+
+  env.plugins.properties: |
+    #Almacenamiento por defecto
+    plugins.clob.storage.default=DB
+    #Permitir almacenamiento externo de CLOBs para los siguientes recursos (lista separada por comas)
+    plugins.clob.storage.allowExternalStorageFor=Binary
+    
+    #S3 Clob Storage Plugin
+    plugins.clob.storage.S3.enabled=false
+    plugins.clob.storage.S3.endpoint=http://minio.oh-minio.svc.cluster.local/
+    plugins.clob.storage.S3.bucket=ohhdr-clobs
+    plugins.clob.storage.S3.accessKeyId=myAccessKeyId
+    plugins.clob.storage.S3.secretAccessKey=mySecretAccessKey
+    plugins.clob.storage.S3.region=eu-south-2
+    plugins.clob.storage.S3.disableSSLCheck=false
+  
+  logback.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true" scanPeriod="30 seconds">
+        <!-- PROPIEDADES DE CONFIGURACION -->
+        <property name="TRACE_LOG_DIR" value="${indrasalud.home:-/tmp}/hdr/log" />
+        
+        <!-- Nombre de sistema -->
+        <property name="APPLICATION" value="HEALTHDATA" />
+        <!-- Area -->
+        <property name="AREA" value="CL" />
+        
+        <!-- Patron de fecha para log de diagnÃ³stico -->
+        <property name="TRACE_TIME_PATTERN" value="yyyyMMdd.HHmmss.SSS" />
+        <!-- Sacar informacion de logger en log de diagnostico -->
+        <property name="TRACE_SHOW_LOGGER" value="false" />
+        <!-- Longitud maxima en bytes del texto de una traza. Un valor menor o igual que cero implica que no hay truncado -->
+        <property name="TRACE_ARGUMENT_LENGTH" value="-1" />
+        <!-- Generar traza completa de error en las excepciones -->
+        <property name="GENERATE_FULL_STACK" value="false" />
+        <!-- MARCADORES A ELIMINAR DE LA TRAZA DE ERROR, SEPARADOS POR COMAS -->
+        <property name="REMOVE_STACK_MARKERS" value=" " />
+        <!-- MARCADORES QUE TERMINAN LA TRAZA DE ERROR -->
+        <property name="STOP_STACK_MARKERS" value=" " />
+        
+        <timestamp key="MONTH_PATTERN" datePattern="yyMM" />
+        <timestamp key="DAY_PATTERN" datePattern="yyMMdd" />
+        
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="com.indra.mymed.healthdata.core.services.log.DiagnosticLayout">
+                    <timestampPattern>${TRACE_TIME_PATTERN}</timestampPattern>
+                    <printLogger>${TRACE_SHOW_LOGGER}</printLogger>
+                    <argumentLength>${TRACE_ARGUMENT_LENGTH}</argumentLength>
+                    <generateFullStack>${GENERATE_FULL_STACK}</generateFullStack>
+                    <stopStackMarkers>${STOP_STACK_MARKERS}</stopStackMarkers>                
+                    <removeStackMarkers>${REMOVE_STACK_MARKERS}</removeStackMarkers>
+                </layout>
+            </encoder>
+            <immediateFlush>true</immediateFlush>
+        </appender>
+        
+        <!-- LOG DE METRICAS -->
+        <logger name="metrics" level="INFO" additivity="false">
+            <appender-ref ref="stdout" />
+        </logger>
+    
+        <!-- LOG DE DIAGNOSTICO -->
+        <logger name="com.indra.mymed.healthdata.core.common.template.freemarker" level="WARN" />
+        <logger name="com.indra.mymed.healthdata" level="INFO" />
+        <logger name="com.indra.mymed.healthdata.ehr.core.request" level="INFO" />
+        <logger name="com.indra.mymed.healthdata.core.web" level="INFO" />
+        <logger name="com.indra.mymed.healthdata.extension.mhd" level="INFO" />
+        <logger name="com.indra.mymed.healthdata.cdr" level="INFO" />
+    
+        <!-- LOGS LIBRERIAS HDATA  -->
+        <logger name="com" level="WARN" />
+        <logger name="com.netflix.config.sources.URLConfigurationSource" level="ERROR" />
+        <logger name="com.hazelcast" level="INFO" />
+        
+        <logger name="freemarker.cache" level="OFF" />
+        <logger name="org" level="WARN" />
+        <!-- Apache Camel -->
+        <logger name="org.apache.camel" level="WARN" />
+        <logger name="org.apache.camel.impl.converter.DefaultTypeConverter" level="ERROR" />
+    
+        <!-- Poner a DEBUG para ver peticiones HTTP -->
+        <logger name="org.apache.http" level="INFO" />
+    
+        <!-- Spring -->
+        <logger name="org.springframework" level="INFO" />
+        <logger name="org.springframework.jdbc" level="INFO" />
+        <logger name="org.springframework.transaction" level="INFO" />
+        <logger name="org.springframework.core.web" level="INFO" />
+        <logger name="org.springframework.security" level="INFO" />
+    
+        <!-- MyBatis -->
+        <logger name="org.mybatis" level="WARN" />
+        
+        <!-- Hibernate -->
+        <logger name="org.hibernate.SQL" level="WARN" />
+        <logger name="org.hibernate.engine.spi.QueryParameters" level="WARN" />
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN" />
+    
+        <!--Apache CXF-->
+        <logger name="org.apache.cxf" level="WARN" />
+        <logger name="org.apache.cxf.services" level="WARN" />
+        
+        <!-- Libs net.* -->
+        <logger name="net" level="WARN" />
+    
+        <!-- ROOT LOGGER -->
+        <root level="ERROR">
+            <appender-ref ref="stdout"/>
+        </root>
+    </configuration>
+      
+  ehcache.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" 
+        updateCheck="false" monitoring="off"
+        dynamicConfig="true" name="CORE_SERVICES_CACHE">
+        <cache name="CDR.RELATIONAL.META" 
+            maxEntriesLocalHeap="1000" 
+            eternal="false" 
+            timeToIdleSeconds="600" 
+            timeToLiveSeconds="3600"
+            memoryStoreEvictionPolicy="LRU">
+        </cache>
+        <!-- Cached catalogs -->
+        <cache name="CATALOGS" 
+            maxEntriesLocalHeap="50" 
+            eternal="false" 
+            timeToIdleSeconds="1800" 
+            timeToLiveSeconds="3600">
+        </cache>
+        <!-- Cached Subscriptions -->
+         <cache name="HDR.SUBSCRIPTIONS" 
+            maxEntriesLocalHeap="500" 
+            eternal="false" 
+            timeToIdleSeconds="30" 
+            timeToLiveSeconds="60">
+        </cache>
+    </ehcache>

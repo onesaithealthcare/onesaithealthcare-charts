@@ -26,9 +26,10 @@
             "gateway_type": {
               "type": "string",
               "enum": ["istio", "k8s_gateway"]
-            }
+            },
+            "gateway": { "type": "string" }
           },
-          "required": ["protocol", "host", "gateway_type"]
+          "required": ["protocol", "host", "gateway_type", "gateway"]
         },
         "docker": {
           "type": "object",
@@ -64,9 +65,7 @@
               "type": "object",
               "properties": {
                 "name": { "type": "string" },
-                "gateway": { "type": "string" },
                 "locale_default": { "type": "string" },
-                "host": { "type": "string" },
                 "replicas": { "type": "integer" },
                 "cod_passive_cause_death": { "type": "integer" },
                 "flag": {
@@ -147,8 +146,6 @@
                 "name_front_designer": { "type": "string" },
                 "name_front_integration": { "type": "string" },
                 "name_front_webcomponents": { "type": "string" },
-                "host": { "type": "string" },
-                "gateway": { "type": "string" },
                 "replicas": { "type": "integer" },
                 "replicas_front_designer": { "type": "integer" },
                 "replicas_front_integration": { "type": "integer" },
@@ -186,16 +183,6 @@
                 "front_integration_image_tag": { "type": "string" },
                 "front_webcomponents_image_tag": { "type": "string" }
               }
-            },
-            "con": {
-              "type": "object",
-              "properties": {
-                "protocol": {
-                  "type": "string",
-                  "enum": ["http", "https"]
-                },
-                "host": { "type": "string" }
-              }
             }
           }
         }
@@ -210,8 +197,6 @@
             "app": {
               "type": "object",
               "properties": {
-                "host": { "type": "string" },
-                "gateway": { "type": "string" },
                 "backend_app": { "type": "string" },
                 "front_app": { "type": "string" },
                 "url_server": { "type": "string" },

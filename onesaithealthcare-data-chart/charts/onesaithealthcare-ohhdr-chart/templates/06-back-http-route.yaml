@@ -1,0 +1,26 @@
+{{- if eq .Values.global.domain.gateway_type "k8s_gateway" }}
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: {{ .Values.ohhdr.app.name }}-http-route
+spec:
+  parentRefs:
+    - name: {{ .Values.global.domain.gateway }}
+  hostnames:
+    - '{{ .Values.global.domain.host }}'
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ehrserver/
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              X-Forwarded-Host: {{ .Values.global.domain.host }}
+              X-Forwarded-Port: '{{ .Values.global.domain.port }}'
+              X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+      backendRefs:
+        - name: {{ .Values.ohhdr.app.name }}-back
+          port: 8080
+{{- end }}

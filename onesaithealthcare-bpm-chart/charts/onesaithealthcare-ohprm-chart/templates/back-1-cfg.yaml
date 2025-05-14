@@ -8,11 +8,11 @@ data:
     fhir.versionSTU3=DSTU3
 
 
-    ehrserver.fhir.url=https://{{ .Values.ohprm.app.host }}/ehrserver/fhir
-    hnpob.fhir.url=https://{{ .Values.ohprm.app.host }}/ispob/fhir
-    ohcsm.fhir.url=https://{{ .Values.ohprm.app.host }}/ohcsm/fhir    
-    ohbpm.fhir.url=https://{{ .Values.ohprm.app.host }}/ohbpm/api/fhir
-    hnalert.fhir.url=https://{{ .Values.ohprm.app.host }}/ehrserver/fhir
+    ehrserver.fhir.url=https://{{ .Values.global.domain.host }}/ehrserver/fhir
+    hnpob.fhir.url=https://{{ .Values.global.domain.host }}/ispob/fhir
+    ohcsm.fhir.url=https://{{ .Values.global.domain.host }}/ohcsm/fhir    
+    ohbpm.fhir.url=https://{{ .Values.global.domain.host }}/ohbpm/api/fhir
+    hnalert.fhir.url=https://{{ .Values.global.domain.host }}/ehrserver/fhir
 
 
     max-http-header-size=524288

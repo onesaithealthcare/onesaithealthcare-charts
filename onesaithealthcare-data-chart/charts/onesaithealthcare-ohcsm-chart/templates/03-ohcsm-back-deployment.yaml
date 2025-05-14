@@ -1,0 +1,180 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.ohcsm.app.back_name }}
+  labels:
+    app: {{ .Values.ohcsm.app.back_name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.ohcsm.app.back_name }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.ohcsm.app.back_name }}
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: oh-module
+      imagePullSecrets:
+        - name: docksdtr.indra.es
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      containers:
+        - resources:
+            limits:
+              cpu: 200m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /ohcsm/api/healthcheck
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: {{ .Values.ohcsm.app.back_name }}
+          livenessProbe:
+            httpGet:
+              path: /ohcsm/api/healthcheck
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: JVM_OPTS
+              value: '-Dindrasalud.home=/hn_home -Xms256m -Xmx1024M'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: ohcsm-back-jetty-cfg
+              readOnly: true
+              mountPath: /var/lib/jetty/webapps/ROOT/WEB-INF/jetty-env.xml
+              subPath: jetty-env.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: /hn_home/ohcsm/conf/env.ohcsm.properties
+              subPath: env.ohcsm.properties
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: /hn_home/ohcsm/conf/logback.xml
+              subPath: logback.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: >-
+                /opt/jboss/hn_home/ohcsm/conf/back/mappings/dozer-bean-mappings.xml
+              subPath: dozer-bean-mappings.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: /opt/jboss/hn_home/ohcsm/conf/back/ohcsm-back-ctx.xml
+              subPath: ohcsm-back-ctx.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: /opt/jboss/hn_home/ohcsm/conf/back/ohcsm-back-services-ctx.xml
+              subPath: ohcsm-back-services-ctx.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: >-
+                /opt/jboss/hn_home/ohcsm/conf/back/ohcsm-back-data-source-ctx.xml
+              subPath: ohcsm-back-data-source-ctx.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: /opt/jboss/hn_home/ohcsm/conf/front/ohcsm-front-ctx.xml
+              subPath: ohcsm-front-ctx.xml
+            - name: ohcsm-back-cfg
+              readOnly: true
+              mountPath: >-
+                /opt/jboss/hn_home/ohcsm/conf/hdrcmp/ohhdr-common-core-security-ctx.xml
+              subPath: ohhdr-common-core-security-ctx.xml
+            - name: ohcsm-back-host-props
+              readOnly: true
+              mountPath: /hn_home/host.properties
+              subPath: host.properties
+            - name: ohcsm-back-integration-props
+              readOnly: true
+              mountPath: /hn_home/integration.properties
+              subPath: integration.properties
+            - name: ohcsm-back-jms-props
+              readOnly: true
+              mountPath: /hn_home/jms.properties
+              subPath: jms.properties
+            - name: ohcsm-back-iscore-sso-props
+              readOnly: true
+              mountPath: /hn_home/iscore/conf
+            - name: openjdk-cacert
+              readOnly: true
+              mountPath: /usr/local/openjdk-8/lib/security/cacerts
+              subPath: cacerts
+            - name: ohcsm-plugin-update-doc
+              readOnly: true
+              mountPath: /opt/jboss/hn_home/ohcsm/plugins/plugin-update-doc-1.0.0.jar
+            - name: ohcsm-plugin-update-mpi
+              readOnly: true
+              mountPath: /opt/jboss/hn_home/ohcsm/plugins/plugin-update-mpi-1.0.0.jar
+          terminationMessagePolicy: File
+          image: docksdtr.indra.es/multhn_cmhn20_2/{{ .Values.ohcsm.app.back_name }}:{{ .Values.ohcsm.version.back_image_tag }}
+      #Temporal en entorno openshift desarrollo (no resuelve ip del gateway)
+      hostAliases:
+        - ip: 192.168.1.146
+          hostnames:
+            - oh-modules.apps.lab.openshift.com
+      serviceAccount: oh-module
+      volumes:
+        - name: ohcsm-back-cfg
+          configMap:
+            name: ohcsm-back-cfg
+            defaultMode: 420
+        - name: ohcsm-back-jetty-cfg
+          configMap:
+            name: ohcsm-back-jetty-cfg
+            defaultMode: 420
+        - name: ohcsm-back-host-props
+          configMap:
+            name: hnhome-host-props
+            defaultMode: 420
+        - name: ohcsm-back-integration-props
+          configMap:
+            name: hnhome-integration-props
+            defaultMode: 420
+        - name: ohcsm-back-jms-props
+          configMap:
+            name: hnhome-jms-props
+            defaultMode: 420
+        - name: ohcsm-back-iscore-sso-props
+          configMap:
+            name: hnhome-iscore-sso-props
+            defaultMode: 420
+        - name: openjdk-cacert
+          configMap:
+            name: openjdk-cacert
+            defaultMode: 420
+        - name: ohcsm-plugin-update-doc
+          configMap:
+            name: ohcsm-plugin-update-doc
+            defaultMode: 420
+        - name: ohcsm-plugin-update-mpi
+          configMap:
+            name: ohcsm-plugin-update-mpi
+            defaultMode: 420
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

@@ -60,21 +60,9 @@ questions:
     type: string
     show_if: dependencies.ohbpm.enabled=true
 
-  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.gateway
-    default: oh-modules-gateway
-    description: "Gateway de la aplicación OHBPM"
-    type: string
-    show_if: dependencies.ohbpm.enabled=true
-
   - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.locale_default
     default: ES
     description: "Configuración regional predeterminada"
-    type: string
-    show_if: dependencies.ohbpm.enabled=true
-
-  - variable: onesaithealthcare-ohbpm-chart.ohbpm.app.host
-    default: oh-modules.apps.lab.openshift.com
-    description: "Host de la aplicación OHBPM"
     type: string
     show_if: dependencies.ohbpm.enabled=true
 
@@ -304,18 +292,6 @@ questions:
     type: string
     show_if: dependencies.ohgen.enabled=true
 
-  - variable: onesaithealthcare-ohgen-chart.ohgen.app.host
-    default: oh-modules.apps.lab.openshift.com
-    description: "Host de la aplicación OHGEN"
-    type: string
-    show_if: dependencies.ohgen.enabled=true
-
-  - variable: onesaithealthcare-ohgen-chart.ohgen.app.gateway
-    default: oh-modules-gateway
-    description: "Gateway de la aplicación OHGEN"
-    type: string
-    show_if: dependencies.ohgen.enabled=true
-
   - variable: onesaithealthcare-ohgen-chart.ohgen.app.replicas
     default: 1
     description: "Número de réplicas del backend de OHGEN"
@@ -441,34 +417,6 @@ questions:
     description: "Etiqueta de la imagen del frontend de webcomponents de OHGEN"
     type: string
     show_if: dependencies.ohgen.enabled=true
-
-  - variable: onesaithealthcare-ohgen-chart.ohgen.con.protocol
-    default: https
-    description: "Protocolo de conexión de OHGEN (http o https)"
-    type: enum
-    options:
-      - http
-      - https
-    show_if: dependencies.ohgen.enabled=true
-
-  - variable: onesaithealthcare-ohgen-chart.ohgen.con.host
-    default: oh-modules.apps.lab.openshift.com
-    description: "Host de conexión de OHGEN"
-    type: string
-    show_if: dependencies.ohgen.enabled=true
-
-  # OHPRM Variables
-  - variable: onesaithealthcare-ohprm-chart.ohprm.app.host
-    default: oh-release.apps.lab.openshift.com
-    description: "Host de la aplicación OHPRM"
-    type: string
-    show_if: dependencies.ohprm.enabled=true
-
-  - variable: onesaithealthcare-ohprm-chart.ohprm.app.gateway
-    default: oh-modules-gateway
-    description: "Gateway de la aplicación OHPRM"
-    type: string
-    show_if: dependencies.ohprm.enabled=true
 
   - variable: onesaithealthcare-ohprm-chart.ohprm.app.backend_app
     default: ohprm-api

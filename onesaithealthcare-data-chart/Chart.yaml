@@ -1,0 +1,29 @@
+apiVersion: v2
+name: onesaithealthcare-data-chart
+description: Onesait Healthcare Data chart for k8s
+home: https://github.com/onesaithealthcare/onesaithealthcare-charts
+type: application
+version: "4.0.0"
+appVersion: "4.9.0"
+keywords:
+  - Minsait
+  - Onesait Healthcare
+  - Data
+maintainers:
+  - name: Onesait Healthcare
+    email: soporteosh@indra.es
+    url: 
+icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
+dependencies:
+  - name: onesaithealthcare-ohhdr-chart
+    version: "3.14.0"
+    repository: "file://charts/onesaithealthcare-ohhdr-chart"
+    condition: dependencies.ohhdr.enabled
+  - name: onesaithealthcare-ohcsm-chart
+    version: "4.7.0"
+    repository: "file://charts/onesaithealthcare-ohcsm-chart"
+    condition: dependencies.ohcsm.enabled
+  - name: onesaithealthcare-ohhda-chart
+    version: "4.9.0"
+    repository: "file://charts/onesaithealthcare-ohhda-chart"
+    condition: dependencies.ohhda.enabled

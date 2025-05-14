@@ -1,0 +1,110 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.ohcsm.app.front_name }}
+  labels:
+    app: {{ .Values.ohcsm.app.front_name }}
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.ohcsm.app.front_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.ohcsm.app.front_name }}
+      annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      imagePullSecrets:
+        - name: docksdtr.indra.es
+      serviceAccountName: oh-module
+      containers:
+        - name: ohbpm-front
+          image: docksdtr.indra.es/multhn_cmhn20_2/ohcsm-viewer:{{ .Values.ohcsm.version.front_image_tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /hd-consentimiento/index.html
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /hd-consentimiento/index.html
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          volumeMounts:
+            - name: ohcsm-front-cfg
+              readOnly: true
+              mountPath: /usr/share/nginx/html/hd-consentimiento/assets/config/env.json
+              subPath: env.json
+            - name: ohcsm-front-cfg
+              readOnly: true
+              mountPath: >-
+                /usr/share/nginx/html/hd-consentimiento/assets/api/config/app-config.json
+              subPath: app-config.json
+            - name: ohcsm-front-i18n
+              readOnly: true
+              mountPath: /usr/share/nginx/html/hd-consentimiento/res/i18n
+            - name: ohcsm-front-keycloak
+              mountPath: /usr/share/nginx/html/hd-consentimiento/keycloak.json
+              subPath: keycloak.json
+            - name: ohcsm-front-keycloak
+              mountPath: /usr/share/nginx/html/hd-consentimiento/keycloak-prof.json
+              subPath: keycloak-prof.json
+            - name: nginx-front-cfg
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: ohsso-lib
+              readOnly: true
+              mountPath: /usr/share/nginx/html/hd-consentimiento/ohsso-lib.js
+              subPath: ohsso-lib.js
+
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          imagePullPolicy: Always
+
+      volumes:
+        - name: ohcsm-front-cfg
+          configMap:
+            name: {{ .Values.ohcsm.app.front_name }}-cfg
+            defaultMode: 420
+        - name: ohcsm-front-i18n
+          configMap:
+            name: {{ .Values.ohcsm.app.front_name }}-i18n
+            defaultMode: 420
+        - name: ohcsm-front-keycloak
+          configMap:
+            name: ohcsm-front-keycloak
+            items:
+              - key: keycloak.json
+                path: keycloak.json
+              - key: keycloak-prof.json
+                path: keycloak-prof.json
+            defaultMode: 420
+        - name: nginx-front-cfg
+          configMap:
+            name: nginx-front-cfg
+            defaultMode: 420
+        - name: ohsso-lib
+          configMap:
+            name: ohsso-lib
+            defaultMode: 420
