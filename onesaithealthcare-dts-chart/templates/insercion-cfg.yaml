@@ -659,55 +659,55 @@ metadata:
 data:
   externalResources_client_default_bdProcess_properties_AuditFK___audit_fk_after.properties: |-
     dataSource=dataSourceIEngine
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_AllergyIntolerance.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Appointment.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Atna.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Condition.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_ConfigProc.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Covid.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Encounter.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_EpisodeOfCare.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Flag.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Laboratory_parameters_ont.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Laboratory_parameters.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Laboratory.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Location.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Organization.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Workplace_Orgs.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_OrgLoc.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_addresses.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_adscription.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_Contacts.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_Documents.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_Nationalities.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_Pharmacies.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_TypeCitizen.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient_TypeInsured.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_patient.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Pract_Profs_Specs.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Practitioner_docs.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Practitioner_workplcs.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Procedure.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Process.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_ProcLabel.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Report.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_ServiceRequest.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_VitalSign.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL2.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL3.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL4.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL5.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Card.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_task.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_Queresponse.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_cliExtension.sql
-    bdProcess/sql/insert_for_audit/{{properties.bdProcess.AuditFK}}/insert_for_audit_ServiceRequestEvent.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_AllergyIntolerance.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Appointment.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Atna.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Condition.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_ConfigProc.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Covid.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Encounter.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_EpisodeOfCare.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Flag.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Laboratory_parameters_ont.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Laboratory_parameters.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Laboratory.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Location.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Organization.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Workplace_Orgs.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_OrgLoc.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_addresses.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_adscription.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_Contacts.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_Documents.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_Nationalities.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_Pharmacies.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_TypeCitizen.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient_TypeInsured.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_patient.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Pract_Profs_Specs.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Practitioner_docs.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Practitioner_workplcs.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Procedure.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Process.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_ProcLabel.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Report.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_ServiceRequest.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_VitalSign.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL2.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL3.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL4.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_GeographicL5.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Card.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_task.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_Queresponse.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_cliExtension.sql
+    bdProcess/sql/insert_for_audit/{{ "{{" }}properties.bdProcess.AuditFK}}/insert_for_audit_ServiceRequestEvent.sql
   externalResources_client_default_bdProcess_properties_allergyIntolerance___allergyInt_allergen_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Allergen.sql
     bdProcess/sql/extract_from/extract_Allergy_Allergen.sql
     bdProcess/sql/after_update/after_update_flag_Allergen.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Allergen.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Allergen.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Allergen.sql
     
   externalResources_client_default_bdProcess_properties_allergyIntolerance___allergyInt_allergyIntMechanism_after.properties: |-
@@ -715,20 +715,20 @@ data:
     bdProcess/sql/before_delete/before_delete_Allergyint_mechanism.sql
     bdProcess/sql/extract_from/extract_Allergy_Allergyint_mechanism.sql
     bdProcess/sql/after_update/after_update_flag_AllergyInt_mechanism.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_AllergyInt_mechanism.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_AllergyInt_mechanism.sql
     bdProcess/sql/select_for_insert/select_For_Insert_AllergyInt_mechanism.sql
   externalResources_client_default_bdProcess_properties_allergyIntolerance___allergyInt_clinicalFinding_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_ClinicalFinding.sql
     bdProcess/sql/extract_from/extract_Allergy_Clinicalfinding.sql
     bdProcess/sql/after_update/after_update_flag_ClinicalFinding.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ClinicalFinding.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ClinicalFinding.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ClinicalFinding.sql
   externalResources_client_default_bdProcess_properties_allergyIntolerance___allergyIntolerance_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_AllergyIntolerance.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_AllergyIntolerance.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_AllergyIntolerance.sql
     bdProcess/sql/select_for_insert/select_For_Insert_AllergyIntolerance.sql
   externalResources_client_default_bdProcess_properties_allergyIntolerance___allergyIntolerance_before.properties: |-
     dataSource=dataSourceIEngine
@@ -737,8 +737,8 @@ data:
   externalResources_client_default_bdProcess_properties_appointment___appointment_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Appointment.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Appointment.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Appointment.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Appointment.sql
   externalResources_client_default_bdProcess_properties_appointment___appointment_before.properties: |-
     dataSource=dataSourceIEngine
@@ -753,7 +753,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Appoint_cancelreason.sql
     bdProcess/sql/extract_from/extract_Appointment_cancelreason.sql
     bdProcess/sql/after_update/after_update_flag_Appoint_cancelreason.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Appoint_cancelreason.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Appoint_cancelreason.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Appoint_cancelreason.sql
     ####
   externalResources_client_default_bdProcess_properties_appointment___appointment_careline_after.properties: |-
@@ -765,7 +765,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Appointment_Careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     ####SGG
   externalResources_client_default_bdProcess_properties_appointment___appointment_priority_after.properties: |-
@@ -777,7 +777,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Appoint_priority.sql
     bdProcess/sql/extract_from/extract_Appointment_priority.sql
     bdProcess/sql/after_update/after_update_flag_Appointment_priority.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Appointment_priority.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Appointment_priority.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Appointment_priority.sql
     ####
   externalResources_client_default_bdProcess_properties_appointment___appointment_professiontype_after.properties: |-
@@ -789,7 +789,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Appoint_professiontype.sql
     bdProcess/sql/extract_from/extract_Appointment_professiontype.sql
     bdProcess/sql/after_update/after_update_flag_Appoint_professiontype.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Appoint_professiontype.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Appoint_professiontype.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Appoint_professiontype.sql
     ####
   externalResources_client_default_bdProcess_properties_appointment___appointment_servicecategory_after.properties: |-
@@ -798,7 +798,7 @@ data:
     bdProcess/sql/before_delete/before_delete_ServiceCategory.sql
     bdProcess/sql/extract_from/extract_Appointment_Servicecategory.sql
     bdProcess/sql/after_update/after_update_flag_ServiceCategory.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Servicecategory.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Servicecategory.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Servicecategory.sql
   externalResources_client_default_bdProcess_properties_appointment___appointment_speciality_after.properties: |-
     dataSource=dataSourceIEngine
@@ -806,7 +806,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Speciality.sql
     bdProcess/sql/extract_from/extract_Appointment_Speciality.sql
     bdProcess/sql/after_update/after_update_flag_Speciality.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Speciality.sql
   externalResources_client_default_bdProcess_properties_appointment___appointment_type_after.properties: |-
     #dataSource=dataSource
@@ -817,14 +817,14 @@ data:
     bdProcess/sql/before_delete/before_delete_Appoint_type.sql
     bdProcess/sql/extract_from/extract_Appointment_type.sql
     bdProcess/sql/after_update/after_update_flag_Appointment_type.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Appointment_type.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Appointment_type.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Appointment_type.sql
     ####
   externalResources_client_default_bdProcess_properties_atna___atna_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Atna.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Atna.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Atna.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Atna.sql
     
   externalResources_client_default_bdProcess_properties_atna___atna_before.properties: |-
@@ -833,8 +833,8 @@ data:
   externalResources_client_default_bdProcess_properties_cliExtension___cliExtension_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_CliExtension.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_CliExtension.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_CliExtension.sql
     bdProcess/sql/select_for_insert/select_For_Insert_CliExtension.sql
     
   externalResources_client_default_bdProcess_properties_cliExtension___cliExtension_before.properties: |-
@@ -843,8 +843,8 @@ data:
   externalResources_client_default_bdProcess_properties_condition___condition_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Condition.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Condition.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Condition.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Condition.sql
   externalResources_client_default_bdProcess_properties_condition___condition_before.properties: |-
     dataSource=dataSourceIEngine
@@ -858,45 +858,45 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Condition_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
   externalResources_client_default_bdProcess_properties_condition___condition_conditionSeverity_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Condition_severity.sql
     bdProcess/sql/extract_from/extract_Condition_condition_severity.sql
     bdProcess/sql/after_update/after_update_flag_Condition_severity.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Condition_severity.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Condition_severity.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Condition_severity.sql
   externalResources_client_default_bdProcess_properties_condition___condition_conditionStage_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Condition_stage.sql
     bdProcess/sql/extract_from/extract_Condition_condition_stage.sql
     bdProcess/sql/after_update/after_update_flag_Condition_stage.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Condition_stage.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Condition_stage.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Condition_stage.sql
   externalResources_client_default_bdProcess_properties_condition___condition_diagnosis_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/extract_from/extract_Condition_diagnosis.sql
     bdProcess/sql/after_update/after_update_flag_Diagnosis.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Diagnosis.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Diagnosis.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Diagnosis.sql
   externalResources_client_default_bdProcess_properties_condition___condition_grd_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/extract_from/extract_Condition_GRD.sql
     bdProcess/sql/after_update/after_update_flag_GRD.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_GRD.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_GRD.sql
     bdProcess/sql/select_for_insert/select_For_Insert_GRD.sql
   externalResources_client_default_bdProcess_properties_condition___condition_problem_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/extract_from/extract_Condition_problem.sql
     bdProcess/sql/after_update/after_update_flag_Problem.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Problem.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Problem.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Problem.sql
   externalResources_client_default_bdProcess_properties_configProc___configProc_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_ConfigProc.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ConfigProc.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ConfigProc.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ConfigProc.sql
     
   externalResources_client_default_bdProcess_properties_configProc___configProc_before.properties: |-
@@ -907,13 +907,13 @@ data:
     bdProcess/sql/before_delete/before_delete_Procedure_Ont.sql
     bdProcess/sql/extract_from/extract_ConfigProc_procedureOnt.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_Ont.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_Des.sql
   externalResources_client_default_bdProcess_properties_covid___covid_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Covid.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Covid.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Covid.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Covid.sql
   externalResources_client_default_bdProcess_properties_covid___covid_before.properties: |-
     dataSource=dataSourceIEngine
@@ -924,7 +924,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Covid_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_covid___covid_covidOnt_after.properties: |-
@@ -932,20 +932,20 @@ data:
     bdProcess/sql/before_delete/before_delete_Covid_Ont.sql
     bdProcess/sql/extract_from/extract_Covid_covidOnt.sql
     bdProcess/sql/after_update/after_update_flag_Covid_Ont.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Covid_Ont.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Covid_Ont.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Covid_Ont.sql
   externalResources_client_default_bdProcess_properties_covid___covid_observationResult_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_ObservationResult.sql
     bdProcess/sql/extract_from/extract_Covid_observation_result.sql
     bdProcess/sql/after_update/after_update_flag_ObservationResult.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ObservationResult.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ObservationResult.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ObservationResult.sql
   externalResources_client_default_bdProcess_properties_encounter___encounter_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Encounter.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Encounter.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Encounter.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Encounter.sql
   externalResources_client_default_bdProcess_properties_encounter___encounter_before.properties: |-
     dataSource=dataSourceIEngine
@@ -956,7 +956,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Encounter_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_encounter___encounter_encounterPriority_after.properties: |-
@@ -964,20 +964,20 @@ data:
     bdProcess/sql/before_delete/before_delete_Encounter_priority.sql
     bdProcess/sql/extract_from/extract_Encounter_encounter_priority.sql
     bdProcess/sql/after_update/after_update_flag_Encounter_priority.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Encounter_priority.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Encounter_priority.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Encounter_priority.sql
   externalResources_client_default_bdProcess_properties_encounter___encounter_especiality_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Speciality.sql
     bdProcess/sql/extract_from/extract_Encounter_speciality.sql
     bdProcess/sql/after_update/after_update_flag_Speciality.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Speciality.sql
   externalResources_client_default_bdProcess_properties_episodeOfCare___episodeOfCare_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_EpisodeOfCare.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_EpisodeOfCare.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_EpisodeOfCare.sql
     bdProcess/sql/select_for_insert/select_For_Insert_EpisodeOfCare.sql
   externalResources_client_default_bdProcess_properties_episodeOfCare___episodeOfCare_before.properties: |-
     dataSource=dataSourceIEngine
@@ -988,14 +988,14 @@ data:
     bdProcess/sql/before_delete/before_delete_EpisodeOfCare_type.sql
     bdProcess/sql/extract_from/extract_Episodeofcare_episodeofcare_type.sql
     bdProcess/sql/after_update/after_update_flag_EpisodeOfCare_type.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_EpisodeOfCare_type.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_EpisodeOfCare_type.sql
     bdProcess/sql/select_for_insert/select_For_Insert_EpisodeOfCare_type.sql
     
   externalResources_client_default_bdProcess_properties_extension___extension_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Extension.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Extension.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Extension.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Extension.sql
     
   externalResources_client_default_bdProcess_properties_extension___extension_before.properties: |-
@@ -1004,8 +1004,8 @@ data:
   externalResources_client_default_bdProcess_properties_flag___flag_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Flag.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Flag.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Flag.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Flag.sql
   externalResources_client_default_bdProcess_properties_flag___flag_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1016,7 +1016,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Flag_Careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_flag___flag_category_after.properties: |-
@@ -1024,7 +1024,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Flag_Category.sql
     bdProcess/sql/extract_from/extract_Flag_FlagCategory.sql
     bdProcess/sql/after_update/after_update_flag_Flag_category.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Flag_category.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Flag_category.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Flag_category.sql
   externalResources_client_default_bdProcess_properties_geographic___geographic_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1036,37 +1036,37 @@ data:
   externalResources_client_default_bdProcess_properties_geographic___geographicl1_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Geographicl1.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Geographicl1.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Geographicl1.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Geographicl1.sql
     
   externalResources_client_default_bdProcess_properties_geographic___geographicl2_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Geographicl2.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Geographicl2.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Geographicl2.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Geographicl2.sql
     
   externalResources_client_default_bdProcess_properties_geographic___geographicl3_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Geographicl3.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Geographicl3.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Geographicl3.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Geographicl3.sql
     
   externalResources_client_default_bdProcess_properties_geographic___geographicl4_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Geographicl4.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Geographicl4.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Geographicl4.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Geographicl4.sql
     
   externalResources_client_default_bdProcess_properties_geographic___geographicl5_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Geographicl5.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Geographicl5.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Geographicl5.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Geographicl5.sql
     
   externalResources_client_default_bdProcess_properties_geographic___typevia_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_TypeVia.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_TypeVia.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_TypeVia.sql
     bdProcess/sql/select_for_insert/select_For_Insert_TypeVia.sql
   externalResources_client_default_bdProcess_properties_geographic___typevia_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1074,8 +1074,8 @@ data:
   externalResources_client_default_bdProcess_properties_laboratory___laboratoryParameters_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Laboratory_parameters.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Laboratory_parameters.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Laboratory_parameters.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Laboratory_parameters.sql
   externalResources_client_default_bdProcess_properties_laboratory___laboratoryParameters_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1086,14 +1086,14 @@ data:
     bdProcess/sql/before_delete/before_delete_Laboratory_parameter_Ont.sql
     bdProcess/sql/extract_from/extract_Laboratory_laboratory_parameter.sql
     bdProcess/sql/after_update/after_update_flag_Laboratory_parameter_Ont.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Laboratory_parameter_Ont.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Laboratory_parameter_Ont.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Laboratory_parameter_Ont.sql
   externalResources_client_default_bdProcess_properties_laboratory___laboratory_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Laboratory.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Laboratory.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Laboratory.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Laboratory.sql
   externalResources_client_default_bdProcess_properties_laboratory___laboratory_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1104,7 +1104,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Laboratory_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_laboratory___laboratory_laboratoryCategory_after.properties: |-
@@ -1112,28 +1112,28 @@ data:
     bdProcess/sql/before_delete/before_delete_Laboratory_category.sql
     bdProcess/sql/extract_from/extract_Laboratory_laboratory_category.sql
     bdProcess/sql/after_update/after_update_flag_Laboratory_category.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Laboratory_category.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Laboratory_category.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Laboratory_category.sql
   externalResources_client_default_bdProcess_properties_laboratory___laboratory_observationResult_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_ObservationResult.sql
     bdProcess/sql/extract_from/extract_Laboratory_observation_result.sql
     bdProcess/sql/after_update/after_update_flag_ObservationResult.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ObservationResult.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ObservationResult.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ObservationResult.sql
   externalResources_client_default_bdProcess_properties_laboratory___laboratory_speciality_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Speciality.sql
     bdProcess/sql/extract_from/extract_Laboratory_speciality.sql
     bdProcess/sql/after_update/after_update_flag_Speciality.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Speciality.sql
     
   externalResources_client_default_bdProcess_properties_location___location_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Location.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Location.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Location.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Location.sql
   externalResources_client_default_bdProcess_properties_location___location_before.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Location.sql
@@ -1141,15 +1141,15 @@ data:
   externalResources_client_default_bdProcess_properties_location___orgLoc_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_OrgLoc.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_OrgLoc.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_OrgLoc.sql
     bdProcess/sql/select_for_insert/select_For_Insert_OrgLoc.sql
     
   externalResources_client_default_bdProcess_properties_ontologyRelations___ontologyRelations_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Ontology_Relations.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Ontology_Relations.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Ontology_Relations.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Ontology_Relations.sql
     
   externalResources_client_default_bdProcess_properties_ontologyRelations___ontologyRelations_before.properties: |-
@@ -1160,28 +1160,28 @@ data:
     bdProcess/sql/before_delete/before_delete_Ontology.sql
     bdProcess/sql/extract_from/extract_Ontology.sql
     bdProcess/sql/after_update/after_update_flag_Ontology.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Ontology.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Ontology.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Ontology.sql
     bdProcess/sql/before_delete/before_delete_Ontology.sql
     
   externalResources_client_default_bdProcess_properties_ontologyRelations___ontology_classification_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Ontology.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Ontology.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Ontology.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Ontology.sql
   externalResources_client_default_bdProcess_properties_organization___organization_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Organization.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Organization.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Organization.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Organization.sql
   externalResources_client_default_bdProcess_properties_organization___organization_before.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Organization.sql
   externalResources_client_default_bdProcess_properties_organization___workplaceOrganization_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_WorkplaceOrgs.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_WorkplaceOrgs.sql
-    bdProcess/sql/select_for_insert/{{properties.bdProcess.urlSql}}/select_For_Insert_Workplace_Orgs.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_WorkplaceOrgs.sql
+    bdProcess/sql/select_for_insert/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Insert_Workplace_Orgs.sql
     
   externalResources_client_default_bdProcess_properties_organization___workplaceOrganization_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1189,7 +1189,7 @@ data:
   externalResources_client_default_bdProcess_properties_patient___card_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Card.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Card.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Card.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Card.sql
   externalResources_client_default_bdProcess_properties_patient___card_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1198,56 +1198,56 @@ data:
   externalResources_client_default_bdProcess_properties_patient___patientAddresses_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_addresses.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Patient_Address.sql
-    bdProcess/sql/select_for_insert/{{properties.bdProcess.urlSql}}/select_for_insert_patient_address.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Patient_Address.sql
+    bdProcess/sql/select_for_insert/{{ "{{" }}properties.bdProcess.urlSql}}/select_for_insert_patient_address.sql
   externalResources_client_default_bdProcess_properties_patient___patientAdscriptions_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_adscription.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Patient_Adscription.sql
-    bdProcess/sql/select_for_insert/{{properties.bdProcess.urlSql}}/select_for_insert_patient_adscription.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Patient_Adscription.sql
+    bdProcess/sql/select_for_insert/{{ "{{" }}properties.bdProcess.urlSql}}/select_for_insert_patient_adscription.sql
   externalResources_client_default_bdProcess_properties_patient___patientContacts_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_Contacts.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_patient_Contacts.sql
-    bdProcess/sql/select_for_insert/{{properties.bdProcess.urlSql}}/select_For_Insert_patient_Contacts.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_patient_Contacts.sql
+    bdProcess/sql/select_for_insert/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Insert_patient_Contacts.sql
   externalResources_client_default_bdProcess_properties_patient___patientDocuments_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_Documents.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_patient_Documents.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_patient_Documents.sql
     bdProcess/sql/select_for_insert/select_For_Insert_patient_Documents.sql
   externalResources_client_default_bdProcess_properties_patient___patientNationalities_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_Nationalities.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_patient_Nationalities.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_patient_Nationalities.sql
     bdProcess/sql/select_for_insert/select_For_Insert_patient_Nationalities.sql
   externalResources_client_default_bdProcess_properties_patient___patientPharmacies_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_Pharmacies.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_patient_Pharmacies.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_patient_Pharmacies.sql
     bdProcess/sql/select_for_insert/select_For_Insert_patient_Pharmacies.sql
   externalResources_client_default_bdProcess_properties_patient___patientTypeCitizen_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_TypeCitizen.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_patient_TypeCitizen.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_patient_TypeCitizen.sql
     bdProcess/sql/select_for_insert/select_For_Insert_patient_TypeCitizen.sql
   externalResources_client_default_bdProcess_properties_patient___patientTypeInsured_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient_TypeInsured.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_patient_TypeInsured.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_patient_TypeInsured.sql
     bdProcess/sql/select_for_insert/select_For_Insert_patient_TypeInsured.sql
   externalResources_client_default_bdProcess_properties_patient___patient_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_patient.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Patient.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Patient.sql
     bdProcess/sql/select_for_insert/select_for_insert_patient.sql
   externalResources_client_default_bdProcess_properties_patient___pre_patientAddress_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1281,8 +1281,8 @@ data:
   externalResources_client_default_bdProcess_properties_practitioner___practitioner_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Practitioner.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Practitioner.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Practitioner.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Practitioner.sql
     
   externalResources_client_default_bdProcess_properties_practitioner___practitioner_before.properties: |-
@@ -1291,8 +1291,8 @@ data:
   externalResources_client_default_bdProcess_properties_practitionerDocs___practitionerDocs_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Practitioner_docs.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Practitioner_docs.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Practitioner_docs.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Practitioner_docs.sql
     
   externalResources_client_default_bdProcess_properties_practitionerDocs___practitionerDocs_before.properties: |-
@@ -1301,9 +1301,9 @@ data:
   externalResources_client_default_bdProcess_properties_practitionerSpecs___practitionerSpecs_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Pract_Profs_Specs.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Pract_Profs_Specs.sql
-    bdProcess/sql/select_for_insert/{{properties.bdProcess.urlSql}}/select_For_Insert_Pract_Profs_Specs.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Pract_Profs_Specs.sql
+    bdProcess/sql/select_for_insert/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Insert_Pract_Profs_Specs.sql
     
   externalResources_client_default_bdProcess_properties_practitionerSpecs___practitionerSpecs_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1311,8 +1311,8 @@ data:
   externalResources_client_default_bdProcess_properties_practitionerWorkplcs___practitionerWorkplcs_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Practitioner_workplcs.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Practitioner_workplcs.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Practitioner_workplcs.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Practitioner_workplcs.sql
     
   externalResources_client_default_bdProcess_properties_practitionerWorkplcs___practitionerWorkplcs_before.properties: |-
@@ -1321,8 +1321,8 @@ data:
   externalResources_client_default_bdProcess_properties_procLabel___procLabel_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_ProcLabel.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ProcLabel.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ProcLabel.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ProcLabel.sql
     
   externalResources_client_default_bdProcess_properties_procLabel___procLabel_before.properties: |-
@@ -1333,13 +1333,13 @@ data:
     bdProcess/sql/before_delete/before_delete_Procedure_Ont.sql
     bdProcess/sql/extract_from/extract_procLabel_procedureOnt.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_Ont.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_Des.sql
   externalResources_client_default_bdProcess_properties_procedure___procedure_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Procedure.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure.sql
   externalResources_client_default_bdProcess_properties_procedure___procedure_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1350,7 +1350,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Procedure_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_procedure___procedure_procedureCategory_after.properties: |-
@@ -1358,14 +1358,14 @@ data:
     bdProcess/sql/before_delete/before_delete_Procedure_category.sql
     bdProcess/sql/extract_from/extract_Procedure_procedure_category.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_category.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_category.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_category.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_category.sql
   externalResources_client_default_bdProcess_properties_procedure___procedure_procedureOnt_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Procedure_Ont.sql
     bdProcess/sql/extract_from/extract_Procedure_procedureOnt.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_Ont.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_Des.sql
     
   externalResources_client_default_bdProcess_properties_procedure___procedure_procedureOutcome_after.properties: |-
@@ -1373,20 +1373,20 @@ data:
     bdProcess/sql/before_delete/before_delete_Procedure_outcome.sql
     bdProcess/sql/extract_from/extract_Procedure_procedure_outcome.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_outcome.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_outcome.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_outcome.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_outcome.sql
   externalResources_client_default_bdProcess_properties_procedure___procedure_procedureReasonStatus_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Procedure_reasonstatus.sql
     bdProcess/sql/extract_from/extract_Procedure_procedure_reasonstatus.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_reasonStatus.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_reasonStatus.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_reasonStatus.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_reasonStatus.sql
   externalResources_client_default_bdProcess_properties_procedureOnt___procedureOnt_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Procedure_Ont.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_Ont.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_Ont.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_Ont.sql
   externalResources_client_default_bdProcess_properties_procedureOnt___procedureOnt_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1395,8 +1395,8 @@ data:
   externalResources_client_default_bdProcess_properties_process___process_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Process.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Process.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Process.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Process.sql
   externalResources_client_default_bdProcess_properties_process___process_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1407,14 +1407,14 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Process_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_questResponse___questResponse_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_QuestResponse.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_QuestResponse.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_QuestResponse.sql
     bdProcess/sql/select_for_insert/select_For_Insert_QuestResponse.sql
   externalResources_client_default_bdProcess_properties_questResponse___questResponse_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1423,8 +1423,8 @@ data:
   externalResources_client_default_bdProcess_properties_report___report_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Report.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Report.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Report.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Report.sql
   externalResources_client_default_bdProcess_properties_report___report_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1435,7 +1435,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Report_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_report___report_reportCategory_after.properties: |-
@@ -1443,14 +1443,14 @@ data:
     bdProcess/sql/before_delete/before_delete_Report_category.sql
     bdProcess/sql/extract_from/extract_Report_report_category.sql
     bdProcess/sql/after_update/after_update_flag_Report_category.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Report_category.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Report_category.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Report_category.sql
   externalResources_client_default_bdProcess_properties_report___report_reportType_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_Report_type.sql
     bdProcess/sql/extract_from/extract_Report_report_type.sql
     bdProcess/sql/after_update/after_update_flag_Report_type.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Report_type.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Report_type.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Report_type.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequestEvent_Month_after.properties: |-
@@ -1458,20 +1458,20 @@ data:
     bdProcess/sql/select_for_insert/select_For_Insert_ServRequestEvent_Month.sql
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequestEvent_after.properties: |-
     dataSource=dataSourceIEngine
-    bdProcess/sql/after_update/{{properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_iniciar.sql
-    bdProcess/sql/after_update/{{properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_referenciar.sql
-    bdProcess/sql/after_update/{{properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_anterior.sql
-    bdProcess/sql/after_update/{{properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_anterior.sql
+    bdProcess/sql/after_update/{{ "{{" }}properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_iniciar.sql
+    bdProcess/sql/after_update/{{ "{{" }}properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_referenciar.sql
+    bdProcess/sql/after_update/{{ "{{" }}properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_anterior.sql
+    bdProcess/sql/after_update/{{ "{{" }}properties.bdProcess.urlSql}}/after_update_flag_ServiceRequestEvent_anterior.sql
     bdProcess/sql/after_update/after_update_flag_ServiceRequestEvent.sql
-    {{properties.disable.constraints}}
+    {{ "{{" }}properties.disable.constraints}}
     bdProcess/sql/select_for_insert/select_For_Insert_ServiceRequestEvent.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ServiceRequestEvent.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ServiceRequestEvent.sql
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequestEvent_requestManageStatus_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_RequestManageStatus.sql
     bdProcess/sql/extract_from/extract_ServiceRequestEvent_request_managestatus.sql
     bdProcess/sql/after_update/after_update_flag_Request_manageStatus.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_RequestManageStatus.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_RequestManageStatus.sql
     bdProcess/sql/select_for_insert/select_For_Insert_RequestManageStatus.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequestEvent_specialty_after.properties: |-
@@ -1479,14 +1479,14 @@ data:
     bdProcess/sql/before_delete/before_delete_Speciality.sql
     bdProcess/sql/extract_from/extract_ServiceRequestEvent_speciality.sql
     bdProcess/sql/after_update/after_update_flag_Speciality.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Speciality.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Speciality.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequest_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_ServiceRequest.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ServiceRequest.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ServiceRequest.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ServiceRequest.sql
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequest_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1498,7 +1498,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_ServiceRequest_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequest_procedure_after.properties: |-
@@ -1506,7 +1506,7 @@ data:
     bdProcess/sql/before_delete/before_delete_Procedure_Ont.sql
     bdProcess/sql/extract_from/extract_ServiceRequest_procedureOnt.sql
     bdProcess/sql/after_update/after_update_flag_Procedure_Ont.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Procedure_Des.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Procedure_Des.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequest_requestCategory_after.properties: |-
@@ -1514,7 +1514,7 @@ data:
     bdProcess/sql/before_delete/before_delete_RequestCategory.sql
     bdProcess/sql/extract_from/extract_ServiceRequest_request_category.sql
     bdProcess/sql/after_update/after_update_flag_RequestCategory.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_RequestCategory.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_RequestCategory.sql
     bdProcess/sql/select_for_insert/select_For_Insert_RequestCategory.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequest___serviceRequest_requestManageStatus_after.properties: |-
@@ -1522,13 +1522,13 @@ data:
     bdProcess/sql/before_delete/before_delete_RequestManageStatus.sql
     bdProcess/sql/extract_from/extract_ServiceRequest_request_managestatus.sql
     bdProcess/sql/after_update/after_update_flag_Request_manageStatus.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_RequestManageStatus.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_RequestManageStatus.sql
     bdProcess/sql/select_for_insert/select_For_Insert_RequestManageStatus.sql
     
   externalResources_client_default_bdProcess_properties_serviceRequestCondition___serviceRequestCondition_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_ServiceRequestCondition.sql
-    {{properties.disable.constraints}}
+    {{ "{{" }}properties.disable.constraints}}
     bdProcess/sql/select_for_insert/select_For_Insert_ServiceRequestCondition.sql
     bdProcess/sql/select_for_delete/select_For_Delete_ServiceRequestCondition.sql
   externalResources_client_default_bdProcess_properties_serviceRequestCondition___serviceRequestCondition_before.properties: |-
@@ -1538,7 +1538,7 @@ data:
   externalResources_client_default_bdProcess_properties_subTypeEvent___subTypeEvent_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_SubTypeEvent.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_SubTypeEvent.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_SubTypeEvent.sql
     bdProcess/sql/select_for_insert/select_For_Insert_SubTypeEvent.sql
     
   externalResources_client_default_bdProcess_properties_subTypeEvent___subTypeEvent_before.properties: |-
@@ -1547,7 +1547,7 @@ data:
   externalResources_client_default_bdProcess_properties_task___task_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_Task.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Task.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Task.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Task.sql
     
   externalResources_client_default_bdProcess_properties_task___task_before.properties: |-
@@ -1558,12 +1558,12 @@ data:
     bdProcess/sql/before_delete/before_delete_Careline.sql
     bdProcess/sql/extract_from/extract_Task_careline.sql
     bdProcess/sql/after_update/after_update_flag_Careline.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_Careline.sql
     bdProcess/sql/select_for_insert/select_For_Insert_Careline.sql
   externalResources_client_default_bdProcess_properties_typeEvent___typeEvent_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_TypeEvent.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_TypeEvent.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_TypeEvent.sql
     bdProcess/sql/select_for_insert/select_For_Insert_TypeEvent.sql
     
   externalResources_client_default_bdProcess_properties_typeEvent___typeEvent_before.properties: |-
@@ -1572,8 +1572,8 @@ data:
   externalResources_client_default_bdProcess_properties_vitalsign___vitalsign_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/after_update/after_update_flag_VitalSign.sql
-    {{properties.disable.constraints}}
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_VitalSign.sql
+    {{ "{{" }}properties.disable.constraints}}
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_VitalSign.sql
     bdProcess/sql/select_for_insert/select_For_Insert_VitalSign.sql
   externalResources_client_default_bdProcess_properties_vitalsign___vitalsign_before.properties: |-
     dataSource=dataSourceIEngine
@@ -1584,14 +1584,14 @@ data:
     bdProcess/sql/before_delete/before_delete_ObservationResult.sql
     bdProcess/sql/extract_from/extract_VitalSign_observation_result.sql
     bdProcess/sql/after_update/after_update_flag_ObservationResult.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_ObservationResult.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_ObservationResult.sql
     bdProcess/sql/select_for_insert/select_For_Insert_ObservationResult.sql
   externalResources_client_default_bdProcess_properties_vitalsign___vitalsign_vitalsignOnt_after.properties: |-
     dataSource=dataSourceIEngine
     bdProcess/sql/before_delete/before_delete_VitalSign_Ont.sql
     bdProcess/sql/extract_from/extract_VitalSign_vitalsign.sql
     bdProcess/sql/after_update/after_update_flag_VitalSign_Ont.sql
-    bdProcess/sql/select_for_update/{{properties.bdProcess.urlSql}}/select_For_Update_VitalSign_Ont.sql
+    bdProcess/sql/select_for_update/{{ "{{" }}properties.bdProcess.urlSql}}/select_For_Update_VitalSign_Ont.sql
     bdProcess/sql/select_for_insert/select_For_Insert_VitalSign_Ont.sql
   externalResources_client_default_bdProcess_sql_after_update_Oracle___after_update_flag_ServiceRequestEvent_anterior.sql: |-
     UPDATE us_dts_sta.DTS_CLI_SERVICEREQUEST_EVENT
