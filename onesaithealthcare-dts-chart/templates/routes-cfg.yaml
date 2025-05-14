@@ -1,0 +1,2673 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: routes-cfg
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:externalResources_client_default_routes___routes_datastore.xml': {}
+data:
+  externalResources_client_default_routes___routes_datastore.xml: |-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <routes id="routes-7b58cd4e-e464-44d5-90af-837c32e66692" xmlns="http://camel.apache.org/schema/spring">
+        <route id="GetDataStore">
+            <from id="initTimer" uri="{{route.from}}"/>
+            <log id="_log1" loggingLevel="INFO" message="Inicio del proceso"/>
+            
+            <!-- Finalizar todos los procesos una vez terminada la ejecucion -->
+            <onCompletion>
+            <log id="_logOnCompletedRoutes" loggingLevel="INFO" message="OnCompletion"/>
+            <process id="onCompletedRoutes" ref="OnCompletionProcessor"/>
+            </onCompletion>
+            
+            <!-- Carga de catalogos -->
+            <setHeader id="setTipoIngesta" name="tipoIngesta">
+                <simple>default</simple>
+            </setHeader>
+            <process id="readCatalogs" ref="CatalogProcessor"/>
+            <setBody id="_setBody1">
+                <constant/>
+            </setBody>
+            <log id="_log2" loggingLevel="INFO" message="Catalogos cargados"/>
+            <!-- Propiedad TimeInit con el inicio de proceso -->
+            <setProperty id="setTimeInit" name="TimeInit">
+                <simple>${bean:java.lang.System?method=currentTimeMillis}</simple>             
+            </setProperty>        
+            <process id="millisecondsToDateProcessor" ref="MillisecondsToDateProcessor"/>
+            <!-- Se consulta cuando se ejecuto por ultima vez -->
+            <to id="queryTimeMark" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/iengine/getTimeMark.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <setHeader id="setWhere" name="processStartDate">
+                <simple>${body}</simple>
+            </setHeader>
+            <log id="_log3" loggingLevel="INFO" message="ultima ejecucion: ${bodyAs(String)}"/>
+    
+    		<!-- Comprobar si hay establecido un máximo para el rango de la ingesta -->
+            <process ref="MaxDateStartProcessor"/>     
+            
+            <!-- Se lanzan la ingesta con el proceso GENERICO: Inicio -->
+            <!-- El orden de ejecucion de los routes debe realizarse en el orden establecido -->
+      	    <to id="t0_genericProcessTypeEvent" uri="direct:genericProcessTypeEvent"/>  
+     	 	<to id="t1_genericProcessSubtypeEvent" uri="direct:genericProcessSubtypeEvent"/>   
+    
+         	<to id="t2_genericProcessOrganization" uri="direct:genericProcessOrganization"/>
+         	<to id="t3_genericProcessPractitioner" uri="direct:genericProcessPractitioner"/> 
+         	<to id="t4_genericProcessPractitionerDocs" uri="direct:genericProcessPractitionerDocs"/> 
+         	<to id="t5_genericProcessPractitionerSpecs" uri="direct:genericProcessPractitionerSpecs"/> 
+         	<to id="t6_genericProcessPractitionerWorkplcs" uri="direct:genericProcessPractitionerWorkplcs"/> 
+    
+     		<to id="t7_genericProcessATNA" uri="direct:genericProcessATNA"/>  
+       
+       		<to id="t7_1_genericProcessCliExtension" uri="direct:processCliExtension"/> 
+    
+     		<to id="t8_processPatients" uri="direct:genericProcessPatients"/>
+             	<to id="t8.1_processPatientAddress" uri="direct:genericProcessPatientAddreses"/>
+     			<to id="t8.2_processPatientAdscriptions" uri="direct:genericProcessPatientAdscriptions"/>
+     			<to id="t8.3_processPatientContacts" uri="direct:genericProcessPatientContacts"/>
+     			<to id="t8.4_processPatientDocuments" uri="direct:genericProcessPatientDocuments"/>
+     			<to id="t8.5_processPatientNationalities" uri="direct:genericProcessPatientNationalities"/>
+     			<to id="t8.6_processPatientTypeCitizen" uri="direct:genericProcessPatientTypeCitizen"/>
+     			<to id="t8.7_processPatientPharmacies" uri="direct:genericProcessPatientPharmacies"/>
+     			<to id="t8.8_processPatientTypeInsured" uri="direct:genericProcessPatientTypeInsured"/>
+            
+            <to id="t9_ProcessGeo" uri="direct:genericProcessGeo"/> 
+     	    <to id="t10_genericProcessEpisodeOfCare" uri="direct:genericProcessEpisodeOfCare"/> 
+     	    <to id="t11_genericProcessEncounter" uri="direct:genericProcessEncounter"/> 
+     	    <to id="t12_genericProcessServiceRequest" uri="direct:genericProcessServiceRequest"/> 
+     	    <to id="t13_genericProcessLaboratory" uri="direct:genericProcessLaboratory"/> 
+     	    <to id="t14_genericProcessAllergyIntolerance" uri="direct:genericProcessAllergyIntolerance"/> 
+     	    <to id="t15_genericProcessAppointment" uri="direct:genericProcessAppointment"/>
+     	    <to id="t16_genericProcessFlag" uri="direct:genericProcessFlag"/>
+     	    <to id="t17_genericProcessReport" uri="direct:genericProcessReport"/>
+     	    <to id="t18_genericProcessVitalSign" uri="direct:genericProcessVitalSign"/> 
+     	  	<to id="t19_genericProcessCovid" uri="direct:genericProcessCovid"/> 
+     	    <to id="t20_genericProcessCondition" uri="direct:genericProcessCondition"/> 
+    	    <to id="t21_genericProcessProcess" uri="direct:genericProcessProcess"/>	    
+     		<to id="t22_genericProcessProcedure" uri="direct:genericProcessProcedure"/> 
+     	    <to id="t23_processOntOntology" uri="direct:processOntOntology"/> 
+     		<to id="t24_genericProcessLocation" uri="direct:genericProcessLocation"/> 
+     		<to id="t25_processAutExtension" uri="direct:processAutExtension"/>
+     		<to id="t26_processAutOrgProcLabel" uri="direct:processAutOrgProcLabel"/>
+     		<to id="t27_processAutConfigProc" uri="direct:processAutConfigProc"/>
+     		<to id="t28_processOntProcedure" uri="direct:processOntProcedure"/>
+    	    
+     	    <to id="t29_ProcessWorkplaces" uri="direct:genericProcessWorkplaces"/> 
+    	       
+     	    <to id="t30_processCards" uri="direct:genericprocessCards"/>
+    	   	<to id="t31_ProcessTask" uri="direct:genericProcessTask"/>
+    	    <to id="t32_genericProcessQuestResponse" uri="direct:genericProcessQuestResponse"/>
+    	    <to id="t33_genericProcessServiceRequestCondition" uri="direct:genericProcessServiceRequestCondition"/>	    
+    		<to id="t34_ProcessServiceRequestEvent" uri="direct:genericProcessServiceRequestEvent"/>
+         
+           	<setProperty name="folderName">
+                <simple>properties/AuditFK</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Inserción de auditoría para Foreign Keys violadas"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>audit_fk_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+           	
+            <!-- Se lanzan la ingesta con el proceso generico: Fin -->    
+                        
+            <!-- Almacena en BD la fecha de ultima ejecucion del proceso -->
+            <process id="setLastExecutionProcessor" ref="SetLastExecutionDataBaseProcessor"/>
+            <to id="InsertEjemplo" uri="jdbc:dataSourceIEngine"/>
+            <log id="_log5" loggingLevel="INFO" message="Fin del proceso"/>
+        </route>  
+            
+        <!-- Generic Process: Inicio -->
+        <route id="genericProcessTypeEvent">
+            <from id="f_genericProcessTypeEvent" uri="direct:genericProcessTypeEvent"/>
+            <log id="_GP_logATNA1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Tipos de eventos"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/typeEvent</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de TypeEvent"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>typeEvent_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>typeEvent</simple>
+            </setProperty>     
+            
+            <to id="_GP_queryTypeEvent" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnATNA/queryTypeEvent.sql?dataSource=dataSource&amp;outputHeader=typeEvent"/>
+            <process id="dataStoreTypeEventGenericProcessor" ref="GenericExtractProcessor"/>
+    
+            <!-- DTS_ONT_TYPE_EVENT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>typeEvent_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+        </route>
+        
+        <route id="genericProcessSubtypeEvent">
+            <from id="f_genericProcessSubtypeEvent" uri="direct:genericProcessSubtypeEvent"/>
+            <log id="_GP_logATNA2" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Subtipos de eventos"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/subTypeEvent</simple>
+            </setProperty>
+                
+            <log loggingLevel="INFO" message="Borrado de la sta de SubTypeEvent"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>subTypeEvent_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameSubtypeEvent" name="propertiesName">
+                <simple>subtypeEvent</simple>
+            </setProperty>
+                
+            <to id="_GP_querySubtypeEvent" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnATNA/querySubtypeEvent.sql?dataSource=dataSource&amp;outputHeader=subtypeEvent"/>
+            <process id="dataStoreSubtypeEventGenericProcessor" ref="GenericExtractProcessor"/>
+    
+            <!-- DTS_ONT_SUB_TYPE_EVENT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>subTypeEvent_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericProcessATNA">
+            <from id="f_genericProcessATNA" uri="direct:genericProcessATNA"/>
+            <log id="_GP_logATNA3" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Auditoria"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/atna</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de Atna"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>atna_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>atna</simple>
+            </setProperty>     
+    
+            <choice id="_GP_choiceSplitATNA">
+                <when id="_GP_whenSplitATNATrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitATNATrue" loggingLevel="INFO" message="Se realiza Split de la query de Auditoria"/>
+                    <to id="_GP_queryATNASplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnATNA/queryATNA.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitATNA1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreATNAGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitATNAFalse" loggingLevel="INFO" message="Se procesa la query de Auditoria en bloques"/>
+                    <to id="_GP_queryATNA" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnATNA/queryATNA.sql?dataSource=dataSource&amp;outputHeader=atna"/>
+                        <genericProcess id="dataStoreATNAgenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- DTS_ATN_AUDIT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>atna_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+    
+        <route id="processCliExtension">
+    		<from id="f_processCliExtension" uri="direct:processCliExtension"/>
+    		<log id="_logAutprocessCliExtension1" loggingLevel="INFO" message="Inicio del proceso de migración de Extension"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/cliExtension</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de CliExtension"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>cliExtension_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>cliExtension</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Extension"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnExtension/queryCliExtension.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Extension en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnExtension/queryCliExtension.sql?dataSource=dataSource&amp;outputHeader=cliExtension"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_EXTENSION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>cliExtension_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+        </route>
+    
+        <route id="genericProcessAllergyIntolerance">
+            <from id="f_genericProcessAllergyIntolerance" uri="direct:genericProcessAllergyIntolerance"/>
+            <log id="_GP_logAllergyIntolerance1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Alergia Intolerancia"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/allergyIntolerance</simple>
+            </setProperty>    
+    
+            <!-- Borrar datos de tabla auxiliar -->
+            <log id="_GP_logAllergyIntolerance2" loggingLevel="INFO" message="Borrado de la sta de alergias"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>allergyIntolerance_before</simple>
+            </setProperty>
+            <process id="dataStoreAllergyintGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameAllergyIntolerance" name="propertiesName">
+                <simple>allergyint</simple>
+            </setProperty>
+            
+            <choice id="_GP_choiceSplitAllInt">
+                <when id="_GP_whenSplitAllIntTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitAllIntTrue" loggingLevel="INFO" message="Se realiza Split de la query de Alergia Intolerancia"/>
+                    <to id="_GP_queryAllergyintSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnAllergyint/queryAllergyint.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitAllInt1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreAllergyintGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitAllIntFalse" loggingLevel="INFO" message="Se procesa la query de Alergia Intolerancia en bloques"/>
+                    <to id="_GP_queryAllergyint" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnAllergyint/queryAllergyint.sql?dataSource=dataSource&amp;outputHeader=allergyint"/>
+                        <process id="dataStoreAllergyintGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- Mantenimiento de tipos de Allergy contenidas en los registros de alergias -->
+            <log id="_GP_logAllergy3" loggingLevel="INFO" message="Tratamiento de datos de Allergygen"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>allergyInt_allergen_after</simple>
+            </setProperty>
+            <process id="dataStoreAllergenGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de mecanismos contenidos en los registros de alergias -->
+            <log id="_GP_logAllergy4" loggingLevel="INFO" message="Tratamiento de datos de allergyIntMechanism"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>allergyInt_allergyIntMechanism_after</simple>
+            </setProperty>
+            <process id="dataStoreAllergyMecGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de hallazgos clinicos contenidos en los registros de alergias -->
+            <log id="_GP_logAllergy5" loggingLevel="INFO" message="Tratamiento de datos de clinicalFinding"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>allergyInt_clinicalFinding_after</simple>
+            </setProperty>
+            <process id="dataStoreAllergyMecGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+    
+            <!-- Carga incremental en destino -->
+            <setProperty name="fileBasicProcessor">
+                <simple>allergyIntolerance_after</simple>
+            </setProperty>
+            <process id="dataStoreAllergyGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericProcessEpisodeOfCare">
+            <from id="f_genericProcessEpisodeOfCare" uri="direct:genericProcessEpisodeOfCare"/>
+            <log id="_GP_logEpisodeOfCare1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Episodio de Cuidados"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/episodeOfCare</simple>
+            </setProperty>
+            <setProperty name="propertiesName">
+                <simple>episodeOfCare</simple>
+            </setProperty>     
+            
+            <!-- Borrar datos de tabla auxiliar -->
+            <log loggingLevel="INFO" message="Borrado de la sta de Episode Of Care"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>episodeOfCare_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <!-- Guardar datos en tabla auxiliar -->
+            <choice id="_GP_choiceSplitEpisodeOfCare">
+                <when id="_GP_whenSplitEpisodeOfCareTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>            
+                        
+                    <log id="_GP_logSplitEpisodeOfCareTrue" loggingLevel="INFO" message="Se realiza Split de la query de Episodio de Cuidados"/>                
+                    <to id="_GP_queryEpisodeOfCareSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnEpisodeOfCare/queryEpisodeOfCare.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    
+                    <split id="_GP_splitEpisodeOfCare1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreEpisodeOfCareGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitEpisodeOfCareFalse" loggingLevel="INFO" message="Se procesa la query de Episodio de Cuidados en bloques"/>
+                    <to id="_GP_queryEpisodeOfCare" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnEpisodeOfCare/queryEpisodeOfCare.sql?dataSource=dataSource&amp;outputHeader=episodeOfCare"/>
+                        <process id="dataStoreEpisodeOfCareGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>        
+    
+            <log loggingLevel="INFO" message="Tratamiento de datos de EpisodeOfCare Type"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>episodeOfCare_episodeOfCareType_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_EPISODE_OF_CARE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>episodeOfCare_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+        </route>
+        
+        
+      
+        <route id="genericProcessLocation">
+            <from id="f_genericProcessLocation" uri="direct:genericProcessLocation"/>
+            <log id="_GP_logLocation1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Localizaciones"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/location</simple>
+            </setProperty>
+            <setProperty name="propertiesName">
+                <simple>location</simple>
+            </setProperty>     
+            
+            <!-- Borrar datos de tabla auxiliar -->
+            <log loggingLevel="INFO" message="Borrado de la sta de Location"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>location_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <!-- Guardar datos en tabla auxiliar -->
+            <choice id="_GP_choiceSplitLocation">
+                <when id="_GP_whenSplitLocationTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>            
+                        
+                    <log id="_GP_logSplitLocationTrue" loggingLevel="INFO" message="Se realiza Split de la query de Localizaciones"/>                
+                    <to id="_GP_queryLocationSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutLocation.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    
+                    <split id="_GP_splitLocation1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreLocationGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitLocationFalse" loggingLevel="INFO" message="Se procesa la query de Localizaciones en bloques"/>
+                    <to id="_GP_queryLocation" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutLocation.sql?dataSource=dataSource&amp;outputHeader=location"/>
+                        <process id="dataStoreLocationGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>        
+    
+            <log loggingLevel="INFO" message="Tratamiento de datos de Location"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>location_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <setProperty name="propertiesName">
+                <simple>orgLoc</simple>
+            </setProperty>   
+            
+                    <!-- Guardar datos en tabla auxiliar -->
+            <choice id="_GP_choiceSplitOrgLoc">
+                <when id="_GP_whenSplitOrgLocTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>            
+                        
+                    <log id="_GP_logSplitOrgLocTrue" loggingLevel="INFO" message="Se realiza Split de la query de Organizaciones y Localizaciones"/>                
+                    <to id="_GP_queryOrgLocSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutOrgLoc.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    
+                    <split id="_GP_splitOrgLoc1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreOrgLocGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitOrgLocFalse" loggingLevel="INFO" message="Se procesa la query de Organizaciones y Localizaciones en bloques"/>
+                    <to id="_GP_queryOrgLoc" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutOrgLoc.sql?dataSource=dataSource&amp;outputHeader=orgLoc"/>
+                        <process id="dataStoreOrgLocGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice> 
+            
+            <log loggingLevel="INFO" message="Tratamiento de datos de OrgLoc"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>orgLoc_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+        </route>
+        
+     
+        <route id="genericProcessEncounter">
+            <from id="f_genericProcessEncounter" uri="direct:genericProcessEncounter"/>
+            <log id="_GP_logEncounter1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Encuentro"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/encounter</simple>
+            </setProperty>
+            <setProperty id="_GP_setPropertyNameEncounter" name="propertiesName">
+                <simple>encounter</simple>
+            </setProperty>
+    
+            <!-- Borrar datos de tabla auxiliar -->
+            <log loggingLevel="INFO" message="Borrado de la sta de encounter"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>encounter_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <choice id="_GP_choiceSplitEncounter">
+                <when id="_GP_whenSplitEncounterTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>            
+                        
+                    <log id="_GP_logSplitEncounterTrue" loggingLevel="INFO" message="Se realiza Split de la query de Encuentro"/>                
+                    <to id="_GP_queryEncounterSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnEncounter/queryEncounter.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    
+                    <split id="_GP_splitEncounter1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreEncounterGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitEncounterFalse" loggingLevel="INFO" message="Se procesa la query de Episodio de Encuentro en bloques"/>
+                    <to id="_GP_queryEncounter" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnEncounter/queryEncounter.sql?dataSource=dataSource&amp;outputHeader=encounter"/>
+                        <process id="dataStoreEncounterGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>        
+    
+            <!-- Mantenimiento de Careline contenidas en los encuentros -->
+            <log loggingLevel="INFO" message="Tratamiento de datos de careline"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>encounter_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- Mantenimiento de prioridades contenidas en los encuentros -->
+            <setProperty name="fileBasicProcessor">
+                <simple>encounter_encounterPriority_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- Mantenimiento de Speciality contenidas en los encuentros -->
+            <setProperty name="fileBasicProcessor">
+                <simple>encounter_especiality_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_ENCOUNTER -->
+            <!-- Actualizar flag FLG_UPDATE de la tabla auxiliar -->
+            <setProperty name="fileBasicProcessor">
+                <simple>encounter_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+        </route>
+            
+        <route id="genericProcessAppointment">
+            <from id="f_genericProcessAppointment" uri="direct:genericProcessAppointment"/>
+            <log id="_GP_logAppointment1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Cita"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/appointment</simple>
+            </setProperty>    
+            
+            <log id="_GP_logAppointment2" loggingLevel="INFO" message="Borrado de la sta de citas"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_before</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>appointment</simple>
+            </setProperty> 
+    
+            <choice id="_GP_choiceSplitAppointment_sta">
+                <when id="_GP_whenSplitAppointmentTrue_sta">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitAppointmentTrue_sta" loggingLevel="INFO" message="Se realiza Split de la query de Cita para insertar en la tabla temporal de STA"/>
+                    <to id="_GP_queryAppointmentSplit_sta" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnAppointment/queryAppointment.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitAppointment1_sta" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreAppointmentGenericProcessorSplit_sta" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitAppointmentFalse_sta" loggingLevel="INFO" message="Se realiza Split de la query de Cita para insertar en la tabla temporal de STA"/>
+                    <to id="_GP_queryAppointment_sta" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnAppointment/queryAppointment.sql?dataSource=dataSource&amp;outputHeader=appointment"/>
+                        <process id="dataStoreAppointmentgenericProcessor_sta" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice> 
+      
+            <!-- DTS_ONT_SERVICECATEGORY -->
+            <!-- Mantenimiento de Servicegategory contenidas en las citas -->
+            <log id="_GP_logAppointment3" loggingLevel="INFO" message="Tratamiento de datos de servicecategory"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_servicecategory_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+    
+            <!-- DTS_ONT_SPECIALITY -->
+            <!-- Mantenimiento de Speciality contenidas en las citas -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_speciality_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_CARELINE -->
+            <!-- Mantenimiento de Careline contenidas en las citas -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_careline_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+                                       
+            <!-- DTS_ONT_APPOINT_PROFESSIONTYPE -->
+            <!-- Mantenimiento de Professiontype contenidas en las citas -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_professiontype_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_APPOINT_CANCELREASON -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_cancelreason_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+                    
+            <!-- DTS_ONT_APPOINTMENT_PRIORITY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_priority_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+                                 
+            <!-- DTS_ONT_APPOINTMENT_TYPE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_type_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+            
+            <!-- DTS_CLI_APPOINTMENT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>appointment_after</simple>
+            </setProperty>
+            <process id="dataStoreAppointmentGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+      
+        </route>
+        
+        <route id="genericProcessFlag">
+            <from id="f_genericProcessFlag" uri="direct:genericProcessFlag"/>
+            <log id="_GP_logFlag1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Flag"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/flag</simple>
+            </setProperty>
+            <setProperty id="_GP_setPropertyNameFlag" name="propertiesName">
+                <simple>flag</simple>
+            </setProperty>
+    
+            <!-- Borrar datos de tabla auxiliar -->
+            <log loggingLevel="INFO" message="Borrado de la sta de flags"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>flag_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <choice id="_GP_choiceSplitFlag">
+                <when id="_GP_whenSplitFlagTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>            
+                        
+                    <log id="_GP_logSplitFlagTrue" loggingLevel="INFO" message="Se realiza Split de la query de Alerta"/>                
+                    <to id="_GP_queryFlagSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnFlag/queryFlag.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    
+                    <split id="_GP_splitFlag1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreFlagGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitFlagFalse" loggingLevel="INFO" message="Se procesa la query de Alerta en bloques"/>
+                    <to id="_GP_queryFlag" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnFlag/queryFlag.sql?dataSource=dataSource&amp;outputHeader=flag"/>
+                        <process id="dataStoreFlagGenericProcessor" ref="GenericExtractProcessor"/>
+                                        
+                </otherwise>
+            </choice>        
+    
+            <!-- DTS_ONT_CARELINE -->
+            <log loggingLevel="INFO" message="Tratamiento de datos de careline"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>flag_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_FLAG_CATEGORY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>flag_category_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_FLAG -->
+            <setProperty name="fileBasicProcessor">
+                <simple>flag_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+        </route>
+               
+        <route id="genericProcessCovid">
+            <from id="f_genericProcessCovid" uri="direct:genericProcessCovid"/>
+            <log id="_GP_logCovid1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Covid"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/covid</simple>
+            </setProperty>
+            <setProperty name="propertiesName">
+                <simple>covid</simple>
+            </setProperty>     
+            
+            <!-- Borrar datos de tabla auxiliar -->
+            <setProperty name="fileBasicProcessor">
+                <simple>covid_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            <log loggingLevel="INFO" message="Borrado de la sta de Covid"/>
+            
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <choice id="_GP_choiceSplitCovid">
+                <when id="_GP_whenSplitCovidTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitCovidTrue" loggingLevel="INFO" message="Se realiza Split de la query de Covid"/>
+                    <to id="_GP_queryCovidSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnCovid/queryCovid.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitCovid1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreCovidGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitCovidFalse" loggingLevel="INFO" message="Se procesa la query de Covid en bloques"/>
+                    <to id="_GP_queryCovid" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnCovid/queryCovid.sql?dataSource=dataSource&amp;outputHeader=covid"/>
+                    <process id="dataStoreCovidGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- Mantenimiento de Careline contenidas en covid -->
+            <setProperty name="fileBasicProcessor">
+                <simple>covid_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_COVID_ONT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>covid_covidOnt_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+            
+            <!-- DTS_ONT_OBSERVATION_RESULT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>covid_observationResult_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_COVID -->
+            <setProperty name="fileBasicProcessor">
+                <simple>covid_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericProcessCondition">
+            <from id="f_genericProcessCondition" uri="direct:genericProcessCondition"/>
+            <log id="_GP_logCondition1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Condition"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/condition</simple>
+            </setProperty>
+    
+            <log loggingLevel="INFO" message="Borrado de la sta de Condition"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameCondition" name="propertiesName">
+                <simple>condition</simple>
+            </setProperty>
+            
+            <choice id="_GP_choiceSplitCondition">
+                <when id="_GP_whenSplitConditionTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitConditionTrue" loggingLevel="INFO" message="Se realiza Split de la query de Condition"/>
+                    <to id="_GP_queryConditionSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnCondition/queryCondition.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitCondition1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreConditionGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitConditionFalse" loggingLevel="INFO" message="Se procesa la query de Condition en bloques"/>
+                    <to id="_GP_queryCondition" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnCondition/queryCondition.sql?dataSource=dataSource&amp;outputHeader=condition"/>
+                    <process id="dataStoreConditionGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>
+    
+            <!-- DTS_ONT_DIAGNOSIS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_diagnosis_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+            
+            <!-- DTS_ONT_PROBLEM -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_problem_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- DTS_ONT_GRD -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_grd_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- DTS_ONT_CONDITION_SEVERITY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_conditionSeverity_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- DTS_ONT_CONDITION_STAGE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_conditionStage_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- DTS_ONT_CARELINE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_CONDITION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>condition_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+        </route>
+        
+        <route id="genericProcessProcedure">
+            <from id="f_genericProcessProcedure" uri="direct:genericProcessProcedure"/>
+            <log id="_GP_logProcedure1" loggingLevel="INFO" message="Inicio del proceso de migracion de Procedure"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/procedure</simple>
+            </setProperty>
+    
+            <log loggingLevel="INFO" message="Borrado de la sta de Procedure"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>procedure</simple>
+            </setProperty>     
+    
+            <choice id="_GP_choiceSplitProcedure">
+                <when id="_GP_whenSplitProcedureTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitProcedureTrue" loggingLevel="INFO" message="Se realiza Split de la query de Procedure"/>
+                    <to id="_GP_queryProcedureSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnProcedure/queryProcedure.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitProcedure1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreProcedureGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitProcedureFalse" loggingLevel="INFO" message="Se procesa la query de Procedure en bloques"/>
+                    <to id="_GP_queryProcedure" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnProcedure/queryProcedure.sql?dataSource=dataSource&amp;outputHeader=procedure"/>
+                    <process id="dataStoreProcedureGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_PROCEDURE_CATEGORY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_procedureCategory_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+            
+            <!-- DTS_ONT_PROCEDURE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_procedureOnt_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_PROCEDURE_OUTCOME -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_procedureOutcome_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- DTS_ONT_PROCEDURE_REASON_STATUS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_procedureReasonStatus_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- DTS_CLI_PROCEDURE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procedure_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+        </route>      
+    
+        <route id="genericProcessLaboratory">
+            <from id="f_genericProcessLaboratory" uri="direct:genericProcessLaboratory"/>
+            <log id="_GP_logLaboratory1" loggingLevel="INFO" message="Inicio del proceso de migracion de Laboratory"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/laboratory</simple>
+            </setProperty>
+            <setProperty id="_GP_setPropertyNameLaboratory" name="propertiesName">
+                <simple>laboratory</simple>
+            </setProperty>
+    
+            <!-- Borrar datos de tabla auxiliar -->
+            <log loggingLevel="INFO" message="Borrado de la sta de Laboratory"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratory_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            <log loggingLevel="INFO" message="Borrado de la sta de Laboratory Parameters"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratoryParameters_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <choice id="_GP_choiceSplitLaboratory">
+                <when id="_GP_whenSplitLaboratoryTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitLaboratoryTrue" loggingLevel="INFO" message="Se realiza Split de la query de Laboratory"/>
+                    <to id="_GP_queryLaboratorySplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnLaboratory/queryLaboratory.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitLaboratory1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreLaboratoryGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitLaboratoryFalse" loggingLevel="INFO" message="Se procesa la query de Laboratory en bloques"/>
+                    <to id="_GP_queryLaboratory" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnLaboratory/queryLaboratory.sql?dataSource=dataSource&amp;outputHeader=laboratory"/>
+                    <process id="dataStoreLaboratoryGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- DTS_ONT_ESPECIALITY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratory_speciality_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+             <!-- DTS_ONT_CARELINE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratory_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_OBSERVATION_RESULT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratory_observationResult_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_LABORATORY_CATEGORY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratory_laboratoryCategory_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+                    
+            <!-- DTS_ONT_LABORATORY_PARAMETER -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratoryParameters_laboratoryParameter_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <!-- DTS_CLI_LABORATORY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratory_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- DTS_CLI_LABORATORY_PARAMETERS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>laboratoryParameters_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+    
+        <route id="genericProcessReport">
+            <from id="f_genericProcessReport" uri="direct:genericProcessReport"/>
+            <log id="_GP_logReport1" loggingLevel="INFO" message="Inicio del proceso de migracion de Report"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/report</simple>
+            </setProperty>
+    
+            <log loggingLevel="INFO" message="Borrado de la sta de Report"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>report_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>report</simple>
+            </setProperty>     
+            
+            <choice id="_GP_choiceSplitReport">
+                <when id="_GP_whenSplitReportTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitReportTrue" loggingLevel="INFO" message="Se realiza Split de la query de Report"/>
+                    <to id="_GP_queryReportSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnReport/queryReport.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitReport1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreReportGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitReportFalse" loggingLevel="INFO" message="Se procesa la query de Report en bloques"/>
+                    <to id="_GP_queryReport" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnReport/queryReport.sql?dataSource=dataSource&amp;outputHeader=report"/>
+                    <process id="dataStoreReportGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- DTS_ONT_CARELINE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>report_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_ONT_REPORT_CATEGORY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>report_reportCategory_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+            
+            <!-- DTS_ONT_REPORT_TYPE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>report_reportType_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_REPORT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>report_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>        
+            
+        <route id="genericProcessProcess">
+            <from id="f_genericProcessProcess" uri="direct:genericProcessProcess"/>
+            <log id="_GP_logProcess1" loggingLevel="INFO" message="Inicio del proceso de migracion de Process"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/process</simple>
+            </setProperty>
+    
+            <log loggingLevel="INFO" message="Borrado de la sta de Process"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>process_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameProcess" name="propertiesName">
+                <simple>process</simple>
+            </setProperty>
+    
+            <choice id="_GP_choiceSplitProcess">
+                <when id="_GP_whenSplitProcessTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitProcessTrue" loggingLevel="INFO" message="Se realiza Split de la query de Process"/>
+                    <to id="_GP_queryProcessSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnProcess/queryProcess.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitProcess1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreProcessGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitProcessFalse" loggingLevel="INFO" message="Se procesa la query de Process en bloques"/>
+                    <to id="_GP_queryProcess" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnProcess/queryProcess.sql?dataSource=dataSource&amp;outputHeader=process"/>
+                    <process id="dataStoreProcessGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- DTS_ONT_CARELINE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>process_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- DTS_CLI_PROCESS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>process_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+            
+        <route id="genericProcessServiceRequest">
+            <from id="f_genericProcessServiceRequest" uri="direct:genericProcessServiceRequest"/>
+            <log id="_GP_logServiceRequest1" loggingLevel="INFO" message="Inicio del proceso de migracion de ServiceRequest"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/serviceRequest</simple>
+            </setProperty>
+    
+            <!-- Borrar datos de tabla auxiliar -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameServiceRequest" name="propertiesName">
+                <simple>serviceRequest</simple>
+            </setProperty>
+    
+            <!-- Guardar datos en tabla auxiliar -->
+            <choice id="_GP_choiceSplitServiceRequest">
+                <when id="_GP_whenSplitServiceRequestTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitServiceRequestTrue" loggingLevel="INFO" message="Se realiza Split de la query de ServiceRequest"/>
+                    <to id="_GP_queryServiceRequestSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequest/queryServiceRequest.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitServiceRequest1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreServiceRequestGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitServiceRequestFalse" loggingLevel="INFO" message="Se procesa la query de ServiceRequest en bloques"/>
+                    <to id="_GP_queryServiceRequest" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequest/queryServiceRequest.sql?dataSource=dataSource&amp;outputHeader=serviceRequest"/>
+                    <process id="dataStoreServiceRequestGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- Mantenimiento de Procedure contenidas en las flags -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_procedure_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de Careline contenidas en las flags -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de Manage Status contenidas en las flags -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_requestManageStatus_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de Request Category contenidas en las flags -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_requestCategory_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_SERVICE_REQUEST -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+    
+        </route>  
+    
+        <route id="genericProcessServiceRequestEvent">
+            <from id="f_genericProcessServiceRequestEvent" uri="direct:genericProcessServiceRequestEvent"/>
+            <log id="_GP_logServiceRequestEvent1" loggingLevel="INFO" message="Inicio del proceso de ingesta de eventos de ServiceRequest"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/serviceRequest</simple>
+            </setProperty>
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequest_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameServiceRequestEvent" name="propertiesName">
+                <simple>serviceRequestEvent</simple>
+            </setProperty>
+    
+            <choice id="_GP_choiceSplitServiceRequestEvent">
+                <when id="_GP_whenSplitServiceRequestEventTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitServiceRequestEventTrue" loggingLevel="INFO" message="Se realiza Split de la query de ServiceRequestEvent"/>
+                    <to id="_GP_queryServiceRequestEventSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequest/queryServiceRequestEvent.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitServiceRequestEvent1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreServiceRequestEventGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitServiceRequestEventFalse" loggingLevel="INFO" message="Se procesa la query de ServiceRequestEvent en bloques"/>
+                    <to id="_GP_queryServiceRequestEvent" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequest/queryServiceRequestEvent.sql?dataSource=dataSource&amp;outputHeader=serviceRequestEvent"/>
+                    <process id="dataStoreServiceRequestEventGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- Mantenimiento de ManageStatus/tipo evento contenido en la peticiones -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequestEvent_requestManageStatus_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de especialidades medicas contenido en la peticiones -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequestEvent_specialty_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/> 
+            
+            <!-- DTS_CLI_SERVICEREQUEST_EVENT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequestEvent_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>  
+        </route>   
+                        
+        <route id="genericProcessPatients">
+            <from id="processPatients" uri="direct:genericProcessPatients"/>
+    
+            <log id="_logPat1" loggingLevel="INFO" message="Inicio del proceso de ingesta de Pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log id="_logPat2" loggingLevel="INFO" message="Borrado de la aux de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patient_before</simple>
+            </setProperty>
+            <process id="dataStorePrePatientGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty> 
+    
+            <choice id="_GP_choiceSplitPatient_aux">
+                <when id="_GP_whenSplitPatientTrue_aux">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitPatientTrue_aux" loggingLevel="INFO" message="Se realiza Split de la query de Patient para insertar los ID en la tabla temporal de STA"/>
+                    <to id="_GP_queryPatientSplit_aux" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/extract_id_Patients.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitPatient1_aux" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreIdPatientGenericProcessorSplit_sta" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitPatientFalse_aux" loggingLevel="INFO" message="Se realiza Batch de la query de Patient para insertar los ID en la tabla temporal de STA"/>
+                    <to id="_GP_queryPatientSplit_aux" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/extract_id_Patients.sql?dataSource=dataSource&amp;outputHeader=pre_patient"/>
+                        <process id="dataStoreIdPatientgenericProcessor_sta" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>         
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatient" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log id="_logPat3" loggingLevel="INFO" message="Total pacientes a importar: ${bodyAs(String)}"/>
+            <setProperty id="setCamelSplitSizePatient" name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatients" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split id="_splitPat1" parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatient" uri="direct:processPatient"/>
+            </split> 
+            
+            <log id="_GP_logPatientAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patient_after</simple>
+            </setProperty>
+            <process id="dataStorePatientGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+          
+     
+        </route> 
+        
+        <route id="ProcessPatient">
+            <from id="processPatient" uri="direct:processPatient"/>
+            <setHeader name="idPatient">
+                <simple>${body.get('ID_PATIENT')}</simple>
+            </setHeader>       
+      
+            <setProperty name="propertiesName">
+                <simple>patient</simple>
+            </setProperty> 
+    
+            <to id="queryPatient" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatient.sql?dataSource=dataSource&amp;outputHeader=patient"/>
+                <process id="dataStorePatientProcessor" ref="GenericExtractProcessor"/>
+    
+        </route> 
+    
+        <route id="genericProcessPatientTypeInsured">
+            <from id="processPatientTypeInsured" uri="direct:genericProcessPatientTypeInsured"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de seguros médicos de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de TypeInsured de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientTypeInsured_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientTypeInsured" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para TypeInsured: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientTypeIns" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientTypeInsured" uri="direct:processPatientTypeInsured"/>
+            </split> 
+            
+            <log id="_GP_logPatientTypeInsuredAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de tipo de seguro de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientTypeInsured_after</simple>
+            </setProperty>
+            <process id="dataStorePatientTypeInsuredGenericBasicProcessor_After" ref="GenericBasicProcessor"/>    
+            
+        </route> 
+        
+        <route id="ProcessPatientTypeInsured">
+        
+    	    <from id="processPatientTypeInsured" uri="direct:processPatientTypeInsured"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+     		<setProperty name="propertiesName">
+                <simple>patientTypeInsured</simple>
+            </setProperty>
+            
+            <to id="queryPatientTypeInsured" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientTypeInsured.sql?dataSource=dataSource&amp;outputHeader=patientTypeInsured"/>
+                <process id="dataStorePatientTypeInsuredProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+    
+        
+        <route id="genericProcessPatientPharmacies">
+            <from id="processPatientPharmacies" uri="direct:genericProcessPatientPharmacies"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de farmacia para pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de Pharmacies de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientPharmacies_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientPharmacies" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para Pharmacies: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientPharma" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientPharmacies" uri="direct:processPatientPharmacies"/>
+            </split> 
+            
+      	    <log id="_GP_logPatientPharmaciesAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de farmacias de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientPharmacies_after</simple>
+            </setProperty>
+            <process id="dataStorePatientPharmaciesGenericBasicProcessor_After" ref="GenericBasicProcessor"/>     
+            
+        </route> 
+        
+        <route id="ProcessPatientPharmacies">
+        
+    	    <from id="processPatientPharmacies" uri="direct:processPatientPharmacies"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+            <setProperty name="propertiesName">
+                <simple>patientPharmacies</simple>
+            </setProperty>
+            
+            <to id="queryPatientPharmacies" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientPharmacies.sql?dataSource=dataSource&amp;outputHeader=patientPharmacies"/>
+                <process id="dataStorePatientPharmaciesProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+        
+        
+        <route id="genericProcessPatientTypeCitizen">
+            <from id="processPatientTypeCitizen" uri="direct:genericProcessPatientTypeCitizen"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de tipos de ciudadanos de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de TypeCitizen de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientTypeCitizen_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientTypeCitizen" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para TypeCitizen: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientTypeCit" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientTypeCitizen" uri="direct:processPatientTypeCitizen"/>
+            </split> 
+            
+            <log id="_GP_logPatientTypeCitizenAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de tipo de ciudadanía de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientTypeCitizen_after</simple>
+            </setProperty>
+            <process id="dataStorePatientTypeCitizenGenericBasicProcessor_After" ref="GenericBasicProcessor"/>   
+            
+        </route> 
+        
+        <route id="ProcessPatientTypeCitizen">
+        
+    	    <from id="processPatientTypeCitizen" uri="direct:processPatientTypeCitizen"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+            <setProperty name="propertiesName">
+                <simple>patientTypeCitizen</simple>
+            </setProperty>
+            
+            <to id="queryPatientTypeCitizen" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientTypeCitizen.sql?dataSource=dataSource&amp;outputHeader=patientTypeCitizen"/>
+                <process id="dataStorePatientTypeCitizenProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+        
+    
+        <route id="genericProcessPatientNationalities">
+            <from id="processPatientNationalities" uri="direct:genericProcessPatientNationalities"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de nacionalidades de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de Nationalities de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientNationalities_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientNationalities" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para Nationalities: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientNat" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientNationalities" uri="direct:processPatientNationalities"/>
+            </split> 
+            
+          	<log id="_GP_logPatientNationalitiesAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de nacionalidades de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientNationalities_after</simple>
+            </setProperty>
+            <process id="dataStorePatientNationalitiesGenericBasicProcessor_After" ref="GenericBasicProcessor"/>  
+            
+        </route> 
+        
+        <route id="ProcessPatientNationalities">
+        
+    	    <from id="processPatientNationalities" uri="direct:processPatientNationalities"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+            <setProperty name="propertiesName">
+                <simple>patientNationalities</simple>
+            </setProperty>
+            
+            <to id="queryPatientNationalities" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientNationalities.sql?dataSource=dataSource&amp;outputHeader=patientNationalities"/>
+                <process id="dataStorePatientNationalitiesProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+      
+        
+        <route id="genericProcessPatientAddreses">
+            <from id="processPatientAddreses" uri="direct:genericProcessPatientAddreses"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de direcciones de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de Addreses de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientAddress_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientAddress" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para Addreses: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientAddress" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientAddress" uri="direct:processPatientAddress"/>
+            </split> 
+            
+            <log id="_GP_logPatientAddressAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de direcciones de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientAddresses_after</simple>
+            </setProperty>
+            <process id="dataStorePatientAddressGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+            
+        </route> 
+        
+        <route id="ProcessPatientAddress">
+        
+    	    <from id="processPatientAddress" uri="direct:processPatientAddress"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+    	    <setProperty name="propertiesName">
+                <simple>patientAddresses</simple>
+            </setProperty>
+    
+            <to id="queryPatientAddresses" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientAddresses.sql?dataSource=dataSource&amp;outputHeader=patientAddresses"/>
+            <process id="dataStorePatientAddressProcessor" ref="GenericExtractProcessor"/>
+    	       
+        </route> 
+        
+        
+        <route id="genericProcessPatientAdscriptions">
+            <from id="processPatientAdscriptions" uri="direct:genericProcessPatientAdscriptions"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de adscripciones de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de Adscriptions de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientAdscriptions_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientAdscriptions" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para Adscriptions: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientAdscriptions" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientAdscriptions" uri="direct:processPatientAdscriptions"/>
+            </split> 
+            
+            <log id="_GP_logPatientAdscriptionAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de adscripciones de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientAdscriptions_after</simple>
+            </setProperty>
+            <process id="dataStorePatientAdscriptionsGenericBasicProcessor_After" ref="GenericBasicProcessor"/>  
+            
+        </route> 
+        
+        <route id="ProcessPatientAdscriptions">
+        
+    	    <from id="processPatientAdscriptions" uri="direct:processPatientAdscriptions"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+            <setProperty name="propertiesName">
+                <simple>patientAdscriptions</simple>
+            </setProperty>
+            
+            <to id="queryPatientAdscription" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientAdscriptions.sql?dataSource=dataSource&amp;outputHeader=patientAdscriptions"/>
+            <process id="dataStorePatientAdscriptionProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+        
+           
+        <route id="genericProcessPatientContacts">
+            <from id="processPatientContacts" uri="direct:genericProcessPatientContacts"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de contactos de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de Contacts de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientContacts_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientContacts" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para Contacts: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientCon" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientContacts" uri="direct:processPatientContacts"/>
+            </split> 
+            
+        	<log id="_GP_logPatientContactsAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de contactos de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientContacts_after</simple>
+            </setProperty>
+            <process id="dataStorePatientContactsGenericBasicProcessor_After" ref="GenericBasicProcessor"/>  
+            
+        </route> 
+        
+        <route id="ProcessPatientContacts">
+        
+    	    <from id="processPatientContacts" uri="direct:processPatientContacts"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+            <setProperty name="propertiesName">
+                <simple>patientContacts</simple>
+            </setProperty>
+            
+            <to id="queryPatientContacts" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientContacts.sql?dataSource=dataSource&amp;outputHeader=patientContacts"/>
+            <process id="dataStorePatientContactsProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+     
+        
+        <route id="genericProcessPatientDocuments">
+            <from id="processPatientDocuments" uri="direct:genericProcessPatientDocuments"/>
+            
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de documentos de pacientes"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+            
+            <log loggingLevel="INFO" message="Borrado de la aux de Documents de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>pre_patientDocuments_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>pre_patient</simple>
+            </setProperty>        
+            
+            <!-- Contabiliza el numero profesionales a procesar -->
+            <to id="queryCountPatientDocuments" uri="sql:{{path.dir.external.client.id}}/datastore/countPatients.sql?dataSource=dataSourceIEngine&amp;outputType=SelectOne"/>
+            <log loggingLevel="INFO" message="Total pacientes a importar para Documents: ${bodyAs(String)}"/>
+            <setProperty name="CamelSplitSize">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="queryPatientDoc" uri="sql:{{path.dir.external.client.id}}/datastore/getPatients.sql?dataSource=dataSourceIEngine&amp;outputType=StreamList"/>
+    
+            <split parallelProcessing="true" streaming="true">
+                <simple>${body}</simple>
+                <to id="processPatientDocuments" uri="direct:processPatientDocuments"/>
+            </split> 
+            
+         	<log id="_GP_logPatientDocumentssAfter" loggingLevel="INFO" message="Tratamiento de carga incremental de documentos de pacientes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>patientDocuments_after</simple>
+            </setProperty>
+            <process id="dataStorePatientDocumentsGenericBasicProcessor_After" ref="GenericBasicProcessor"/>  
+            
+        </route> 
+        
+        <route id="ProcessPatientDocuments">
+        
+    	    <from id="processPatientDocuments" uri="direct:processPatientDocuments"/>
+    	    <setHeader name="idPatient">
+    	       <simple>${body.get('ID_PATIENT')}</simple>
+    	    </setHeader> 
+    	    
+            <setProperty name="propertiesName">
+                <simple>patientDocuments</simple>
+            </setProperty>
+            
+            <to id="queryPatientDocuments" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnpob/queryPatientDocuments.sql?dataSource=dataSource&amp;outputHeader=patientDocuments"/>
+                <process id="dataStorePatientDocumentsProcessor" ref="GenericExtractProcessor"/>
+                 
+        </route> 
+        
+        
+        <route id="_GP_genericProcessVitalSign">
+            <from id="f_genericProcessVitalSign" uri="direct:genericProcessVitalSign"/>
+            <log id="_GP_logVitalSign1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de VitalSign"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/vitalsign</simple>
+            </setProperty>    
+    
+            <log id="_GP_VitalSing2" loggingLevel="INFO" message="Borrado de la sta de constantes"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>vitalsign_before</simple>
+            </setProperty>
+            <process id="dataStoreVitalSingGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+    
+            <setProperty id="_GP_setPropertyNameVitalSign" name="propertiesName">
+                <simple>vitalsign</simple>
+            </setProperty>
+            
+            <choice id="_GP_choiceSplitVitalSign">
+                <when id="_GP_whenSplitVitalSignTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitVitalSignTrue" loggingLevel="INFO" message="Se realiza Split de la query de Signos Vitales"/>
+                    <to id="_GP_queryVitalsignSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnVitalsign/queryVitalsign.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitVitalSign1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreVitalSignGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+    
+                    <log id="_GP_logSplitVitalSignFalse" loggingLevel="INFO" message="Se procesa la query de Signos Vitales en bloques"/>
+                    <to id="_GP_queryVitalsign" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnVitalsign/queryVitalsign.sql?dataSource=dataSource&amp;outputHeader=vitalsign"/>
+                    <process id="dataStoreVitalSignGenericProcessor" ref="GenericExtractProcessor"/>
+    
+                </otherwise>
+            </choice>
+    
+            <!-- Mantenimiento de tipos de Vitalsing contenidas en los registros de constantes -->
+            <log id="_GP_logVitalsing3" loggingLevel="INFO" message="Tratamiento de datos de Vitalsing"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>vitalsign_vitalsignOnt_after</simple>
+            </setProperty>
+            <process id="dataStoreVitalsingGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+    
+            <!-- Mantenimiento de tipos de resultados contenidos en los registros de constantes -->
+            <log id="_GP_logVitalsing4" loggingLevel="INFO" message="Tratamiento de datos de ObservationResult"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>vitalsign_observationResult_after</simple>
+            </setProperty>
+            <process id="dataStoreVitalsingGenericBasicProcessor_After" ref="GenericBasicProcessor"/> 
+    
+            <!-- Carga incremental en destino -->
+            <setProperty name="fileBasicProcessor">
+                <simple>vitalsign_after</simple>
+            </setProperty>
+            <process id="dataStoreVitalsingGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+    
+        </route>
+        
+        <route id="genericProcessOrganization">
+            <from uri="direct:genericProcessOrganization"/>
+            <log loggingLevel="INFO" message="Inicio del proceso generico de migracion de Organization"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/organization</simple>
+            </setProperty>
+            <setProperty name="propertiesName">
+                <simple>organization</simple>
+            </setProperty>     
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de Organization"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>organization_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Organization"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryOrganizations.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Organization en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryOrganizations.sql?dataSource=dataSource&amp;outputHeader=organization"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_ORGANIZATION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>organization_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>    
+    
+        <route id="genericProcessPractitioner">
+            <from uri="direct:genericProcessPractitioner"/>
+            <log loggingLevel="INFO" message="Inicio del proceso generico de migracion de Practitioner"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/practitioner</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de Practitioner"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>practitioner_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>practitioner</simple>
+            </setProperty>     
+            
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Practitioner"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitioner.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Practitioner en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitioner.sql?dataSource=dataSource&amp;outputHeader=practitioner"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_PRACTITIONER -->
+            <setProperty name="fileBasicProcessor">
+                <simple>practitioner_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+    
+           <route id="genericProcessPractitionerDocs">
+            <from uri="direct:genericProcessPractitionerDocs"/>
+            <log loggingLevel="INFO" message="Inicio del proceso generico de migracion de PractitionerDocs"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/practitionerDocs</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de PractitionerDocs"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>practitionerDocs_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>practitionerDocs</simple>
+            </setProperty>     
+            
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de PractitionerDocs"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitionerDocs.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de PractitionerDocs en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitionerDocs.sql?dataSource=dataSource&amp;outputHeader=practitionerDocs"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_PRACTITIONER_DOCS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>practitionerDocs_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+    
+        <route id="genericProcessPractitionerSpecs">
+            <from uri="direct:genericProcessPractitionerSpecs"/>
+            <log loggingLevel="INFO" message="Inicio del proceso generico de migracion de PractitionerSpecs"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/practitionerSpecs</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de PractitionerSpecs"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>practitionerSpecs_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>practitionerSpecs</simple>
+            </setProperty>     
+            
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de PractitionerSpecs"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitionerSpecs.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de PractitionerSpecs en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitionerSpecs.sql?dataSource=dataSource&amp;outputHeader=practitionerSpecs"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_PRACTITIONER_SPECS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>practitionerSpecs_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+    
+        <route id="genericProcessPractitionerWorkplcs">
+            <from uri="direct:genericProcessPractitionerWorkplcs"/>
+            <log loggingLevel="INFO" message="Inicio del proceso generico de migracion de PractitionerWorkplcs"/>
+            
+            <setProperty name="folderName">
+                <simple>properties/practitionerWorkplcs</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de PractitionerWorkplcs"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>practitionerWorkplcs_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>practitionerWorkplcs</simple>
+            </setProperty>     
+    
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de PractitionerWorkplcs"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitionerWorkplcs.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de PractitionerWorkplcs en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryPractitionerWorkplcs.sql?dataSource=dataSource&amp;outputHeader=practitionerWorkplcs"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_PRACTITIONER_WORKPLCS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>practitionerWorkplcs_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+        
+        
+        <route id="processOntProcedure">
+    		<from id="f_processOntProcedure" uri="direct:processOntProcedure"/>
+    		<log id="_logAutprocessOntProcedure1" loggingLevel="INFO" message="Inicio del proceso de migración de Ont Procedure"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/procedureOnt</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de OntProcedure"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>procedureOnt_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>procedureOnt</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de OntProcedure"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnOnt/queryOntProcedure.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de OntProcedure en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnOnt/queryOntProcedure.sql?dataSource=dataSource&amp;outputHeader=procedureOnt"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_PROCEDURE_ONT -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procedureOnt_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+            
+        </route>
+        
+        
+        <route id="processOntOntology">
+    		<from id="f_processOntOntology" uri="direct:processOntOntology"/>
+    		<log id="_logAutprocessOntOntology1" loggingLevel="INFO" message="Inicio del proceso de migración de Ontology"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/ontologyRelations</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de Ontology Relations"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>ontologyRelations_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>ontologyRelations</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Ontology Relations"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnOnt/queryOntOntologyRelations.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Ontology Relations en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnOnt/queryOntOntologyRelations.sql?dataSource=dataSource&amp;outputHeader=ontologyRelations"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_ONTOLOGY_RELATIONS -->
+            <setProperty name="fileBasicProcessor">
+                <simple>ontologyRelations_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+            
+            <!-- DTS_AUT_ONTOLOGY -->
+            <setProperty name="fileBasicProcessor">
+                <simple>ontology_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+            
+            <setProperty name="propertiesName">
+                <simple>ontologyClassification</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Ontology Classification"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnOnt/queryOntologyClassification.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Ontology Classification en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnOnt/queryOntologyClassification.sql?dataSource=dataSource&amp;outputHeader=ontologyClassification"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_ONTOLOGY CLASSIFICATION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>ontology_classification_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+        
+        </route>
+        
+        <route id="processAutLocation">
+    		<from id="f_processAutLocation" uri="direct:processAutLocation"/>
+    		<log id="_logAutLocation1" loggingLevel="INFO" message="Inicio del proceso de migración de Location"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/location</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de Location y OrgLoc"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>location_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>location</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Location"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutLocation.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Location en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutLocation.sql?dataSource=dataSource&amp;outputHeader=location"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <setProperty name="propertiesName">
+                <simple>orgLoc</simple>
+            </setProperty>  
+            
+           <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de OrgLoc"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutOrgLoc.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de OrgLoc en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutOrgLoc.sql?dataSource=dataSource&amp;outputHeader=orgLoc"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_LOCATION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>location_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+            
+             <!-- DTS_AUT_ORGLOC -->
+            <setProperty name="fileBasicProcessor">
+                <simple>orgLoc_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+        </route>
+        
+        <route id="processAutExtension">
+    		<from id="f_processAutExtension" uri="direct:processAutExtension"/>
+    		<log id="_logAutprocessAutExtension1" loggingLevel="INFO" message="Inicio del proceso de migración de Extension"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/extension</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de Extension"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>extension_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>extension</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Extension"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutExtension.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Extension en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutExtension.sql?dataSource=dataSource&amp;outputHeader=extension"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_AUT_EXTENSION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>extension_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+        </route>
+        
+        <route id="processAutOrgProcLabel">
+    		<from id="f_processAutOrgProcLabel" uri="direct:processAutOrgProcLabel"/>
+    		<log id="_logAutOrgProcLabel1" loggingLevel="INFO" message="Inicio del proceso de migración de AutOrgProcLabel"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/procLabel</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de AutOrgProcLabel"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>procLabel_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>orgProcLabel</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de AutOrgProcLabel"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutOrgProcLabel.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de AutOrgProcLabel en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutOrgProcLabel.sql?dataSource=dataSource&amp;outputHeader=orgProcLabel"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_ONT_PROCEDURE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procLabel_procedureOnt_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+    
+            <!-- DTS_AUT_ORGPORCLABEL -->
+            <setProperty name="fileBasicProcessor">
+                <simple>procLabel_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+        </route>
+        
+        <route id="processAutConfigProc">
+    		<from id="f_processAutConfigProc" uri="direct:processAutConfigProc"/>
+    		<log id="_logAutConfigProc1" loggingLevel="INFO" message="Inicio del proceso de migración de AutConfigProc"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/configProc</simple>
+            </setProperty>
+            
+            <log loggingLevel="INFO" message="Borrado de la sta de ConfigProc"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>configProc_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+            
+            <setProperty name="propertiesName">
+                <simple>configProc</simple>
+            </setProperty>     
+    		
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de ConfigProc"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutConfigProc.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de ConfigProc en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryAutConfigProc.sql?dataSource=dataSource&amp;outputHeader=configProc"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_ONT_PROCEDURE -->
+            <setProperty name="fileBasicProcessor">
+                <simple>configproc_procedureOnt_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+    
+            <!-- DTS_AUT_CONFIGPROC -->
+            <setProperty name="fileBasicProcessor">
+                <simple>configProc_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>	
+        </route>
+        
+        <route id="genericProcessGeo">
+            <from uri="direct:genericProcessGeo"/>
+    
+            <log id="_logGeo1" loggingLevel="INFO" message="Inicio del proceso de ingesta de catalogos geograficos"/>
+            <setProperty name="folderName">
+                <simple>properties/geographic</simple>
+            </setProperty>    
+            <setProperty name="fileBasicProcessor">
+                <simple>geographic_before</simple>
+            </setProperty>
+            <process id="dataStoreGeoGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>geo1</simple>
+            </setProperty> 
+            <to id="queryGeo1" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncat/queryGeo1.sql?dataSource=dataSource&amp;outputHeader=geo1"/>
+            <process id="dataStoreGeo1Processor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>geographicl1_after</simple>
+            </setProperty>
+            <process id="dataStoreGeo1GenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>geo2</simple>
+            </setProperty> 
+            <to id="queryGeo2" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncat/queryGeo2.sql?dataSource=dataSource&amp;outputHeader=geo2"/>
+            <process id="dataStoreGeo2Processor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>geographicl2_after</simple>
+            </setProperty>
+            <process id="dataStoreGeo2GenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>geo3</simple>
+            </setProperty> 
+            <to id="queryGeo3" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncat/queryGeo3.sql?dataSource=dataSource&amp;outputHeader=geo3"/>
+            <process id="dataStoreGeo3Processor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>geographicl3_after</simple>
+            </setProperty>
+            <process id="dataStoreGeo3GenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>geo4</simple>
+            </setProperty> 
+            <to id="queryGeo4" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncat/queryGeo4.sql?dataSource=dataSource&amp;outputHeader=geo4"/>
+            <process id="dataStoreGeo4Processor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>geographicl4_after</simple>
+            </setProperty>
+            <process id="dataStoreGeo4GenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>geo5</simple>
+            </setProperty> 
+            <to id="queryGeo5" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncat/queryGeo5.sql?dataSource=dataSource&amp;outputHeader=geo5"/>
+            <process id="dataStoreGeo5Processor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>geographicl5_after</simple>
+            </setProperty>
+            <process id="dataStoreGeo5GenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>typevia_before</simple>
+            </setProperty>
+            <process id="dataStoreTypeViaGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>typeVia</simple>
+            </setProperty> 
+            <to id="queryTypeVia" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncat/queryTypeVia.sql?dataSource=dataSource&amp;outputHeader=typeVia"/>
+            <process id="dataStoretypeViaProcessor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>typevia_after</simple>
+            </setProperty>
+            <process id="dataStoretypeViaGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericProcessWorkplaces">
+            <from uri="direct:genericProcessWorkplaces"/>
+            <log id="_logWork1" loggingLevel="INFO" message="Inicio del proceso de ingesta de Puestos de Trabajo"/>
+            <setProperty name="folderName">
+                <simple>properties/organization</simple>
+            </setProperty>    
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>workplaceOrganization_before</simple>
+            </setProperty>
+            <process id="dataStoreWorkOrgGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>workplaceOrganization</simple>
+            </setProperty> 
+            <to id="queryWorkplace" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnaut/queryWorkplaceOrganizations.sql?dataSource=dataSource&amp;outputHeader=workplaceOrganization"/>
+            <process id="dataStoreWorkplaceOrganizationProcessor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>workplaceOrganization_after</simple>
+            </setProperty>
+            <process id="dataStoreWorkOrgGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericprocessCards">
+            <from uri="direct:genericprocessCards"/>
+            <log id="_logCard" loggingLevel="INFO" message="Inicio del proceso de ingesta de Tarjetas"/>
+            <setProperty name="folderName">
+                <simple>properties/patient</simple>
+            </setProperty>    
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>card_before</simple>
+            </setProperty>
+            <process id="dataStoreCardGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+            <setProperty name="propertiesName">
+                <simple>card</simple>
+            </setProperty> 
+            <to id="queryCard" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hncard/queryCards.sql?dataSource=dataSource&amp;outputHeader=card"/>
+            <process id="dataStoreCardProcessor" ref="GenericExtractProcessor"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>card_after</simple>
+            </setProperty>
+            <process id="dataStoreCardGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+        </route>
+    
+        <route id="genericProcessQuestResponse">
+            <from id="f_genericProcessQuestResponse" uri="direct:genericProcessQuestResponse"/>
+            <log id="_GP_logQuestResponse1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de Cuestionarios respondidos"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/questResponse</simple>
+            </setProperty>
+    
+            <log id="_GP_logQuestResponse2" loggingLevel="INFO" message="Borrado de la sta de Cuestionarios respondidos"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>questResponse_before</simple>
+            </setProperty>
+            <process id="dataStoreQuestResponseGenericBasicProcessor_Before" ref="GenericBasicProcessor"/>
+    
+            <!-- Guardar datos en tabla auxiliar -->
+            <setProperty name="propertiesName">
+                <simple>questResponse</simple>
+            </setProperty>
+    
+            <choice id="_GP_choiceSplitQuestResponse_sta">
+                <when id="_GP_whenSplitQuestResponseTrue_sta">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitQuestResponseTrue_sta" loggingLevel="INFO" message="Se realiza Split de la query de cuestionarios respondidos para insertar en la tabla temporal de STA"/>
+                    <to id="_GP_queryQuestResponseSplit_sta" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnQuestResponse/queryQuestResponse.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitQuestResponse1_sta" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreQuestResponseGenericProcessorSplit_sta" ref="GenericExtractProcessor"/>
+                    </split>
+    
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitQuestResponseFalse_sta" loggingLevel="INFO" message="Se realiza Split de la query de cuestionarios respondidos para insertar en la tabla temporal de STA"/>
+                    <to id="_GP_queryQuestResponse_sta" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnQuestResponse/queryQuestResponse.sql?dataSource=dataSource&amp;outputHeader=questResponse"/>
+                        <process id="dataStoreQuestResponsegenericProcessor_sta" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>questResponse_after</simple>
+            </setProperty>
+            <process id="dataStoreQuestResponseGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericProcessServiceRequestCondition">
+            <from id="f_genericProcessServiceRequestCondition" uri="direct:genericProcessServiceRequestCondition"/>
+            <log id="_GP_logServiceRequestCondition1" loggingLevel="INFO" message="Inicio del proceso generico de migracion de ServiceRequestCondition"/>
+    
+            <setProperty name="folderName">
+                <simple>properties/serviceRequestCondition</simple>
+            </setProperty>
+    
+            <log loggingLevel="INFO" message="Borrado de la sta de ServiceRequestCondition"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequestCondition_before</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+    
+            <setProperty id="_GP_setPropertyNameServiceRequestCondition" name="propertiesName">
+                <simple>serviceRequestCondition</simple>
+            </setProperty>
+                    
+    <!--         <choice id="_GP_choiceSplitServiceRequestCondition"> -->
+    <!--             <when id="_GP_whenSplitServiceRequestConditionTrue"> -->
+    <!--                 <simple>{{longQueryConfig.split}} == 'true'</simple> -->
+    
+    <!--                 <log id="_GP_logSplitServiceRequestConditionTrue" loggingLevel="INFO" message="Se realiza Split de la query de ServiceRequestCondition"/> -->
+    <!--                 <to id="_GP_queryServiceRequestConditionSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequestCondition/queryServiceRequestCondition.sql?dataSource=dataSource&amp;outputType=StreamList"/> -->
+    
+    <!--                 <split id="_GP_splitServiceRequestCondition1" parallelProcessing="true" streaming="true"> -->
+    <!--                    <simple>${body}</simple> -->
+    <!--                    <process id="dataStoreServiceRequestConditionGenericProcessorSplit" ref="GenericDeleteProcessor"/> -->
+    <!--                 </split> -->
+    <!--             </when> -->
+    <!--             <otherwise> -->
+    <!--                 <log id="_GP_logSplitServiceRequestConditionFalse" loggingLevel="INFO" message="Se procesa la query de ServiceRequestCondition en bloques"/> -->
+    <!--                 <to id="_GP_queryServiceRequestCondition" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequestCondition/queryServiceRequestCondition.sql?dataSource=dataSource&amp;outputHeader=serviceRequestCondition"/> -->
+    <!--                 <process id="dataStoreServiceRequestConditionGenericProcessor" ref="GenericDeleteProcessor"/> -->
+    <!--             </otherwise> -->
+    <!--         </choice> -->
+                            
+            <choice id="_GP_choiceSplitServiceRequestCondition">
+                <when id="_GP_whenSplitServiceRequestConditionTrue">
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>
+    
+                    <log id="_GP_logSplitServiceRequestConditionTrue" loggingLevel="INFO" message="Se realiza Split de la query de ServiceRequestCondition"/>
+                    <to id="_GP_queryServiceRequestConditionSplit" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequestCondition/queryServiceRequestCondition.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+    
+                    <split id="_GP_splitServiceRequestCondition1" parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process id="dataStoreServiceRequestConditionGenericProcessorSplit" ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log id="_GP_logSplitServiceRequestConditionFalse" loggingLevel="INFO" message="Se procesa la query de ServiceRequestCondition en bloques"/>
+                    <to id="_GP_queryServiceRequestCondition" uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnServiceRequestCondition/queryServiceRequestCondition.sql?dataSource=dataSource&amp;outputHeader=serviceRequestCondition"/>
+                    <process id="dataStoreServiceRequestConditionGenericProcessor" ref="GenericExtractProcessor"/>
+                </otherwise>
+            </choice>
+            
+            <!-- DTS_CLI_SERVICEREQUEST_CONDITION -->
+            <setProperty name="fileBasicProcessor">
+                <simple>serviceRequestCondition_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+        </route>
+        
+        <route id="genericProcessTask">
+            <from uri="direct:genericProcessTask"/>
+            <log loggingLevel="INFO" message="Inicio del proceso de ingesta de Task"/>  
+    
+    		<setProperty name="folderName">
+                <simple>properties/task</simple>
+            </setProperty>    
+    
+            <setProperty name="fileBasicProcessor">
+                <simple>task_before</simple>
+            </setProperty>
+            <process id="dataStoreTaskGenericBasicTask_Before" ref="GenericBasicProcessor"/>
+    
+    
+            <setProperty name="propertiesName">
+                <simple>task</simple>
+            </setProperty> 
+        
+            <choice>
+                <when>
+                    <simple>{{longQueryConfig.split}} == 'true'</simple>                
+                    <log loggingLevel="INFO" message="Se realiza Split de la query de Task"/>                
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnTask/queryTask.sql?dataSource=dataSource&amp;outputType=StreamList"/>
+                    <split parallelProcessing="true" streaming="true">
+                       <simple>${body}</simple>
+                       <process ref="GenericExtractProcessor"/>
+                    </split>
+                </when>
+                <otherwise>
+                    <log loggingLevel="INFO" message="Se porcesa la query de Task en bloques"/>
+                    <to uri="sql:{{path.dir.external.client.id}}/bdExtract/sql/{{route.source.urlSql}}/hnTask/queryTask.sql?dataSource=dataSource&amp;outputHeader=task"/>
+                        <process ref="GenericExtractProcessor"/>             
+                </otherwise>
+            </choice>
+            
+            <!-- Mantenimiento de Careline contenidas en los encuentros -->
+            <log loggingLevel="INFO" message="Tratamiento de datos de careline"/>
+            <setProperty name="fileBasicProcessor">
+                <simple>task_careline_after</simple>
+            </setProperty>
+            <process ref="GenericBasicProcessor"/>
+                    
+        	<setProperty name="fileBasicProcessor">
+                <simple>task_after</simple>
+            </setProperty>
+            <process id="dataStoreTaskGenericBasicProcessor_After" ref="GenericBasicProcessor"/>
+        </route>
+    
+    </routes>
