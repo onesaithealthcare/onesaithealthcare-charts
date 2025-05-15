@@ -10,7 +10,6 @@ spec:
     rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 25%
-    resources: {}
   replicas: 1
   selector:
     matchLabels:

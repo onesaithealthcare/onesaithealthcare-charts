@@ -24,7 +24,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /hd-consentimiento/
       backendRefs:
         - name: {{ .Values.ohcsm.app.front_name }}
@@ -38,5 +38,7 @@ spec:
           requestRedirect:
             hostname: {{ .Values.global.domain.host }}
             statusCode: 301
-            path: /hd-consentimiento/
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /hd-consentimiento/
 {{- end }}

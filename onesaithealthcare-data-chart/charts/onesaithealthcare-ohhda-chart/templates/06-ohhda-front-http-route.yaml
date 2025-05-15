@@ -33,7 +33,9 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            pathPrefix: /ohhda/
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /ohhda/
       backendRefs:
         - name: {{ .Values.ohhda.app.name }}
           port: 8080
