@@ -47,7 +47,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /dsforms/
       backendRefs:
         - name: {{ .Values.ohgen.app.name_front }}
@@ -67,7 +67,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /dsforms-designer/
       backendRefs:
         - name: {{ .Values.ohgen.app.name_front_designer }}
@@ -80,7 +80,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /form-webcomponents/
       backendRefs:
         - name: ${OHGEN_WEBCOMPONENTS_APP_NAME}-webcomponents-front
