@@ -24,7 +24,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: Exact
+              type: ReplaceFullPath
               replacePrefixMatch: /hd-consentimiento/keycloak-prof.json
       backendRefs:
         - name: {{ .Values.ohcsm.app.front_name }}
