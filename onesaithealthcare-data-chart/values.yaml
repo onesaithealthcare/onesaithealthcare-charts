@@ -15,12 +15,9 @@ global:
       project: multhn_cmhn20_2
       secret: docksdtr.indra.es
 dependencies:
-  ohhdr:
-    enabled: true
-  ohcsm:
-    enabled: true
-  ohhda:
-    enabled: true
+  ohhdr: true
+  ohcsm: true
+  ohhda: true
 onesaithealthcare-ohhdr-chart:
   ohhdr:
     app:

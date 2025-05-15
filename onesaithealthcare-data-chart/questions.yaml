@@ -63,17 +63,17 @@ questions:
     description: "Secreto del registro Docker"
     type: string
 
-  - variable: dependencies.ohhdr.enabled
+  - variable: dependencies.ohhdr
     default: true
     description: "Habilitar dependencia ohhdr"
     type: boolean
 
-  - variable: dependencies.ohcsm.enabled
+  - variable: dependencies.ohcsm
     default: true
     description: "Habilitar dependencia ohcsm"
     type: boolean
 
-  - variable: dependencies.ohhda.enabled
+  - variable: dependencies.ohhda
     default: true
     description: "Habilitar dependencia ohhda"
     type: boolean
@@ -82,43 +82,43 @@ questions:
     default: ohhdr
     description: "Nombre de la aplicación ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.app.replicas
     default: 1
     description: "Número de réplicas de la aplicación ohhdr"
     type: int
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.app.flag.enable_fhir_subscription
     default: false
     description: "Habilitar suscripción FHIR en ohhdr"
     type: boolean
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.app.flag.enable_fhir_entity_replication
     default: false
     description: "Habilitar replicación de entidades FHIR en ohhdr"
     type: boolean
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.app.flag.enable_bulk_api
     default: false
     description: "Habilitar API Bulk en ohhdr"
     type: boolean
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.app.bulk_api_file_size
     default: 10
     description: "Tamaño máximo de archivo para API Bulk en ohhdr (MB)"
     type: int
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.app.ohas3_url
     default: https://ohas3-api-oh-minio.apps.lab.openshift.com/ohas3
     description: "URL de ohas3 para ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.type
     default: ORACLE
@@ -127,7 +127,7 @@ questions:
     options:
       - ORACLE
       - MYSQL
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.driver
     default: oracle.jdbc.driver.OracleDriver
@@ -136,7 +136,7 @@ questions:
     options:
       - oracle.jdbc.driver.OracleDriver
       - com.mysql.cj.jdbc.Driver
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.jdbc_dialect
     default: org.hibernate.dialect.Oracle10gDialect
@@ -145,109 +145,109 @@ questions:
     options:
       - org.hibernate.dialect.Oracle10gDialect
       - org.hibernate.dialect.MySQLDialect
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.url
     default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
     description: "URL JDBC para la base de datos de ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.user
     default: us_hdr
     description: "Usuario de la base de datos para ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.pass
     default: us_hdr
     description: "Contraseña de la base de datos para ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.initial_size
     default: 5
     description: "Tamaño inicial de la BD para ohhdr"
     type: int
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.max_total
     default: 50
     description: "Tamaño máximo de la BD para ohhdr"
     type: int
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.database.connection_properties
     default: oracle.jdbc.defaultLobPrefetchSize=-1
     description: "Propiedades de conexión JDBC para ohhdr (ejemplo para MySQL: autoReconnect=TRUE;verifyServerCertificate=FALSE;useSSL=TRUE;requireSSL=TRUE;rewriteBatchedStatements=TRUE)"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.version.app
     default: 3.14.0
     description: "Versión de la aplicación ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohhdr-chart.ohhdr.version.back_image_tag
     default: 3.14.0
     description: "Etiqueta de la imagen backend para ohhdr"
     type: string
-    show_if: dependencies.ohhdr.enabled=true
+    show_if: dependencies.ohhdr=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.app.back_name
     default: ohcsm-back
     description: "Nombre del backend de la aplicación ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.app.front_name
     default: ohcsm-front
     description: "Nombre del frontend de la aplicación ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.app.flag.enable_audit
     default: false
     description: "Habilitar auditoría en ohcsm"
     type: boolean
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.app.log.level
     default: WARN
     description: "Nivel de log para ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.app.log.sql_level
     default: ERROR
     description: "Nivel de log SQL para ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.kafka.mpi_patient.enabled
     default: true
     description: "Habilitar listener de Kafka para mensajes de paciente de mpi en ohcsm"
     type: boolean
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.kafka.mpi_patient.group_id
     default: OHCSM
     description: "Group ID de Kafka para para mensajes de paciente de mpi en ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.kafka.mpi_patient.topic
     default: ohmpi-entity-events
     description: "Topic de Kafka para para mensajes de paciente de mpi en ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.kafka.mpi_patient.error_topic
     default: ohcsm-patient-update-errors
     description: "Topic de errores de Kafka para para mensajes de paciente de mpi en ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.type
     default: ORACLE
@@ -256,7 +256,7 @@ questions:
     options:
       - ORACLE
       - MYSQL
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.driver
     default: oracle.jdbc.driver.OracleDriver
@@ -265,52 +265,52 @@ questions:
     options:
       - oracle.jdbc.driver.OracleDriver
       - com.mysql.cj.jdbc.Driver
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.url
     default: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
     description: "URL JDBC para la base de datos de ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.user
     default: us_csm
     description: "Usuario de la base de datos para ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.pass
     default: us_csm
     description: "Contraseña de la base de datos para ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.version.back_version
     default: 3.3.0
     description: "Versión del backend de ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.version.back_image_tag
     default: 3.3.0
     description: "Etiqueta de la imagen backend para ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.version.front_image_tag
     default: 3.3.0
     description: "Etiqueta de la imagen frontend para ohcsm"
     type: string
-    show_if: dependencies.ohcsm.enabled=true
+    show_if: dependencies.ohcsm=true
   
   - variable: onesaithealthcare-ohhda-chart.ohhda.app.name
     default: ohhda-viewer-front
     description: "Nombre de la aplicación ohhda"
     type: string
-    show_if: dependencies.ohhda.enabled=true
+    show_if: dependencies.ohhda=true
 
   - variable: onesaithealthcare-ohhda-chart.ohhda.version.image_tag
     default: 4.6.0
     description: "Etiqueta de la imagen para ohhda"
     type: string
-    show_if: dependencies.ohhda.enabled=true
+    show_if: dependencies.ohhda=true

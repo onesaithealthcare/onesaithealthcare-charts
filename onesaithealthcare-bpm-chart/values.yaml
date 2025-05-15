@@ -11,12 +11,9 @@ global:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
 dependencies:
-  ohbpm:
-    enabled: true
-  ohprm:
-    enabled: true
-  ohgen:
-    enabled: true
+  ohbpm: true
+  ohprm: true
+  ohgen: true
 onesaithealthcare-ohbpm-chart:
   ohbpm:
     app:
