@@ -2,6 +2,7 @@ deployment_target: # k8s|openshift
 ohsso:
   enabled: true
   url: 
+  realm: oh-base
   client_id: oh-monitoring
   client_secret: 
 prometheus:

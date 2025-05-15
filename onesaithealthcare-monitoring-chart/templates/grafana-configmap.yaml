@@ -31,8 +31,8 @@ data:
     
     [auth.generic_oauth]
     auto_login = true
-    api_url={{ .Values.ohsso.url }}/protocol/openid-connect/userinfo
-    auth_url={{ .Values.ohsso.url }}/protocol/openid-connect/auth
+    api_url={{ .Values.ohsso.url }}/realms/{{ .Values.ohsso.realm }}/protocol/openid-connect/userinfo
+    auth_url={{ .Values.ohsso.url }}/realms/{{ .Values.ohsso.realm }}/protocol/openid-connect/auth
     client_id={{ .Values.ohsso.client_id }}
     client_secret={{ .Values.ohsso.client_secret }}
     email_attribute_path = preferred_username
@@ -42,7 +42,7 @@ data:
     role_attribute_strict= null
     scopes=openid email
     tls_skip_verify_insecure = true
-    token_url={{ .Values.ohsso.url }}/protocol/openid-connect/token
+    token_url={{ .Values.ohsso.url }}/realms/{{ .Values.ohsso.realm }}/protocol/openid-connect/token
 {{- end }}
     
     [security]

@@ -143,7 +143,7 @@ spec:
           name: oauth2-proxy
           args:
             - --provider=oidc
-            - --oidc-issuer-url={{ .Values.ohsso.url }}
+            - --oidc-issuer-url={{ .Values.ohsso.url }}realms/{{ .Values.ohsso.realm }}
             - --client-id={{ .Values.ohsso.client_id }}
             - --client-secret={{ .Values.ohsso.client_secret }}
             - --redirect-url=https://{{ .Values.prometheus.host }}/prometheus/oauth2/callback

@@ -17,8 +17,14 @@ questions:
     subquestions:
       - variable: ohsso.url
         label: "OHSSO URL"
-        description: "OHSSO base URL (including realm, for example: https://oh-modules.apps.lab.openshift.com/auth/realms/oh-base )."
+        description: "OHSSO base URL (for example: https://oh-modules.apps.lab.openshift.com/auth)."
         type: string
+        required: true
+      - variable: ohsso.realm
+        label: "OHSSO realm"
+        description: "OHSSO realm (for example: oh-base)."
+        type: string
+        default: oh-base
         required: true
       - variable: ohsso.client_id
         label: "OHSSO Client ID"

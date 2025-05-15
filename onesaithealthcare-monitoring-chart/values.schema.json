@@ -21,8 +21,14 @@
         "url": {
           "type": "string",
           "title": "OHSSO URL",
-          "description": "OHSSO base URL (including realm, for example: https://oh-modules.apps.lab.openshift.com/auth/realms/oh-base ).",
+          "description": "OHSSO base URL (for example: https://oh-modules.apps.lab.openshift.com/auth ).",
           "default": ""
+        },
+        "realm": {
+          "type": "string",
+          "title": "OHSSO realm",
+          "description": "OHSSO realm (for example: oh-base ).",
+          "default": "oh-base"
         },
         "client_id": {
           "type": "string",
