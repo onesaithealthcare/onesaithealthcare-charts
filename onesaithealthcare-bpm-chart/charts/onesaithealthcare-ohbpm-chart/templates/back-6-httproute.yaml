@@ -16,7 +16,7 @@ spec:
         - path:
             type: PathPrefix
             value: /ohbpm/assets/css
-      forwardTo:
+      backendRefs:
         - serviceName: ohbpm-front
           port: 8080
     - matches:
@@ -42,14 +42,14 @@ spec:
                 value: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
               - name: X-Forwarded-Proto
                 value: {{ .Values.global.domain.protocol }}
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-back
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-smart/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
           port: 8080
     - matches:
@@ -60,16 +60,16 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm-smart/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-designer/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
           port: 8080
     - matches:
@@ -80,16 +80,16 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm-designer/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-prof/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
           port: 8080
     - matches:
@@ -100,23 +100,23 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm-prof/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-webcomponents
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-webcomponents-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-front
           port: 8080
     - matches:
@@ -127,9 +127,9 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm/
-      forwardTo:
+      backendRefs:
         - serviceName: {{ .Values.ohbpm.app.name }}-front
           port: 8080
 {{- end }}
