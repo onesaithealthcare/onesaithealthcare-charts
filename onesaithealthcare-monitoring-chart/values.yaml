@@ -1,3 +1,4 @@
+deployment_target: # k8s|openshift
 ohsso:
   enabled: true
   url: 

@@ -1,3 +1,4 @@
+{{- if eq .Values.deployment_target "openshift"  }}
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
@@ -16,4 +17,5 @@ spec:
   tls:
     termination: edge
   wildcardPolicy: None
+{{- end }}
 {{- end }}

@@ -1,4 +1,12 @@
 questions:
+  - variable: deployment_target
+    label: "Deployment target"
+    description: "Deployment target"
+    type: enum
+    options:
+      - "k8s"
+      - "openshift"
+    default: "k8s"
   - variable: ohsso.enabled
     label: "OHSSO auth"
     description: "Enable OHSSO authentication for prometheus and grafana."

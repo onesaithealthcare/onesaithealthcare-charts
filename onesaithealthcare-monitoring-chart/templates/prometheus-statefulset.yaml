@@ -125,6 +125,7 @@ spec:
             - --web.console.libraries=/etc/prometheus/console_libraries
             - --web.console.templates=/etc/prometheus/consoles
             - --web.enable-lifecycle
+            - --web.external-url=/prometheus/
 {{- if .Values.ohsso.enabled }}
         - resources:
             limits:
@@ -145,7 +146,7 @@ spec:
             - --oidc-issuer-url={{ .Values.ohsso.url }}
             - --client-id={{ .Values.ohsso.client_id }}
             - --client-secret={{ .Values.ohsso.client_secret }}
-            - --redirect-url=https://{{ .Values.prometheus.host }}/oauth2/callback
+            - --redirect-url=https://{{ .Values.prometheus.host }}/prometheus/oauth2/callback
             - --cookie-secret=5Hf9uqy7mMAFFb7U
             - --cookie-secure=true
             - --cookie-samesite=lax

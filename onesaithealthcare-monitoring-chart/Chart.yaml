@@ -3,7 +3,7 @@ name: onesaithealthcare-monitoring-chart
 description: Onesait Healthcare Monitoring chart for k8s
 home: https://github.com/onesaithealthcare/onesaithealthcare-charts
 type: application
-version: "4.0.0"
+version: "4.0.1"
 appVersion: "4.0.0"
 keywords:
   - Minsait
