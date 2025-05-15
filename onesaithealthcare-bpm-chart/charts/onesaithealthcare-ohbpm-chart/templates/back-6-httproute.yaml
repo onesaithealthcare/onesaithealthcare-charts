@@ -17,7 +17,7 @@ spec:
             type: PathPrefix
             value: /ohbpm/assets/css
       backendRefs:
-        - serviceName: ohbpm-front
+        - name: ohbpm-front
           port: 8080
     - matches:
         - path:
@@ -43,14 +43,14 @@ spec:
               - name: X-Forwarded-Proto
                 value: {{ .Values.global.domain.protocol }}
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-back
+        - name: {{ .Values.ohbpm.app.name }}-back
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-smart/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
+        - name: {{ .Values.ohbpm.app.name }}-smart-front
           port: 8080
     - matches:
         - path:
@@ -63,14 +63,14 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm-smart/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
+        - name: {{ .Values.ohbpm.app.name }}-smart-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-designer/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
+        - name: {{ .Values.ohbpm.app.name }}-designer-front
           port: 8080
     - matches:
         - path:
@@ -83,14 +83,14 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm-designer/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
+        - name: {{ .Values.ohbpm.app.name }}-designer-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-prof/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
+        - name: {{ .Values.ohbpm.app.name }}-prof-front
           port: 8080
     - matches:
         - path:
@@ -103,21 +103,21 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm-prof/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
+        - name: {{ .Values.ohbpm.app.name }}-prof-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm-webcomponents
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-webcomponents-front
+        - name: {{ .Values.ohbpm.app.name }}-webcomponents-front
           port: 8080
     - matches:
         - path:
             type: PathPrefix
             value: /ohbpm/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-front
+        - name: {{ .Values.ohbpm.app.name }}-front
           port: 8080
     - matches:
         - path:
@@ -130,6 +130,6 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /ohbpm/
       backendRefs:
-        - serviceName: {{ .Values.ohbpm.app.name }}-front
+        - name: {{ .Values.ohbpm.app.name }}-front
           port: 8080
 {{- end }}
