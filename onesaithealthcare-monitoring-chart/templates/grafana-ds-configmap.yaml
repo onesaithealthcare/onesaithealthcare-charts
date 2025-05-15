@@ -19,5 +19,5 @@ data:
       name: Prometheus OH
       secureJsonData: {}
       type: prometheus
-      url: http://prometheus-server:9090
+      url: http://prometheus-server:9090/prometheus
       version: 1

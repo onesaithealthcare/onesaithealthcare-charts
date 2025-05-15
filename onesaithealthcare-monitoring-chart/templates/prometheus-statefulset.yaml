@@ -86,7 +86,7 @@ spec:
               memory: 210Mi
           readinessProbe:
             httpGet:
-              path: /-/ready
+              path: /prometheus/-/ready
               port: 9090
               scheme: HTTP
             initialDelaySeconds: 30
@@ -98,7 +98,7 @@ spec:
           name: oh-prometheus-server
           livenessProbe:
             httpGet:
-              path: /-/healthy
+              path: /prometheus/-/healthy
               port: 9090
               scheme: HTTP
             initialDelaySeconds: 30
