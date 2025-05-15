@@ -866,7 +866,14 @@ data:
         "routerLink": "/conceptMap",
         "permissions": "HNCAT_TERMINOLOGY_READ|HNCAT_TERMINOLOGY_WRITE|HNCAT_TERMINOLOGY_DRAFT"
     },
-      {
+    {
+      "id": "men15",
+      "label": "label.menu.value.set",
+      "icon": "ui-hn-icon icon-view-small",
+      "routerLink": "/valueset",
+      "permissions": "HNCAT_TERMINOLOGY_READ|HNCAT_TERMINOLOGY_WRITE|HNCAT_TERMINOLOGY_DRAFT"
+    },
+    {
           "id": "men1",
           "label": "label.menu.catalog.search",
           "icon": "icon-section-generic",
