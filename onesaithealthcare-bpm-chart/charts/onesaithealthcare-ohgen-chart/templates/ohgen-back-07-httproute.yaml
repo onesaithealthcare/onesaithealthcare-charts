@@ -48,7 +48,7 @@ spec:
           urlRewrite:
             path:
               type: ReplaceFullPath
-              replacePrefixMatch: /dsforms/
+              replaceFullPath: /dsforms/
       backendRefs:
         - name: {{ .Values.ohgen.app.name_front }}
           port: 8080
