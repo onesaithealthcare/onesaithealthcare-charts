@@ -4,6 +4,7 @@ metadata:
   name: 'ohsso'
   labels:
     service: 'ohsso'
+    app: ohsso
 spec:
   ports:
     - name: http

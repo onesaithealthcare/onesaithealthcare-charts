@@ -150,7 +150,7 @@ spec:
             - --cookie-secret=5Hf9uqy7mMAFFb7U
             - --cookie-secure=true
             - --cookie-samesite=lax
-            - --upstream=http://localhost:9090/prometheus
+            - --upstream=http://localhost:9090
             - --http-address=0.0.0.0:9091
             - --proxy-prefix=/prometheus/oauth2
             - --email-domain=*
@@ -158,7 +158,9 @@ spec:
             - --oidc-email-claim=preferred_username
             - --insecure-oidc-allow-unverified-email=true
             - --oidc-groups-claim=groups
-            - --allowed-group=OHIEN_MONITORING
+            - --allowed-role=OHIEN_MONITORING
+            - --errors-to-info-log=true
+            - --reverse-proxy=true
 {{- end }}        
       serviceAccount: oh-prometheus          
       affinity:
