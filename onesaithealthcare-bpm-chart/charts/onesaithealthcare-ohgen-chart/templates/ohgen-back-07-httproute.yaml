@@ -47,7 +47,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: ReplacePrefixMatch
+              type: ReplaceFullPath
               replacePrefixMatch: /dsforms/
       backendRefs:
         - name: {{ .Values.ohgen.app.name_front }}
