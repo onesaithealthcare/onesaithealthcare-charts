@@ -82,7 +82,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
-              type: PathPrefix
+              type: ReplacePrefixMatch
               replacePrefixMatch: /ohprm/
         - type: ExtensionRef
           extensionRef:
