@@ -2,11 +2,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: 'ohcon-back'
+  labels:
+    app: ohcon-back
 spec:
   ports:
     - name: http
       protocol: TCP
       port: 8080
       targetPort: 8080
+    - name: prom
+      protocol: TCP
+      port: 9093
+      targetPort: 9093
   selector:
     app: 'ohcon-back'
