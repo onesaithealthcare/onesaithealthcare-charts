@@ -10,12 +10,13 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: oh-modules-gateway
+      namespace: oh-modules
       sectionName: oh-modules
   rules:
     - backendRefs:
         - group: ''
           kind: Service
-          name: prometheus
+          name: prometheus-server
           namespace: {{ .Release.Namespace }}
           port: {{if .Values.ohsso.enabled }}9091{{ else }}9090{{ end }} 
           weight: 1

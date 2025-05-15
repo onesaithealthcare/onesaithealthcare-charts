@@ -150,8 +150,9 @@ spec:
             - --cookie-secret=5Hf9uqy7mMAFFb7U
             - --cookie-secure=true
             - --cookie-samesite=lax
-            - --upstream=http://localhost:9090
+            - --upstream=http://localhost:9090/prometheus
             - --http-address=0.0.0.0:9091
+            - --proxy-prefix=/prometheus/oauth2
             - --email-domain=*
             - --ssl-insecure-skip-verify=true
             - --oidc-email-claim=preferred_username

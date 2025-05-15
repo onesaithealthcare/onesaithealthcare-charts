@@ -10,12 +10,13 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: oh-modules-gateway
+      namespace: oh-modules
       sectionName: oh-modules
   rules:
     - backendRefs:
         - group: ''
           kind: Service
-          name: grafana
+          name: grafana-service
           namespace: {{ .Release.Namespace }}
           port: 3000 
           weight: 1
