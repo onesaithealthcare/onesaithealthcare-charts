@@ -18,12 +18,14 @@ spec:
           port: 8080
     - matches:
         - path:
-            type: PathExact
+            type: Exact
             value: /hd-consentimiento/keycloak.json
       filters:
         - type: URLRewrite
           urlRewrite:
-            path: /hd-consentimiento/keycloak-prof.json
+            path:
+              type: Exact
+              replacePrefixMatch: /hd-consentimiento/keycloak-prof.json
       backendRefs:
         - name: {{ .Values.ohcsm.app.front_name }}
           port: 8080
@@ -35,6 +37,9 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path: /hd-consentimiento/
+            path:
+              type: PathPrefix
+              replacePrefixMatch: /hd-consentimiento/
       backendRefs:
         - name: {{ .Values.ohcsm.app.front_name }}
           port: 8080

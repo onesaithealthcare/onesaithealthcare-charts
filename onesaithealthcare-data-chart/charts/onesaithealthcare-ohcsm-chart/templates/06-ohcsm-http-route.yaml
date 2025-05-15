@@ -23,7 +23,9 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            path: /hd-consentimiento/
+            path:
+              type: PathPrefix
+              replacePrefixMatch: /hd-consentimiento/
       backendRefs:
         - name: {{ .Values.ohcsm.app.front_name }}
           port: 8080

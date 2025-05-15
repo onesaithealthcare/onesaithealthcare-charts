@@ -17,15 +17,18 @@ spec:
             type: PathPrefix
             value: /dsforms/StreamServlet/
         - path:
-            type: PathExact
+            type: Exact
             value: /dsforms/healthcheck
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             set:
-              X-Forwarded-Host: {{ .Values.global.domain.host }}
-              X-Forwarded-Port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
-              X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+              - name: X-Forwarded-Host
+                value: {{ .Values.global.domain.host }}
+              - name: X-Forwarded-Port
+                value: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+              - name: X-Forwarded-Proto
+                value: {{ .Values.global.domain.protocol }}
       backendRefs:
         - name: {{ .Values.ohgen.app.name_back }}
           port: 8080
@@ -38,12 +41,14 @@ spec:
           port: 8080
     - matches:
         - path:
-            type: PathExact
+            type: Exact
             value: /dsforms
       filters:
         - type: URLRewrite
           urlRewrite:
-            path: /dsforms/
+            path:
+              type: PathPrefix
+              replacePrefixMatch: /dsforms/
       backendRefs:
         - name: {{ .Values.ohgen.app.name_front }}
           port: 8080
@@ -61,7 +66,9 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            path: /dsforms-designer/
+            path:
+              type: PathPrefix
+              replacePrefixMatch: /dsforms-designer/
       backendRefs:
         - name: {{ .Values.ohgen.app.name_front_designer }}
           port: 8080
@@ -72,7 +79,9 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            path: /form-webcomponents/
+            path:
+              type: PathPrefix
+              replacePrefixMatch: /form-webcomponents/
       backendRefs:
         - name: ${OHGEN_WEBCOMPONENTS_APP_NAME}-webcomponents-front
           port: 8080

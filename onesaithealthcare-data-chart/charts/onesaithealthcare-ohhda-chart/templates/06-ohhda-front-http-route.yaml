@@ -17,9 +17,12 @@ spec:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             set:
-              X-Forwarded-Host: '{{ .Values.global.domain.host }}'
-              X-Forwarded-Port: '{{ .Values.global.domain.port }}'
-              X-Forwarded-Proto: {{ .Values.global.domain.protocol }}
+              - name: X-Forwarded-Host
+                value: '{{ .Values.global.domain.host }}'
+              - name: X-Forwarded-Port
+                value: '{{ .Values.global.domain.port }}'
+              - name: X-Forwarded-Proto
+                value: {{ .Values.global.domain.protocol }}
       backendRefs:
         - name: {{ .Values.ohhda.app.name }}
           port: 8080

@@ -60,6 +60,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
+              type: PathPrefix
               replacePrefixMatch: /ohbpm-smart/
       forwardTo:
         - serviceName: {{ .Values.ohbpm.app.name }}-smart-front
@@ -79,6 +80,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
+              type: PathPrefix
               replacePrefixMatch: /ohbpm-designer/
       forwardTo:
         - serviceName: {{ .Values.ohbpm.app.name }}-designer-front
@@ -98,6 +100,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
+              type: PathPrefix
               replacePrefixMatch: /ohbpm-prof/
       forwardTo:
         - serviceName: {{ .Values.ohbpm.app.name }}-prof-front
@@ -124,6 +127,7 @@ spec:
         - type: URLRewrite
           urlRewrite:
             path:
+              type: PathPrefix
               replacePrefixMatch: /ohbpm/
       forwardTo:
         - serviceName: {{ .Values.ohbpm.app.name }}-front

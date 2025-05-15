@@ -1,4 +1,33 @@
 {{- if eq .Values.global.domain.gateway_type "k8s_gateway" }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: CORS
+metadata:
+  name: ohprm-cors-policy
+spec:
+  allowOrigins:
+    - {{ .Values.ohprm.app.url_prof_server }}
+    - {{ .Values.ohprm.app.url_server }}
+  allowMethods:
+    - GET
+    - POST
+    - OPTIONS
+    - PUT
+    - DELETE
+  allowHeaders:
+    - x-requested-with
+    - Content-Type
+    - jwtheader
+    - origin
+    - authorization
+    - accept
+    - client-security-token
+    - x-preserve-id
+    - if-none-exist
+    - prefer
+    - referer
+    - host
+    - origin
+
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1
 metadata:
@@ -6,48 +35,29 @@ metadata:
 spec:
   parentRefs:
     - name: {{ .Values.global.domain.gateway }}
-  hostnames:
-    - '*'
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /ohprm/api/fhir/
         - path:
-            type: PathExact
+            type: Exact
             value: /ohprm/healthcheck
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             set:
-              x-forwarded-host: {{ .Values.global.domain.host }}
-              x-forwarded-port: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
-              x-forwarded-proto: {{ .Values.global.domain.protocol }}
-        - type: CORS
-          corsPolicy:
-            allowHeaders:
-              - x-requested-with
-              - Content-Type
-              - jwtheader
-              - origin
-              - authorization
-              - accept
-              - client-security-token
-              - x-preserve-id
-              - if-none-exist
-              - prefer
-              - referer
-              - host
-              - origin
-            allowMethods:
-              - GET
-              - POST
-              - OPTIONS
-              - PUT
-              - DELETE
-            allowOrigins:
-              - {{ .Values.ohprm.app.url_prof_server }}
-              - {{ .Values.ohprm.app.url_server }}
+              - name: X-Forwarded-Host
+                value: {{ .Values.global.domain.host }}
+              - name: X-Forwarded-Port
+                value: '{{ if eq .Values.global.domain.protocol "http" }}80{{ else if eq .Values.global.domain.protocol "https" }}443{{ end }}'
+              - name: X-Forwarded-Proto
+                value: {{ .Values.global.domain.protocol }}
+        - type: ExtensionRef
+          extensionRef:
+            group: gateway.networking.k8s.io
+            kind: CORS
+            name: ohprm-cors-policy
       backendRefs:
         - name: {{ .Values.ohprm.app.backend_app }}
           port: 8080
@@ -56,31 +66,11 @@ spec:
             type: PathPrefix
             value: /ohprm/
       filters:
-        - type: CORS
-          corsPolicy:
-            allowHeaders:
-              - x-requested-with
-              - Content-Type
-              - jwtheader
-              - origin
-              - authorization
-              - accept
-              - client-security-token
-              - x-preserve-id
-              - if-none-exist
-              - prefer
-              - referer
-              - host
-              - origin
-            allowMethods:
-              - GET
-              - POST
-              - OPTIONS
-              - PUT
-              - DELETE
-            allowOrigins:
-              - {{ .Values.ohprm.app.url_prof_server }}
-              - {{ .Values.ohprm.app.url_server }}
+        - type: ExtensionRef
+          extensionRef:
+            group: gateway.networking.k8s.io
+            kind: CORS
+            name: ohprm-cors-policy
       backendRefs:
         - name: {{ .Values.ohprm.app.front_app }}
           port: 8080
@@ -91,32 +81,14 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            path: /ohprm/
-        - type: CORS
-          corsPolicy:
-            allowHeaders:
-              - x-requested-with
-              - Content-Type
-              - jwtheader
-              - origin
-              - authorization
-              - accept
-              - client-security-token
-              - x-preserve-id
-              - if-none-exist
-              - prefer
-              - referer
-              - host
-              - origin
-            allowMethods:
-              - GET
-              - POST
-              - OPTIONS
-              - PUT
-              - DELETE
-            allowOrigins:
-              - {{ .Values.ohprm.app.url_prof_server }}
-              - {{ .Values.ohprm.app.url_server }}
+            path:
+              type: PathPrefix
+              replacePrefixMatch: /ohprm/
+        - type: ExtensionRef
+          extensionRef:
+            group: gateway.networking.k8s.io
+            kind: CORS
+            name: ohprm-cors-policy
       backendRefs:
         - name: {{ .Values.ohprm.app.front_app }}
           port: 8080
