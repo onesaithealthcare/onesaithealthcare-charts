@@ -4,7 +4,9 @@ global:
   domain:
     protocol: # Opciones: http, https
     host:
+    ip:
     host_prof:
+    ip_prof:
     port: 443
     gateway_type: # Opciones: istio, k8s_gateway
     gateway: oh-modules-gateway

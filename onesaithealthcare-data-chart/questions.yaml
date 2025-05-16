@@ -20,9 +20,19 @@ questions:
     description: "Host del dominio"
     type: string
 
+  - variable: global.domain.ip
+    default: ""
+    description: "IP del dominio"
+    type: string
+
   - variable: global.domain.host_prof
     default: ""
     description: "Host profesional del dominio"
+    type: string
+
+  - variable: global.domain.ip_prof
+    default: ""
+    description: "IP profesional del dominio"
     type: string
 
   - variable: global.domain.port

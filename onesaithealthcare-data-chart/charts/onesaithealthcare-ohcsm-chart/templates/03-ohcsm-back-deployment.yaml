@@ -20,7 +20,7 @@ spec:
       restartPolicy: Always
       serviceAccountName: oh-module
       imagePullSecrets:
-        - name: docksdtr.indra.es
+        - name: {{ .Values.global.docker.registry.secret }}
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
       containers:
@@ -127,11 +127,12 @@ spec:
               mountPath: /opt/jboss/hn_home/ohcsm/plugins/plugin-update-mpi-1.0.0.jar
           terminationMessagePolicy: File
           image: docksdtr.indra.es/multhn_cmhn20_2/{{ .Values.ohcsm.app.back_name }}:{{ .Values.ohcsm.version.back_image_tag }}
-      #Temporal en entorno openshift desarrollo (no resuelve ip del gateway)
+      {{- if .Values.global.domain.ip }}
       hostAliases:
-        - ip: 192.168.1.146
+        - ip: {{ .Values.global.domain.ip }}
           hostnames:
-            - oh-modules.apps.lab.openshift.com
+            - {{ .Values.global.domain.host }}
+      {{- end }}
       serviceAccount: oh-module
       volumes:
         - name: ohcsm-back-cfg

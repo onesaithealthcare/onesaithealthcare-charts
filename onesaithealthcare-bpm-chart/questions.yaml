@@ -20,6 +20,11 @@ questions:
     description: "Host del dominio"
     type: string
 
+  - variable: global.domain.ip
+    default: ""
+    description: "IP del dominio"
+    type: string
+
   - variable: global.domain.gateway_type
     default: istio
     description: "Tipo de gateway (istio o k8s_gateway)"
@@ -36,6 +41,11 @@ questions:
   - variable: global.docker.registry.project
     default: multhn_cmhn20_2
     description: "Proyecto del registro Docker"
+    type: string
+
+  - variable: global.docker.registry.secret
+    default: docksdtr.indra.es
+    description: "Secreto del registro Docker"
     type: string
 
   - variable: dependencies.ohbpm

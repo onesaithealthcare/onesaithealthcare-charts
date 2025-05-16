@@ -24,7 +24,7 @@ spec:
       restartPolicy: Always
       serviceAccountName: oh-module
       imagePullSecrets:
-        - name: {{ .Values.global.docker.registry.host }}
+        - name: {{ .Values.global.docker.registry.secret }}
       containers:
         - name: {{ .Values.ohbpm.app.name }}-back
           image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohbpm-back:{{ .Values.ohbpm.version.back_image_tag }}'
@@ -108,11 +108,12 @@ spec:
               cpu: '200m'
               memory: 768Mi
           imagePullPolicy: Always
-      #Temporal en entorno openshift desarrollo (no resuelve ip del gateway)
+      {{- if .Values.global.domain.ip }}
       hostAliases:
-        - ip: 192.168.1.146
+        - ip: {{ .Values.global.domain.ip }}
           hostnames:
-            - oh-modules.apps.lab.openshift.com
+            - {{ .Values.global.domain.host }}
+      {{- end }}
       volumes:
         - name: ohbpm-back-props
           configMap:

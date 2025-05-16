@@ -25,6 +25,12 @@ spec:
       serviceAccountName: oh-module
       imagePullSecrets:
         - name: {{ .Values.global.docker.registry.secret }}
+      {{- if .Values.global.domain.ip }}
+      hostAliases:
+        - ip: {{ .Values.global.domain.ip }}
+          hostnames:
+            - {{ .Values.global.domain.host }}
+      {{- end }}
       schedulerName: default-scheduler
       affinity:
         podAntiAffinity:

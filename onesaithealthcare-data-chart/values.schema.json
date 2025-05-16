@@ -28,9 +28,17 @@
               "type": "string",
               "description": "Host del dominio"
             },
+            "ip": {
+              "type": "string",
+              "description": "IP del dominio"
+            },
             "host_prof": {
               "type": "string",
               "description": "Host profesional del dominio"
+            },
+            "ip_prof": {
+              "type": "string",
+              "description": "IP profesional del dominio"
             },
             "port": {
               "type": "integer",

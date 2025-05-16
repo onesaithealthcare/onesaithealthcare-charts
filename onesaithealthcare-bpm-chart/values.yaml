@@ -3,13 +3,15 @@ global:
     type: dev # Opciones: dev, prod 
   domain:
     protocol: # Opciones: http, https
-    host: oh-modules.apps.lab.openshift.com
+    host: oh-modules.ohrancherha1-1.indra.es
+    ip: 192.168.146.153
     gateway_type: # Opciones: istio, k8s_gateway
     gateway: oh-modules-gateway
   docker:
     registry:
       host: docksdtr.indra.es
       project: multhn_cmhn20_2
+      secret: docksdtr.indra.es
 dependencies:
   ohbpm: true
   ohprm: true

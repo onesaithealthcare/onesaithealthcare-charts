@@ -22,7 +22,13 @@ spec:
         sidecar.istio.io/inject: 'false'
     spec:
       imagePullSecrets:
-        - name: {{ .Values.global.docker.registry.host }}
+        - name: {{ .Values.global.docker.registry.secret }}
+      {{- if .Values.global.domain.ip }}
+      hostAliases:
+        - ip: {{ .Values.global.domain.ip }}
+          hostnames:
+            - {{ .Values.global.domain.host }}
+      {{- end }}
       serviceAccountName: oh-module
       containers:
         - name: ohbpm-webcomponents-front
