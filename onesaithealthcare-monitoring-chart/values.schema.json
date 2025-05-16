@@ -108,10 +108,7 @@
       },
       "required": [
         "replicas",
-		"protocol",
-        "host",
         "kafka_namespace",
-        "oh_modules_namespace",
         "persistence"
       ]
     },
@@ -131,7 +128,7 @@
           "default": ""
         }
       },
-      "required": ["protocol", "host", "admin_user", "admin_pass"]
+      "required": ["admin_user", "admin_pass"]
     }
   },
   "required": ["ohsso", "prometheus", "grafana"]
