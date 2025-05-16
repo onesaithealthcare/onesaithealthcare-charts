@@ -1,7 +1,7 @@
 questions:
   - variable: gateway_type
-    label: "Deployment target"
-    description: "Deployment target"
+    label: "Gateway type"
+    description: "Gateway type"
     type: enum
     options:
       - "istio"

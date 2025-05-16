@@ -1,6 +1,6 @@
 gateway_type: # istio|k8s_gateway
 host_oh_modules:
-prot_oh_modules: 
+protocol_oh_modules: 
 namespace_oh_modules: oh-modules
 ohsso:
   enabled: true

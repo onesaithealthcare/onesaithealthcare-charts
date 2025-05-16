@@ -7,14 +7,14 @@ spec:
   gateways:
     - oh-modules-gateway
   hosts:
-    - '{{ .Values.prot_oh_modules }}'
+    - '{{ .Values.protocol_oh_modules }}'
   http:
     - headers:
         request:
           set:
             X-Forwarded-Host: {{ .Values.host_oh_modules }}
-            X-Forwarded-Port: '{{ if eq .Values.prot_oh_modules "http" }}80{{ else if eq .Values.prot_oh_modules "https" }}443{{ end }}'
-            X-Forwarded-Proto: {{ .Values.prot_oh_modules }}
+            X-Forwarded-Port: '{{ if eq .Values.protocol_oh_modules "http" }}80{{ else if eq .Values.protocol_oh_modules "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.protocol_oh_modules }}
       match:
         - uri:
             prefix: /prometheus

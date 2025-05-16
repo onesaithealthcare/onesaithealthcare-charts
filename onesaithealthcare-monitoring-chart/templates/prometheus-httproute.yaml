@@ -26,9 +26,9 @@ spec:
               - name: X-Forwarded-Host
                 value: {{ .Values.host_oh_modules }}
               - name: X-Forwarded-Proto
-                value: {{ .Values.prot_oh_modules }}
+                value: {{ .Values.protocol_oh_modules }}
               - name: X-Forwarded-Port
-                value: '{{ if eq .Values.prot_oh_modules "http" }}80{{ else if eq .Values.prot_oh_modules "https" }}443{{ end }}'
+                value: '{{ if eq .Values.protocol_oh_modules "http" }}80{{ else if eq .Values.protocol_oh_modules "https" }}443{{ end }}'
           type: RequestHeaderModifier
       matches:
         - path:
