@@ -1,0 +1,26 @@
+{{- if eq .Values.gateway_type "istio"  }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-virtual-service
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - '{{ .Values.prot_oh_modules }}'
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.host_oh_modules }}
+            X-Forwarded-Port: '{{ if eq .Values.prot_oh_modules "http" }}80{{ else if eq .Values.prot_oh_modules "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.prot_oh_modules }}
+      match:
+        - uri:
+            prefix: /prometheus
+      route:
+        - destination:
+            host: prometheus-server.{{ .Values.namespace_oh_modules }}.svc.cluster.local
+            port:
+              number: {{ if .Values.ohsso.enabled }}9091{{ else }}9090{{ end }}
+{{- end }}

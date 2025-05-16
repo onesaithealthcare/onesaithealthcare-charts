@@ -1,0 +1,26 @@
+{{- if eq .Values.gateway_type "istio"  }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-virtual-service
+spec:
+  gateways:
+    - oh-modules-gateway
+  hosts:
+    - '{{ .Values.prot_oh_modules }}'
+  http:
+    - headers:
+        request:
+          set:
+            X-Forwarded-Host: {{ .Values.host_oh_modules }}
+            X-Forwarded-Port: '{{ if eq .Values.prot_oh_modules "http" }}80{{ else if eq .Values.prot_oh_modules "https" }}443{{ end }}'
+            X-Forwarded-Proto: {{ .Values.prot_oh_modules }}
+      match:
+        - uri:
+            prefix: /grafana
+      route:
+        - destination:
+            host: grafana-service.{{ .Values.namespace_oh_modules }}.svc.cluster.local
+            port:
+              number: 3000
+{{- end }}

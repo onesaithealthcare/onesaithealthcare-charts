@@ -1,4 +1,4 @@
-{{- if eq .Values.deployment_target "k8s"  }}
+{{- if eq .Values.gateway_type "k8s_gateway"  }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -10,8 +10,8 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: oh-modules-gateway
-      namespace: oh-modules
-      sectionName: oh-modules
+      namespace: {{ .Values.namespace_oh_modules }}
+      sectionName: {{ .Values.namespace_oh_modules }}
   rules:
     - backendRefs:
         - group: ''
@@ -24,11 +24,11 @@ spec:
         - requestHeaderModifier:
             set:
               - name: X-Forwarded-Host
-                value: oh-modules.ohrancherha1-1.indra.es
+                value: {{ .Values.host_oh_modules }}
               - name: X-Forwarded-Proto
-                value: https
+                value: {{ .Values.prot_oh_modules }}
               - name: X-Forwarded-Port
-                value: '443'
+                value: '{{ if eq .Values.prot_oh_modules "http" }}80{{ else if eq .Values.prot_oh_modules "https" }}443{{ end }}'
           type: RequestHeaderModifier
       matches:
         - path:

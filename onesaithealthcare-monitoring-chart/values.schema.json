@@ -2,12 +2,31 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "deployment_target": {
+    "gateway_type": {
       "type": "string",
-      "title": "Deployment target",
-      "description": "Deployment target",
-      "default": "k8s",
-      "enum": ["k8s", "openshift"]
+      "title": "Gateway type",
+      "description": "Gateway type",
+      "default": "k8s_gateway",
+      "enum": ["istio", "k8s_gateway"]
+    },
+    "protocol_oh_modules": {
+      "type": "string",
+      "title": "Protocol which oh-modules is exposed",
+      "description": "Protocol which oh-modules is exposed",
+      "default": "https",
+      "enum": ["http", "https"]
+    },
+    "host_oh_modules": {
+      "type": "string",
+      "title": "Host where oh-modules is exposed",
+      "description": "Host where oh-modules is exposed",
+      "default": ""
+    },
+    "namespace_oh_modules": {
+      "type": "string",
+      "title": "Namespace where oh-modules is deployed (Normally you won't need to change this value)",
+      "description": "Namespace where oh-modules is deployed (Normally you won't need to change this value)",
+      "default": "oh-modules"
     },
     "ohsso": {
       "type": "object",

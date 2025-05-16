@@ -1,12 +1,33 @@
 questions:
-  - variable: deployment_target
+  - variable: gateway_type
     label: "Deployment target"
     description: "Deployment target"
     type: enum
     options:
-      - "k8s"
-      - "openshift"
-    default: "k8s"
+      - "istio"
+      - "k8s_gateway"
+    default: "k8s_gateway"
+    required: true
+  - variable: protocol_oh_modules
+    label: "Protocol which oh-modules is exposed"
+    description: "Protocol which oh-modules is exposed"
+    type: enum
+    options:
+      - "http"
+      - "https"
+    default: "https"
+    required: true
+  - variable: host_oh_modules
+    label: "Host where oh-modules is exposed (for example: oh-modules.apps.lab.openshift.com)"
+    description: "Host where oh-modules is exposed (for example: oh-modules.apps.lab.openshift.com)"
+    type: string
+    required: true
+  - variable: namespace_oh_modules
+    label: "Namespace where oh-modules is deployed (Normally you won't need to change this value)"
+    description: "Namespace where oh-modules is deployed (Normally you won't need to change this value)"
+    type: string
+    default: "oh-modules"
+    required: true
   - variable: ohsso.enabled
     label: "OHSSO auth"
     description: "Enable OHSSO authentication for prometheus and grafana."
@@ -42,19 +63,6 @@ questions:
     description: "The number of Prometheus replicas to deploy."
     type: int
     default: 1
-  - variable: prometheus.protocol
-    label: "Prometheus Protocol"
-    description: "The protocol to expose Prometheus (http or https)."
-    type: enum
-    options:
-      - "http"
-      - "https"
-    default: "https"
-  - variable: prometheus.host
-    label: "Prometheus Host"
-    description: "The hostname to expose Prometheus (for example: oh-modules-prometheus.apps.lab.openshift.com)."
-    type: string
-    required: true
   - variable: prometheus.kafka_namespace
     label: "Kafka Namespace"
     description: "The namespace where Kafka is deployed."
@@ -83,19 +91,6 @@ questions:
         type: string
         required: false
 
-  - variable: grafana.protocol
-    label: "Grafana Protocol"
-    description: "The protocol to expose Grafana (http or https)."
-    type: enum
-    options:
-      - "http"
-      - "https"
-    default: "https"
-  - variable: grafana.host
-    label: "Grafana Host"
-    description: "The hostname to expose Grafana (for example: oh-modules-monitoring.apps.lab.openshift.com)."
-    type: string
-    required: true
   - variable: grafana.admin_user
     label: "Grafana Admin User"
     description: "The admin username for Grafana (only used when OHSSO authentication is disabled)."

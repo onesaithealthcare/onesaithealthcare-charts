@@ -1,4 +1,7 @@
-deployment_target: # k8s|openshift
+gateway_type: # istio|k8s_gateway
+host_oh_modules:
+prot_oh_modules: 
+namespace_oh_modules: oh-modules
 ohsso:
   enabled: true
   url: 
@@ -7,8 +10,6 @@ ohsso:
   client_secret: 
 prometheus:
   replicas: 1
-  protocol: https
-  host: 
   config_reloader_version: v0.80.1  
   kafka_namespace: oh-kafka
   oh_modules_namespace: oh-modules
@@ -19,8 +20,6 @@ prometheus:
     size: 50Gi
     storageclass: 
 grafana:
-  protocol: https
-  host: 
   grafana_version: 11.5.2
   admin_user: admin
   admin_pass: grafana
