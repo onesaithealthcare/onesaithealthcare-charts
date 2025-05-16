@@ -49,11 +49,11 @@ data:
     disable_initial_admin_creation={{ if .Values.ohsso.enabled }}true{{ else }}false{{ end}}
     allow_embedding=true
     cookie_samesite=lax
-    cookie_secure={{ if eq .Values.grafana.protocol "https"}}true{{ else }}false{{ end }}
+    cookie_secure={{ if eq .Values.protocol_oh_modules "https"}}true{{ else }}false{{ end }}
     
     [server]
-    root_url={{ .Values.grafana.protocol }}://{{ .Values.grafana.host }}/grafana
-    domain={{ .Values.grafana.host }}
+    root_url={{ .Values.protocol_oh_modules }}://{{ .Values.host_oh_modules }}/grafana
+    domain={{ .Values.host_oh_modules }}
     serve_from_sub_path=true
     
     [users]
