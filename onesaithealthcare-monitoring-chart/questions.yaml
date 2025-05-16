@@ -68,11 +68,6 @@ questions:
     description: "The namespace where Kafka is deployed."
     type: string
     default: "oh-kafka"
-  - variable: prometheus.oh_modules_namespace
-    label: "OH Modules Namespace"
-    description: "The namespace where OH Modules are deployed."
-    type: string
-    default: "oh-modules"
   - variable: prometheus.persistence.enabled
     label: "Enable Prometheus Persistence"
     description: "Enable Prometheus Persistence with storage class."

@@ -74,30 +74,11 @@
           "default": 1,
           "minimum": 1
         },
-        "protocol": {
-          "type": "string",
-          "title": "Prometheus protocol",
-          "description": "The protocol to expose Prometheus (http or https).",
-          "default": "https",
-          "enum": ["http", "https"]
-        },
-        "host": {
-          "type": "string",
-          "title": "Prometheus Host",
-          "description": "The hostname to expose Prometheus (for example: oh-modules-prometheus.apps.lab.openshift.com).",
-          "default": ""
-        },
         "kafka_namespace": {
           "type": "string",
           "title": "Kafka Namespace",
           "description": "The namespace where Kafka is deployed.",
           "default": "oh-kafka"
-        },
-        "oh_modules_namespace": {
-          "type": "string",
-          "title": "OH Modules Namespace",
-          "description": "The namespace where OH Modules are deployed.",
-          "default": "oh-modules"
         },
         "persistence": {
           "type": "object",
@@ -137,19 +118,6 @@
     "grafana": {
       "type": "object",
       "properties": {
-        "protocol": {
-          "type": "string",
-          "title": "Grafana Protocol",
-          "description": "The protocol to expose Grafana (http or https).",
-          "default": "https",
-          "enum": ["http", "https"]
-        },
-        "host": {
-          "type": "string",
-          "title": "Grafana Host",
-          "description": "The hostname to expose Grafana (for example: oh-modules-monitoring.apps.lab.openshift.com).",
-          "default": ""
-        },
         "admin_user": {
           "type": "string",
           "title": "Grafana Admin User",
