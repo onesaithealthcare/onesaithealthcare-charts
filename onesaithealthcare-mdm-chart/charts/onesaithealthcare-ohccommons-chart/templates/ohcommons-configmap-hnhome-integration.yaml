@@ -117,7 +117,8 @@ data:
     kafka.scram.sasl.user=ohmod
     
     #password del usuario en Base64
-    kafka.scram.sasl.password=???
+    
+    kafka.scram.sasl.password=YmRramQ5dm5zOTBI
     
     #topic de notificación kafka de hnaut
     
