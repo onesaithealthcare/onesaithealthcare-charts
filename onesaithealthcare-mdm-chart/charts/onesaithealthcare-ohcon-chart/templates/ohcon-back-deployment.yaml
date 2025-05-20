@@ -67,6 +67,10 @@ spec:
           env:
             - name: JVM_OPTS
               value: '-Dindrasalud.home=/hn_home -Xms256m -Xmx1024M'
+            - name: general.hostname
+              value: {{ .Values.global.domain.host }}
+            - name: general.protocol
+              value: {{ .Values.global.domain.protocol }}
           ports:
             - containerPort: 8080
               protocol: TCP
