@@ -50,7 +50,7 @@ data:
                   <Set name="minimumIdle">{{ .Values.ohbpm.database.min_idle }}</Set><!-- Mantén 10 conexiones activas para alta demanda -->
                   <Set name="connectionTimeout">{{ .Values.ohbpm.database.con_timeout }}</Set><!-- 30 segundos antes de lanzar excepcion si no hay conexiones -->
                   <Set name="idleTimeout">{{ .Values.ohbpm.database.idle_timeout }}</Set><!-- 10 minutos de inactividad antes de cerrar una conexión inactiva -->
-                  <Set name="maxLifetime">{{ .Values.ohbpm.database.max_lifetime }}</Set><!-- 30 minutos máximo de vida por conexión -->
+                  <Set name="maxLifetime">"{{ .Values.ohbpm.database.max_lifetime }}"</Set><!-- 30 minutos máximo de vida por conexión -->
                   <Set name="validationTimeout">{{ .Values.ohbpm.database.val_timeout }}</Set><!-- Validar conexiones en 5 segundos -->
                   <Set name="leakDetectionThreshold">{{ .Values.ohbpm.database.leak_detection }}</Set><!-- Detectar conexiones colgadas después de 15 segundos -->
                   <Set name="driverClassName">{{ .Values.ohbpm.database.driver }}</Set>

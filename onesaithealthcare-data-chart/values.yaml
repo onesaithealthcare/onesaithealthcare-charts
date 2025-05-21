@@ -64,8 +64,8 @@ onesaithealthcare-ohcsm-chart:
       type: ORACLE # Opciones: ORACLE, MYSQL 
       driver: oracle.jdbc.driver.OracleDriver # Opciones: oracle.jdbc.driver.OracleDriver, com.mysql.cj.jdbc.Driver
       url: jdbc:oracle:thin:@proyvalhnbd1-1.indra.es:1521:mymed
-      user: us_csm
-      pass: us_csm
+      user: us_ohcsm
+      pass: us_ohcsm
     version:
       back_version: 3.3.0
       back_image_tag: 3.3.0

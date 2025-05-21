@@ -115,10 +115,9 @@ spec:
             - name: ohcsm-back-iscore-sso-props
               readOnly: true
               mountPath: /hn_home/iscore/conf
-            - name: openjdk-cacert
-              readOnly: true
-              mountPath: /usr/local/openjdk-8/lib/security/cacerts
-              subPath: cacerts
+            - name: cert-domain
+              mountPath: /cert/cert-domain.crt
+              subPath: tls.crt
             - name: ohcsm-plugin-update-doc
               readOnly: true
               mountPath: /opt/jboss/hn_home/ohcsm/plugins/plugin-update-doc-1.0.0.jar
@@ -159,10 +158,13 @@ spec:
           configMap:
             name: hnhome-iscore-sso-props
             defaultMode: 420
-        - name: openjdk-cacert
-          configMap:
-            name: openjdk-cacert
-            defaultMode: 420
+        - name: cert-domain
+          secret:
+           secretName: cert-domain
+           items:
+             - key: tls.crt
+               path: tls.crt
+           defaultMode: 420              
         - name: ohcsm-plugin-update-doc
           configMap:
             name: ohcsm-plugin-update-doc

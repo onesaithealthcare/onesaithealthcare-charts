@@ -89,11 +89,13 @@ spec:
           terminationMessagePolicy: File
           image: '{{ .Values.global.docker.registry.host }}/{{ .Values.global.docker.registry.project }}/ohprm-api:{{ .Values.ohprm.version.back_image_tag }}'
       serviceAccount: ohprm-api
+      {{- if .Values.global.domain.ip }}
       hostAliases:
-        - ip: 192.168.1.146
+        - ip: {{ .Values.global.domain.ip }}
           hostnames:
-            - oh-modules.apps.lab.openshift.com
-            - oh-prm.apps.lab.openshift.com
+            - {{ .Values.global.domain.host }}
+            - oh-prm.{{ join "." (rest (split "." .Values.global.domain.host)) }}
+      {{- end }}
       volumes:
         - name: {{ .Values.ohprm.app.backend_app }}-config
           configMap:

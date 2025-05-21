@@ -330,12 +330,12 @@
                 },
                 "user": {
                   "type": "string",
-                  "default": "us_csm",
+                  "default": "us_ohcsm",
                   "description": "Usuario de la base de datos para ohcsm"
                 },
                 "pass": {
                   "type": "string",
-                  "default": "us_csm",
+                  "default": "us_ohcsm",
                   "description": "Contraseña de la base de datos para ohcsm"
                 }
               }

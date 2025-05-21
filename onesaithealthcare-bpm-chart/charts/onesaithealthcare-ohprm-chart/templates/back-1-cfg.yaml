@@ -3,16 +3,16 @@ apiVersion: v1
 metadata:
   name: {{ .Values.ohprm.app.backend_app }}-config
 data:
-  ohprm.config.properties: |-
+  ohprm.config.properties: |
     fhir.version=R4
     fhir.versionSTU3=DSTU3
 
 
-    ehrserver.fhir.url=https://{{ .Values.global.domain.host }}/ehrserver/fhir
-    hnpob.fhir.url=https://{{ .Values.global.domain.host }}/ispob/fhir
-    ohcsm.fhir.url=https://{{ .Values.global.domain.host }}/ohcsm/fhir    
-    ohbpm.fhir.url=https://{{ .Values.global.domain.host }}/ohbpm/api/fhir
-    hnalert.fhir.url=https://{{ .Values.global.domain.host }}/ehrserver/fhir
+    ehrserver.fhir.url={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ehrserver/fhir
+    hnpob.fhir.url={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ispob/fhir
+    ohcsm.fhir.url={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohcsm/fhir    
+    ohbpm.fhir.url={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ohbpm/api/fhir
+    hnalert.fhir.url={{ .Values.global.domain.protocol }}://{{ .Values.global.domain.host }}/ehrserver/fhir
 
 
     max-http-header-size=524288
@@ -36,7 +36,7 @@ data:
     
     cipaut.identifier.oid={{ .Values.ohprm.app.cipaut }}
 
-  logback-config.xml: >-
+  logback-config.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <included>
     
@@ -64,7 +64,7 @@ data:
       
     </included>
     
-  template.json: |-
+  template.json: |
     {
       "order": 0,
       "index_patterns": [

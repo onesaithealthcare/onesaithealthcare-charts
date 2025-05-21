@@ -284,13 +284,13 @@ questions:
     show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.user
-    default: us_csm
+    default: us_ohcsm
     description: "Usuario de la base de datos para ohcsm"
     type: string
     show_if: dependencies.ohcsm=true
 
   - variable: onesaithealthcare-ohcsm-chart.ohcsm.database.pass
-    default: us_csm
+    default: us_ohcsm
     description: "Contraseña de la base de datos para ohcsm"
     type: string
     show_if: dependencies.ohcsm=true
