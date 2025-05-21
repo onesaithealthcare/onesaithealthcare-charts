@@ -49,6 +49,10 @@ spec:
             {{- if eq .Values.global.domain.gateway_type "istio" }}
             - mountPath: /usr/local/helical-insight/hi-repository/System/Drivers
               name: volume-drivers
+            {{- if eq .Values.bi.database.type "Derby"  }}
+            - mountPath: /usr/local/helical-insight/db
+              name: ohbi-volumen-db
+            {{- end }}
             {{- end }}
           ports:
             - containerPort: 8443
@@ -74,5 +78,10 @@ spec:
         {{- if eq .Values.global.domain.gateway_type "istio" }}
         - name: volume-drivers
           persistentVolumeClaim:
-            claimName: oh-bi-back
+            claimName: oh-bi-pvc-drivers
+        {{- if eq .Values.bi.database.type "Derby"  }}
+        - name: ohbi-volumen-db
+          persistentVolumeClaim:
+            claimName: oh-bi-pvc-db
+        {{- end }}
         {{- end }}

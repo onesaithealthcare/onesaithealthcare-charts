@@ -26,6 +26,7 @@ bi:
     ohbi_mail_configuration_from: user@indra.es
     ohbi_mail_configuration_password: userPass
   database:
+    type: MySql # Opciones: MySql, Derby 
     mysql:
       ohbi_db_driver: com.mysql.cj.jdbc.Driver
       ohbi_db_url: jdbc:mysql://proyvalhnbd1-1.indra.es:3306/ohbi?useSSL=false&serverTimezone=UTC&create=true&allowPublicKeyRetrieval=true

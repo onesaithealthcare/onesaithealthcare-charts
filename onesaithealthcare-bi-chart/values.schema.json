@@ -130,6 +130,11 @@
         "database": {
           "type": "object",
           "properties": {
+			"type": {
+			  "type": "string",
+			  "enum": ["MySql", "Derby"],
+			  "description": "Base de datos"
+			},
             "mysql": {
               "type": "object",
               "properties": {
@@ -156,9 +161,10 @@
 				  "description": "Contraseña"
                 }
               },
-              "required": ["ohbi_db_dialect"]
+              "required": ["ohbi_db_driver", "ohbi_db_url", "ohbi_db_dialect"]
             }
-          }
+          },
+		  "required": ["type", "mysql"]
         }
       }
     }

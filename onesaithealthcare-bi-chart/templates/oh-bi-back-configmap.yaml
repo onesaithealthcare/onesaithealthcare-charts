@@ -35,6 +35,18 @@ data:
    export SPARK_HOME='/usr/local/helical-insight/hi-repository/System/SparkHome'
    export HADOOP_HOME='/usr/local/helical-insight/hi-repository/System/HadoopHome'
 
+   {{- if eq .Values.bi.database.type "Derby"  }} 
+   #Copy db_temp into db to avoid Derby execution problmens during deploy
+   
+   echo "Inicio del proceso de copia de carpetas"
+   if [ -z "$(ls -A "/usr/local/helical-insight/db/")" ]; then
+      cp -r /usr/local/helical-insight/db_temp/* /usr/local/helical-insight/db/ &>> erroresPruebasetenv.log
+      echo "Se copia db_temp en db"
+   else
+           echo "El directorio no esta vacio."
+   fi
+   {{- end }}
+     
    #Copy Drivers_temp into Drivers
 
    echo "Inicio del proceso de copia de carpetas"

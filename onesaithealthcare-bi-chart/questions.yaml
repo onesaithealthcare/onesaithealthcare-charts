@@ -83,6 +83,15 @@ questions:
     type: string
     required: true
 
+  - variable: bi.database.type
+    default: MySql
+    description: "Base de datos"
+    type: enum
+    options:
+      - MySql
+      - Derby
+    required: true
+
   - variable: bi.database.mysql.ohbi_db_driver
     label: "Driver de la base de datos MySql"
     description: "Driver de la base de datos MySql (Ejemplo: com.mysql.cj.jdbc.Driver)"
