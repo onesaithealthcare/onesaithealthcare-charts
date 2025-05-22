@@ -196,7 +196,7 @@ data:
           names:
           - {{ .Values.namespace_oh_modules }}
       scrape_interval: 30s
-      metrics_path: /auth/realms/oh-base/metrics
+      metrics_path: /auth/realms/{{ .Values.ohsso.realm }}/metrics
       scheme: http
       relabel_configs:
       - source_labels:
@@ -277,5 +277,5 @@ data:
         - job
         target_label: realm
         regex: .*
-        replacement: oh-base
+        replacement: {{ .Values.ohsso.realm }}
         action: replace
