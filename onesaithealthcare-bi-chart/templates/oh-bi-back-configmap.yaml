@@ -24,20 +24,30 @@ data:
    hide.log.extra.info = true
   env.properties: |-
    #ConfigMap: env.properties#
+   {{- if eq .Values.bi.database.type "Derby"  }}
+   application.context.jdbc.username = hiuser
+   application.context.jdbc.password =
+   application.context.jdbc.driverClassName = org.apache.derby.jdbc.EmbeddedDriver
+   application.context.jdbc.jdbcUrl = jdbc:derby:/usr/local/helical-insight/db/hiee;create=true
+   application.context.jdbc.connectionTimeout = 180000
+   application.context.jdbc.hibernate.dialect=org.hibernate.dialect.DerbyTenSevenDialect
+   {{- end }}
+   {{- if eq .Values.bi.database.type "MySql"  }}
    application.context.jdbc.username = {{ .Values.bi.database.mysql.ohbi_db_user }}
    application.context.jdbc.password = {{ .Values.bi.database.mysql.ohbi_db_pass }}
    application.context.jdbc.driverClassName = {{ .Values.bi.database.mysql.ohbi_db_driver }}
    application.context.jdbc.jdbcUrl = {{ .Values.bi.database.mysql.ohbi_db_url }}
    application.context.jdbc.connectionTimeout = 180000
    application.context.jdbc.hibernate.dialect= {{ .Values.bi.database.mysql.ohbi_db_dialect }}
+   {{- end }}
   setenv.sh: |-
    export JAVA_OPTS="-Xms4G -Xmx4G"
    export SPARK_HOME='/usr/local/helical-insight/hi-repository/System/SparkHome'
    export HADOOP_HOME='/usr/local/helical-insight/hi-repository/System/HadoopHome'
 
-   {{- if eq .Values.bi.database.type "Derby"  }} 
+   {{- if eq .Values.bi.database.type "Derby"  }}
    #Copy db_temp into db to avoid Derby execution problmens during deploy
-   
+
    echo "Inicio del proceso de copia de carpetas"
    if [ -z "$(ls -A "/usr/local/helical-insight/db/")" ]; then
       cp -r /usr/local/helical-insight/db_temp/* /usr/local/helical-insight/db/ &>> erroresPruebasetenv.log
@@ -46,7 +56,7 @@ data:
            echo "El directorio no esta vacio."
    fi
    {{- end }}
-     
+
    #Copy Drivers_temp into Drivers
 
    echo "Inicio del proceso de copia de carpetas"
