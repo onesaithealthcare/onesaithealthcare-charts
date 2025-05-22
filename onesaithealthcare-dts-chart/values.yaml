@@ -16,7 +16,7 @@ dts:
     schedule: 10 0 * * *
     max_days: 0
     cfg:
-      deploy: Si # Opciones: Si, No
+      deploy: No # Opciones: Si, No
       insercion: ohdts-insercion-cfg
       extraccion: ohdts-extraccion-cfg
       routes: ohdts-routes-cfg
