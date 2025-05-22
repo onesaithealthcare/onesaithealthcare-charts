@@ -1,4 +1,3 @@
-{{- if .Values.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -75,4 +74,3 @@ data:
       </New>
       
     </Configure>
-{{- end }}

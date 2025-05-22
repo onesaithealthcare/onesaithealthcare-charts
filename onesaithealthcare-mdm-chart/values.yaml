@@ -65,7 +65,6 @@ onesaithealthcare_ohmpi_chart:
       pass: 
   
 onesaithealthcare_ohatn_chart:
-  enabled: true
   ohatn:
     image_tag_front: 4.3.0
     image_tag_back: 4.3.0

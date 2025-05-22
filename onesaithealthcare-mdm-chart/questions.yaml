@@ -1,11 +1,5 @@
 questions:
 
-  - variable: onesaithealthcare_ohatn_chart.enabled
-    default: true
-    description: "Enable OHATN module"
-    type: boolean
-    required: true
-
   - variable: global.environment.type
     default: dev
     description: "Environment type"
@@ -200,17 +194,14 @@ questions:
     default: us_hnatna
     type: string
     required: false
-    show_if: "onesaithealthcare_ohatn_chart.enabled=true"
 
   - variable: onesaithealthcare_ohatn_chart.ohatn.db.user
     description: "OHATN db user"
     default: us_hnatna
     type: string
     required: false
-    show_if: "onesaithealthcare_ohatn_chart.enabled=true"
 
   - variable: onesaithealthcare_ohatn_chart.ohatn.db.pass
     description: "OHATN db password"
     type: string
     required: false
-    show_if: "onesaithealthcare_ohatn_chart.enabled=true"
