@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  labels:
-    name: rule-engine-kafka-config
-  name: rule-engine-kafka-config
-data:
-  TB_QUEUE_TYPE: in-memory
