@@ -1,4 +1,4 @@
-{{- if eq .Values.dts.module.cfg.deploy "Si" }}
+{{- if .Values.dts.module.cfg.deploy }}
 kind: ConfigMap
 apiVersion: v1
 metadata:

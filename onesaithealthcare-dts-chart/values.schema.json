@@ -86,8 +86,8 @@
               "type": "object",
               "properties": {
 				"deploy": {
-				  "type": "string",
-				  "enum": ["Si", "No"],
+				  "type": "boolean",
+				  "default": true,
 				  "description": "Desplegar los ConfigMap de routes, inserción y extracción"
 				},
                 "insercion": {

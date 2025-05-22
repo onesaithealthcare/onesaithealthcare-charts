@@ -48,13 +48,9 @@ questions:
     required: true
 
   - variable: dts.module.cfg.deploy
-    default: No
+    default: false
     description: "Desplegar los ConfigMap de routes, inserción y extracción"
-    type: enum
-    options:
-      - Si
-      - No
-    required: true
+    type: boolean
 
   - variable: dts.module.cfg.insercion
     default: insercion-cfg
