@@ -1,7 +1,8 @@
+{{- if eq .Values.dts.module.cfg.deploy "Si" }}
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: extraccion-cfg
+  name: {{ .Values.dts.module.app_name }}-extraccion-cfg
   managedFields:
     - manager: Mozilla
       operation: Update
@@ -1331,7 +1332,7 @@ data:
     DATE_MODIF=Timestamp
     USER_AUDIT=String
     #END_QUERY_DATA_SOURCE
-    #INIT_JSON_DATA 
+    #INIT_JSON_DATA
     NAME=Patient|String|$.name[0].given[0]|true
     SURNAME1=Patient|String|$.name[0].extension[?(@.url == 'http://hl7.org/fhir/StructureDefinition/humanname-fathers-family')].valueString|true
     SURNAME2=Patient|String|$.name[0].extension[?(@.url == 'http://hl7.org/fhir/StructureDefinition/humanname-mothers-family')].valueString|true
@@ -1361,7 +1362,7 @@ data:
     FLG_PROPOSAL=Patient|String|$.extension[?(@.url == 'uri:hn:additional-data:propuesta')].valueCodeableConcept.text|true
     COD_PROPOSAL_REASON=Patient|String|$.extension[?(@.url == 'uri:hn:additional-data:mot_propuesta')].valueCodeableConcept.coding[0].code|true
     DESC_PROPOSAL_REASON=Patient|String|$.extension[?(@.url == 'uri:hn:additional-data:mot_propuesta')].valueCodeableConcept.text|true
-    #END_JSON_DATA 
+    #END_JSON_DATA
     #INIT_INSERT_TABLE
     datastore/insertDTS_MPI_PATIENT.sql
     Patient: STA.DTS_MPI_PATIENT
@@ -1805,31 +1806,31 @@ data:
     COD_SPECIALTIES=String|nullable
     DESC_SPECIALTIES=String|nullable
     #END_INSERT_TABLE
-    
+
   externalResources_client_default_bdExtract_properties___practitionerWorkplcs.properties: |-
     #INIT_CONFIGURATION
     #dataSource=dataSourceDataStore
     dataSource=dataSourceIEngine
     #END_CONFIGURATION
     #INIT_QUERY_DATA_SOURCE
-    ID_PRACTITIONER=String 					
-    COD_PRACTITIONER=String 							
-    NAME=String 							
-    SURNAME1=String 							
-    SURNAME2=String 							
-    DATE_FROM=String 							
-    DATE_TO=String 							
-    ID_WORKPLACE=String 						
-    COD_WORKPLACE=String 							
-    COD_WORKPLACE_TYPE=String 							
-    DESC_WORKPLACE_TYPE=String 					
-    COD_WORKPLACE_SUBTYPE=String 					
-    DESC_WORKPLACE_SUBTYPE=String					
-    COD_WORKPLACE_COVERAGE=String	
-    DESC_WORKPLACE_COVERAGE=String	
-    ID_ORGANIZATION=String 							
-    COD_ORGANIZATION=String							
-    DESC_ORGANIZATION=String 
+    ID_PRACTITIONER=String
+    COD_PRACTITIONER=String
+    NAME=String
+    SURNAME1=String
+    SURNAME2=String
+    DATE_FROM=String
+    DATE_TO=String
+    ID_WORKPLACE=String
+    COD_WORKPLACE=String
+    COD_WORKPLACE_TYPE=String
+    DESC_WORKPLACE_TYPE=String
+    COD_WORKPLACE_SUBTYPE=String
+    DESC_WORKPLACE_SUBTYPE=String
+    COD_WORKPLACE_COVERAGE=String
+    DESC_WORKPLACE_COVERAGE=String
+    ID_ORGANIZATION=String
+    COD_ORGANIZATION=String
+    DESC_ORGANIZATION=String
     #END_QUERY_DATA_SOURCE
     #INIT_INSERT_TABLE
     datastore/insertDTS_AUT_PRACTITIONER_WORKPLCS.sql
@@ -1853,8 +1854,8 @@ data:
     COD_ORGANIZATION=String|nullable
     DESC_ORGANIZATION=String|nullable
     #END_INSERT_TABLE
-    
-    
+
+
   externalResources_client_default_bdExtract_properties___pre_patient.properties: |-
     #INIT_CONFIGURATION
     #dataSource=dataSourceDataStore
@@ -2105,7 +2106,7 @@ data:
     #ID_PATIENT=String|nullable
     COD_PATIENT=String|nullable
     COD_STATUS=String|mandatory
-    DESC_STATUS=String|nullable|[Catalogue=COD_STATUS:FHIR401_QUESTRESPONSESTATUS]	
+    DESC_STATUS=String|nullable|[Catalogue=COD_STATUS:FHIR401_QUESTRESPONSESTATUS]
     ID_ENCOUNTER=String|nullable
     DATE_RESPONSED=Timestamp|nullable
     DATE_RESPONSED_LTMZ=Timestamp|nullable
@@ -2328,7 +2329,7 @@ data:
     EVENT_PERFORMER_FULLNAME=String
     CLB_CENTRO_1=Xml|Organization|Organization1
     CLB_CENTRO_2=Xml|Organization|Organization2
-    N_TIME=String 
+    N_TIME=String
     #END_QUERY_DATA_SOURCE
     #INIT_XML_DATA
     #ID_PATIENT=Patient|String|/Patient/id/@value|true
@@ -2411,9 +2412,9 @@ data:
     COD_PATIENT=String
     PATIENT_COD_GENDER=String
     COD_STATUS=String
-    COD_INTENT=String 
+    COD_INTENT=String
     COD_PRIORITY=String
-    ID_ENCOUNTER=String 
+    ID_ENCOUNTER=String
     COD_CARELINE=String
     DESC_CARELINE=String
     DATE_CREATED=Timestamp
@@ -2559,55 +2560,55 @@ data:
     dataSource=dataSourceIEngine
     #END_CONFIGURATION
     #INIT_QUERY_DATA_SOURCE
-    ID_WORKPLACE=String 					
-    COD_WORKPLACE=String 							
-    FLG_ACTIVE=Integer 							
-    COD_TYPE=String 							
-    DESC_TYPE=String 							
-    COD_SUBTYPE=String 							
-    DESC_SUBTYPE=String 							
-    COD_COVERAGE=String 						
-    DESC_COVERAGE=String 							
-    ID_ORGANIZATION1=String 							
-    COD_ORGANIZATION1=String 					
-    DESC_ORGANIZATION1=String 					
-    ID_ORGANIZATION2=String 							
-    COD_ORGANIZATION2=String 					
-    DESC_ORGANIZATION2=String 					
-    OPTIMUM_QUOTA=Integer 							
-    MAX_QUOTA=Integer							
-    CURRENT_QUOTA=Integer 
-    DATE_CREATED=Timestamp 
-    DATE_MODIF=Timestamp 
+    ID_WORKPLACE=String
+    COD_WORKPLACE=String
+    FLG_ACTIVE=Integer
+    COD_TYPE=String
+    DESC_TYPE=String
+    COD_SUBTYPE=String
+    DESC_SUBTYPE=String
+    COD_COVERAGE=String
+    DESC_COVERAGE=String
+    ID_ORGANIZATION1=String
+    COD_ORGANIZATION1=String
+    DESC_ORGANIZATION1=String
+    ID_ORGANIZATION2=String
+    COD_ORGANIZATION2=String
+    DESC_ORGANIZATION2=String
+    OPTIMUM_QUOTA=Integer
+    MAX_QUOTA=Integer
+    CURRENT_QUOTA=Integer
+    DATE_CREATED=Timestamp
+    DATE_MODIF=Timestamp
     DATE_ANULATION=Timestamp
     #END_QUERY_DATA_SOURCE
     #INIT_INSERT_TABLE
     datastore/insertDTS_AUT_WORKPLACE_ORGANIZATIONS.sql
     WorkplaceOrganization: DTS_AUT_WORKPLACE_ORGS
-    ID_WORKPLACE=String|mandatory 					
-    COD_WORKPLACE=String|mandatory 							
-    FLG_ACTIVE=Boolean|mandatory 							
-    COD_TYPE=String|nullable 							
-    DESC_TYPE=String|nullable 							
-    COD_SUBTYPE=String|nullable 							
-    DESC_SUBTYPE=String|nullable 							
-    COD_COVERAGE=String|nullable 						
-    DESC_COVERAGE=String|nullable 							
-    ID_ORGANIZATION1=String|nullable 							
-    COD_ORGANIZATION1=String|nullable 					
-    DESC_ORGANIZATION1=String|nullable 					
-    ID_ORGANIZATION2=String|nullable 							
-    COD_ORGANIZATION2=String|nullable 					
-    DESC_ORGANIZATION2=String|nullable 					
-    OPTIMUM_QUOTA=Integer|nullable 							
-    MAX_QUOTA=Integer|nullable							
-    CURRENT_QUOTA=Integer|nullable 
-    DATE_CREATED=Timestamp|nullable 
-    DATE_MODIF=Timestamp|nullable 
+    ID_WORKPLACE=String|mandatory
+    COD_WORKPLACE=String|mandatory
+    FLG_ACTIVE=Boolean|mandatory
+    COD_TYPE=String|nullable
+    DESC_TYPE=String|nullable
+    COD_SUBTYPE=String|nullable
+    DESC_SUBTYPE=String|nullable
+    COD_COVERAGE=String|nullable
+    DESC_COVERAGE=String|nullable
+    ID_ORGANIZATION1=String|nullable
+    COD_ORGANIZATION1=String|nullable
+    DESC_ORGANIZATION1=String|nullable
+    ID_ORGANIZATION2=String|nullable
+    COD_ORGANIZATION2=String|nullable
+    DESC_ORGANIZATION2=String|nullable
+    OPTIMUM_QUOTA=Integer|nullable
+    MAX_QUOTA=Integer|nullable
+    CURRENT_QUOTA=Integer|nullable
+    DATE_CREATED=Timestamp|nullable
+    DATE_MODIF=Timestamp|nullable
     DATE_ANULATION=Timestamp|nullable
     #END_INSERT_TABLE
-    
-    
+
+
   externalResources_client_default_bdExtract_sql_Oracle_catalogs___getCatalogs.sql: |-
     SELECT *  FROM CATALOGS
   externalResources_client_default_bdExtract_sql_Oracle_catalogs___queryCatalogOnlineValue.sql: |-
@@ -2618,7 +2619,7 @@ data:
     with
       jsonExists AS (
       select * from US_HNATNA.message_resources js
-    	  where json_exists(js.message_json, '$.extension[*].valueCoding') 
+    	  where json_exists(js.message_json, '$.extension[*].valueCoding')
       ),
       jsonExists2 AS (
       select * from US_HNATNA.message_resources js
@@ -2714,8 +2715,8 @@ data:
         left join US_HNATNA.message_resources mr on (m.id = mr.fk_message_id)
         left join US_HNATNA.event_types_codes etc on (m.id = etc.messageentity_id)
         left join US_HNATNA.codes etcc on (etc.eventtypecodes_id = etcc.id and etcc.codesystem in ('http://dicom.nema.org/resources/ontology/DCM'))
-        inner join (select distinct etcc.code as COD_TYPE_EVENT, etcc.displayname as DESC_TYPE_EVENT from US_HNATNA.codes etcc where 
-        etcc.codesystem in ('http://terminology.hl7.org/CodeSystem/audit-event-type', 'http://dicom.nema.org/resources/ontology/DCM') 
+        inner join (select distinct etcc.code as COD_TYPE_EVENT, etcc.displayname as DESC_TYPE_EVENT from US_HNATNA.codes etcc where
+        etcc.codesystem in ('http://terminology.hl7.org/CodeSystem/audit-event-type', 'http://dicom.nema.org/resources/ontology/DCM')
         and etcc.code in ('110100', '110114')) dts_te on (json_value(mr.message_json, '$.type.code') = dts_te.cod_type_event)
         left join US_HNATNA.messages_msources mMSrc on (m.id = mMSrc.messageentity_id)
         left join US_HNATNA.message_sources mSrc on (mMSrc.messagesources_id = mSrc.id)
@@ -2736,22 +2737,22 @@ data:
             inner join US_HNCAT_V4.dat_cat_ver_items cv on cv.fk_catalog = c.idx_id
             inner join US_HNCAT_V4.dat_item i on i.fk_catalog_version = cv.idx_id
             where c.key_cod = 'speciality') CAT_ESPECIALIDADES on CAT_ESPECIALIDADES.key_cod = prSpe.key_cod
-        LEFT JOIN 
-        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value 
-            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field nameGiven 
-            ON nameGiven.fk_user_name_id = fullName.idx_id AND nameGiven.type_field = 1 
+        LEFT JOIN
+        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value
+            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field nameGiven
+            ON nameGiven.fk_user_name_id = fullName.idx_id AND nameGiven.type_field = 1
             group by fullName.idx_id,fullName.fk_user_id) nombre
             ON nombre.fk_user_id = pr.idx_id
-        LEFT JOIN 
+        LEFT JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname1.ds_value,'') WITHIN GROUP (ORDER BY surname1.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname1 
-            ON surname1.fk_user_name_id = fullName.idx_id AND surname1.type_field = 2 
+            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname1
+            ON surname1.fk_user_name_id = fullName.idx_id AND surname1.type_field = 2
             group by fullName.idx_id,fullName.fk_user_id) surname_1
             ON surname_1.fk_user_id = pr.idx_id
-        LEFT OUTER JOIN 
+        LEFT OUTER JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname2.ds_value,'') WITHIN GROUP (ORDER BY surname2.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname2 
-            ON surname2.fk_user_name_id = fullName.idx_id AND surname2.type_field = 3 
+            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname2
+            ON surname2.fk_user_name_id = fullName.idx_id AND surname2.type_field = 3
             group by fullName.idx_id,fullName.fk_user_id) surname_2
             ON surname_2.fk_user_id = pr.idx_id
         left outer join US_HNAUT_V4.DAT_ORGANIZATION uFuncional ON uFuncional.cod_key = jtUnit.code AND uFuncional.cod_type = 'uf'
@@ -2797,8 +2798,8 @@ data:
     	left join tableMessageContentTCP mXML on (m.id = mXML.ID_AUDIT)
         left join US_HNATNA.event_types_codes etc on (m.id = etc.messageentity_id)
         left join US_HNATNA.codes etcc on (etc.eventtypecodes_id = etcc.id and etcc.codesystem in ('http://dicom.nema.org/resources/ontology/DCM'))
-        inner join (select distinct etcc.code as COD_TYPE_EVENT, etcc.displayname as DESC_TYPE_EVENT from US_HNATNA.codes etcc where 
-        etcc.codesystem in ('http://terminology.hl7.org/CodeSystem/audit-event-type', 'http://dicom.nema.org/resources/ontology/DCM') 
+        inner join (select distinct etcc.code as COD_TYPE_EVENT, etcc.displayname as DESC_TYPE_EVENT from US_HNATNA.codes etcc where
+        etcc.codesystem in ('http://terminology.hl7.org/CodeSystem/audit-event-type', 'http://dicom.nema.org/resources/ontology/DCM')
         and etcc.code in ('110100', '110114')) dts_te on (mXML.COD_TYPE_EVENT = dts_te.cod_type_event)
         left join US_HNATNA.messages_msources mMSrc on (m.id = mMSrc.messageentity_id)
         left join US_HNATNA.message_sources mSrc on (mMSrc.messagesources_id = mSrc.id)
@@ -2812,22 +2813,22 @@ data:
             inner join US_HNCAT_V4.dat_cat_ver_items cv on cv.fk_catalog = c.idx_id
             inner join US_HNCAT_V4.dat_item i on i.fk_catalog_version = cv.idx_id
             where c.key_cod = 'speciality') CAT_ESPECIALIDADES on CAT_ESPECIALIDADES.key_cod = prSpe.key_cod
-        LEFT JOIN 
-        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value 
-            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field nameGiven 
-            ON nameGiven.fk_user_name_id = fullName.idx_id AND nameGiven.type_field = 1 
+        LEFT JOIN
+        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value
+            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field nameGiven
+            ON nameGiven.fk_user_name_id = fullName.idx_id AND nameGiven.type_field = 1
             group by fullName.idx_id,fullName.fk_user_id) nombre
             ON nombre.fk_user_id = pr.idx_id
-        LEFT JOIN 
+        LEFT JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname1.ds_value,'') WITHIN GROUP (ORDER BY surname1.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname1 
-            ON surname1.fk_user_name_id = fullName.idx_id AND surname1.type_field = 2 
+            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname1
+            ON surname1.fk_user_name_id = fullName.idx_id AND surname1.type_field = 2
             group by fullName.idx_id,fullName.fk_user_id) surname_1
             ON surname_1.fk_user_id = pr.idx_id
-        LEFT OUTER JOIN 
+        LEFT OUTER JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname2.ds_value,'') WITHIN GROUP (ORDER BY surname2.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname2 
-            ON surname2.fk_user_name_id = fullName.idx_id AND surname2.type_field = 3 
+            from US_HNAUT_V4.dat_user_name fullName LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname2
+            ON surname2.fk_user_name_id = fullName.idx_id AND surname2.type_field = 3
             group by fullName.idx_id,fullName.fk_user_id) surname_2
             ON surname_2.fk_user_id = pr.idx_id
     where
@@ -2839,7 +2840,7 @@ data:
     select distinct
         etcc.code as COD_SUBTYPE_EVENT,
         etcc.displayname as DESC_SUBTYPE_EVENT
-    from  US_HNATNA.event_types_codes etc 
+    from  US_HNATNA.event_types_codes etc
     left join US_HNATNA.codes etcc on (etc.eventtypecodes_id = etcc.id)
     where
     etcc.codesystem in ('http://dicom.nema.org/resources/ontology/DCM')
@@ -2855,7 +2856,7 @@ data:
         and etcc.code in ('110100', '110114')
   externalResources_client_default_bdExtract_sql_Oracle_hnAllergyint___queryAllergyint.sql: |-
     select
-        allInt.key_cod  KEY_COD_ALLERGYINTOLERANCE,   
+        allInt.key_cod  KEY_COD_ALLERGYINTOLERANCE,
         allInt.clb_data as CLB_ALLERGYINTOLERANCE,
         pnt.clb_data as CLB_PATIENT,
         prtRec.clb_data as CLB_RECORDER
@@ -2864,7 +2865,7 @@ data:
     left join us_hdr.dat_alyine_ref allInt_refPrtRec on (allInt.idx_id = allInt_refPrtRec.fk_resource_idx_id and upper(allInt_refPrtRec.dat_name) = 'RECORDER' and upper(allInt_refPrtRec.ref_type) = 'PRACTITIONER')
     left join us_hdr.dat_patient pnt on (pnt.key_cod = allInt_refPat.ref_id)
     left join us_hdr.dat_practitioner prtRec on (prtRec.key_cod = allInt_refPrtRec.ref_id)
-    where 
+    where
     allInt.last_dt_updated >= :#${header.processStartDate} and allInt.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnAppointment___queryAppointment.sql: |-
     select
@@ -2886,14 +2887,14 @@ data:
     left join us_hdr.dat_location lct on (lct.key_cod = enc_refLoc.ref_id)
     left join us_hdr.dat_encounter_ref enc_refSrv on (enc.idx_id = enc_refSrv.fk_resource_idx_id and upper(enc_refSrv.dat_name) = 'SERVICE-PROVIDER' and upper(enc_refSrv.ref_type) = 'ORGANIZATION')
     left join us_hdr.dat_organization srv on (srv.key_cod = enc_refSrv.ref_id)
-    where 
+    where
     apt.last_dt_updated >= :#${header.processStartDate} and apt.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnCondition___queryCondition.sql: |-
     with
         tableRecorder AS (SELECT
             cnd.key_cod as KEY_COD_CONDITION,
             SUBSTR(EXTRACTVALUE(XMLTYPE(cnd.clb_data), '/Condition/recorder/reference/@value', 'xmlns="http://hl7.org/fhir"'),
-    				1 + INSTR(EXTRACTVALUE(XMLTYPE(cnd.clb_data), '/Condition/recorder/reference/@value', 'xmlns="http://hl7.org/fhir"'), '/', -1)) AS REF_ID	
+    				1 + INSTR(EXTRACTVALUE(XMLTYPE(cnd.clb_data), '/Condition/recorder/reference/@value', 'xmlns="http://hl7.org/fhir"'), '/', -1)) AS REF_ID
             from us_hdr.dat_condition cnd
             where cnd.last_dt_updated >= :#${header.processStartDate} and cnd.last_dt_updated < :#${exchangeProperty.processEndDate}
             and cnd.clb_data is not null
@@ -2942,8 +2943,8 @@ data:
     left join us_hdr.dat_observation_ref obs_refPnt on (obs.idx_id = obs_refPnt.fk_resource_idx_id and upper(obs_refPnt.dat_name) = 'PATIENT' and upper(obs_refPnt.ref_type) = 'PATIENT')
     left join us_hdr.dat_patient pnt on (pnt.key_cod = obs_refPnt.ref_id)
     left join us_hdr.dat_observation_token obs_tkn on (obs.idx_id = obs_tkn.fk_resource_idx_id)
-    where 
-    (upper(obs_tkn.dat_name) = 'CATEGORY' 
+    where
+    (upper(obs_tkn.dat_name) = 'CATEGORY'
     and upper(obs_tkn.tkn_value) = 'LABORATORY')
     and obs.last_dt_updated >= :#${header.processStartDate} and obs.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnEncounter___queryEncounter.sql: |-
@@ -2955,7 +2956,7 @@ data:
         prt.clb_data as CLB_PRACTITIONER,
     	lct.clb_data as CLB_LOCATION,
     	org.clb_data as CLB_ORGANIZATION,
-    	srv.clb_data as CLB_SERVICE  
+    	srv.clb_data as CLB_SERVICE
     from  us_hdr.dat_encounter enc
     left join us_hdr.dat_encounter_ref enc_refEncLoc on (enc.idx_id = enc_refEncLoc.fk_resource_idx_id and upper(enc_refEncLoc.dat_name) = 'LOCATION' and upper(enc_refEncLoc.ref_type) = 'LOCATION')
     left join us_hdr.dat_location lct on (lct.key_cod = enc_refEncLoc.ref_id)
@@ -2969,20 +2970,20 @@ data:
     left join us_hdr.dat_practitioner prt on (prt.key_cod = enc_refPrt.ref_id)
     left join us_hdr.dat_epeofcare_ref epi_refOrg on (epi.idx_id = epi_refOrg.fk_resource_idx_id and upper(epi_refOrg.dat_name) = 'ORGANIZATION' and upper(epi_refOrg.ref_type) = 'ORGANIZATION')
     left join us_hdr.dat_organization org on (org.key_cod = epi_refOrg.ref_id)
-    where 
+    where
     enc.last_dt_updated >= :#${header.processStartDate} and enc.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnEpisodeOfCare___queryEpisodeOfCare.sql: |-
     select
         epi.key_cod as KEY_COD_EPISODEOFCARE,
-    	epi.clb_data as CLB_EPISODEOFCARE, 
+    	epi.clb_data as CLB_EPISODEOFCARE,
         organiz.clb_data as CLB_ORGANIZATION,
-        pnt.clb_data as CLB_PATIENT    
+        pnt.clb_data as CLB_PATIENT
     from  us_hdr.dat_epeofcare epi
     left join us_hdr.dat_epeofcare_ref epeo_refOrg on (epi.idx_id = epeo_refOrg.fk_resource_idx_id and upper(epeo_refOrg.dat_name) = 'ORGANIZATION' and upper(epeo_refOrg.ref_type) = 'ORGANIZATION')
     left join us_hdr.dat_organization organiz on (organiz.key_cod = epeo_refOrg.ref_id)
     left join us_hdr.dat_observation_ref epi_refPnt on (epi.idx_id = epi_refPnt.fk_resource_idx_id and upper(epi_refPnt.dat_name) = 'PATIENT' and upper(epi_refPnt.ref_type) = 'PATIENT')
     left join us_hdr.dat_patient pnt on (pnt.key_cod = epi_refPnt.ref_id)
-    where 
+    where
     epi.last_dt_updated >= :#${header.processStartDate} and epi.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnExtension___queryCliExtension.sql: |-
     select
@@ -3000,9 +3001,9 @@ data:
     ) xtable
     where dtCrePlan.LAST_DT_UPDATED >= :#${header.processStartDate} and dtCrePlan.LAST_DT_UPDATED < :#${exchangeProperty.processEndDate}
     and dtCrePlan.CLB_DATA is not null
-    
+
     union all
-    
+
     select
     	'DTS_CLI_PROCESS' 										as COD_TABLE,
     	dtCrePlan.KEY_COD 										as COD_VALUE_TABLE,
@@ -3018,9 +3019,9 @@ data:
     ) xtable
     where dtCrePlan.LAST_DT_UPDATED >= :#${header.processStartDate} and dtCrePlan.LAST_DT_UPDATED < :#${exchangeProperty.processEndDate}
     and dtCrePlan.CLB_DATA is not null
-    
+
     union all
-    
+
     select
     	'DTS_CLI_PROCESS' 										as COD_TABLE,
     	dtCrePlan.KEY_COD 										as COD_VALUE_TABLE,
@@ -3036,9 +3037,9 @@ data:
     ) xtable
     where dtCrePlan.LAST_DT_UPDATED >= :#${header.processStartDate} and dtCrePlan.LAST_DT_UPDATED < :#${exchangeProperty.processEndDate}
     and dtCrePlan.CLB_DATA is not null
-    
+
     union all
-    
+
     select
     	'DTS_CLI_PROCESS' 										as COD_TABLE,
     	dtCrePlan.KEY_COD 										as COD_VALUE_TABLE,
@@ -3053,7 +3054,7 @@ data:
     select
         flg.key_cod KEY_COD_FLAG,
         flg.clb_data as CLB_FLAG,
-        aut.clb_data as CLB_AUTHOR,    
+        aut.clb_data as CLB_AUTHOR,
         pnt.clb_data as CLB_PATIENT,
         enc.clb_data as CLB_ENCOUNTER,
         lct.clb_data as CLB_LOCATION,
@@ -3080,7 +3081,7 @@ data:
     	pnt.clb_data as CLB_PATIENT,
     	locat.clb_data as CLB_LOCATION,
       	organiz.clb_data as CLB_ORGANIZATION,
-      	serv.clb_data as CLB_SERVICE  
+      	serv.clb_data as CLB_SERVICE
     from us_hdr.dat_observation obs
     left join us_hdr.dat_observation_ref obs_refEnc on (obs.idx_id = obs_refEnc.fk_resource_idx_id and upper(obs_refEnc.dat_name) = 'ENCOUNTER' and upper(obs_refEnc.ref_type) = 'ENCOUNTER')
     left join us_hdr.dat_encounter enc on (enc.key_cod = obs_refEnc.ref_id)
@@ -3095,19 +3096,19 @@ data:
     left join us_hdr.dat_organization serv on (serv.key_cod = enc_refServ.ref_id)
     left join us_hdr.dat_epeofcare_ref epeo_refOrg on (epi.idx_id = epeo_refOrg.fk_resource_idx_id and upper(epeo_refOrg.dat_name) = 'ORGANIZATION' and upper(epeo_refOrg.ref_type) = 'ORGANIZATION')
     left join us_hdr.dat_organization organiz on (organiz.key_cod = epeo_refOrg.ref_id)
-    where 
-    upper(obs_tkn.dat_name) = 'CATEGORY' 
+    where
+    upper(obs_tkn.dat_name) = 'CATEGORY'
     and upper(obs_tkn.tkn_value) = 'GENERAL-LAB'
     and obs.last_dt_updated >= :#${header.processStartDate} and obs.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnOnt___queryOntOntology.sql: |-
     select
-    null as COD_VALUE, 
+    null as COD_VALUE,
     null as DESC_VALUE,
     null as COD_CATALOGUE
     from DUAL where 1 = -1
   externalResources_client_default_bdExtract_sql_Oracle_hnOnt___queryOntOntologyRelations.sql: |-
     select
-    null as COD_VALUE_ORIGIN, 
+    null as COD_VALUE_ORIGIN,
     null as DESC_VALUE_ORIGIN,
     null as COD_CATALOGUE_ORIGIN,
     null as COD_VALUE_DESTINATION,
@@ -3117,8 +3118,8 @@ data:
   externalResources_client_default_bdExtract_sql_Oracle_hnOnt___queryOntProcedure.sql: |-
     with
         observacionesPrimero AS (
-            select 
-            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod 
+            select
+            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod
             from US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD acf
             inner join US_HNCAT_V4.DAT_CATALOG cat on cat.idx_id = acf.FK_CATALOG and cat.key_cod = 'benefit'
             inner join US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD aif on aif.FK_ADDITIONAL_CATALOG_FIELD = acf.idx_id
@@ -3127,8 +3128,8 @@ data:
             where acf.dat_code = 'Instrucciones Administrativas'
         ),
         observacionesSegundo AS (
-             select 
-            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod 
+             select
+            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod
             from US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD acf
             inner join US_HNCAT_V4.DAT_CATALOG cat on cat.idx_id = acf.FK_CATALOG and cat.key_cod = 'benefit'
             inner join US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD aif on aif.FK_ADDITIONAL_CATALOG_FIELD = acf.idx_id
@@ -3137,8 +3138,8 @@ data:
             where acf.dat_code = 'Instrucciones'
         ),
         edadHasta AS (
-            select 
-            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod 
+            select
+            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod
             from US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD acf
             inner join US_HNCAT_V4.DAT_CATALOG cat on cat.idx_id = acf.FK_CATALOG and cat.key_cod = 'benefit'
             inner join US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD aif on aif.FK_ADDITIONAL_CATALOG_FIELD = acf.idx_id
@@ -3147,8 +3148,8 @@ data:
             where acf.dat_code = 'Edad hasta'
         ),
         edadDesde AS (
-            select 
-            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod 
+            select
+            distinct(aif.DAT_VALUE) as nombreConcept, item.KEY_COD as key_cod
             from US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD acf
             inner join US_HNCAT_V4.DAT_CATALOG cat on cat.idx_id = acf.FK_CATALOG and cat.key_cod = 'benefit'
             inner join US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD aif on aif.FK_ADDITIONAL_CATALOG_FIELD = acf.idx_id
@@ -3157,8 +3158,8 @@ data:
             where acf.dat_code = 'Edad desde'
         ),
         genero AS (
-            select 
-            distinct(cod.DAT_CODE) as codigo, cod.DAT_DISPLAY as descripcion, item.KEY_COD as key_cod 
+            select
+            distinct(cod.DAT_CODE) as codigo, cod.DAT_DISPLAY as descripcion, item.KEY_COD as key_cod
             from US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD acf
             inner join US_HNCAT_V4.DAT_CATALOG cat on cat.idx_id = acf.FK_CATALOG and cat.key_cod = 'benefit'
             inner join US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD aif on aif.FK_ADDITIONAL_CATALOG_FIELD = acf.idx_id
@@ -3192,7 +3193,7 @@ data:
             and vw_bds.benefit is not null
   externalResources_client_default_bdExtract_sql_Oracle_hnOnt___queryOntologyClassification.sql: |-
     select
-    null as COD_VALUE, 
+    null as COD_VALUE,
     null as DESC_VALUE,
     null as COD_CATALOGUE
     from DUAL where 1 = -1
@@ -3259,7 +3260,7 @@ data:
     	orgStr.clb_data as CLB_ORGANIZATION_START,
     	prtEnd.clb_data as CLB_PRACTITIONER_END,
     	orgEnd.clb_data as CLB_ORGANIZATION_END
-    from 
+    from
     (select
         cpl.key_cod as KEY_COD_CAREPLAN,
         cpl.clb_data as CLB_CAREPLAN,
@@ -3278,8 +3279,8 @@ data:
     SUBSTR(EXTRACTVALUE(XMLTYPE(cpl.clb_data), 'CarePlan/contained/PractitionerRole/id[@value="pr-end"]/../organization/reference/@value', 'xmlns="http://hl7.org/fhir"'),
     		1 + INSTR(EXTRACTVALUE(XMLTYPE(cpl.clb_data), 'CarePlan/contained/PractitionerRole/id[@value="pr-end"]/../organization/reference/@value', 'xmlns="http://hl7.org/fhir"'), '/', -1)) AS COD_ORGANIZATION_END,
     SUBSTR(EXTRACTVALUE(XMLTYPE(cpl.clb_data), 'CarePlan/contained/PractitionerRole/id[@value="pr-end"]/../practitioner/reference/@value', 'xmlns="http://hl7.org/fhir"'),
-    		1 + INSTR(EXTRACTVALUE(XMLTYPE(cpl.clb_data), 'CarePlan/contained/PractitionerRole/id[@value="pr-end"]/../practitioner/reference/@value', 'xmlns="http://hl7.org/fhir"'), '/', -1)) AS COD_PRACTITIONER_END           
-    from us_hdr.dat_careplan cpl 
+    		1 + INSTR(EXTRACTVALUE(XMLTYPE(cpl.clb_data), 'CarePlan/contained/PractitionerRole/id[@value="pr-end"]/../practitioner/reference/@value', 'xmlns="http://hl7.org/fhir"'), '/', -1)) AS COD_PRACTITIONER_END
+    from us_hdr.dat_careplan cpl
     left join us_hdr.dat_careplan_ref cpl_refPnt on (cpl.idx_id = cpl_refPnt.fk_resource_idx_id and upper(cpl_refPnt.dat_name) = 'PATIENT' and upper(cpl_refPnt.ref_type) = 'PATIENT')
     left join us_hdr.dat_patient pnt on (pnt.key_cod = cpl_refPnt.ref_id)
     left join us_hdr.dat_careplan_ref cpl_refEnc on (cpl.idx_id = cpl_refEnc.fk_resource_idx_id and upper(cpl_refEnc.dat_name) = 'ENCOUNTER' and upper(cpl_refEnc.ref_type) = 'ENCOUNTER')
@@ -3300,7 +3301,7 @@ data:
     left join us_hdr.dat_organization orgStr on (orgStr.key_cod = tableProcess.COD_ORGANIZATION_INIT)
     left join us_hdr.dat_practitioner prtEnd on (prtEnd.key_cod = tableProcess.COD_PRACTITIONER_END)
     left join us_hdr.dat_organization orgEnd on (orgEnd.key_cod = tableProcess.COD_ORGANIZATION_END)
-    where 
+    where
     tableProcess.last_dt_updated >= :#${header.processStartDate} and tableProcess.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnQuestResponse___queryQuestResponse.sql: |-
     select
@@ -3409,13 +3410,13 @@ data:
     sqt.last_dt_updated >= :#${header.processStartDate} and sqt.last_dt_updated < :#${exchangeProperty.processEndDate}
   externalResources_client_default_bdExtract_sql_Oracle_hnServiceRequest___queryServiceRequestEvent.sql: |-
     select
-    null ID_SERVICEREQUEST, 
+    null ID_SERVICEREQUEST,
     null ID_EVENT_ORDER,
     null as CLB_PATIENT,
     null as CLB_EVENT,
     null,
     null as EVENT_PERFORMER_FULLNAME,
-    null as CLB_CENTRO_1, 
+    null as CLB_CENTRO_1,
     null as CLB_CENTRO_2,
     null N_TIME
     from DUAL where 1 = -1
@@ -3440,32 +3441,32 @@ data:
         tableRecorder AS (SELECT
             enc.key_cod as cod_encounter,
             EXTRACTVALUE(XMLTYPE(enc.clb_data), '/Encounter/class/code/@value', 'xmlns="http://hl7.org/fhir"') AS COD_CARELINE,
-            EXTRACTVALUE(XMLTYPE(enc.clb_data), '/Encounter/class/display/@value', 'xmlns="http://hl7.org/fhir"') AS DESC_CARELINE	
-            from us_hdr.dat_encounter enc 
+            EXTRACTVALUE(XMLTYPE(enc.clb_data), '/Encounter/class/display/@value', 'xmlns="http://hl7.org/fhir"') AS DESC_CARELINE
+            from us_hdr.dat_encounter enc
             where enc.clb_data is not null
         ),
         practitionerFullName AS (SELECT
             pfn.DAT_URL as url_pfn,
-            EXTRACTVALUE(XMLTYPE(pfn.clb_data), '/PractitionerRole/practitioner/display/@value', 'xmlns="http://hl7.org/fhir"') AS nombrePFull	
+            EXTRACTVALUE(XMLTYPE(pfn.clb_data), '/PractitionerRole/practitioner/display/@value', 'xmlns="http://hl7.org/fhir"') AS nombrePFull
             from us_ohbpm.DAT_PRRROLE pfn where KEY_COD like '%pr-init%' and DAT_URL like 'Task%'
             and pfn.clb_data is not null
         ),
         practitionerFullName2 AS (SELECT
             pfn.DAT_URL as url_pfn,
-            EXTRACTVALUE(XMLTYPE(pfn.clb_data), '/PractitionerRole/practitioner/display/@value', 'xmlns="http://hl7.org/fhir"') AS nombrePFull	
+            EXTRACTVALUE(XMLTYPE(pfn.clb_data), '/PractitionerRole/practitioner/display/@value', 'xmlns="http://hl7.org/fhir"') AS nombrePFull
             from us_ohbpm.DAT_PRRROLE pfn where KEY_COD like '%pr-last_update%' and DAT_URL like 'Task%'
             and pfn.clb_data is not null
         )
-    select 
+    select
         task.TASK_ID as ID_TASK,
         task.TASK_CAREPLAN_ID as ID_CAREPLAN,
        -- persona.id AS ID_PATIENT,
         task.TASK_PATIENT as COD_PATIENT,
         persona.cod_sexo as PATIENT_COD_GENDER,
         task.TASK_STATUS as COD_STATUS,
-        token.TKN_VALUE as COD_INTENT,  
+        token.TKN_VALUE as COD_INTENT,
         task.TASK_PRIORITY as COD_PRIORITY,
-        ref.REF_ID as ID_ENCOUNTER, 
+        ref.REF_ID as ID_ENCOUNTER,
         enc.COD_CARELINE as COD_CARELINE,
         CASE WHEN enc.DESC_CARELINE IS NOT NULL THEN enc.DESC_CARELINE ELSE enc.COD_CARELINE END AS DESC_CARELINE,
         task.TASK_DATE_INI_EXECUTION AS DATE_CREATED,
@@ -3490,22 +3491,22 @@ data:
     left JOIN us_hnpob_v4.PERSONA persona on task.TASK_PATIENT=persona.codigo
     left join tableRecorder enc on enc.cod_encounter=ref.REF_ID
     left join us_ohbpm.DAT_PRRROLE pr on pr.DAT_URL = 'Task/' || task.TASK_ID and pr.KEY_COD like '%pr-init%'
-    inner join us_ohbpm.DAT_PRRROLE_REF prRef on prRef.FK_RESOURCE_IDX_ID=pr.IDX_ID 
+    inner join us_ohbpm.DAT_PRRROLE_REF prRef on prRef.FK_RESOURCE_IDX_ID=pr.IDX_ID
     AND prRef.DAT_NAME='organization'
     left join US_HNAUT_V4.DAT_ORGANIZATION org on org.cod_key=prRef.REF_ID
     left join us_ohbpm.DAT_PRRROLE prPract on prPract.DAT_URL = 'Task/' || task.TASK_ID and prPract.KEY_COD like '%pr-init%'
-    inner join us_ohbpm.DAT_PRRROLE_REF prPractRef on prPractRef.FK_RESOURCE_IDX_ID=prPract.IDX_ID 
+    inner join us_ohbpm.DAT_PRRROLE_REF prPractRef on prPractRef.FK_RESOURCE_IDX_ID=prPract.IDX_ID
     AND prPractRef.DAT_NAME='practitioner'
     left join practitionerFullName pfn on pfn.url_pfn='Task/' || task.TASK_ID
     left join us_ohbpm.DAT_PRRROLE pr2 on pr2.DAT_URL = 'Task/' || task.TASK_ID and pr2.KEY_COD like '%pr-last_update%'
-    inner join us_ohbpm.DAT_PRRROLE_REF prRef2 on prRef2.FK_RESOURCE_IDX_ID=pr2.IDX_ID 
+    inner join us_ohbpm.DAT_PRRROLE_REF prRef2 on prRef2.FK_RESOURCE_IDX_ID=pr2.IDX_ID
     AND prRef2.DAT_NAME='organization'
     left join US_HNAUT_V4.DAT_ORGANIZATION org2 on org2.cod_key=prRef2.REF_ID
     left join us_ohbpm.DAT_PRRROLE prPract2 on prPract2.DAT_URL = 'Task/' || task.TASK_ID and prPract2.KEY_COD like '%pr-last_update%'
-    inner join us_ohbpm.DAT_PRRROLE_REF prPractRef2 on prPractRef2.FK_RESOURCE_IDX_ID=prPract2.IDX_ID 
+    inner join us_ohbpm.DAT_PRRROLE_REF prPractRef2 on prPractRef2.FK_RESOURCE_IDX_ID=prPract2.IDX_ID
     AND prPractRef2.DAT_NAME='practitioner'
     left join practitionerFullName2 pfn2 on pfn2.url_pfn='Task/' || task.TASK_ID
-    where task.TASK_STATUS is not null and token.TKN_VALUE is not null and task.TASK_LAST_UPDATE is not null and task.TASK_TYPE in ('humanTask','userTask') 
+    where task.TASK_STATUS is not null and token.TKN_VALUE is not null and task.TASK_LAST_UPDATE is not null and task.TASK_TYPE in ('humanTask','userTask')
   externalResources_client_default_bdExtract_sql_Oracle_hnVitalsign___queryVitalsign.sql: |-
     select
     	obs.key_cod as KEY_COD_VITALSIGN,
@@ -3561,7 +3562,7 @@ data:
     inner join US_HNCAT_V4.DAT_CATALOG cat on cat.idx_id = cvi.fk_catalog and cat.key_cod = 'benefit'
     left join US_HNCAT_V4.dat_benefit_gender c_bgDem on (c_bgDem.fk_benefit = c_bDem.idx_id)
     left join US_HNCAT_V4.dat_item c_igDem on (c_igDem.idx_id = c_bgDem.fk_gender)
-    where vw_bds.benefit is not null and c_iDem.dat_name is not null and orgDem.ID is not null and orgDem.COD is not null and 
+    where vw_bds.benefit is not null and c_iDem.dat_name is not null and orgDem.ID is not null and orgDem.COD is not null and
     orgDem.DES is not null and orgSup.ID is not null and orgSup.COD is not null and orgSup.DES is not null
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryAutExtension.sql: |-
     with
@@ -3638,24 +3639,24 @@ data:
     		WHERE jt.codigo = 'Cod_Sector'
     	),
     	  tableJsonOrganizationTypeExists AS (
-            SELECT d_oRes.idx_id IDX_ID, d_oRes.organization_json AS JSON_DATA 
+            SELECT d_oRes.idx_id IDX_ID, d_oRes.organization_json AS JSON_DATA
             FROM US_HNAUT_V4.dat_organization_resource d_oRes
             WHERE json_exists(d_oRes.organization_json, '$.type.coding[0].display')
             ),
     	  tableJsonOrganizationType AS (
             SELECT tableJson.idx_id AS IDX_ID, jt.cod_type AS COD_TYPE, jt.desc_type AS DESC_TYPE
-            FROM tableJsonOrganizationTypeExists tableJson, 
+            FROM tableJsonOrganizationTypeExists tableJson,
             json_table(tableJson.JSON_DATA, '$.type.coding[0]' COLUMNS (cod_type VARCHAR2(200) path '$.code' NULL ON ERROR, desc_type VARCHAR2(200) path '$.display' NULL ON ERROR) ) AS jt
             ),
         DTS_AUT_ORGANIZATION AS (
-          SELECT 
+          SELECT
     	    org.IDX_ID						AS ID_ORG,
     	    org.COD_KEY						AS COD_ORG,
     	    orgType.COD_TYPE				AS COD_TYPE
           FROM US_HNAUT_V4.DAT_ORGANIZATION org
-    	  LEFT JOIN tableJsonOrganizationType orgType 
+    	  LEFT JOIN tableJsonOrganizationType orgType
     		ON org.FK_ORGANIZATION_JSON = orgType.IDX_ID
-          START WITH org.FK_PART_OF IS NULL 
+          START WITH org.FK_PART_OF IS NULL
           CONNECT BY PRIOR org.IDX_ID = org.FK_PART_OF)
     SELECT
         'DTS_AUT_ORGANIZATION' as COD_TABLE,
@@ -3679,7 +3680,7 @@ data:
     inner join tableExtensionClassification tExtClass on (tExtClass.idx_id = d_org.fk_organization_json)
     WHERE d_aOrg.cod_type='crt' and d_aOrg.cod_org is not null and tExtClass.EXT_COD is not null
     UNION
-    SELECT 
+    SELECT
         'DTS_AUT_ORGANIZATION' as COD_TABLE,
         d_aOrg.cod_org as COD_VALUE_TABLE,
         'TIPOPROFNUM' as COD_FIELD,
@@ -3703,7 +3704,7 @@ data:
         where json_exists(js.location_json, '$.address')
         ),
     locAdd AS (
-        select res.idx_id idx_id, jt.cp_a,jt.city_a,jt.line_a from jsonExists res, 
+        select res.idx_id idx_id, jt.cp_a,jt.city_a,jt.line_a from jsonExists res,
         json_table(res.location_json, '$.address' COLUMNS (
         cp_a VARCHAR(20) path '$.postalCode' NULL ON ERROR
         ,city_a VARCHAR(50) path '$.city' NULL ON ERROR
@@ -3715,13 +3716,13 @@ data:
         ),
     loc_identifiers AS (
         select res.IDX_ID, LISTAGG(jt.code_i || '|' || jt.desc_i , '*') WITHIN GROUP(ORDER BY jt.code_i) as identifiers from
-        identExists res, 
+        identExists res,
         json_table(res.location_json, '$.identifier[*]' COLUMNS (
         code_i VARCHAR(50) path '$.type.coding[*].code' NULL ON ERROR
-        ,desc_i VARCHAR(200) path '$.value' NULL ON ERROR)) jt 
-        group by res.IDX_ID 
-        ) 
-    SELECT 
+        ,desc_i VARCHAR(200) path '$.value' NULL ON ERROR)) jt
+        group by res.IDX_ID
+        )
+    SELECT
         loc.idx_id as ID_LOC,
         loc.cod_key as COD_LOC,
         vpnr.IDENTIFIERS as COD2_LOC,
@@ -3734,27 +3735,27 @@ data:
         locadd.city_a as CITY,
         locadd.cp_a as POSTAL_CODE,
         locAdd.line_a as ADDRESS
-    FROM 
+    FROM
       US_HNAUT_V4.DAT_LOCATION loc
       left join locAdd ON loc.FK_LOCATION_JSON = locAdd.idx_id
       left join tableType typLoc on (typLoc.key_cod = loc.cod_type)
       left join US_HNAUT_V4.dat_location locAnc on (loc.fk_part_of = locAnc.idx_id)
       left join loc_identifiers vpnr on (loc.FK_LOCATION_JSON = vpnr.idx_id)
-    WHERE 
+    WHERE
         CASE WHEN loc.fx_modification IS NOT NULL THEN loc.fx_modification ELSE loc.fx_creation END >= :#${header.processStartDate} and
         CASE WHEN loc.fx_modification IS NOT NULL THEN loc.fx_modification ELSE loc.fx_creation END < :#${exchangeProperty.processEndDate}
         AND loc.idx_id is not null and loc.cod_key is not null and loc.dat_name is not null
-    START WITH loc.fk_part_of IS NULL 
-    CONNECT BY PRIOR loc.idx_id = loc.fk_part_of 
+    START WITH loc.fk_part_of IS NULL
+    CONNECT BY PRIOR loc.idx_id = loc.fk_part_of
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryAutOrgLoc.sql: |-
     with tableType as (
         select
             item.key_cod,
             item.dat_name
         from US_HNCAT_V4.DAT_ITEM item
-        inner join US_HNCAT_V4.DAT_CAT_VER_ITEMS cvi 
+        inner join US_HNCAT_V4.DAT_CAT_VER_ITEMS cvi
         on cvi.IDX_ID = item.FK_CATALOG_VERSION
-        inner join US_HNCAT_V4.DAT_CATALOG cat 
+        inner join US_HNCAT_V4.DAT_CATALOG cat
         on cat.IDX_ID = cvi.FK_CATALOG and cat.KEY_COD = 'tipo_organization'
     ),
     tableTypeLoc as (
@@ -3762,12 +3763,12 @@ data:
             item.key_cod,
             item.dat_name
         from US_HNCAT_V4.DAT_ITEM item
-        inner join US_HNCAT_V4.DAT_CAT_VER_ITEMS cvi 
+        inner join US_HNCAT_V4.DAT_CAT_VER_ITEMS cvi
         on cvi.IDX_ID = item.FK_CATALOG_VERSION
-        inner join US_HNCAT_V4.DAT_CATALOG cat 
+        inner join US_HNCAT_V4.DAT_CATALOG cat
         on cat.IDX_ID = cvi.FK_CATALOG and cat.KEY_COD = 'tipo_location'
     )
-    select distinct 
+    select distinct
         org.idx_id as ID_ORG,
     	org.cod_key as COD_ORG,
     	org.dat_name as DESC_ORG,
@@ -3802,8 +3803,8 @@ data:
                                 jt.desc_label       AS DESC_LABEL
                             FROM
                                 tableJsonMetaTags tableJson,
-                                json_table(tableJson.JSON_DATA, '$.meta.tag[*]' 
-                                	COLUMNS (cod_label VARCHAR2(200) path '$.code' NULL ON ERROR, 
+                                json_table(tableJson.JSON_DATA, '$.meta.tag[*]'
+                                	COLUMNS (cod_label VARCHAR2(200) path '$.code' NULL ON ERROR,
                                 	desc_label VARCHAR2(200) path '$.display' NULL ON ERROR)
                                 	) AS jt
                             )
@@ -3839,9 +3840,9 @@ data:
                                 jt.desc_type       AS DESC_TYPE
                             FROM
                                 tableJsonOrganizationTypeExists tableJson,
-                                json_table(tableJson.JSON_DATA, '$.type.coding[0]' 
-                                	COLUMNS (cod_type VARCHAR2(200) path '$.code' NULL ON ERROR, 
-                                	desc_type VARCHAR2(200) path '$.display' NULL ON ERROR) 
+                                json_table(tableJson.JSON_DATA, '$.type.coding[0]'
+                                	COLUMNS (cod_type VARCHAR2(200) path '$.code' NULL ON ERROR,
+                                	desc_type VARCHAR2(200) path '$.display' NULL ON ERROR)
                                 	) AS jt
                             ),
     	tableJsonTelecomExists AS (
@@ -3860,17 +3861,17 @@ data:
                                 json_value(tableJson.JSON_DATA, '$.contact.name.text') AS NAME_CONTACT
                             FROM
                                 tableJsonTelecomExists tableJson,
-                                json_table(tableJson.JSON_DATA, '$.contact.telecom[*]' 
-                                            COLUMNS (   system VARCHAR2(200) path '$.system' NULL ON ERROR, 
-                                                        value VARCHAR2(200) path '$.value' NULL ON ERROR) 
+                                json_table(tableJson.JSON_DATA, '$.contact.telecom[*]'
+                                            COLUMNS (   system VARCHAR2(200) path '$.system' NULL ON ERROR,
+                                                        value VARCHAR2(200) path '$.value' NULL ON ERROR)
                                                     ) AS jt
                             WHERE
                                 jt.system is NULL or jt.system like 'email' or jt.system like 'phone'
                             )
-    SELECT 
+    SELECT
     	org.IDX_ID						AS ID_ORG,
     	org.COD_KEY						AS COD_ORG,
-    	orgIden.DAT_IDENTIFIER			AS COD2_ORG,	
+    	orgIden.DAT_IDENTIFIER			AS COD2_ORG,
     	org.DAT_NAME					AS DESC_ORG,
     	orgType.COD_TYPE				AS COD_TYPE,
     	orgType.DESC_TYPE				AS DESC_TYPE,
@@ -3881,138 +3882,138 @@ data:
     	orgTeleMail.VALUE				AS MAIL,
     	orgTeleMail.NAME_CONTACT		AS NAME_CONTACT,
     	SUBSTR(org.DAT_OBSERV,1,400)	AS OBSERVATIONS,
-        rownum							AS ID_ROW 
+        rownum							AS ID_ROW
     FROM US_HNAUT_V4.DAT_ORGANIZATION org
-    	LEFT OUTER JOIN	US_HNAUT_V4.DAT_ORGANIZATION orgAncestor 
+    	LEFT OUTER JOIN	US_HNAUT_V4.DAT_ORGANIZATION orgAncestor
     		ON org.FK_PART_OF = orgAncestor.IDX_ID
-    	LEFT JOIN tableJsonOrganizationType orgType 
+    	LEFT JOIN tableJsonOrganizationType orgType
     		ON org.FK_ORGANIZATION_JSON = orgType.IDX_ID
         LEFT JOIN US_HNAUT_V4.DAT_ORGANIZATION_IDENTIFIER orgIden
-    		ON org.IDX_ID = orgIden.FK_ORGANIZATION 
+    		ON org.IDX_ID = orgIden.FK_ORGANIZATION
             AND orgIden.DAT_TYPE_IDENTIFIER = 'SEC'
     	left join tableJsonTelecom orgTeleMail on (org.FK_ORGANIZATION_JSON = orgTeleMail.IDX_ID and orgTeleMail.SYSTEM like 'email')
-    	left join tableJsonTelecom orgTelePhone on (org.FK_ORGANIZATION_JSON = orgTelePhone.IDX_ID and orgTelePhone.SYSTEM like 'phone')	   
+    	left join tableJsonTelecom orgTelePhone on (org.FK_ORGANIZATION_JSON = orgTelePhone.IDX_ID and orgTelePhone.SYSTEM like 'phone')
     where org.IDX_ID is not null and org.COD_KEY is not null and org.DAT_NAME is not null
-    START WITH org.FK_PART_OF IS NULL 
+    START WITH org.FK_PART_OF IS NULL
     CONNECT BY PRIOR org.IDX_ID = org.FK_PART_OF
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryPractitioner.sql: |-
     SELECT pr.idx_id               AS ID_PRACTITIONER,
-           pr.dat_cod_practitioner AS COD_PRACTITIONER, 
-           pr.flg_active           AS FLG_ACTIVE, 
-           nameGiven.ds_value      AS NAME, 
-           surname1.ds_value       AS SURNAME1, 
-           surname2.ds_value       AS SURNAME2, 
-           pr.dt_birth_date        AS DATE_BIRTH, 
-           pr.dat_cod_gender       AS COD_GENDER, 
-           pr.dat_cod_gender       AS DESC_GENDER, 
-           pr.dt_creation          AS DATE_CREATED, 
-           pr.dt_modification      AS DATE_MODIF 
-        FROM US_HNAUT_V4.DAT_PRACTITIONER pr 
-           left outer join US_HNAUT_V4.DAT_USER_NAME fullName 
-                        ON fullName.fk_user_id = pr.idx_id 
-           left outer join US_HNAUT_V4.DAT_NAME_FIELD nameGiven 
-                        ON nameGiven.fk_user_name_id = fullName.idx_id 
-                           AND nameGiven.type_field = 1 
-           left outer join US_HNAUT_V4.DAT_NAME_FIELD surname1 
-                        ON surname1.fk_user_name_id = fullName.idx_id 
-                           AND surname1.type_field = 2 
-           left outer join US_HNAUT_V4.DAT_NAME_FIELD surname2 
-                        ON surname2.fk_user_name_id = fullName.idx_id 
-                           AND surname2.type_field = 3 
+           pr.dat_cod_practitioner AS COD_PRACTITIONER,
+           pr.flg_active           AS FLG_ACTIVE,
+           nameGiven.ds_value      AS NAME,
+           surname1.ds_value       AS SURNAME1,
+           surname2.ds_value       AS SURNAME2,
+           pr.dt_birth_date        AS DATE_BIRTH,
+           pr.dat_cod_gender       AS COD_GENDER,
+           pr.dat_cod_gender       AS DESC_GENDER,
+           pr.dt_creation          AS DATE_CREATED,
+           pr.dt_modification      AS DATE_MODIF
+        FROM US_HNAUT_V4.DAT_PRACTITIONER pr
+           left outer join US_HNAUT_V4.DAT_USER_NAME fullName
+                        ON fullName.fk_user_id = pr.idx_id
+           left outer join US_HNAUT_V4.DAT_NAME_FIELD nameGiven
+                        ON nameGiven.fk_user_name_id = fullName.idx_id
+                           AND nameGiven.type_field = 1
+           left outer join US_HNAUT_V4.DAT_NAME_FIELD surname1
+                        ON surname1.fk_user_name_id = fullName.idx_id
+                           AND surname1.type_field = 2
+           left outer join US_HNAUT_V4.DAT_NAME_FIELD surname2
+                        ON surname2.fk_user_name_id = fullName.idx_id
+                           AND surname2.type_field = 3
     /* WHERE
     	pr.idx_id = :#${exchangeProperty.idPractitioner}*/
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryPractitionerDocs.sql: |-
     SELECT pr.idx_id               AS ID_PRACTITIONER,
-           pr.dat_cod_practitioner AS COD_PRACTITIONER, 
-           doc.dat_cod_type        AS COD_DOCUMENT_TYPE, 
-           doc.dat_ds_type         AS DESC_DOCUMENT_TYPE, 
-           doc.dat_value           AS DOCUMENT_VALUE 
-    FROM   US_HNAUT_V4.DAT_PRACTITIONER pr, 
-           US_HNAUT_V4.DAT_DOCUMENT doc 
-    WHERE  
+           pr.dat_cod_practitioner AS COD_PRACTITIONER,
+           doc.dat_cod_type        AS COD_DOCUMENT_TYPE,
+           doc.dat_ds_type         AS DESC_DOCUMENT_TYPE,
+           doc.dat_value           AS DOCUMENT_VALUE
+    FROM   US_HNAUT_V4.DAT_PRACTITIONER pr,
+           US_HNAUT_V4.DAT_DOCUMENT doc
+    WHERE
     pr.idx_id = doc.fk_user_id
     and pr.dat_cod_practitioner is not null
     and doc.dat_cod_type is not null
     and doc.dat_value is not null
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryPractitionerSpecs.sql: |-
     SELECT pr.idx_id               AS ID_PRACTITIONER,
-           pr.dat_cod_practitioner AS COD_PRACTITIONER, 
-           prof.key_cod            AS COD_PROFESSION, 
-           prof.key_cod            AS DESC_PROFESSION, 
-           spec.key_cod            AS COD_SPECIALTIES, 
-           spec.key_cod            AS DESC_SPECIALTIES 
-    FROM   US_HNAUT_V4.DAT_PRACTITIONER pr, 
-           US_HNAUT_V4.DAT_PRACTITIONER_PROFESSION prof, 
-           US_HNAUT_V4.REL_USER_ROL rol 
-           left outer join US_HNAUT_V4.DAT_PRACTITIONER_SPECIALTY spec 
-                        ON rol.fk_specialty = spec.idx_id 
-    WHERE  pr.idx_id = rol.fk_user 
+           pr.dat_cod_practitioner AS COD_PRACTITIONER,
+           prof.key_cod            AS COD_PROFESSION,
+           prof.key_cod            AS DESC_PROFESSION,
+           spec.key_cod            AS COD_SPECIALTIES,
+           spec.key_cod            AS DESC_SPECIALTIES
+    FROM   US_HNAUT_V4.DAT_PRACTITIONER pr,
+           US_HNAUT_V4.DAT_PRACTITIONER_PROFESSION prof,
+           US_HNAUT_V4.REL_USER_ROL rol
+           left outer join US_HNAUT_V4.DAT_PRACTITIONER_SPECIALTY spec
+                        ON rol.fk_specialty = spec.idx_id
+    WHERE  pr.idx_id = rol.fk_user
            	AND rol.fk_profession = prof.idx_id
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryPractitionerWorkplcs.sql: |-
     SELECT pr.idx_id                AS ID_PRACTITIONER,
-           pr.dat_cod_practitioner  AS COD_PRACTITIONER, 
-           nombre.ds_value       	AS NAME, 
-           surname_1.ds_value        AS SURNAME1, 
-           surname_2.ds_value        AS SURNAME2, 
-           occu.initial_date        AS DATE_FROM, 
-           occu.end_date            AS DATE_TO, 
-           workp.IDX_ID            	AS ID_WORKPLACE, 
-           workp.code               AS COD_WORKPLACE, 
-           workp.cod_type           AS COD_WORKPLACE_TYPE, 
-           workp.cod_type    		AS DESC_WORKPLACE_TYPE, 
-           workp.COD_SUB_TYPE  		AS COD_WORKPLACE_SUBTYPE, 
+           pr.dat_cod_practitioner  AS COD_PRACTITIONER,
+           nombre.ds_value       	AS NAME,
+           surname_1.ds_value        AS SURNAME1,
+           surname_2.ds_value        AS SURNAME2,
+           occu.initial_date        AS DATE_FROM,
+           occu.end_date            AS DATE_TO,
+           workp.IDX_ID            	AS ID_WORKPLACE,
+           workp.code               AS COD_WORKPLACE,
+           workp.cod_type           AS COD_WORKPLACE_TYPE,
+           workp.cod_type    		AS DESC_WORKPLACE_TYPE,
+           workp.COD_SUB_TYPE  		AS COD_WORKPLACE_SUBTYPE,
            workp.DESC_SUB_TYPE  	AS DESC_WORKPLACE_SUBTYPE,
            subTypeCob.FORMACOB_CODE      AS COD_WORKPLACE_COVERAGE,
            subTypeCob.FORMACOB_DES       AS DESC_WORKPLACE_COVERAGE,
-           org.idx_id               AS ID_ORGANIZATION, 
+           org.idx_id               AS ID_ORGANIZATION,
            org.cod_key              AS COD_ORGANIZATION,
-           org.dat_name             AS DESC_ORGANIZATION 
-      FROM   US_HNAUT_V4.DAT_PRACTITIONER pr 
-        LEFT OUTER JOIN 
-        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value 
-            from US_HNAUT_V4.dat_user_name fullName 
-    	LEFT OUTER JOIN US_HNAUT_V4.dat_name_field nameGiven 
-            ON nameGiven.fk_user_name_id = fullName.idx_id 
-            AND nameGiven.type_field = 1 
+           org.dat_name             AS DESC_ORGANIZATION
+      FROM   US_HNAUT_V4.DAT_PRACTITIONER pr
+        LEFT OUTER JOIN
+        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value
+            from US_HNAUT_V4.dat_user_name fullName
+    	LEFT OUTER JOIN US_HNAUT_V4.dat_name_field nameGiven
+            ON nameGiven.fk_user_name_id = fullName.idx_id
+            AND nameGiven.type_field = 1
             group by fullName.idx_id,fullName.fk_user_id) nombre
             ON nombre.fk_user_id = pr.idx_id
-        LEFT OUTER JOIN 
+        LEFT OUTER JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname1.ds_value,'') WITHIN GROUP (ORDER BY surname1.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName 
-    	LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname1 
-            ON surname1.fk_user_name_id = fullName.idx_id 
-            AND surname1.type_field = 2 
+            from US_HNAUT_V4.dat_user_name fullName
+    	LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname1
+            ON surname1.fk_user_name_id = fullName.idx_id
+            AND surname1.type_field = 2
             group by fullName.idx_id,fullName.fk_user_id) surname_1
             ON surname_1.fk_user_id = pr.idx_id
-        LEFT OUTER JOIN 
+        LEFT OUTER JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname2.ds_value,'') WITHIN GROUP (ORDER BY surname2.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName 
-    	LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname2 
-            ON surname2.fk_user_name_id = fullName.idx_id 
-            AND surname2.type_field = 3 
+            from US_HNAUT_V4.dat_user_name fullName
+    	LEFT OUTER JOIN US_HNAUT_V4.dat_name_field surname2
+            ON surname2.fk_user_name_id = fullName.idx_id
+            AND surname2.type_field = 3
             group by fullName.idx_id,fullName.fk_user_id) surname_2
             ON surname_2.fk_user_id = pr.idx_id,
-           US_HNAUT_V4.DAT_PRACTITIONER_OCCUPATION occu, 
+           US_HNAUT_V4.DAT_PRACTITIONER_OCCUPATION occu,
            US_HNAUT_V4.DAT_WORKPLACE workp
            left outer join (
-             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES 
-             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
+             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES
+             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
                   LEFT OUTER JOIN
-                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE 
-                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
-                    left outer join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID 
+                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE
+                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
+                    left outer join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID
                     WHERE
-                    cat1.KEY_COD = 'FORMACOB' 
+                    cat1.KEY_COD = 'FORMACOB'
                     AND catVers1.FK_CATALOG = cat1.IDX_ID AND catVers1.FLG_STATUS = 1 AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-                  ) formacob 
-                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE 
+                  ) formacob
+                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE
              WHERE
-             cat1.KEY_COD = 'workplace_sub_type' 
+             cat1.KEY_COD = 'workplace_sub_type'
              AND catVers1.FK_CATALOG = cat1.IDX_ID  AND catVers1.FLG_STATUS = 1  AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID) subTypeCob
             ON subTypeCob.SUBTYPE_CODE = workp.COD_SUB_TYPE
-            left outer join US_HNAUT_V4.DAT_ORGANIZATION org 
+            left outer join US_HNAUT_V4.DAT_ORGANIZATION org
             ON workp.fk_organization = org.idx_id
-      WHERE  pr.idx_id = occu.fk_practitioner 
+      WHERE  pr.idx_id = occu.fk_practitioner
         AND occu.fk_workplace = workp.idx_id
   externalResources_client_default_bdExtract_sql_Oracle_hnaut___queryWorkplaceOrganizations.sql: |-
     SELECT workpl.IDX_ID 				AS ID_WORKPLACE,
@@ -4031,36 +4032,36 @@ data:
            orgCen.COD_KEY 				AS COD_ORGANIZATION2,
            orgCen.DAT_NAME 				AS DESC_ORGANIZATION2,
            workorg.OPTIMUM_AMOUNT 		AS OPTIMUM_QUOTA,
-           workorg.MAXIMUM_AMOUNT 		AS MAX_QUOTA,        
+           workorg.MAXIMUM_AMOUNT 		AS MAX_QUOTA,
            (select DISTINCT(occ.ORGANIZATION_ASSIGNED)
             from US_HNAUT_V4.V_CARE_TEAM_OCCUPATION/*_DTS*/ occ
-            where workorg.FK_WORKPLACE = occ.FK_WORKPLACE 
+            where workorg.FK_WORKPLACE = occ.FK_WORKPLACE
             AND orgCen.COD_KEY = ORGANIZATION_ID ) AS CURRENT_QUOTA,
            workpl.DT_CREATION 			AS DATE_CREATED,
            workpl.DT_MODIFICATION 		AS DATE_MODIF,
     	   workorg.PASSIVEDATE		AS DATE_ANULATION		--NUEVO
     FROM US_HNAUT_V4.DAT_WORKPLACE workpl
            left outer join (
-             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES 
-             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
+             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES
+             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
                   LEFT OUTER JOIN
-                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE 
-                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
-                    left outer join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID 
+                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE
+                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
+                    left outer join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID
                     WHERE
-                    cat1.KEY_COD = 'FORMACOB' 
+                    cat1.KEY_COD = 'FORMACOB'
                     AND catVers1.FK_CATALOG = cat1.IDX_ID AND catVers1.FLG_STATUS = 1 AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-                  ) formacob 
-                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE 
+                  ) formacob
+                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE
              WHERE
              cat1.KEY_COD = 'workplace_sub_type'	--'WORKPLACE_SUBTYPE'
              AND catVers1.FK_CATALOG = cat1.IDX_ID  AND catVers1.FLG_STATUS = 1  AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID) subTypeCob
             ON subTypeCob.SUBTYPE_CODE = workpl.COD_SUB_TYPE
-    LEFT OUTER JOIN US_HNAUT_V4.DAT_ORGANIZATION orgUF 
+    LEFT OUTER JOIN US_HNAUT_V4.DAT_ORGANIZATION orgUF
     	ON workpl.FK_ORGANIZATION = orgUF.IDX_ID
     LEFT OUTER JOIN US_HNAUT_V4.REL_WORKPLACE_ORGANIZATION workorg
         ON workpl.IDX_ID = workorg.FK_WORKPLACE
-    LEFT OUTER JOIN US_HNAUT_V4.DAT_ORGANIZATION orgCen 
+    LEFT OUTER JOIN US_HNAUT_V4.DAT_ORGANIZATION orgCen
     	ON workorg.FK_ORGANIZATION = orgCen.IDX_ID
   externalResources_client_default_bdExtract_sql_Oracle_hncard___queryCards.sql: |-
     SELECT card.IDX_ID 							AS ID_CARD,
@@ -4085,14 +4086,14 @@ data:
            card.COD_MOTIVE_DELETED 				AS COD_REASON_ANULATION,
            card.DAT_DESCRIPTION_MOTIVE_DELETED 	AS DESC_REASON_ANULATION
     FROM us_hncard.DAT_CARD card
-    	LEFT OUTER JOIN US_HNAUT_V4.DAT_ORGANIZATION org 
+    	LEFT OUTER JOIN US_HNAUT_V4.DAT_ORGANIZATION org
     	ON card.COD_CENTER = org.COD_KEY,
     	us_hncard.DAT_PATIENT patient
     WHERE card.FK_PATIENT = patient.IDX_ID
     AND
     	card.DT_MODIFICATION >= TRUNC(:#${header.processStartDate}) and card.DT_MODIFICATION < TRUNC(:#${exchangeProperty.processEndDate})
     	and card.DT_CREATION is not null
-     
+
   externalResources_client_default_bdExtract_sql_Oracle_hncat___queryGeo1.sql: |-
     SELECT elemento.IDX_ID AS ID_GEOL1,
            elemento.KEY_COD AS COD_GEOL1,
@@ -4110,9 +4111,9 @@ data:
          US_HNCAT_V4.rel_item_item itemRel,
        (
     SELECT
-      elementoGeog.KEY_COD as COD_TYPE,   
-      elementoGeog.DAT_NAME as DESC_TYPE 
-    FROM      
+      elementoGeog.KEY_COD as COD_TYPE,
+      elementoGeog.DAT_NAME as DESC_TYPE
+    FROM
       US_HNCAT_V4.DAT_CATALOG catGeog,
       US_HNCAT_V4.DAT_CAT_VER_ITEMS catGeogVers,
       US_HNCAT_V4.DAT_ITEM elementoGeog
@@ -4124,7 +4125,7 @@ data:
     SELECT
       itemRelGeogPais.FK_ITEM_TARGET AS ID_PAIS,
       min(elementoGeog.KEY_COD) AS COD_TYPE
-    FROM      
+    FROM
         US_HNCAT_V4.DAT_CATALOG catGeog,
         US_HNCAT_V4.DAT_CAT_VER_ITEMS catGeogVers,
         US_HNCAT_V4.DAT_ITEM elementoGeog,
@@ -4149,7 +4150,7 @@ data:
       AND itemRel.FK_ITEM_target = elemento.idx_id
       AND geografiaPais.ID_PAIS = elemento.idx_id
       AND geografiaPais.COD_TYPE = geografias.COD_TYPE
-      
+
   externalResources_client_default_bdExtract_sql_Oracle_hncat___queryGeo2.sql: |-
     SELECT elemento1.IDX_ID AS ID_GEOL1,
            elemento1.KEY_COD AS COD_GEOL1,
@@ -4169,12 +4170,12 @@ data:
       AND catVers1.FK_CATALOG = cat1.IDX_ID
       AND catVers1.FLG_STATUS = 1
       AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-    
+
       AND cat2.KEY_COD = 'CCAA'
       AND catVers2.FK_CATALOG = cat2.IDX_ID
       AND catVers2.FLG_STATUS = 1
       AND elemento2.FK_CATALOG_VERSION = catVers2.IDX_ID
-    
+
       AND rel.FK_CATALOG_VERSION_SOURCE = catVers1.idx_id
       AND rel.FK_CATALOG_VERSION_TARGET = catVers2.idx_id
       AND itemRel.FK_REL_CAT_VER = rel.IDX_ID
@@ -4190,54 +4191,54 @@ data:
              elemento3.IDX_ID AS ID_GEOL3,
              elemento3.KEY_COD AS COD_GEOL3,
              elemento3.DAT_NAME AS DESC_GEOL3
-             
-             
+
+
       FROM US_HNCAT_V4.DAT_CATALOG cat1,
            US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1,
            US_HNCAT_V4.DAT_ITEM elemento1,
-           
+
            US_HNCAT_V4.DAT_CATALOG cat2,
            US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers2,
            US_HNCAT_V4.DAT_ITEM elemento2,
-           
+
            US_HNCAT_V4.DAT_CATALOG cat3,
            US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers3,
            US_HNCAT_V4.DAT_ITEM elemento3,
-           
+
            US_HNCAT_V4.rel_cat_ver_cat_ver rel12,
            US_HNCAT_V4.rel_item_item itemRel12,
-           
+
            US_HNCAT_V4.rel_cat_ver_cat_ver rel23,
-           US_HNCAT_V4.rel_item_item itemRel23 
-      
+           US_HNCAT_V4.rel_item_item itemRel23
+
       WHERE cat1.KEY_COD = 'pais'
       AND catVers1.FK_CATALOG = cat1.IDX_ID
       AND catVers1.FLG_STATUS = 1
       AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-      
+
       AND cat2.KEY_COD = 'CCAA'
       AND catVers2.FK_CATALOG = cat2.IDX_ID
       AND catVers2.FLG_STATUS = 1
       AND elemento2.FK_CATALOG_VERSION = catVers2.IDX_ID
-      
+
       AND cat3.KEY_COD = 'provincia'
       AND catVers3.FK_CATALOG = cat3.IDX_ID
       AND catVers3.FLG_STATUS = 1
       AND elemento3.FK_CATALOG_VERSION = catVers3.IDX_ID
-      
+
       AND rel12.FK_CATALOG_VERSION_SOURCE = catVers1.idx_id
       AND rel12.FK_CATALOG_VERSION_TARGET = catVers2.idx_id
       AND itemRel12.FK_REL_CAT_VER = rel12.IDX_ID
       AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id
       AND itemRel12.FK_ITEM_target = elemento2.idx_id
-      
+
       AND rel23.FK_CATALOG_VERSION_SOURCE = catVers2.idx_id
       AND rel23.FK_CATALOG_VERSION_TARGET = catVers3.idx_id
       AND itemRel23.FK_REL_CAT_VER = rel23.IDX_ID
       AND itemRel23.FK_ITEM_SOURCE = elemento2.idx_id
       AND itemRel23.FK_ITEM_target = elemento3.idx_id
   externalResources_client_default_bdExtract_sql_Oracle_hncat___queryGeo4.sql: |-
-    
+
     SELECT elemento1.IDX_ID AS ID_GEOL1,
            elemento1.KEY_COD AS COD_GEOL1,
            elemento1.DAT_NAME AS DESC_GEOL1,
@@ -4250,71 +4251,71 @@ data:
            elemento4.IDX_ID AS ID_GEOL4,
            elemento4.KEY_COD AS COD_GEOL4,
            elemento4.DAT_NAME AS DESC_GEOL4
-           
+
     FROM US_HNCAT_V4.DAT_CATALOG cat1,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1,
          US_HNCAT_V4.DAT_ITEM elemento1,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat2,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers2,
          US_HNCAT_V4.DAT_ITEM elemento2,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat3,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers3,
          US_HNCAT_V4.DAT_ITEM elemento3,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat4,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers4,
          US_HNCAT_V4.DAT_ITEM elemento4,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel12,
          US_HNCAT_V4.rel_item_item itemRel12,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel23,
          US_HNCAT_V4.rel_item_item itemRel23,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel34,
          US_HNCAT_V4.rel_item_item itemRel34
-         
+
     WHERE cat1.KEY_COD = 'pais'
       AND catVers1.FK_CATALOG = cat1.IDX_ID
       AND catVers1.FLG_STATUS = 1
       AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-      
+
       AND cat2.KEY_COD = 'CCAA'
       AND catVers2.FK_CATALOG = cat2.IDX_ID
       AND catVers2.FLG_STATUS = 1
       AND elemento2.FK_CATALOG_VERSION = catVers2.IDX_ID
-      
+
       AND cat3.KEY_COD = 'provincia'
       AND catVers3.FK_CATALOG = cat3.IDX_ID
       AND catVers3.FLG_STATUS = 1
       AND elemento3.FK_CATALOG_VERSION = catVers3.IDX_ID
-      
+
       AND cat4.KEY_COD = 'municipio'
       AND catVers4.FK_CATALOG = cat4.IDX_ID
       AND catVers4.FLG_STATUS = 1
       AND elemento4.FK_CATALOG_VERSION = catVers4.IDX_ID
-      
+
       AND rel12.FK_CATALOG_VERSION_SOURCE = catVers1.idx_id
       AND rel12.FK_CATALOG_VERSION_TARGET = catVers2.idx_id
       AND itemRel12.FK_REL_CAT_VER = rel12.IDX_ID
       AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id
       AND itemRel12.FK_ITEM_target = elemento2.idx_id
-      
+
       AND rel23.FK_CATALOG_VERSION_SOURCE = catVers2.idx_id
       AND rel23.FK_CATALOG_VERSION_TARGET = catVers3.idx_id
       AND itemRel23.FK_REL_CAT_VER = rel23.IDX_ID
       AND itemRel23.FK_ITEM_SOURCE = elemento2.idx_id
       AND itemRel23.FK_ITEM_target = elemento3.idx_id
-      
+
       AND rel34.FK_CATALOG_VERSION_SOURCE = catVers3.idx_id
       AND rel34.FK_CATALOG_VERSION_TARGET = catVers4.idx_id
       AND itemRel34.FK_REL_CAT_VER = rel34.IDX_ID
       AND itemRel34.FK_ITEM_SOURCE = elemento3.idx_id
       AND itemRel34.FK_ITEM_target = elemento4.idx_id
   externalResources_client_default_bdExtract_sql_Oracle_hncat___queryGeo5.sql: |-
-    
+
     SELECT elemento1.IDX_ID AS ID_GEOL1,
            elemento1.KEY_COD AS COD_GEOL1,
            elemento1.DAT_NAME AS DESC_GEOL1,
@@ -4330,82 +4331,82 @@ data:
            elemento5.IDX_ID AS ID_GEOL5,
            elemento5.KEY_COD AS COD_GEOL5,
            elemento5.DAT_NAME AS DESC_GEOL5
-           
+
     FROM US_HNCAT_V4.DAT_CATALOG cat1,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1,
          US_HNCAT_V4.DAT_ITEM elemento1,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat2,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers2,
          US_HNCAT_V4.DAT_ITEM elemento2,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat3,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers3,
          US_HNCAT_V4.DAT_ITEM elemento3,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat4,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers4,
          US_HNCAT_V4.DAT_ITEM elemento4,
-         
+
          US_HNCAT_V4.DAT_CATALOG cat5,
          US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers5,
          US_HNCAT_V4.DAT_ITEM elemento5,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel12,
          US_HNCAT_V4.rel_item_item itemRel12,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel23,
          US_HNCAT_V4.rel_item_item itemRel23,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel34,
          US_HNCAT_V4.rel_item_item itemRel34,
-         
+
          US_HNCAT_V4.rel_cat_ver_cat_ver rel45,
          US_HNCAT_V4.rel_item_item itemRel45
-         
+
     WHERE cat1.KEY_COD = 'pais'
       AND catVers1.FK_CATALOG = cat1.IDX_ID
       AND catVers1.FLG_STATUS = 1
       AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-      
+
       AND cat2.KEY_COD = 'CCAA'
       AND catVers2.FK_CATALOG = cat2.IDX_ID
       AND catVers2.FLG_STATUS = 1
       AND elemento2.FK_CATALOG_VERSION = catVers2.IDX_ID
-      
+
       AND cat3.KEY_COD = 'provincia'
       AND catVers3.FK_CATALOG = cat3.IDX_ID
       AND catVers3.FLG_STATUS = 1
       AND elemento3.FK_CATALOG_VERSION = catVers3.IDX_ID
-      
+
       AND cat4.KEY_COD = 'municipio'
       AND catVers4.FK_CATALOG = cat4.IDX_ID
       AND catVers4.FLG_STATUS = 1
       AND elemento4.FK_CATALOG_VERSION = catVers4.IDX_ID
-      
+
       AND cat5.KEY_COD = 'localidad'
       AND catVers5.FK_CATALOG = cat5.IDX_ID
       AND catVers5.FLG_STATUS = 1
       AND elemento5.FK_CATALOG_VERSION = catVers5.IDX_ID
-      
+
       AND rel12.FK_CATALOG_VERSION_SOURCE = catVers1.idx_id
       AND rel12.FK_CATALOG_VERSION_TARGET = catVers2.idx_id
       AND itemRel12.FK_REL_CAT_VER = rel12.IDX_ID
       AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id
       AND itemRel12.FK_ITEM_target = elemento2.idx_id
-      
+
       AND rel23.FK_CATALOG_VERSION_SOURCE = catVers2.idx_id
       AND rel23.FK_CATALOG_VERSION_TARGET = catVers3.idx_id
       AND itemRel23.FK_REL_CAT_VER = rel23.IDX_ID
       AND itemRel23.FK_ITEM_SOURCE = elemento2.idx_id
       AND itemRel23.FK_ITEM_target = elemento3.idx_id
-      
+
       AND rel34.FK_CATALOG_VERSION_SOURCE = catVers3.idx_id
       AND rel34.FK_CATALOG_VERSION_TARGET = catVers4.idx_id
       AND itemRel34.FK_REL_CAT_VER = rel34.IDX_ID
       AND itemRel34.FK_ITEM_SOURCE = elemento3.idx_id
       AND itemRel34.FK_ITEM_target = elemento4.idx_id
-      
+
       AND rel45.FK_CATALOG_VERSION_SOURCE = catVers4.idx_id
       AND rel45.FK_CATALOG_VERSION_TARGET = catVers5.idx_id
       AND itemRel45.FK_REL_CAT_VER = rel45.IDX_ID
@@ -4417,10 +4418,10 @@ data:
     elemento.KEY_COD as COD_TYPE_VIA,
     elemento.DAT_NAME as DESC_TYPE_VIA,
     elemento.DAT_DESCRIPTION as DESC_EXTENDED_TYPE_VIA
-    from  
+    from
     US_HNCAT_V4.DAT_CATALOG cat, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
     US_HNCAT_V4.DAT_ITEM elemento
-    WHERE 
+    WHERE
     cat.KEY_COD = 'street-type' and catVers.FK_CATALOG = cat.IDX_ID and catVers.FLG_STATUS = 1
     and elemento.FK_CATALOG_VERSION = catVers.IDX_ID
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___extract_id_Patients.sql: |-
@@ -4439,25 +4440,25 @@ data:
           select * from us_hnpob_v4.DAT_PATIENT_RESOURCE js
           where json_exists(js.patient_json, '$.extension[*]')
         )
-    SELECT  
+    SELECT
        persona.id                                 AS ID_PATIENT,
        persona.codigo                             AS COD_PATIENT,
        persona.estado                             AS FLG_ACTIVE,
-      causaPasivo.fechapasivo                     AS DATE_STATUS, 
+      causaPasivo.fechapasivo                     AS DATE_STATUS,
        causaPasivo.cod_passive_cause              AS COD_PASIVE_REASON,
-       causaPasivo.ds_passive_cause               AS DESC_PASIVE_REASON, 
+       causaPasivo.ds_passive_cause               AS DESC_PASIVE_REASON,
        causaPasivo.duplicadoactivo_id             AS ID_ACTIVE_PATIENT,
        null                                       AS COD_ACTIVE_PATIENT,
        p_resource.patient_json                          AS J_PATIENT,
     --   ' '                            AS NAME, -- va al json
-       ' '                       AS SHORTNAME, 
+       ' '                       AS SHORTNAME,
     --   ' '                        AS SURNAME1, -- va al json
     --   ' '                        AS SURNAME2, -- va al json
       persona.fechanAScimiento AS DATE_BIRTH,
     --   ' '            AS COD_COUNTRY_BIRTH,  -- va al json
     --   ' '        AS DESC_COUNTRY_BIRTH,  -- va al json
-       -- ' ' ccaaNacimiento.CODE                 AS COD_PLACE_BIRTH, -- va al json 
-       -- ' ' ccaaNacimiento.VALUE             AS DESC_PLACE_BIRTH, -- va al json 
+       -- ' ' ccaaNacimiento.CODE                 AS COD_PLACE_BIRTH, -- va al json
+       -- ' ' ccaaNacimiento.VALUE             AS DESC_PLACE_BIRTH, -- va al json
        persona.cod_sexo                         AS COD_GENDER,
        persona.nombre_sexo                         AS DESC_GENDER,
        persona.cod_marital_status                 AS COD_CIVIL_STATUS,
@@ -4474,41 +4475,41 @@ data:
        -- ' ' CASE WHEN desplazamientoExterno.value = 'true' then 1 else 0 end AS FLG_EXTERNAL_MOVE, -- va al json
        -- ' ' CASE WHEN braille.value = 'true' then 1 else 0 end AS FLG_BRAILLE, -- va al json
        -- ' ' CASE WHEN preferente.value = 'true' then 1 else 0 end AS FLG_PREFERENCE, -- va al json
-       tipo_ciudadano.code                         AS COD_TYPE_CITIZEN, 
-       tipo_ciudadano.value                     AS DESC_TYPE_CITIZEN, 
+       tipo_ciudadano.code                         AS COD_TYPE_CITIZEN,
+       tipo_ciudadano.value                     AS DESC_TYPE_CITIZEN,
        -- ' ' indicador_farmacia.code                     AS COD_INDEX_PHARMACY, -- va al json
        -- ' ' indicador_farmacia.value                    AS DESC_INDEX_PHARMACY, -- va al json
        -- ' ' subindicador_farmacia.code                 AS COD_SUBINDEX_PHARMACY, -- va al json
        -- ' ' subindicador_farmacia.value                 AS DESC_SUBINDEX_PHARMACY, -- va al json
-       CASE WHEN facturable.dat_value = 'true' then 1 else 0 end AS FLG_BILLABLE, 
-       CASE WHEN pensionista.dat_value = 'true' then 1 else 0 end AS FLG_PENSIONER, 
-       CASE WHEN mutualista.dat_value = 'true' then 1 else 0 end AS FLG_MUTUALIST, 
-       CASE WHEN hospital.dat_value = 'true' then 1 else 0 end AS FLG_HOSPITAL, 
-       CASE WHEN datosEmplazamiento.PAYROLL_VALUE = 'true' then 1 else 0 end AS FLG_PAYROLL, 
-       CASE WHEN datosEmplazamiento.QUOTA_VALUE = 'true' then 1 else 0 end AS FLG_QUOTA, 
-       ' '                        AS COD_GEOGRAPHY,     
-       ' '                       AS DESC_GEOGRAPHY,     
-       -- ' ' observaciones.value                         AS OBSERVATIONS, va al json    
+       CASE WHEN facturable.dat_value = 'true' then 1 else 0 end AS FLG_BILLABLE,
+       CASE WHEN pensionista.dat_value = 'true' then 1 else 0 end AS FLG_PENSIONER,
+       CASE WHEN mutualista.dat_value = 'true' then 1 else 0 end AS FLG_MUTUALIST,
+       CASE WHEN hospital.dat_value = 'true' then 1 else 0 end AS FLG_HOSPITAL,
+       CASE WHEN datosEmplazamiento.PAYROLL_VALUE = 'true' then 1 else 0 end AS FLG_PAYROLL,
+       CASE WHEN datosEmplazamiento.QUOTA_VALUE = 'true' then 1 else 0 end AS FLG_QUOTA,
+       ' '                        AS COD_GEOGRAPHY,
+       ' '                       AS DESC_GEOGRAPHY,
+       -- ' ' observaciones.value                         AS OBSERVATIONS, va al json
        org.IDX_ID                                 AS ID_ORG,
        zbsDirPrin.CODEZBS                         AS COD_ORG,
        org.DAT_NAME                             AS DESC_ORG,
        -- ' ' CASE WHEN propuesta.value = 'true' then 1 else 0 end AS FLG_PROPOSAL, va al json
        -- ' ' mot_propuesta.code                         AS COD_PROPOSAL_REASON, va al json
        -- ' ' mot_propuesta.value                         AS DESC_PROPOSAL_REASON, va al json
-       orgPropuesta.IDX_ID                         AS ID_PROPOSAL_ORG, 
-       centroPropuesta.CODE                     AS COD_PROPOSAL_ORG, 
-       orgPropuesta.DAT_NAME                     AS DESC_PROPOSAL_ORG, 
-       persona.fecharegistro                     AS DATE_CREATED,    
-       persona.fechaactualizacion                 AS DATE_MODIF,        
+       orgPropuesta.IDX_ID                         AS ID_PROPOSAL_ORG,
+       centroPropuesta.CODE                     AS COD_PROPOSAL_ORG,
+       orgPropuesta.DAT_NAME                     AS DESC_PROPOSAL_ORG,
+       persona.fecharegistro                     AS DATE_CREATED,
+       persona.fechaactualizacion                 AS DATE_MODIF,
        persona.USER_AUDIT                       AS USER_AUDIT
-    FROM 
-       us_hnpob_v4.PERSONA persona 
+    FROM
+       us_hnpob_v4.PERSONA persona
        LEFT OUTER JOIN
-          us_hnpob_v4.DAT_PATIENT_RESOURCE p_resource 
-          ON persona.id = p_resource.fk_patient_id 
+          us_hnpob_v4.DAT_PATIENT_RESOURCE p_resource
+          ON persona.id = p_resource.fk_patient_id
        LEFT OUTER JOIN
-          us_hnpob_v4.CAUSA_PASIVO_PERSONA causaPasivo 
-          ON persona.fk_passivecause = causaPasivo.id 
+          us_hnpob_v4.CAUSA_PASIVO_PERSONA causaPasivo
+          ON persona.fk_passivecause = causaPasivo.id
         LEFT OUTER JOIN
           (
             SELECT
@@ -4518,99 +4519,99 @@ data:
        FROM
           extensionExists res,
           json_table(res.patient_json, '$.extension[*]' COLUMNS (
-              system_c VARCHAR(100) path '$.url' NULL ON ERROR, 
+              system_c VARCHAR(100) path '$.url' NULL ON ERROR,
               code_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].code' NULL ON ERROR,
               value_c VARCHAR(200) path '$.valueCodeableConcept.text' NULL ON ERROR)
-          ) AS jt 
+          ) AS jt
        WHERE
           res.fk_patient_id= :#${headers.idPatient}
-          and jt.system_c = 'uri:hn:additional-data:tipo_ciudadano' 
-          and jt.code_c IS NOT NULL 
+          and jt.system_c = 'uri:hn:additional-data:tipo_ciudadano'
+          and jt.code_c IS NOT NULL
           )
           tipo_ciudadano
-          ON tipo_ciudadano.PERSONA_ID = persona.id 
+          ON tipo_ciudadano.PERSONA_ID = persona.id
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS code,
                 elemento.DAT_NAME AS description,
-                elemento.IDX_ID AS idTipo 
+                elemento.IDX_ID AS idTipo
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.key_cod = 'tipo_ciudadano' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.key_cod = 'tipo_ciudadano'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          catTipo 
-          ON tipo_ciudadano.code = catTipo.code 
+          catTipo
+          ON tipo_ciudadano.code = catTipo.code
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              WHERE
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'Facturable' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'Facturable'
           )
-          facturable 
-          ON facturable.FK_ITEM = catTipo.idTipo 
+          facturable
+          ON facturable.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              WHERE
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'SWPENSIO' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'SWPENSIO'
           )
-          pensionista 
-          ON pensionista.FK_ITEM = catTipo.idTipo 
+          pensionista
+          ON pensionista.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              WHERE
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'SWMUTUA' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'SWMUTUA'
           )
-          mutualista 
-          ON mutualista.FK_ITEM = catTipo.idTipo 
+          mutualista
+          ON mutualista.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              WHERE
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'SWHOSPITAL' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'SWHOSPITAL'
           )
-          hospital 
-          ON hospital.FK_ITEM = catTipo.idTipo 
+          hospital
+          ON hospital.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
             SELECT
@@ -4620,30 +4621,30 @@ data:
             FROM
               extensionExists res,
               json_table(res.patient_json, '$.extension[*]' COLUMNS (
-              system_c VARCHAR(100) path '$.url' NULL ON ERROR, 
-              code_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].code' NULL ON ERROR, 
+              system_c VARCHAR(100) path '$.url' NULL ON ERROR,
+              code_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].code' NULL ON ERROR,
               value_c VARCHAR(200) path '$.valueCodeableConcept.text' NULL ON ERROR)
-              ) AS jt 
+              ) AS jt
             WHERE
             res.fk_patient_id=:#${headers.idPatient}
-            and jt.system_c = 'uri:hn:additional-data:emplazamiento' 
-            and jt.code_c IS NOT NULL 
+            and jt.system_c = 'uri:hn:additional-data:emplazamiento'
+            and jt.code_c IS NOT NULL
           )
-          emplazamiento 
-          ON emplazamiento.PERSONA_ID = persona.id 
+          emplazamiento
+          ON emplazamiento.PERSONA_ID = persona.id
        LEFT OUTER JOIN
             (
-            SELECT EMPLAZAMIENTO,EMPLAZAMIENTO_DES,TIPO_C_CODE,TIPO_C_DES, 
+            SELECT EMPLAZAMIENTO,EMPLAZAMIENTO_DES,TIPO_C_CODE,TIPO_C_DES,
             MIN(CASE WHEN COD_ADICIONAL = 'SWNOMINA' THEN VALUE_ADICIONAL ELSE NULL END) AS PAYROLL_VALUE,
             MIN(CASE WHEN COD_ADICIONAL = 'SWCUPO' THEN VALUE_ADICIONAL ELSE NULL END) AS QUOTA_VALUE
-            FROM 
+            FROM
             (SELECT
                   SUBSTR(elemento1.key_cod, - 1) AS EMPLAZAMIENTO,
                   elemento1.DAT_DESCRIPTION AS EMPLAZAMIENTO_DES,
                   elemento2.KEY_COD AS TIPO_C_CODE,
                   elemento2.DAT_DESCRIPTION AS TIPO_C_DES,
                   catAdit.DAT_NAME AS COD_ADICIONAL,
-                  itemAdit.dat_value AS VALUE_ADICIONAL 
+                  itemAdit.dat_value AS VALUE_ADICIONAL
                FROM
                   US_HNCAT_V4.DAT_CATALOG cat1,
                   US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1,
@@ -4654,32 +4655,32 @@ data:
                   US_HNCAT_V4.DAT_ITEM elemento2,
                   US_HNCAT_V4.REL_ITEM_ITEM itemRel12,
                   US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit,
-                  US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit 
+                  US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit
                WHERE
-                  cat1.KEY_COD = 't_ciudadano_emplazamiento' 
-                  AND catVers1.FK_CATALOG = cat1.IDX_ID 
-                  AND catVers1.FLG_STATUS = 1 
-                  AND cat2.KEY_COD = 'tipo_ciudadano' 
-                  AND catVers2.FK_CATALOG = cat2.IDX_ID 
-                  AND catVers2.FLG_STATUS = 1 
-                  AND catRel.FK_CATALOG_VERSION_SOURCE = catVers1.IDX_ID 
-                  AND catRel.FK_CATALOG_VERSION_TARGET = catVers2.IDX_ID 
-                  AND itemRel12.FK_REL_CAT_VER = catRel.IDX_ID 
-                  AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id 
-                  AND itemRel12.FK_ITEM_TARGET = elemento2.idx_id 
-                  AND catAdit.FK_CATALOG = cat1.IDX_ID 
-                  AND itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                  AND itemAdit.FK_ITEM = elemento1.IDX_ID 
+                  cat1.KEY_COD = 't_ciudadano_emplazamiento'
+                  AND catVers1.FK_CATALOG = cat1.IDX_ID
+                  AND catVers1.FLG_STATUS = 1
+                  AND cat2.KEY_COD = 'tipo_ciudadano'
+                  AND catVers2.FK_CATALOG = cat2.IDX_ID
+                  AND catVers2.FLG_STATUS = 1
+                  AND catRel.FK_CATALOG_VERSION_SOURCE = catVers1.IDX_ID
+                  AND catRel.FK_CATALOG_VERSION_TARGET = catVers2.IDX_ID
+                  AND itemRel12.FK_REL_CAT_VER = catRel.IDX_ID
+                  AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id
+                  AND itemRel12.FK_ITEM_TARGET = elemento2.idx_id
+                  AND catAdit.FK_CATALOG = cat1.IDX_ID
+                  AND itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                  AND itemAdit.FK_ITEM = elemento1.IDX_ID
             )
                  emplazamientos
             GROUP BY EMPLAZAMIENTO,EMPLAZAMIENTO_DES,TIPO_C_CODE,TIPO_C_DES) datosEmplazamiento
-            ON tipo_ciudadano.code = datosEmplazamiento.TIPO_C_CODE 
-            AND datosEmplazamiento.EMPLAZAMIENTO = emplazamiento.code 
+            ON tipo_ciudadano.code = datosEmplazamiento.TIPO_C_CODE
+            AND datosEmplazamiento.EMPLAZAMIENTO = emplazamiento.code
        LEFT OUTER JOIN
           (
              SELECT
                 dirPrincipal.FK_PATIENT_ID AS PATIENT_ID,
-                dirPrincipal.code_c AS CODEZBS 
+                dirPrincipal.code_c AS CODEZBS
              FROM
                 (
                    SELECT
@@ -4687,27 +4688,27 @@ data:
                       jt.typeCode,
                       jt.system_c,
                       jt.code_c,
-                      ROW_NUMBER() OVER (PARTITION BY res.FK_PATIENT_ID 
+                      ROW_NUMBER() OVER (PARTITION BY res.FK_PATIENT_ID
                    ORDER BY
-                      jt.typeCode DESC) AS RowFilter 
+                      jt.typeCode DESC) AS RowFilter
                    FROM
                       jsonExists res,
-                      json_table(res.patient_json, '$.address[*]' COLUMNS ( typeCode VARCHAR(50) path '$.type' NULL ON ERROR, NESTED PATH '$.extension[*]' COLUMNS (system_c VARCHAR(100) path '$.url' NULL ON ERROR, code_c VARCHAR(50) path '$.valueString' NULL ON ERROR))) AS jt 
+                      json_table(res.patient_json, '$.address[*]' COLUMNS ( typeCode VARCHAR(50) path '$.type' NULL ON ERROR, NESTED PATH '$.extension[*]' COLUMNS (system_c VARCHAR(100) path '$.url' NULL ON ERROR, code_c VARCHAR(50) path '$.valueString' NULL ON ERROR))) AS jt
                    WHERE
                       res.fk_patient_id= :#${headers.idPatient}
-                      and 
-                      jt.system_c = 'http://hn.indra.es/fhir/item/additional-data/codZBS' 
-                      and jt.code_c IS NOT NULL 
+                      and
+                      jt.system_c = 'http://hn.indra.es/fhir/item/additional-data/codZBS'
+                      and jt.code_c IS NOT NULL
                 )
-                dirPrincipal 
+                dirPrincipal
              WHERE
-                dirPrincipal.RowFilter = 1 
+                dirPrincipal.RowFilter = 1
           )
-          zbsDirPrin 
-          ON persona.id = zbsDirPrin.PATIENT_ID 
+          zbsDirPrin
+          ON persona.id = zbsDirPrin.PATIENT_ID
        LEFT OUTER JOIN
-          US_HNAUT_V4.DAT_ORGANIZATION org 
-          ON org.COD_KEY = zbsDirPrin.CODEZBS 
+          US_HNAUT_V4.DAT_ORGANIZATION org
+          ON org.COD_KEY = zbsDirPrin.CODEZBS
        LEFT OUTER JOIN
        (
           SELECT
@@ -4717,20 +4718,20 @@ data:
        FROM
           extensionExists res,
           json_table(res.patient_json, '$.extension[*]' COLUMNS (
-              system_c VARCHAR(100) path '$.url' NULL ON ERROR, 
-              code_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].code' NULL ON ERROR, 
+              system_c VARCHAR(100) path '$.url' NULL ON ERROR,
+              code_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].code' NULL ON ERROR,
               value_c VARCHAR(200) path '$.valueCodeableConcept.text' NULL ON ERROR)
-          ) AS jt 
+          ) AS jt
        WHERE
           res.fk_patient_id= :#${headers.idPatient}
-          and jt.system_c = 'uri:hn:additional-data:centro_propuesta' 
+          and jt.system_c = 'uri:hn:additional-data:centro_propuesta'
           and jt.code_c IS NOT NULL
           )
-          centroPropuesta 
-          ON centroPropuesta.PERSONA_ID = persona.id  
+          centroPropuesta
+          ON centroPropuesta.PERSONA_ID = persona.id
        LEFT OUTER JOIN
-          US_HNAUT_V4.DAT_ORGANIZATION orgPropuesta 
-          ON orgPropuesta.COD_KEY = centroPropuesta.CODE 
+          US_HNAUT_V4.DAT_ORGANIZATION orgPropuesta
+          ON orgPropuesta.COD_KEY = centroPropuesta.CODE
     WHERE
         persona.id= :#${headers.idPatient}
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientAddresses.sql: |-
@@ -4738,80 +4739,80 @@ data:
         jsonExists AS (
           select * from us_hnpob_v4.dat_patient_resource js
               where json_exists(js.patient_json, '$.address[*].extension[*]')
-          )      
-    SELECT persona.id                                AS ID_PATIENT, 
-           persona.codigo                            AS COD_PATIENT , 
+          )
+    SELECT persona.id                                AS ID_PATIENT,
+           persona.codigo                            AS COD_PATIENT ,
            CASE WHEN total.flg_contact_address = 'true' THEN '1' ELSE '0' END AS FLG_PPAL,
-           CASE WHEN total.tempAddress = 'true' THEN '1' ELSE '0' END AS FLG_PROVISIONAL, 
-           total.typeCode                          AS COD_ADDRESS_TYPE, 
-           total.DES                        AS DESC_ADDRESS_TYPE, 
-           total.useCode                             AS COD_ADDRESS_USE, 
-           total.useDes                           AS DESC_ADDRESS_USE, 
-           total.cod_country                         AS COD_ADDRESS_COUNTRY, 
-           total.des_country                                   AS DESC_ADDRESS_COUNTRY, 
-           total.cod_geografico_nivel1             AS COD_ADDRESS_L1, 
-           total.ds_geografico_nivel1              AS DESC_ADDRESS_L1, 
-           total.districtCode                        AS COD_ADDRESS_L2, 
-           total.ds_geografico_nivel2              AS DESC_ADDRESS_L2, 
-           total.cityCode                          AS COD_ADDRESS_L3, 
-           total.cityDesc                          AS DESC_ADDRESS_L3, 
-           total.cod_geografico_nivel4             AS COD_ADDRESS_L4, 
-           total.ds_geografico_nivel4              AS DESC_ADDRESS_L4, 
-           total.cod_geografico_nivel5             AS COD_ADDRESS_L5, 
-           total.ds_geografico_nivel5              AS DESC_ADDRESS_L5, 
-           total.cod_streetType                           AS COD_TYPE_VIA, 
-           total.des_streetType                          AS DESC_TYPE_VIA, 
-           total.dat_address_line1                 AS VALUE_VIA, 
-           total.addressNumber                       AS KM, 
-           total.houseNumber                        AS BLOCK, 
-           total.unitID                              AS GATE, 
-           total.stair                              AS STAIR, 
-           total.FLOOR                             AS FLOOR, 
-           total.door                               AS APT , 
-           ' '                                        AS POSTAL_BOX, 
-           total.ds_zip_code                       AS POSTAL_CODE, 
-           total.IDX_ID                                  AS ID_ORG, 
-           total.codZBS                              AS COD_ORG  , 
-           total.DAT_NAME                                AS DESC_ORG, 
+           CASE WHEN total.tempAddress = 'true' THEN '1' ELSE '0' END AS FLG_PROVISIONAL,
+           total.typeCode                          AS COD_ADDRESS_TYPE,
+           total.DES                        AS DESC_ADDRESS_TYPE,
+           total.useCode                             AS COD_ADDRESS_USE,
+           total.useDes                           AS DESC_ADDRESS_USE,
+           total.cod_country                         AS COD_ADDRESS_COUNTRY,
+           total.des_country                                   AS DESC_ADDRESS_COUNTRY,
+           total.cod_geografico_nivel1             AS COD_ADDRESS_L1,
+           total.ds_geografico_nivel1              AS DESC_ADDRESS_L1,
+           total.districtCode                        AS COD_ADDRESS_L2,
+           total.ds_geografico_nivel2              AS DESC_ADDRESS_L2,
+           total.cityCode                          AS COD_ADDRESS_L3,
+           total.cityDesc                          AS DESC_ADDRESS_L3,
+           total.cod_geografico_nivel4             AS COD_ADDRESS_L4,
+           total.ds_geografico_nivel4              AS DESC_ADDRESS_L4,
+           total.cod_geografico_nivel5             AS COD_ADDRESS_L5,
+           total.ds_geografico_nivel5              AS DESC_ADDRESS_L5,
+           total.cod_streetType                           AS COD_TYPE_VIA,
+           total.des_streetType                          AS DESC_TYPE_VIA,
+           total.dat_address_line1                 AS VALUE_VIA,
+           total.addressNumber                       AS KM,
+           total.houseNumber                        AS BLOCK,
+           total.unitID                              AS GATE,
+           total.stair                              AS STAIR,
+           total.FLOOR                             AS FLOOR,
+           total.door                               AS APT ,
+           ' '                                        AS POSTAL_BOX,
+           total.ds_zip_code                       AS POSTAL_CODE,
+           total.IDX_ID                                  AS ID_ORG,
+           total.codZBS                              AS COD_ORG  ,
+           total.DAT_NAME                                AS DESC_ORG,
             total.ds_observaciones                    AS OBSERVATIONS  ,
-            total.ORDEN                                      AS ADDRESS_ORDER 
+            total.ORDEN                                      AS ADDRESS_ORDER
     FROM
        us_hnpob_v4.persona persona JOIN
        (select recurso.FK_PATIENT_ID,
            recurso.contactFlag as flg_contact_address,
-           recurso.tempAddress, 
-           recurso.typeCode, 
-           addressTypeCat.DES, 
+           recurso.tempAddress,
+           recurso.typeCode,
+           addressTypeCat.DES,
            recurso.useCode,
            addressUseCat.DES as useDes,
            recurso.cod_country,
-           paisCat.DES as des_country, 
-           recurso.stateCode as cod_geografico_nivel1, 
-           recurso.state as ds_geografico_nivel1, 
-           recurso.districtCode, 
-           recurso.district as ds_geografico_nivel2, 
-           recurso.cityCode, 
-           recurso.cityDesc, 
-           ' ' /* address. */ as cod_geografico_nivel4, 
-           ' ' /* address. */ as ds_geografico_nivel4, 
-           ' ' /* address. */ as cod_geografico_nivel5, 
-           ' ' /* address. */ as ds_geografico_nivel5, 
-           streetTypeCat.COD as cod_streetType, 
-           streetTypeCat.DES as des_streetType, 
-           recurso.line1 as dat_address_line1, 
-           recurso.addressNumber, 
-           recurso.houseNumber, 
-           recurso.unitID, 
-           recurso.stair, 
-           recurso.FLOOR, 
-           recurso.door, 
-           recurso.ds_zip_code, 
-           org.IDX_ID, 
-           recurso.codZBS, 
-           org.DAT_NAME, 
+           paisCat.DES as des_country,
+           recurso.stateCode as cod_geografico_nivel1,
+           recurso.state as ds_geografico_nivel1,
+           recurso.districtCode,
+           recurso.district as ds_geografico_nivel2,
+           recurso.cityCode,
+           recurso.cityDesc,
+           ' ' /* address. */ as cod_geografico_nivel4,
+           ' ' /* address. */ as ds_geografico_nivel4,
+           ' ' /* address. */ as cod_geografico_nivel5,
+           ' ' /* address. */ as ds_geografico_nivel5,
+           streetTypeCat.COD as cod_streetType,
+           streetTypeCat.DES as des_streetType,
+           recurso.line1 as dat_address_line1,
+           recurso.addressNumber,
+           recurso.houseNumber,
+           recurso.unitID,
+           recurso.stair,
+           recurso.FLOOR,
+           recurso.door,
+           recurso.ds_zip_code,
+           org.IDX_ID,
+           recurso.codZBS,
+           org.DAT_NAME,
             recurso.observation as ds_observaciones,
            recurso.ORDEN
-       from 
+       from
        (
           SELECT
              FK_PATIENT_ID,
@@ -4839,7 +4840,7 @@ data:
              MIN(CASE WHEN system_c = 'http://hn.indra.es/fhir/StructureDefinition/address-city-code' THEN code_c ELSE NULL END) AS cityCode,
              MIN(CASE WHEN system_c = 'http://hn.indra.es/fhir/StructureDefinition/address-district-code' THEN code_c ELSE NULL END) AS districtCode,
              MIN(CASE WHEN system_c = 'http://hn.indra.es/fhir/StructureDefinition/address-observation' THEN code_c ELSE NULL END) AS observation,
-             ROW_NUMBER() OVER (PARTITION BY FK_PATIENT_ID 
+             ROW_NUMBER() OVER (PARTITION BY FK_PATIENT_ID
                    ORDER BY
                       line1,line2,useCode,typeCode,cod_country,state,district,ds_zip_code,cityDesc DESC)  ORDEN
           FROM
@@ -4887,9 +4888,9 @@ data:
                                  ,NESTED PATH '$.extension[*]' COLUMNS (
                                       system_c VARCHAR(100) path '$.url' NULL ON ERROR
                                      ,code_c VARCHAR(50) path '$.valueString' NULL ON ERROR
-                                     ,bool_c VARCHAR(20) path '$.valueBoolean' NULL ON ERROR))) AS jt 
+                                     ,bool_c VARCHAR(20) path '$.valueBoolean' NULL ON ERROR))) AS jt
                     WHERE
-                       (jt.system_c IN 
+                       (jt.system_c IN
                        (
                           'http://hn.indra.es/fhir/StructureDefinition/address-state-code',
                           'http://hn.indra.es/fhir/item/additional-data/typeStreet',
@@ -4905,96 +4906,96 @@ data:
                           'http://hn.indra.es/fhir/StructureDefinition/address-district-code',
                           'http://hn.indra.es/fhir/StructureDefinition/address-observation'
                        )
-                       OR jt.system_c IN 
+                       OR jt.system_c IN
                        (
                           'http://hn.indra.es/fhir/StructureDefinition/address-contact-flag',
                           'http://hn.indra.es/fhir/StructureDefinition/address-catalog-manually-filled'
-                       ) 
+                       )
                        ) and res.fk_patient_id= :#${headers.idPatient}
-                 ) tb1 
+                 ) tb1
              ) tb3
              GROUP BY FK_PATIENT_ID,line1,line2,useCode,typeCode,cod_country,state,district,ds_zip_code,cityDesc
-       )   recurso 
+       )   recurso
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS COD,
-                elemento.DAT_NAME AS DES 
+                elemento.DAT_NAME AS DES
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.KEY_COD = 'address-use' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.KEY_COD = 'address-use'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          addressUseCat 
-          ON recurso.useCode = addressUseCat.COD 
+          addressUseCat
+          ON recurso.useCode = addressUseCat.COD
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS COD,
-                elemento.DAT_NAME AS DES 
+                elemento.DAT_NAME AS DES
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.KEY_COD = 'address-type' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.KEY_COD = 'address-type'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          addressTypeCat 
-          ON recurso.typeCode = addressTypeCat.COD 
+          addressTypeCat
+          ON recurso.typeCode = addressTypeCat.COD
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS COD,
-                elemento.DAT_NAME AS DES 
+                elemento.DAT_NAME AS DES
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.KEY_COD = 'street-type' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.KEY_COD = 'street-type'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          streetTypeCat 
-          ON UPPER(recurso.typeStreet) = streetTypeCat.COD 
+          streetTypeCat
+          ON UPPER(recurso.typeStreet) = streetTypeCat.COD
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS COD,
-                elemento.DAT_NAME AS DES 
+                elemento.DAT_NAME AS DES
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.KEY_COD = 'pais' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.KEY_COD = 'pais'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          paisCat 
-          ON recurso.cod_country = paisCat.COD 
+          paisCat
+          ON recurso.cod_country = paisCat.COD
        LEFT OUTER JOIN
-          US_HNAUT_V4.DAT_ORGANIZATION org 
-          ON org.COD_KEY = recurso.codZBS 
+          US_HNAUT_V4.DAT_ORGANIZATION org
+          ON org.COD_KEY = recurso.codZBS
           )  total
           ON total.FK_PATIENT_ID = persona.id
     WHERE
        persona.id= :#${headers.idPatient}
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientAdscriptions.sql: |-
     SELECT distinct
-        persona.id                                    AS ID_PATIENT, 
-        persona.codigo                                 AS COD_PATIENT, 
-        CASE WHEN care.COD_TEMPORALITY 
+        persona.id                                    AS ID_PATIENT,
+        persona.codigo                                 AS COD_PATIENT,
+        CASE WHEN care.COD_TEMPORALITY
         LIKE '%abit%' THEN 1 ELSE 0
             END                                        AS FLG_HABITUAL,
         care.COD_ADSCRIPTION                         AS COD_ADSCRIPTION_TYPE,
@@ -5004,16 +5005,16 @@ data:
         care.DT_START                                 AS DATE_START,
         care.DT_END                                 AS DATE_END,
         care.COD_REASON                             AS COD_ADSCRIPTION_REASON,
-        care.DS_REASON                                 AS DESC_ADSCRIPTION_REASON,    
-        CARE_ORG.ID_ORG                                     AS ID_ORG,        
+        care.DS_REASON                                 AS DESC_ADSCRIPTION_REASON,
+        CARE_ORG.ID_ORG                                     AS ID_ORG,
         CARE_ORG.COD_ORG                         AS COD_ORG,
         CARE_ORG.DES_ORG                         AS DESC_ORG,
-        workp.IDX_ID                                 AS ID_WORKPLACE,        
+        workp.IDX_ID                                 AS ID_WORKPLACE,
         care.COD_WORKPLACE                             AS COD_WORKPLACE,
         care.COD_WORKPLACE_TYPE                        AS COD_WORKPLACE_TYPE,
         care.DS_WORKPLACE_TYPE                         AS DESC_WORKPLACE_TYPE,
         workp.COD_SUB_TYPE                            AS COD_WORKPLACE_SUBTYPE,
-        workp.DESC_SUB_TYPE                            AS DESC_WORKPLACE_SUBTYPE,        
+        workp.DESC_SUB_TYPE                            AS DESC_WORKPLACE_SUBTYPE,
         subTypeCob.FORMACOB_CODE                    AS COD_WORKPLACE_COVERAGE,
         subTypeCob.FORMACOB_DES                        AS DESC_WORKPLACE_COVERAGE,
         prat.IDX_ID                                 AS ID_PRACTITIONER,
@@ -5024,65 +5025,65 @@ data:
         care_patient.ref_code                       AS cod_care_guard,
         care_patient.ref_des                        AS desc_care_guard,
         null                                        AS COD_ROLE,
-        null                                        AS DESC_ROLE 
-    FROM us_hnpob_v4.persona persona 
-        JOIN us_hnpob_v4.DAT_CARE_TEAM care 
+        null                                        AS DESC_ROLE
+    FROM us_hnpob_v4.persona persona
+        JOIN us_hnpob_v4.DAT_CARE_TEAM care
             ON persona.ID = care.FK_PERSON_ID
         LEFT JOIN (
           select c.idx_id id_ads, prf.idx_id idx_id, prf.key_cod cod_profesional
           from us_hnpob_v4.dat_care_team c left join us_hnpob_v4.dat_care_team_ref r on r.fk_care_team=c.idx_id and r.ref_type='Practitioner' and r.dat_name = 'participant'
-          join US_HNAUT_V4.dat_practitioner prf on r.ref_id=prf.key_cod) prat 
+          join US_HNAUT_V4.dat_practitioner prf on r.ref_id=prf.key_cod) prat
         ON care.idx_id = prat.id_ads
-        LEFT JOIN 
-        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value 
-            from US_HNAUT_V4.dat_user_name fullName 
-        LEFT JOIN US_HNAUT_V4.dat_name_field nameGiven 
-            ON nameGiven.fk_user_name_id = fullName.idx_id 
-            AND nameGiven.type_field = 1 
+        LEFT JOIN
+        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value
+            from US_HNAUT_V4.dat_user_name fullName
+        LEFT JOIN US_HNAUT_V4.dat_name_field nameGiven
+            ON nameGiven.fk_user_name_id = fullName.idx_id
+            AND nameGiven.type_field = 1
             group by fullName.idx_id,fullName.fk_user_id) nombre
             ON nombre.fk_user_id = prat.idx_id
-        LEFT JOIN 
+        LEFT JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname1.ds_value,'') WITHIN GROUP (ORDER BY surname1.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName 
-        LEFT JOIN US_HNAUT_V4.dat_name_field surname1 
-            ON surname1.fk_user_name_id = fullName.idx_id 
-            AND surname1.type_field = 2 
+            from US_HNAUT_V4.dat_user_name fullName
+        LEFT JOIN US_HNAUT_V4.dat_name_field surname1
+            ON surname1.fk_user_name_id = fullName.idx_id
+            AND surname1.type_field = 2
             group by fullName.idx_id,fullName.fk_user_id) surname_1
             ON surname_1.fk_user_id = prat.idx_id
-        LEFT JOIN 
+        LEFT JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname2.ds_value,'') WITHIN GROUP (ORDER BY surname2.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName 
-        LEFT JOIN US_HNAUT_V4.dat_name_field surname2 
-            ON surname2.fk_user_name_id = fullName.idx_id 
-            AND surname2.type_field = 3 
+            from US_HNAUT_V4.dat_user_name fullName
+        LEFT JOIN US_HNAUT_V4.dat_name_field surname2
+            ON surname2.fk_user_name_id = fullName.idx_id
+            AND surname2.type_field = 3
             group by fullName.idx_id,fullName.fk_user_id) surname_2
             ON surname_2.fk_user_id = prat.idx_id
-        LEFT JOIN US_HNAUT_V4.dat_workplace workp 
+        LEFT JOIN US_HNAUT_V4.dat_workplace workp
             ON workp.code = care.cod_workplace
            left join (
-             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES 
-             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
+             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES
+             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
                   LEFT JOIN
-                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE 
-                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
-                    left join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID 
+                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE
+                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
+                    left join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID
                     WHERE
-                    cat1.KEY_COD = 'FORMACOB' 
+                    cat1.KEY_COD = 'FORMACOB'
                     AND catVers1.FK_CATALOG = cat1.IDX_ID AND catVers1.FLG_STATUS = 1 AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-                  ) formacob 
-                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE 
+                  ) formacob
+                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE
              WHERE
-             cat1.KEY_COD = 'workplace_sub_type'    
+             cat1.KEY_COD = 'workplace_sub_type'
              AND catVers1.FK_CATALOG = cat1.IDX_ID  AND catVers1.FLG_STATUS = 1  AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID) subTypeCob
             ON subTypeCob.SUBTYPE_CODE = workp.COD_SUB_TYPE
         LEFT JOIN (
-          select id_ads,id_org, cod_org,des_org from 
+          select id_ads,id_org, cod_org,des_org from
           (select c.idx_id id_ads,c.dt_start, o.idx_id id_org,o.COD_KEY cod_org,o.dat_name des_org
-          from us_hnpob_v4.dat_care_team c 
+          from us_hnpob_v4.dat_care_team c
           join us_hnpob_v4.dat_care_team_ref r on r.fk_care_team=c.idx_id and r.dat_name='organization' and r.ref_type='Organization'
-          join US_HNAUT_V4.dat_organization o on r.ref_id=o.cod_key) 
-        ) CARE_ORG 
-        ON care.idx_id = CARE_ORG.id_ads 
+          join US_HNAUT_V4.dat_organization o on r.ref_id=o.cod_key)
+        ) CARE_ORG
+        ON care.idx_id = CARE_ORG.id_ads
         LEFT JOIN (select c.idx_id id_ads,r.ref_id ref_code,r.display ref_des
           from us_hnpob_v4.dat_care_team c join us_hnpob_v4.dat_care_team_ref r on r.fk_care_team=c.idx_id and r.dat_name in ('participant') and ref_type = 'Patient'
           ) care_patient
@@ -5091,10 +5092,10 @@ data:
         AND care.DT_START is not null
         AND persona.id=:#${headers.idPatient}
         UNION ALL
-        SELECT distinct 
-        persona.id                                    AS ID_PATIENT, 
-        persona.codigo                                 AS COD_PATIENT, 
-        CASE WHEN care.COD_TEMPORALITY 
+        SELECT distinct
+        persona.id                                    AS ID_PATIENT,
+        persona.codigo                                 AS COD_PATIENT,
+        CASE WHEN care.COD_TEMPORALITY
         LIKE '%abit%' THEN 1 ELSE 0
             END                                        AS FLG_HABITUAL,
         care.COD_ADSCRIPTION                         AS COD_ADSCRIPTION_TYPE,
@@ -5104,16 +5105,16 @@ data:
         care.DT_START                                 AS DATE_START,
         care.DT_END                                 AS DATE_END,
         care.COD_REASON                             AS COD_ADSCRIPTION_REASON,
-        care.DS_REASON                                 AS DESC_ADSCRIPTION_REASON,    
-        CARE_ORG.ID_ORG                                     AS ID_ORG,        
+        care.DS_REASON                                 AS DESC_ADSCRIPTION_REASON,
+        CARE_ORG.ID_ORG                                     AS ID_ORG,
         CARE_ORG.COD_ORG                         AS COD_ORG,
         CARE_ORG.DES_ORG                         AS DESC_ORG,
-        workp.IDX_ID                                 AS ID_WORKPLACE,        
+        workp.IDX_ID                                 AS ID_WORKPLACE,
         care.COD_WORKPLACE                             AS COD_WORKPLACE,
         care.COD_WORKPLACE_TYPE                        AS COD_WORKPLACE_TYPE,
         care.DS_WORKPLACE_TYPE                         AS DESC_WORKPLACE_TYPE,
         workp.COD_SUB_TYPE                            AS COD_WORKPLACE_SUBTYPE,
-        workp.DESC_SUB_TYPE                            AS DESC_WORKPLACE_SUBTYPE,        
+        workp.DESC_SUB_TYPE                            AS DESC_WORKPLACE_SUBTYPE,
         subTypeCob.FORMACOB_CODE                    AS COD_WORKPLACE_COVERAGE,
         subTypeCob.FORMACOB_DES                        AS DESC_WORKPLACE_COVERAGE,
         prat.IDX_ID                                 AS ID_PRACTITIONER,
@@ -5124,66 +5125,66 @@ data:
         care_patient.ref_code                       AS cod_care_guard,
         care_patient.ref_des                        AS desc_care_guard,
         care_patient.role_c                         AS COD_ROLE,
-        care_patient.role_d                         AS DESC_ROLE 
-    FROM us_hnpob_v4.persona persona 
-        JOIN us_hnpob_v4.DAT_CARE_TEAM care 
+        care_patient.role_d                         AS DESC_ROLE
+    FROM us_hnpob_v4.persona persona
+        JOIN us_hnpob_v4.DAT_CARE_TEAM care
             ON persona.ID = care.FK_PERSON_ID
         LEFT JOIN (
           select c.idx_id id_ads, prf.idx_id idx_id, prf.key_cod cod_profesional
           from us_hnpob_v4.dat_care_team c left join us_hnpob_v4.dat_care_team_ref r on r.fk_care_team=c.idx_id and r.ref_type='Practitioner' and r.dat_name = 'participant'
-          join US_HNAUT_V4.dat_practitioner prf on r.ref_id=prf.key_cod) prat 
+          join US_HNAUT_V4.dat_practitioner prf on r.ref_id=prf.key_cod) prat
         ON care.idx_id = prat.id_ads
-        LEFT JOIN 
-        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value 
-            from US_HNAUT_V4.dat_user_name fullName 
-        LEFT JOIN US_HNAUT_V4.dat_name_field nameGiven 
-            ON nameGiven.fk_user_name_id = fullName.idx_id 
-            AND nameGiven.type_field = 1 
+        LEFT JOIN
+        (select fullName.idx_id,fullName.fk_user_id,LISTAGG(nameGiven.ds_value,'') WITHIN GROUP (ORDER BY nameGiven.idx_id) ds_value
+            from US_HNAUT_V4.dat_user_name fullName
+        LEFT JOIN US_HNAUT_V4.dat_name_field nameGiven
+            ON nameGiven.fk_user_name_id = fullName.idx_id
+            AND nameGiven.type_field = 1
             group by fullName.idx_id,fullName.fk_user_id) nombre
             ON nombre.fk_user_id = prat.idx_id
-        LEFT JOIN 
+        LEFT JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname1.ds_value,'') WITHIN GROUP (ORDER BY surname1.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName 
-        LEFT JOIN US_HNAUT_V4.dat_name_field surname1 
-            ON surname1.fk_user_name_id = fullName.idx_id 
-            AND surname1.type_field = 2 
+            from US_HNAUT_V4.dat_user_name fullName
+        LEFT JOIN US_HNAUT_V4.dat_name_field surname1
+            ON surname1.fk_user_name_id = fullName.idx_id
+            AND surname1.type_field = 2
             group by fullName.idx_id,fullName.fk_user_id) surname_1
             ON surname_1.fk_user_id = prat.idx_id
-        LEFT JOIN 
+        LEFT JOIN
         (select fullName.idx_id,fullName.fk_user_id,LISTAGG(surname2.ds_value,'') WITHIN GROUP (ORDER BY surname2.idx_id) ds_value
-            from US_HNAUT_V4.dat_user_name fullName 
-        LEFT JOIN US_HNAUT_V4.dat_name_field surname2 
-            ON surname2.fk_user_name_id = fullName.idx_id 
-            AND surname2.type_field = 3 
+            from US_HNAUT_V4.dat_user_name fullName
+        LEFT JOIN US_HNAUT_V4.dat_name_field surname2
+            ON surname2.fk_user_name_id = fullName.idx_id
+            AND surname2.type_field = 3
             group by fullName.idx_id,fullName.fk_user_id) surname_2
             ON surname_2.fk_user_id = prat.idx_id
-        LEFT JOIN US_HNAUT_V4.dat_workplace workp 
+        LEFT JOIN US_HNAUT_V4.dat_workplace workp
             ON workp.code = care.cod_workplace
            left join (
-             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES 
-             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
+             SELECT elemento1.KEY_COD as SUBTYPE_CODE, elemento1.DAT_NAME as SUBTYPE_DES, formacob.KEY_COD as FORMACOB_CODE, formacob.DAT_NAME as FORMACOB_DES
+             FROM  US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
                   LEFT JOIN
-                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE 
-                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1 
-                    left join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID 
+                  ( SELECT elemento1.IDX_ID, elemento1.KEY_COD, elemento1.DAT_NAME, it.FK_ITEM_SOURCE
+                    FROM US_HNCAT_V4.DAT_CATALOG cat1, US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1, US_HNCAT_V4.DAT_ITEM elemento1
+                    left join US_HNCAT_V4.REL_ITEM_ITEM it  on it.FK_ITEM_TARGET = elemento1.IDX_ID
                     WHERE
-                    cat1.KEY_COD = 'FORMACOB' 
+                    cat1.KEY_COD = 'FORMACOB'
                     AND catVers1.FK_CATALOG = cat1.IDX_ID AND catVers1.FLG_STATUS = 1 AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
-                  ) formacob 
-                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE 
+                  ) formacob
+                 ON elemento1.IDX_ID = formacob.FK_ITEM_SOURCE
              WHERE
-             cat1.KEY_COD = 'workplace_sub_type'    
+             cat1.KEY_COD = 'workplace_sub_type'
              AND catVers1.FK_CATALOG = cat1.IDX_ID  AND catVers1.FLG_STATUS = 1  AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID) subTypeCob
             ON subTypeCob.SUBTYPE_CODE = workp.COD_SUB_TYPE
         LEFT JOIN (
-          select id_ads,id_org, cod_org,des_org from 
+          select id_ads,id_org, cod_org,des_org from
           (select c.idx_id id_ads,c.dt_start, o.idx_id id_org,o.COD_KEY cod_org,o.dat_name des_org
-          from us_hnpob_v4.dat_care_team c 
+          from us_hnpob_v4.dat_care_team c
           join us_hnpob_v4.dat_care_team_ref r on r.fk_care_team=c.idx_id and r.dat_name='organization' and r.ref_type='Organization'
-          join US_HNAUT_V4.dat_organization o on r.ref_id=o.cod_key) 
-        ) CARE_ORG 
-        ON care.idx_id = CARE_ORG.id_ads 
-         JOIN ( 
+          join US_HNAUT_V4.dat_organization o on r.ref_id=o.cod_key)
+        ) CARE_ORG
+        ON care.idx_id = CARE_ORG.id_ads
+         JOIN (
           SELECT care.idx_id id_ads, jt2.status_c, SUBSTR(jt.ref_c, INSTR(jt.ref_c, '/') + 1) ref_code,jt.display_c ref_des, jt.role_c, jt.role_d
           FROM us_hnpob_v4.DAT_CARE_TEAM care,
            (select * from us_hnpob_v4.DAT_CARE_TEAM_RESOURCE js
@@ -5197,10 +5198,10 @@ data:
              ref_c VARCHAR(100) PATH '$.member[*].reference',
              role_c VARCHAR(50) PATH '$.role[*].coding[*].code',
              role_d VARCHAR(100) PATH '$.role[*].coding[*].display'
-            )) AS jt        
+            )) AS jt
             where care.idx_id = res.fk_care_team and care.idx_id = res2.fk_care_team
             AND care.DAT_STATUS = 'proposed'
-            AND care.fk_person_id = :#${headers.idPatient} 
+            AND care.fk_person_id = :#${headers.idPatient}
            ) care_patient
           ON care.idx_id = care_patient.id_ads
         WHERE care.DAT_STATUS = 'proposed'
@@ -5209,33 +5210,33 @@ data:
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientContacts.sql: |-
     with
         contact AS (
-        SELECT res.FK_PATIENT_ID,                                    
-          jt.value_string AS fk_contact_type, value_use as cod_contact_use, jt.value_system AS cod_contact_type,value_display 
+        SELECT res.FK_PATIENT_ID,
+          jt.value_string AS fk_contact_type, value_use as cod_contact_use, jt.value_system AS cod_contact_type,value_display
         FROM
          (select * from us_hnpob_v4.DAT_PATIENT_RESOURCE js
           where json_exists(js.patient_json, '$.telecom[*]')) res,
           json_table(res.patient_json, '$.telecom[*]' COLUMNS (
-            system_c VARCHAR(100) path '$.extension[0].url', 
+            system_c VARCHAR(100) path '$.extension[0].url',
             value_string VARCHAR(50) PATH '$.extension[0].valueString',
-            value_use VARCHAR(50) PATH '$.use', 
-            value_system VARCHAR(50) PATH '$.system', 
-            value_display VARCHAR(100) PATH '$.value')) AS jt 
-        WHERE                   
+            value_use VARCHAR(50) PATH '$.use',
+            value_system VARCHAR(50) PATH '$.system',
+            value_display VARCHAR(100) PATH '$.value')) AS jt
+        WHERE
           jt.system_c = 'http://hn.indra.es/fhir/StructureDefinition/telecom-identifier'
           AND res.fk_patient_id = :#${headers.idPatient}
         )
-    SELECT persona.id              AS ID_PATIENT, 
-           persona.codigo          AS COD_PATIENT, 
-           tipo.cod_contact_type   AS COD_CONTACT_TYPE, 
-           tipo.ds_contact_type    AS DESC_CONTACT_TYPE, 
-           contact.cod_contact_use AS COD_CONTACT_USE, 
-           USOS.DES  AS DESC_CONTACT_USE, 
+    SELECT persona.id              AS ID_PATIENT,
+           persona.codigo          AS COD_PATIENT,
+           tipo.cod_contact_type   AS COD_CONTACT_TYPE,
+           tipo.ds_contact_type    AS DESC_CONTACT_TYPE,
+           contact.cod_contact_use AS COD_CONTACT_USE,
+           USOS.DES  AS DESC_CONTACT_USE,
            contact.value_display        AS CONTACT_VALUE,
-           CASE WHEN tipo.ds_description LIKE '%tific%' THEN 1 ELSE 0 END AS FLG_NOTIFICATION 
-    FROM us_hnpob_v4.persona persona join contact 
-             ON persona.id = contact.FK_PATIENT_ID 
-           join us_hnpob_v4.cat_contact_type tipo 
-             ON tipo.idx_id = contact.fk_contact_type 
+           CASE WHEN tipo.ds_description LIKE '%tific%' THEN 1 ELSE 0 END AS FLG_NOTIFICATION
+    FROM us_hnpob_v4.persona persona join contact
+             ON persona.id = contact.FK_PATIENT_ID
+           join us_hnpob_v4.cat_contact_type tipo
+             ON tipo.idx_id = contact.fk_contact_type
           LEFT OUTER JOIN (
           SELECT
                 elemento.KEY_COD AS COD,
@@ -5243,32 +5244,32 @@ data:
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.KEY_COD like 'uso_contacto' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
+                cat.KEY_COD like 'uso_contacto'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
                 AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID ) usos
-          ON contact.cod_contact_use = usos.COD      
+          ON contact.cod_contact_use = usos.COD
     WHERE persona.id=:#${headers.idPatient}
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientDocuments.sql: |-
     SELECT  persona.id                      AS ID_PATIENT,
-              persona.codigo                  AS COD_PATIENT, 
-              documento.doc_type          AS COD_DOCUMENT_TYPE, 
-              documento.des_type          AS DESC_DOCUMENT_TYPE, 
-              documento.doc_value         AS DOCUMENT_VALUE, 
-              /*CASE WHEN documento.tutorFlag = 'true' then 1 else 0 end*/ 0 AS FLG_TUTOR, 
+              persona.codigo                  AS COD_PATIENT,
+              documento.doc_type          AS COD_DOCUMENT_TYPE,
+              documento.des_type          AS DESC_DOCUMENT_TYPE,
+              documento.doc_value         AS DOCUMENT_VALUE,
+              /*CASE WHEN documento.tutorFlag = 'true' then 1 else 0 end*/ 0 AS FLG_TUTOR,
               null                        AS DATE_EXPIRATION,
               paises.COD_COUNTRY                 AS COD_COUNTRY_ISSUE,
-              documento.countryDesc             AS DESC_COUNTRY_ISSUE 
+              documento.countryDesc             AS DESC_COUNTRY_ISSUE
       FROM
-         us_hnpob_v4.persona persona 
+         us_hnpob_v4.persona persona
          JOIN
         (SELECT
           fk_patient_id,
           doc_type,
           doc_value,
-          doc_use, 
+          doc_use,
           des_type,
           MIN(CASE WHEN system_c = 'http://hn.indra.es/fhir/StructureDefinition/identifier-country' THEN code_c ELSE NULL END) AS countryCode,
           MIN(CASE WHEN system_c = 'http://hn.indra.es/fhir/StructureDefinition/identifier-country' THEN desc_c ELSE NULL END) AS countryDesc
@@ -5276,7 +5277,7 @@ data:
           select fk_patient_id,
           doc_type,
           doc_value,
-          doc_use, 
+          doc_use,
           des_type,
           system_c,
           code_c,
@@ -5286,70 +5287,70 @@ data:
           where json_exists(js.patient_json, '$.identifier[*]')
           and js.fk_patient_id = :#${headers.idPatient}) res,
           json_table(res.patient_json, '$.identifier[*]' COLUMNS (
-          doc_type VARCHAR(50) path '$.system', 
+          doc_type VARCHAR(50) path '$.system',
           doc_value VARCHAR(100) PATH '$.value',
-          doc_use VARCHAR(50) PATH '$.use', 
+          doc_use VARCHAR(50) PATH '$.use',
           des_type VARCHAR(100) PATH '$.type.text',
           NESTED PATH '$.extension[*]' COLUMNS (
             system_c VARCHAR(100) path '$.url' NULL ON ERROR,
             code_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].code' NULL ON ERROR,
             desc_c VARCHAR(50) path '$.valueCodeableConcept.coding[0].display' NULL ON ERROR))) AS jt
-          ) group by fk_patient_id,doc_type,doc_value,doc_use,des_type ) documento 
+          ) group by fk_patient_id,doc_type,doc_value,doc_use,des_type ) documento
         ON persona.id = documento.fk_patient_id
          LEFT OUTER JOIN
             (
                SELECT
                   pais.key_cod as COD_COUNTRY,
-                  pais.dat_name as DESC_COUNTRY 
+                  pais.dat_name as DESC_COUNTRY
                FROM
                   US_HNCAT_V4.DAT_CATALOG cat1,
                   US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1,
-                  US_HNCAT_V4.DAT_ITEM elemento1 
+                  US_HNCAT_V4.DAT_ITEM elemento1
                   LEFT OUTER JOIN
-                     US_HNCAT_V4.rel_item_item itemRel12 
-                     ON itemRel12.FK_ITEM_SOURCE = elemento1.idx_id 
+                     US_HNCAT_V4.rel_item_item itemRel12
+                     ON itemRel12.FK_ITEM_SOURCE = elemento1.idx_id
                   LEFT OUTER JOIN
-                     US_HNCAT_V4.DAT_ITEM pais 
-                     ON pais.idx_id = itemRel12.fk_item_target 
+                     US_HNCAT_V4.DAT_ITEM pais
+                     ON pais.idx_id = itemRel12.fk_item_target
                WHERE
-                  cat1.KEY_COD = 'Geografias' 
-                  AND catVers1.FK_CATALOG = cat1.IDX_ID 
-                  AND catVers1.FLG_STATUS = 1 
+                  cat1.KEY_COD = 'Geografias'
+                  AND catVers1.FK_CATALOG = cat1.IDX_ID
+                  AND catVers1.FLG_STATUS = 1
                   AND elemento1.FK_CATALOG_VERSION = catVers1.IDX_ID
             )
-            paises 
+            paises
             ON documento.countryDesc = paises.DESC_COUNTRY
       WHERE persona.id = :#${headers.idPatient}
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientExtensions.sql: |-
     SELECT persona.id                  AS PERSONA_ID,
-           extensionType.ds_identifier AS EXTENSION_ID, 
-           extensionType.ds_literal    AS EXTENSION_LITERAL, 
-           extension.ds_value          AS VALUE, 
-           extension.ds_code           AS CODE 
-    FROM   us_hnpob_v4.persona persona, 
-           us_hnpob_v4.dat_field_additional extension, 
-           us_hnpob_v4.met_field_additional extensionType 
-    WHERE  extension.fk_person_id = persona.id 
+           extensionType.ds_identifier AS EXTENSION_ID,
+           extensionType.ds_literal    AS EXTENSION_LITERAL,
+           extension.ds_value          AS VALUE,
+           extension.ds_code           AS CODE
+    FROM   us_hnpob_v4.persona persona,
+           us_hnpob_v4.dat_field_additional extension,
+           us_hnpob_v4.met_field_additional extensionType
+    WHERE  extension.fk_person_id = persona.id
            AND extension.fk_met_field_additional = extensionType.idx_id
            AND persona.id=:#${headers.idPatient}
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientNationalities.sql: |-
     SELECT persona.id                    AS ID_PATIENT,
-           persona.codigo                AS COD_PATIENT, 
-           nacionalidad.cod_nationality  AS COD_NATIONALITY, 
-           nacionalidad.ds_nationality   AS DESC_NATIONALITY 
-    FROM   us_hnpob_v4.persona persona 
-    JOIN (SELECT res.FK_PATIENT_ID,                                    
+           persona.codigo                AS COD_PATIENT,
+           nacionalidad.cod_nationality  AS COD_NATIONALITY,
+           nacionalidad.ds_nationality   AS DESC_NATIONALITY
+    FROM   us_hnpob_v4.persona persona
+    JOIN (SELECT res.FK_PATIENT_ID,
       jt.value_code AS cod_nationality, jt.value_display AS ds_nationality
     FROM
       us_hnpob_v4.DAT_PATIENT_RESOURCE res,
       json_table(res.patient_json, '$.extension[*]' COLUMNS (
-        system_c VARCHAR(100) path '$.url', 
-        value_code VARCHAR(100) PATH '$.valueCodeableConcept.coding[0].code', 
-        value_display VARCHAR(100) PATH '$.valueCodeableConcept.text')) AS jt 
-    WHERE                   
+        system_c VARCHAR(100) path '$.url',
+        value_code VARCHAR(100) PATH '$.valueCodeableConcept.coding[0].code',
+        value_display VARCHAR(100) PATH '$.valueCodeableConcept.text')) AS jt
+    WHERE
       jt.system_c = 'http://hl7.org/fhir/StructureDefinition/patient-nationality'
       and res.fk_patient_id= :#${headers.idPatient}
-      ) nacionalidad 
+      ) nacionalidad
     ON persona.id = nacionalidad.FK_PATIENT_ID
     WHERE  persona.id=:#${headers.idPatient}
     and cod_nationality is not null
@@ -5359,21 +5360,21 @@ data:
     	  select * from us_hnpob_v4.dat_patient_history js
     		  where json_exists(js.ds_patient_json, '$.extension[*].valueCodeableConcept.coding[*]')
     	)
-    SELECT datosFarmacia.ID                	AS ID_PATIENT, 
-           datosFarmacia.CODIGO           	AS COD_PATIENT, 
+    SELECT datosFarmacia.ID                	AS ID_PATIENT,
+           datosFarmacia.CODIGO           	AS COD_PATIENT,
            datosFarmacia.FECHA				AS DATE_FROM,
            catIndi.CODE				 		AS COD_INDEX_PHARMACY,
            catIndi.DESCRIPTION  			AS DESC_INDEX_PHARMACY,
            catSubi.CODE				 		AS COD_SUB_INDEX_PHARMACY,
-           catSubi.DESCRIPTION 				AS DESC_SUB_INDEX_PHARMACY 
+           catSubi.DESCRIPTION 				AS DESC_SUB_INDEX_PHARMACY
     FROM
        (
           SELECT
             ID,
             CODIGO,
             DT_REGISTRATION AS FECHA,
-            MIN(CASE WHEN system_c = 'uri:hn:indicador_farmacia' THEN DATO ELSE NULL END) AS INDI, 
-            MIN(CASE WHEN system_c = 'uri:hn:subindicador_farmacia' THEN DATO ELSE NULL END) AS SUBI 
+            MIN(CASE WHEN system_c = 'uri:hn:indicador_farmacia' THEN DATO ELSE NULL END) AS INDI,
+            MIN(CASE WHEN system_c = 'uri:hn:subindicador_farmacia' THEN DATO ELSE NULL END) AS SUBI
           FROM
              (
                 SELECT
@@ -5382,98 +5383,98 @@ data:
                    his.cod_version AS COD_VERSION,
                    his.dt_registration AS DT_REGISTRATION,
                    jt.system_c AS SYSTEM_C,
-                   jt.code_c AS DATO 
+                   jt.code_c AS DATO
                 FROM
                    us_hnpob_v4.persona persona,
                    jsonExists his,
-                   json_table(his.ds_patient_json, '$.extension[*].valueCodeableConcept' COLUMNS (text_c VARCHAR(50) path '$.text' NULL ON ERROR, NESTED PATH '$.coding[*]' COLUMNS ( row_number FOR ordinality, system_c VARCHAR(50) path '$.system' NULL ON ERROR, code_c VARCHAR(50) path '$.code' NULL ON ERROR, code_EEE VARCHAR(50) path '$.text' NULL ON ERROR))) AS jt 
+                   json_table(his.ds_patient_json, '$.extension[*].valueCodeableConcept' COLUMNS (text_c VARCHAR(50) path '$.text' NULL ON ERROR, NESTED PATH '$.coding[*]' COLUMNS ( row_number FOR ordinality, system_c VARCHAR(50) path '$.system' NULL ON ERROR, code_c VARCHAR(50) path '$.code' NULL ON ERROR, code_EEE VARCHAR(50) path '$.text' NULL ON ERROR))) AS jt
                 WHERE
                     persona.id=:#${headers.idPatient} AND
-                    his.fk_patient_id = persona.id 
-                   AND jt.system_c IN 
+                    his.fk_patient_id = persona.id
+                   AND jt.system_c IN
                    (
                       'uri:hn:subindicador_farmacia',
-                      'uri:hn:indicador_farmacia' 
+                      'uri:hn:indicador_farmacia'
                    )
              ) ind_farmacia
-             GROUP BY ID,CODIGO,DT_REGISTRATION 
+             GROUP BY ID,CODIGO,DT_REGISTRATION
           UNION
           SELECT
              persona.id AS ID,
              persona.codigo AS CODIGO,
              persona.fechaactualizacion AS FECHA,
              indicador_farmacia.code AS INDI,
-             subindicador_farmacia.code AS SUBI 
+             subindicador_farmacia.code AS SUBI
           FROM
-             us_hnpob_v4.persona persona 
+             us_hnpob_v4.persona persona
              LEFT OUTER JOIN
                 (
                    SELECT
                       extension.fk_person_id AS PERSONA_ID,
                       extension.ds_value AS VALUE,
-                      extension.ds_code AS CODE 
+                      extension.ds_code AS CODE
                    FROM
                       us_hnpob_v4.dat_field_additional extension,
-                      us_hnpob_v4.met_field_additional extensionType 
+                      us_hnpob_v4.met_field_additional extensionType
                    WHERE
-                      extension.fk_met_field_additional = extensionType.idx_id 
+                      extension.fk_met_field_additional = extensionType.idx_id
                       AND extensionType.ds_identifier = 'indicador_farmacia'
                 )
-                indicador_farmacia 
-                ON indicador_farmacia.PERSONA_ID = persona.id 
+                indicador_farmacia
+                ON indicador_farmacia.PERSONA_ID = persona.id
              LEFT OUTER JOIN
                 (
                    SELECT
                       extension.fk_person_id AS PERSONA_ID,
                       extension.ds_value AS VALUE,
-                      extension.ds_code AS CODE 
+                      extension.ds_code AS CODE
                    FROM
                       us_hnpob_v4.dat_field_additional extension,
-                      us_hnpob_v4.met_field_additional extensionType 
+                      us_hnpob_v4.met_field_additional extensionType
                    WHERE
-                      extension.fk_met_field_additional = extensionType.idx_id 
+                      extension.fk_met_field_additional = extensionType.idx_id
                       AND extensionType.ds_identifier = 'subindicador_farmacia'
                 )
-                subindicador_farmacia 
-                ON subindicador_farmacia.PERSONA_ID = persona.id 
+                subindicador_farmacia
+                ON subindicador_farmacia.PERSONA_ID = persona.id
                 WHERE persona.id=:#${headers.idPatient}
        )
-       datosFarmacia 
+       datosFarmacia
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS code,
-                elemento.DAT_NAME AS description 
+                elemento.DAT_NAME AS description
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.key_cod = 'subindicador_farmacia' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.key_cod = 'subindicador_farmacia'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          catSubi 
-          ON datosFarmacia.subi = catSubi.code 
+          catSubi
+          ON datosFarmacia.subi = catSubi.code
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS code,
-                elemento.DAT_NAME AS description 
+                elemento.DAT_NAME AS description
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              WHERE
-                cat.key_cod = 'indicador_farmacia' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.key_cod = 'indicador_farmacia'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          catIndi 
+          catIndi
           ON datosFarmacia.indi = catIndi.code
-          WHERE (catIndi.code IS NOT NULL OR catSubi.code IS NOT NULL) 
+          WHERE (catIndi.code IS NOT NULL OR catSubi.code IS NOT NULL)
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientTypeCitizen.sql: |-
     with
     	jsonExists AS (
@@ -5498,7 +5499,7 @@ data:
              datos.id AS ID,
              datos.codigo AS CODIGO,
              datos.dt_registration AS FECHA,
-             datos.TIPOC AS TIPOC 
+             datos.TIPOC AS TIPOC
           FROM
              (
                 SELECT
@@ -5507,152 +5508,152 @@ data:
                    his.cod_version,
                    his.dt_registration,
                    jt.system_c,
-                   jt.code_c AS DATO 
+                   jt.code_c AS DATO
                 FROM
                    us_hnpob_v4.persona persona,
                    jsonExists his,
-                   json_table(his.ds_patient_json, '$.extension[*].valueCodeableConcept' COLUMNS (text_c VARCHAR2(50) PATH '$.text' NULL ON ERROR, NESTED PATH '$.coding[*]' COLUMNS (row_number FOR ordinality, system_c VARCHAR2(50) PATH '$.system' NULL ON ERROR, code_c VARCHAR2(50) PATH '$.code' NULL ON ERROR, code_EEE VARCHAR2(50) PATH '$.text' NULL ON ERROR))) AS jt 
+                   json_table(his.ds_patient_json, '$.extension[*].valueCodeableConcept' COLUMNS (text_c VARCHAR2(50) PATH '$.text' NULL ON ERROR, NESTED PATH '$.coding[*]' COLUMNS (row_number FOR ordinality, system_c VARCHAR2(50) PATH '$.system' NULL ON ERROR, code_c VARCHAR2(50) PATH '$.code' NULL ON ERROR, code_EEE VARCHAR2(50) PATH '$.text' NULL ON ERROR))) AS jt
                 WHERE
                    persona.id=:#${headers.idPatient} AND
-                   his.fk_patient_id = persona.id 
-                   AND jt.system_c IN 
+                   his.fk_patient_id = persona.id
+                   AND jt.system_c IN
                    (
-                      'uri:hn:tipo_ciudadano' 
+                      'uri:hn:tipo_ciudadano'
                    )
              )
-             pivot (MIN(DATO) FOR system_c in 
+             pivot (MIN(DATO) FOR system_c in
              (
-                'uri:hn:tipo_ciudadano' TIPOC 
+                'uri:hn:tipo_ciudadano' TIPOC
              )
-    ) datos 
+    ) datos
           UNION
           SELECT
              persona.id AS ID,
              persona.codigo AS CODIGO,
              persona.fechaactualizacion AS FECHA,
-             tipo_ciudadano.code AS TIPOC 
+             tipo_ciudadano.code AS TIPOC
           FROM
-             us_hnpob_v4.persona persona 
+             us_hnpob_v4.persona persona
              LEFT OUTER JOIN
                 (
                    SELECT
                       extension.fk_person_id AS PERSONA_ID,
                       extension.ds_value AS VALUE,
-                      extension.ds_code AS CODE 
+                      extension.ds_code AS CODE
                    FROM
                       us_hnpob_v4.dat_field_additional extension,
-                      us_hnpob_v4.met_field_additional extensionType 
+                      us_hnpob_v4.met_field_additional extensionType
                    WHERE
-                      extension.fk_met_field_additional = extensionType.idx_id 
-                      AND extensionType.ds_identifier = 'tipo_ciudadano' 
+                      extension.fk_met_field_additional = extensionType.idx_id
+                      AND extensionType.ds_identifier = 'tipo_ciudadano'
                 )
-                tipo_ciudadano 
-                ON tipo_ciudadano.PERSONA_ID = persona.id 
-                
+                tipo_ciudadano
+                ON tipo_ciudadano.PERSONA_ID = persona.id
+
                 WHERE persona.id=:#${headers.idPatient}
        )
-       datosCiudadano 
+       datosCiudadano
        LEFT OUTER JOIN
           (
              SELECT
                 elemento.KEY_COD AS code,
                 elemento.DAT_NAME AS description,
-                elemento.IDX_ID AS idTipo 
+                elemento.IDX_ID AS idTipo
              FROM
                 US_HNCAT_V4.DAT_CATALOG cat,
                 US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers,
-                US_HNCAT_V4.DAT_ITEM elemento 
+                US_HNCAT_V4.DAT_ITEM elemento
              where
-                cat.key_cod = 'tipo_ciudadano' 
-                AND catVers.FK_CATALOG = cat.IDX_ID 
-                AND catVers.FLG_STATUS = 1 
-                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID 
+                cat.key_cod = 'tipo_ciudadano'
+                AND catVers.FK_CATALOG = cat.IDX_ID
+                AND catVers.FLG_STATUS = 1
+                AND elemento.FK_CATALOG_VERSION = catVers.IDX_ID
           )
-          catTipo 
-          ON datosCiudadano.tipoc = catTipo.code 
+          catTipo
+          ON datosCiudadano.tipoc = catTipo.code
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              where
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'Facturable' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'Facturable'
           )
-          facturable 
-          ON facturable.FK_ITEM = catTipo.idTipo 
+          facturable
+          ON facturable.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              where
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'SWPENSIO' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'SWPENSIO'
           )
-          pensionista 
-          ON pensionista.FK_ITEM = catTipo.idTipo 
+          pensionista
+          ON pensionista.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              where
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'SWMUTUA' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'SWMUTUA'
           )
-          mutualista 
-          ON mutualista.FK_ITEM = catTipo.idTipo 
+          mutualista
+          ON mutualista.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 itemAdit.FK_ITEM,
                 catAdit.IDX_ID,
                 itemAdit.dat_value,
-                catAdit.dat_name 
+                catAdit.dat_name
              FROM
                 US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit,
-                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit 
+                US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit
              where
-                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                and catAdit.dat_name = 'SWHOSPITAL' 
+                itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                and catAdit.dat_name = 'SWHOSPITAL'
           )
-          hospital 
-          ON hospital.FK_ITEM = catTipo.idTipo 
+          hospital
+          ON hospital.FK_ITEM = catTipo.idTipo
        LEFT OUTER JOIN
           (
              SELECT
                 extension.fk_person_id AS PERSONA_ID,
                 extension.ds_value AS VALUE,
-                extension.ds_code AS CODE 
+                extension.ds_code AS CODE
              FROM
                 us_hnpob_v4.dat_field_additional extension,
-                us_hnpob_v4.met_field_additional extensionType 
+                us_hnpob_v4.met_field_additional extensionType
              WHERE
-                extension.fk_met_field_additional = extensionType.idx_id 
+                extension.fk_met_field_additional = extensionType.idx_id
                 AND extensionType.ds_identifier = 'emplazamiento'
           )
-          emplazamiento 
-          ON emplazamiento.PERSONA_ID = datosCiudadano.ID 
+          emplazamiento
+          ON emplazamiento.PERSONA_ID = datosCiudadano.ID
        LEFT OUTER JOIN
           (
              SELECT
-                * 
+                *
              FROM
                 (
                    SELECT
@@ -5661,7 +5662,7 @@ data:
                       elemento2.KEY_COD AS TIPO_C_CODE,
                       elemento2.DAT_DESCRIPTION AS TIPO_C_DES,
                       catAdit.DAT_NAME AS COD_ADICIONAL,
-                      itemAdit.dat_value AS VALUE_ADICIONAL 
+                      itemAdit.dat_value AS VALUE_ADICIONAL
                    FROM
                       US_HNCAT_V4.DAT_CATALOG cat1,
                       US_HNCAT_V4.DAT_CAT_VER_ITEMS catVers1,
@@ -5672,33 +5673,33 @@ data:
                       US_HNCAT_V4.DAT_ITEM elemento2,
                       US_HNCAT_V4.rel_item_item itemRel12,
                       US_HNCAT_V4.DAT_ADDITIONAL_CATALOG_FIELD catAdit,
-                      US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit 
+                      US_HNCAT_V4.DAT_ADDITIONAL_ITEM_FIELD itemAdit
                    WHERE
-                      cat1.KEY_COD = 't_ciudadano_emplazamiento' 
-                      AND catVers1.FK_CATALOG = cat1.IDX_ID 
-                      AND catVers1.FLG_STATUS = 1 
-                      AND cat2.KEY_COD = 'tipo_ciudadano' 
-                      AND catVers2.FK_CATALOG = cat2.IDX_ID 
-                      AND catVers2.FLG_STATUS = 1 
-                      AND catRel.FK_CATALOG_VERSION_SOURCE = catVers1.IDX_ID 
-                      AND catRel.FK_CATALOG_VERSION_TARGET = catVers2.IDX_ID 
-                      AND itemRel12.FK_REL_CAT_VER = catRel.IDX_ID 
-                      AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id 
-                      AND itemRel12.FK_ITEM_TARGET = elemento2.idx_id 
-                      AND catAdit.FK_CATALOG = cat1.IDX_ID 
-                      AND itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID 
-                      AND itemAdit.FK_ITEM = elemento1.IDX_ID 
+                      cat1.KEY_COD = 't_ciudadano_emplazamiento'
+                      AND catVers1.FK_CATALOG = cat1.IDX_ID
+                      AND catVers1.FLG_STATUS = 1
+                      AND cat2.KEY_COD = 'tipo_ciudadano'
+                      AND catVers2.FK_CATALOG = cat2.IDX_ID
+                      AND catVers2.FLG_STATUS = 1
+                      AND catRel.FK_CATALOG_VERSION_SOURCE = catVers1.IDX_ID
+                      AND catRel.FK_CATALOG_VERSION_TARGET = catVers2.IDX_ID
+                      AND itemRel12.FK_REL_CAT_VER = catRel.IDX_ID
+                      AND itemRel12.FK_ITEM_SOURCE = elemento1.idx_id
+                      AND itemRel12.FK_ITEM_TARGET = elemento2.idx_id
+                      AND catAdit.FK_CATALOG = cat1.IDX_ID
+                      AND itemAdit.FK_ADDITIONAL_CATALOG_FIELD = catAdit.IDX_ID
+                      AND itemAdit.FK_ITEM = elemento1.IDX_ID
                 )
-                emplazamientos pivot (MIN(VALUE_ADICIONAL) FOR COD_ADICIONAL IN 
+                emplazamientos pivot (MIN(VALUE_ADICIONAL) FOR COD_ADICIONAL IN
                 (
                    'SWNOMINA' PAYROLL_VALUE,
-                   'SWCUPO' QUOTA_VALUE 
+                   'SWCUPO' QUOTA_VALUE
                 )
     )
           )
-          datosEmplazamiento 
-          ON catTipo.CODE = datosEmplazamiento.TIPO_C_CODE 
-          AND datosEmplazamiento.EMPLAZAMIENTO = emplazamiento.code 
+          datosEmplazamiento
+          ON catTipo.CODE = datosEmplazamiento.TIPO_C_CODE
+          AND datosEmplazamiento.EMPLAZAMIENTO = emplazamiento.code
     WHERE
     	catTipo.code IS NOT NULL
   externalResources_client_default_bdExtract_sql_Oracle_hnpob___queryPatientTypeInsured.sql: |-
@@ -5708,21 +5709,21 @@ data:
     		  where json_exists(js.ds_patient_json, '$.extension[*]')
     	)
     select
-    ID             as ID_PATIENT, 
-    CODIGO         as COD_PATIENT, 
-    FECHA          as DATE_FROM, 
+    ID             as ID_PATIENT,
+    CODIGO         as COD_PATIENT,
+    FECHA          as DATE_FROM,
     CASE WHEN TIPO_ASEGURADO = 'T' THEN 1 ELSE 0 END as FLG_TITULAR,
     CIPA_TITULAR   as CODE_BENEFACTOR
     from (select ID, CODIGO, FECHA, TIPO_ASEGURADO, CIPA_TITULAR , dato, lag(dato) over (partition by ID order by FECHA) prior_dato
         from
-          (select 
-          ID, 
-          CODIGO, 
-          FECHA, 
-          TIPO_ASEGURADO, 
+          (select
+          ID,
+          CODIGO,
+          FECHA,
+          TIPO_ASEGURADO,
           CIPA_TITULAR ,
           CASE WHEN TIPO_ASEGURADO IS NOT NULL THEN TIPO_ASEGURADO ELSE 'TIPONULL' END ||
-          CASE WHEN CIPA_TITULAR IS NOT NULL THEN CIPA_TITULAR ELSE 'CIPANULL' END as dato from 
+          CASE WHEN CIPA_TITULAR IS NOT NULL THEN CIPA_TITULAR ELSE 'CIPANULL' END as dato from
           (SELECT
              datos.id AS ID,
              datos.codigo AS CODIGO,
@@ -5739,26 +5740,26 @@ data:
                    jt.system_c,
                    jt.url_c,
                    CASE WHEN jt.url_c = 'uri:hn:additional-data:cipa_titular' THEN jt.valueString_c
-                   ELSE jt.code_c END AS DATO 
+                   ELSE jt.code_c END AS DATO
                 FROM
                    us_hnpob_v4.persona persona,
                    jsonExists his,
-                   json_table(his.ds_patient_json, '$.extension[*]' COLUMNS (url_c VARCHAR2(100) PATH '$.url' NULL ON ERROR, valueString_c VARCHAR2(100) PATH '$.valueString' NULL ON ERROR, text_c VARCHAR2(50) PATH '$.valueCodeableConcept.text' NULL ON ERROR, NESTED PATH '$.valueCodeableConcept.coding[*]' COLUMNS (row_number FOR ordinality, system_c VARCHAR2(50) PATH '$.system' NULL ON ERROR, code_c VARCHAR2(50) PATH '$.code' NULL ON ERROR, code_EEE VARCHAR2(50) PATH '$.text' NULL ON ERROR))) AS jt 
+                   json_table(his.ds_patient_json, '$.extension[*]' COLUMNS (url_c VARCHAR2(100) PATH '$.url' NULL ON ERROR, valueString_c VARCHAR2(100) PATH '$.valueString' NULL ON ERROR, text_c VARCHAR2(50) PATH '$.valueCodeableConcept.text' NULL ON ERROR, NESTED PATH '$.valueCodeableConcept.coding[*]' COLUMNS (row_number FOR ordinality, system_c VARCHAR2(50) PATH '$.system' NULL ON ERROR, code_c VARCHAR2(50) PATH '$.code' NULL ON ERROR, code_EEE VARCHAR2(50) PATH '$.text' NULL ON ERROR))) AS jt
                 WHERE
                   persona.id=:#${headers.idPatient} AND
-                   his.fk_patient_id = persona.id 
-                   AND jt.url_c IN 
+                   his.fk_patient_id = persona.id
+                   AND jt.url_c IN
                    (
                       'uri:hn:additional-data:tipo_asegurado',
                       'uri:hn:additional-data:cipa_titular'
                    )
              )
-             pivot (MIN(DATO) FOR url_c in 
+             pivot (MIN(DATO) FOR url_c in
              (
-                'uri:hn:additional-data:tipo_asegurado' TIPO_ASEGURADO, 
+                'uri:hn:additional-data:tipo_asegurado' TIPO_ASEGURADO,
                 'uri:hn:additional-data:cipa_titular' CIPA_TITULAR
              )
-    ) datos 
+    ) datos
     UNION ALL
           SELECT
              persona.id AS ID,
@@ -5767,43 +5768,43 @@ data:
              tipo_asegurado.code AS TIPO_ASEGURADO,
              TO_CHAR(cipa_titular.VALUE) AS CIPA_TITULAR
           FROM
-             us_hnpob_v4.persona persona 
+             us_hnpob_v4.persona persona
              LEFT OUTER JOIN
                 (
                    SELECT
                       extension.fk_person_id AS PERSONA_ID,
                       extension.ds_value AS VALUE,
-                      extension.ds_code AS CODE 
+                      extension.ds_code AS CODE
                    FROM
                       us_hnpob_v4.dat_field_additional extension,
-                      us_hnpob_v4.met_field_additional extensionType 
+                      us_hnpob_v4.met_field_additional extensionType
                    WHERE
-                      extension.fk_met_field_additional = extensionType.idx_id 
-                      AND extensionType.ds_identifier = 'tipo_asegurado' 
+                      extension.fk_met_field_additional = extensionType.idx_id
+                      AND extensionType.ds_identifier = 'tipo_asegurado'
                 )
-                
-                tipo_asegurado 
-                ON tipo_asegurado.PERSONA_ID = persona.id 
-                
+
+                tipo_asegurado
+                ON tipo_asegurado.PERSONA_ID = persona.id
+
              LEFT OUTER JOIN
                 (
                    SELECT
                       extension.fk_person_id AS PERSONA_ID,
                       extension.ds_value AS VALUE,
-                      extension.ds_code AS CODE 
+                      extension.ds_code AS CODE
                    FROM
                       us_hnpob_v4.dat_field_additional extension,
-                      us_hnpob_v4.met_field_additional extensionType 
+                      us_hnpob_v4.met_field_additional extensionType
                    WHERE
-                      extension.fk_met_field_additional = extensionType.idx_id 
-                      AND extensionType.ds_identifier = 'cipa_titular' 
+                      extension.fk_met_field_additional = extensionType.idx_id
+                      AND extensionType.ds_identifier = 'cipa_titular'
                 )
-                
-                cipa_titular 
-                ON cipa_titular.PERSONA_ID = persona.id 
-                
+
+                cipa_titular
+                ON cipa_titular.PERSONA_ID = persona.id
+
                 WHERE persona.id=:#${headers.idPatient}
-                
+
                 )
           )
       )
@@ -5818,3 +5819,4 @@ data:
     Insert into AUDIT_DETAIL ("iengineModule","iengineSubmodule", "timeMark", "auditType", "resourceCode", "message", "resourceValue") values (?, ?, ?, ?, ?, ?, ?)
   externalResources_client_default_bdExtract_sql_Oracle_iengine___insertTimeMark.sql: |-
     Insert into LAST_EXECUTION_MARKS ("iengineModule","timeMark") values (IENGINE_MODULE, TO_DATE(IENGINE_TIMEMARK, 'DD/MM/YYYY HH24:MI:SS'))
+{{- end }}

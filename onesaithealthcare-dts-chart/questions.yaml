@@ -8,7 +8,7 @@ questions:
       - dev
       - prod
     required: true
-    
+
   - variable: global.domain.gateway_type
     default: k8s_gateway
     description: "Gateway type"
@@ -45,6 +45,15 @@ questions:
   - variable: dts.module.schedule
     description: "Periodicidad del cronJob (Ejemplo: 10 0 * * * ) [Minuto (0 - 59) Hora (0 - 23) Día del mes Mes (1 - 12) Día de la semana (0 - 6) (Domingo = 0)]"
     type: string
+    required: true
+
+  - variable: dts.module.cfg.deploy
+    default: No
+    description: "Desplegar los ConfigMap de routes, inserción y extracción"
+    type: enum
+    options:
+      - Si
+      - No
     required: true
 
   - variable: dts.module.cfg.insercion

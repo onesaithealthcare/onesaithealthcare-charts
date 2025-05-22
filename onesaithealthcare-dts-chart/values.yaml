@@ -16,9 +16,10 @@ dts:
     schedule: 10 0 * * *
     max_days: 0
     cfg:
-      insercion: insercion-cfg
-      extraccion: extraccion-cfg
-      routes: routes-cfg
+      deploy: Si # Opciones: Si, No
+      insercion: ohdts-insercion-cfg
+      extraccion: ohdts-extraccion-cfg
+      routes: ohdts-routes-cfg
   database:
     datasource:
       driver: database.driverClassName:oracle.jdbc.driver.OracleDriver

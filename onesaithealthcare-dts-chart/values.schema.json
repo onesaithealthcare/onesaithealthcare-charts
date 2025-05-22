@@ -85,6 +85,11 @@
             "cfg": {
               "type": "object",
               "properties": {
+				"deploy": {
+				  "type": "string",
+				  "enum": ["Si", "No"],
+				  "description": "Desplegar los ConfigMap de routes, inserción y extracción"
+				},
                 "insercion": {
                   "type": "string",
 				  "description": "Nombre del ConfigMap de las queries y properties de inserción"
@@ -98,7 +103,7 @@
 				  "description": "Nombre del ConfigMap del routes"
                 }
               },
-              "required": ["insercion", "extraccion", "routes"]
+              "required": ["deploy", "insercion", "extraccion", "routes"]
             }
           },
           "required": ["app_name", "namespace", "schedule", "max_days", "cfg"]
