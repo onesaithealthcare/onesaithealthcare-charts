@@ -41,7 +41,7 @@ data:
    application.context.jdbc.hibernate.dialect= {{ .Values.bi.database.mysql.ohbi_db_dialect }}
    {{- end }}
   setenv.sh: |-
-   export JAVA_OPTS="-Xms4G -Xmx4G"
+   export JAVA_OPTS="-Xms3G -Xmx4G"
    export SPARK_HOME='/usr/local/helical-insight/hi-repository/System/SparkHome'
    export HADOOP_HOME='/usr/local/helical-insight/hi-repository/System/HadoopHome'
 
