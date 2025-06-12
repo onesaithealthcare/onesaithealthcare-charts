@@ -3,7 +3,7 @@ entries:
   onesaithealthcare-bi-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-06-11T17:00:10.8654393+02:00"
+    created: "2025-06-12T07:45:20.684333+02:00"
     description: Onesait Healthcare BI chart for k8s
     digest: ad608f3b03038e70fadf1752df64883babf14f35dc571b2f9f4a6fb7e7c4f296
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -23,9 +23,9 @@ entries:
   onesaithealthcare-dts-chart:
   - apiVersion: v2
     appVersion: 4.3.0
-    created: "2025-06-11T17:00:10.8946695+02:00"
+    created: "2025-06-12T07:45:20.7319407+02:00"
     description: Onesait Healthcare DTS chart for k8s
-    digest: 33ec02fedd1c7acd4cdbeee8e4cbfe0ed7659663bfa3ab260a38fada15d0321a
+    digest: 84099e8e99290f82b2e98510b2d765981e88ce1c6e81359fc212141e6302eac4
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -42,7 +42,7 @@ entries:
     version: 4.1.0
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-06-11T17:00:10.8810397+02:00"
+    created: "2025-06-12T07:45:20.7093018+02:00"
     description: Onesait Healthcare DTS chart for k8s
     digest: 5df43c24399a327b95c879f30d7305326db2cb9f5029aac4c4ac168845e4c63b
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -62,7 +62,7 @@ entries:
   onesaithealthcare-iengine-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-06-11T17:00:10.9056683+02:00"
+    created: "2025-06-12T07:45:20.7535883+02:00"
     dependencies:
     - alias: kafkaien
       name: onesaithealthcare_ohien_kafkaien_chart
@@ -101,7 +101,7 @@ entries:
   onesaithealthcare-ohien-camel-operator-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-06-11T17:00:10.9216688+02:00"
+    created: "2025-06-12T07:45:20.7777425+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -128,7 +128,7 @@ entries:
   onesaithealthcare-ohien-camelk-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-06-11T17:00:10.9468348+02:00"
+    created: "2025-06-12T07:45:20.8227412+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -152,4 +152,4 @@ entries:
     urls:
     - onesaithealthcare-ohien-camelk-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-06-11T17:00:10.861322+02:00"
+generated: "2025-06-12T07:45:20.6796279+02:00"
