@@ -1,31 +1,11 @@
 apiVersion: v1
 entries:
-  onesaithealthcare-bi-chart:
-  - apiVersion: v2
-    appVersion: 4.0.0
-    created: "2025-07-03T11:23:32.7942773+02:00"
-    description: Onesait Healthcare BI chart for k8s
-    digest: e6cf6d348217e9d458baa2d899992a8ed1f1eea1f85b0ca13e1dee6b1e34f01a
-    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
-    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
-    keywords:
-    - Minsait
-    - Onesait Healthcare
-    - BI
-    maintainers:
-    - email: soporteosh@indra.es
-      name: Onesait Healthcare
-    name: onesaithealthcare-bi-chart
-    type: application
-    urls:
-    - onesaithealthcare-bi-chart-4.0.0.tgz
-    version: 4.0.0
   onesaithealthcare-dts-chart:
   - apiVersion: v2
     appVersion: 4.3.0
-    created: "2025-07-03T11:23:32.8251274+02:00"
+    created: "2025-07-03T12:52:13.7045394+02:00"
     description: Onesait Healthcare DTS chart for k8s
-    digest: 173276c2970cba1e6adafaf4a6e039af39030b7e74b99d87c9dfea9992901810
+    digest: 48f24a1f84565fbc7ec97320806d0fb52198b2a8617a707bb6df8a2120852824
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -40,29 +20,10 @@ entries:
     urls:
     - onesaithealthcare-dts-chart-4.1.0.tgz
     version: 4.1.0
-  - apiVersion: v2
-    appVersion: 4.0.0
-    created: "2025-07-03T11:23:32.8089782+02:00"
-    description: Onesait Healthcare DTS chart for k8s
-    digest: 5df43c24399a327b95c879f30d7305326db2cb9f5029aac4c4ac168845e4c63b
-    home: https://github.com/onesaithealthcare/onesaithealthcare-charts
-    icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
-    keywords:
-    - Minsait
-    - Onesait Healthcare
-    - DTS
-    maintainers:
-    - email: soporteosh@indra.es
-      name: Onesait Healthcare
-    name: onesaithealthcare-dts-chart
-    type: application
-    urls:
-    - onesaithealthcare-dts-chart-4.0.0.tgz
-    version: 4.0.0
   onesaithealthcare-iengine-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-07-03T11:23:32.838113+02:00"
+    created: "2025-07-03T12:52:13.7157665+02:00"
     dependencies:
     - alias: kafkaien
       name: onesaithealthcare_ohien_kafkaien_chart
@@ -101,7 +62,7 @@ entries:
   onesaithealthcare-ohien-camel-operator-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-07-03T11:23:32.8540997+02:00"
+    created: "2025-07-03T12:52:13.7790575+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -128,7 +89,7 @@ entries:
   onesaithealthcare-ohien-camelk-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-07-03T11:23:32.8853148+02:00"
+    created: "2025-07-03T12:52:13.8345475+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -152,4 +113,4 @@ entries:
     urls:
     - onesaithealthcare-ohien-camelk-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-07-03T11:23:32.7897882+02:00"
+generated: "2025-07-03T12:52:13.6675538+02:00"
