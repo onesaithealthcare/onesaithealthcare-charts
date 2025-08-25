@@ -3,9 +3,9 @@ entries:
   onesaithealthcare-bi-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T13:19:12.1837607+02:00"
+    created: "2025-08-25T14:25:12.6581898+02:00"
     description: Onesait Healthcare BI chart for k8s
-    digest: c9a5d8d414a4d19d7a14194b271359d65586f7f2193f051e9fbae547cf873dde
+    digest: 4567e2a3c89e42d488fec038baa784e0020ea281f1f657ab4287a03e86ded2c1
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -23,7 +23,7 @@ entries:
   onesaithealthcare-dts-chart:
   - apiVersion: v2
     appVersion: 4.3.1
-    created: "2025-08-25T13:19:12.1969385+02:00"
+    created: "2025-08-25T14:25:12.7734973+02:00"
     description: Onesait Healthcare DTS chart for k8s
     digest: aff8ea8ffb07cd06b22571e01aa6ee6f777e9360ddc751083effcbd072be2cf8
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -43,7 +43,7 @@ entries:
   onesaithealthcare-iengine-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T13:19:12.2072125+02:00"
+    created: "2025-08-25T14:25:12.8174663+02:00"
     dependencies:
     - alias: kafkaien
       name: onesaithealthcare_ohien_kafkaien_chart
@@ -82,7 +82,7 @@ entries:
   onesaithealthcare-ohien-camel-operator-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T13:19:12.2222095+02:00"
+    created: "2025-08-25T14:25:12.8766185+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -109,7 +109,7 @@ entries:
   onesaithealthcare-ohien-camelk-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T13:19:12.2482133+02:00"
+    created: "2025-08-25T14:25:12.9244937+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -133,4 +133,4 @@ entries:
     urls:
     - onesaithealthcare-ohien-camelk-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-08-25T13:19:12.1790686+02:00"
+generated: "2025-08-25T14:25:12.6188371+02:00"
