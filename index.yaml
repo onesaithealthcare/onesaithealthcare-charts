@@ -3,9 +3,9 @@ entries:
   onesaithealthcare-bi-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T08:35:30.7839243+02:00"
+    created: "2025-08-25T09:52:38.9527621+02:00"
     description: Onesait Healthcare BI chart for k8s
-    digest: 3149b0d8e77983e6900f3a2ed3f7024244a4bf3f1215e74b759919fffdf417c6
+    digest: c9a5d8d414a4d19d7a14194b271359d65586f7f2193f051e9fbae547cf873dde
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -23,7 +23,7 @@ entries:
   onesaithealthcare-dts-chart:
   - apiVersion: v2
     appVersion: 4.3.1
-    created: "2025-08-25T08:35:30.8587213+02:00"
+    created: "2025-08-25T09:52:39.063707+02:00"
     description: Onesait Healthcare DTS chart for k8s
     digest: d921c359bc842e62682c8ab3608ab756d8951d650c5be74b6a2f5cca4e64e9cb
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
@@ -43,7 +43,7 @@ entries:
   onesaithealthcare-iengine-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T08:35:30.8757363+02:00"
+    created: "2025-08-25T09:52:39.118361+02:00"
     dependencies:
     - alias: kafkaien
       name: onesaithealthcare_ohien_kafkaien_chart
@@ -82,7 +82,7 @@ entries:
   onesaithealthcare-ohien-camel-operator-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T08:35:30.910006+02:00"
+    created: "2025-08-25T09:52:39.185946+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -109,7 +109,7 @@ entries:
   onesaithealthcare-ohien-camelk-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-25T08:35:30.9531754+02:00"
+    created: "2025-08-25T09:52:39.2559196+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -133,4 +133,4 @@ entries:
     urls:
     - onesaithealthcare-ohien-camelk-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-08-25T08:35:30.7769056+02:00"
+generated: "2025-08-25T09:52:38.9138703+02:00"
