@@ -3,9 +3,9 @@ entries:
   onesaithealthcare-bi-chart:
   - apiVersion: v2
     appVersion: 4.4.0
-    created: "2025-08-29T08:56:42.0154792+02:00"
+    created: "2025-08-29T09:45:00.9897534+02:00"
     description: Onesait Healthcare BI chart for k8s
-    digest: fa445b755d463e9e6e5be74819d7be54c5819db416ce4d7f5471024fbec62819
+    digest: 2377556c464e3ffbfdec845fc6a85c3124e6fdd7531180c1c7dd22794d174997
     home: https://github.com/onesaithealthcare/onesaithealthcare-charts
     icon: https://raw.githubusercontent.com/onesaitplatform/onesaitplatform-ce-charts/2.1.0-ce/images/onesaitplatform.png
     keywords:
@@ -23,7 +23,7 @@ entries:
   onesaithealthcare-iengine-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-29T08:56:42.0394035+02:00"
+    created: "2025-08-29T09:45:01.0590893+02:00"
     dependencies:
     - alias: kafkaien
       name: onesaithealthcare_ohien_kafkaien_chart
@@ -62,7 +62,7 @@ entries:
   onesaithealthcare-ohien-camel-operator-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-29T08:56:42.0712451+02:00"
+    created: "2025-08-29T09:45:01.1281222+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -89,7 +89,7 @@ entries:
   onesaithealthcare-ohien-camelk-chart:
   - apiVersion: v2
     appVersion: 4.0.0
-    created: "2025-08-29T08:56:42.110511+02:00"
+    created: "2025-08-29T09:45:01.192702+02:00"
     dependencies:
     - alias: camel-k-operator
       condition: camel-k-operator.enabled
@@ -113,4 +113,4 @@ entries:
     urls:
     - onesaithealthcare-ohien-camelk-chart-4.0.0.tgz
     version: 4.0.0
-generated: "2025-08-29T08:56:41.9335655+02:00"
+generated: "2025-08-29T09:45:00.9204214+02:00"
